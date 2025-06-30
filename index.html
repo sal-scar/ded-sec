@@ -1,0 +1,4087 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   DedSec Project
+  </title>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* Base Styles (Mobile-First) */
+    html {
+      font-size: 14px; /* Base font size for mobile, slightly smaller for compactness */
+    }
+
+    body {
+      height: 100%;
+      width: 100vw;
+      margin: 0;
+      padding: 0.3rem; /* Reduced padding */
+      background: #000 !important;
+      color: #fff !important;
+      font-family: 'Fira Mono', monospace;
+      font-size: 0.95rem; /* Slightly larger relative to new base font */
+      overflow-x: hidden !important;
+      box-sizing: border-box;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px; /* Slightly reduced max-width */
+      min-width: 0;
+      background: #000 !important;
+      color: #fff !important;
+      border: none;
+      border-radius: 0;
+      padding: 0.5rem; /* Reduced padding */
+      box-sizing: border-box;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 0.4rem; /* Reduced margin */
+    }
+
+    .logo {
+      width: 84px; /* Updated size */
+      height: 84px; /* Updated size */
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 0.4rem; /* Reduced margin */
+      border-radius: 50%;
+      max-width: 100%;
+      height: auto;
+    }
+
+    h1 {
+      font-size: 1.4rem; /* Reduced H1 size */
+      font-weight: 700;
+      letter-spacing: 0.03em; /* Slightly tighter letter spacing */
+      margin-bottom: 0.05rem; /* Reduced margin */
+      color: #fff;
+    }
+
+    h2 {
+      font-size: 1.1rem; /* Reduced H2 size */
+      margin-top: 0.6rem; /* Reduced margin */
+      margin-bottom: 0.4rem; /* Reduced margin */
+      color: #fff;
+    }
+
+    h3 {
+      font-size: 0.95rem; /* Reduced H3 size */
+      margin-top: 0.4rem; /* Reduced margin */
+      margin-bottom: 0.05rem; /* Reduced margin */
+      color: #fff;
+    }
+
+    p {
+      margin-bottom: 0.4em; /* Reduced margin */
+      color: #fff;
+      line-height: 1.4; /* Reduced line height */
+    }
+
+    ul, ol {
+        margin-bottom: 0.4em; /* Reduced margin for lists */
+        padding-left: 1em; /* Reduced padding for lists */
+    }
+
+    ul li, ol li {
+        margin-bottom: 0.1em; /* Reduced margin for list items */
+        line-height: 1.3; /* Reduced line height for lists */
+    }
+
+    a {
+      color: #fff;
+      text-decoration: underline;
+      font-weight: bold;
+      word-break: break-all; /* Ensure long URLs break */
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4em; /* Reduced gap */
+      margin-bottom: 0.6em; /* Reduced margin */
+    }
+
+    .badge-row img {
+      vertical-align: middle;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .language-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.15rem; /* Further reduced gap */
+        margin-top: 0.4rem; /* Reduced margin */
+    }
+
+    .language-button {
+        background-color: #9370DB;
+        color: #000;
+        border: none;
+        padding: 0.15rem 0.4rem; /* Further reduced padding */
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Fira Mono', monospace;
+        font-size: 0.85rem; /* Reduced font size for buttons */
+        white-space: nowrap;
+        flex-grow: 1;
+        max-width: 24%; /* Adjusted to potentially fit 4 per line on larger screens */
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .language-button:hover {
+        background-color: #7B68EE;
+    }
+
+    /* FIX: Ensure only the active language block is displayed */
+    .lang {
+      display: none;
+    }
+
+    .lang.active {
+      display: block;
+    }
+
+    blockquote, .tip, .note {
+      background: #111;
+      border-left: 4px solid #fff;
+      margin: 0.6em 0; /* Reduced margin */
+      padding: 0.5em 0.7em; /* Reduced padding */
+      border-radius: 7px;
+      font-style: italic;
+      color: #fff;
+    }
+
+    .tip {
+      border-color: #fff;
+    }
+
+    .note {
+      border-color: #9370DB;
+    }
+
+    code, .inline-code {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 1px 3px; /* Further reduced padding */
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.8em; /* Reduced font size for code */
+      word-break: break-all;
+    }
+
+    pre code {
+      display: block;
+      padding: 0.5em 0.7em; /* Reduced padding */
+      border-radius: 6px;
+      margin: 0.3em 0; /* Reduced margin */
+      background: #111;
+      color: #fff;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .code-container {
+      position: relative;
+      margin: 0.3rem 0 0.5rem; /* Reduced margin */
+      overflow-x: auto;
+      background: #111;
+      border-radius: 6px;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 4px; /* Adjusted position */
+      right: 6px; /* Adjusted position */
+      background: #9370DB;
+      color: #000;
+      border: none;
+      padding: 0.15rem 0.4rem; /* Reduced padding */
+      font-size: 0.75rem; /* Reduced font size */
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 700;
+      z-index: 10;
+    }
+
+    .copy-btn:hover {
+      background: #7B68EE;
+    }
+    
+    .code-container > code {
+      padding: 0.5em 60px 0.5em 0.8em; /* Adjusted padding for button overlap */
+      line-height: 1.4;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    footer {
+      text-align: center;
+      color: #fff;
+      margin-top: 0.8rem; /* Reduced margin */
+      font-size: 0.75rem; /* Reduced font size */
+      padding-top: 0.4rem; /* Reduced padding */
+      border-top: 1px solid #fff;
+      opacity: 0.9;
+      background: transparent;
+      width: 100%;
+    }
+
+    ::selection {
+      background: #9370DB;
+      color: #000;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px; /* Slightly thinner scrollbar */
+      background: #000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #9370DB;
+      border-radius: 7px;
+    }
+
+    * {
+      box-sizing: border-box;
+      max-width: 100vw;
+    }
+
+    .stats-block {
+      border: 1px solid #9370DB;
+      padding: 5px; /* Reduced padding */
+      margin: 0.5rem auto; /* Reduced margin */
+      width: fit-content;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .ip-list {
+      white-space: pre-wrap;
+      word-break: break-all;
+      font-size: 0.85rem; /* Slightly smaller font for stats */
+    }
+
+    .viewer-count {
+      font-size: 0.85rem; /* Slightly smaller font for stats */
+    }
+    .viewer-count::after {
+      content: ' 👤';
+    }
+
+    .catching-eye-block {
+      background-color: #1a1a1a;
+      border: 2px solid #9370DB;
+      padding: 0.6rem; /* Reduced padding for the main description block */
+      margin: 0.6rem 0; /* Reduced margin */
+      border-radius: 8px; /* Slightly smaller border-radius */
+      box-shadow: 0 0 8px rgba(147, 112, 219, 0.4); /* Reduced shadow intensity */
+      text-align: center;
+      font-size: 0.9rem; /* Reduced font size for this block */
+      line-height: 1.5; /* Reduced line height */
+      color: #fff;
+      font-style: italic;
+    }
+    .catching-eye-block p {
+        margin-bottom: 0.3em; /* Reduced paragraph spacing within this block */
+    }
+
+
+    /* Responsive adjustments */
+    @media (min-width: 320px) {
+      html { font-size: 13px; } /* Smaller base font for very small screens */
+      .logo { width: 72px; height: 72px; } /* Updated size */
+      h1 { font-size: 1.3rem; }
+      h2 { font-size: 1rem; }
+      h3 { font-size: 0.9rem; }
+      .catching-eye-block { font-size: 0.85rem; padding: 0.5rem; margin: 0.5rem 0; }
+      .language-button { font-size: 0.8rem; padding: 0.1rem 0.3rem; }
+    }
+
+    @media (min-width: 768px) {
+      html { font-size: 14px; }
+      .logo { width: 84px; height: 84px; } /* Updated size */
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.1rem; }
+      h3 { font-size: 0.95rem; }
+      .catching-eye-block { font-size: 0.95rem; padding: 0.7rem; margin: 0.7rem 0; }
+      .language-button { font-size: 0.9rem; padding: 0.2rem 0.5rem; }
+    }
+
+    @media (min-width: 900px) {
+      html { font-size: 15px; }
+      .logo { width: 96px; height: 96px; } /* Updated size */
+      h1 { font-size: 1.7rem; }
+      h2 { font-size: 1.3rem; }
+      h3 { font-size: 1.05rem; }
+      .catching-eye-block { font-size: 1rem; padding: 0.8rem; margin: 0.8rem 0; }
+      .language-button { font-size: 0.95rem; padding: 0.3rem 0.6rem; }
+    }
+
+    @media (min-width: 1200px) {
+      html { font-size: 16px; }
+      .logo { width: 108px; height: 108px; } /* Updated size */
+      h1 { font-size: 1.9rem; }
+      h2 { font-size: 1.5rem; }
+      h3 { font-size: 1.15rem; }
+    }
+    /* Accordion styles */
+    .accordion-header {
+      background-color: #1a1a1a;
+      color: #9370DB;
+      cursor: pointer;
+      padding: 0.8rem;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 1.1rem;
+      transition: 0.4s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 6px;
+      margin-top: 1rem;
+    }
+
+    .accordion-header:hover {
+      background-color: #333;
+    }
+
+    .accordion-header.active {
+      background-color: #000;
+      color: #9370DB;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .accordion-header:not(.active) {
+        border: 1px solid #9370DB;
+    }
+
+    .accordion-header .arrow {
+      margin-left: 10px;
+      transition: transform 0.4s;
+    }
+
+    .accordion-header.active .arrow {
+      transform: rotate(90deg);
+    }
+
+    .accordion-content {
+      padding: 0 18px;
+      background-color: #000;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      border-left: 1px solid #9370DB;
+      border-right: 1px solid #9370DB;
+      border-bottom: 1px solid #9370DB;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      padding-bottom: 0; /* Initial padding */
+    }
+
+    .accordion-content.active {
+      max-height: fit-content; /* Adjust based on content */
+      padding-bottom: 18px; /* Final padding */
+    }
+
+</style>
+ </head>
+ <body>
+  <div class="container">
+   <div class="stats-block" id="statsBlock">
+    <div class="ip-list" id="ipList">
+     IP:
+Loading...
+    </div>
+    <div class="viewer-count" id="viewerCount">
+     Live Viewers / Ζωντανοί Θεατές: 0000
+    </div>
+   </div>
+   <div class="lang active" id="en" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <header>
+     <img alt="DedSec Logo" class="logo" src="https://github.com/dedsec1121fk/DedSec/blob/f5fabcbd129e7cc233a728f78299a4db5abd00fb/Extra%20Content/Images/Custom%20Purple%20Fox%20Logo.png?raw=true"/>
+     <h1>
+      DedSec Project
+     </h1>
+     <blockquote>
+      <b>
+       A standalone DedSec Project application will be soon available with even more features. Stay tuned for updates and release info.
+      </b>
+     </blockquote>
+     <div class="language-buttons">
+      <button class="language-button" onclick="changeLanguage('en')">
+       English
+      </button>
+      <button class="language-button" onclick="changeLanguage('gr')">
+       Ελληνικά
+      </button>
+      <button class="language-button" onclick="changeLanguage('de')">
+       Deutsch
+      </button>
+      <button class="language-button" onclick="changeLanguage('fr')">
+       Français
+      </button>
+      <button class="language-button" onclick="changeLanguage('ar')">
+       العربية
+      </button>
+      <button class="language-button" onclick="changeLanguage('hi')">
+       हिन्दी
+      </button>
+      <button class="language-button" onclick="changeLanguage('sq')">
+       Shqip
+      </button>
+     </div>
+    </header>
+    <div class="catching-eye-block">
+     <p>
+      The DedSec Project is a free, community-driven initiative inspired by the underground resistance and cyber-revolution themes of Ubisoft’s Watch Dogs series. Just like the in-game DedSec, our project empowers everyday users with tools for digital freedom, security, and awareness. We provide hacking-style utilities, phishing tools, secure communication platforms, and system customization—all without charging a cent.
+     </p>
+     <p>
+      Why use it? Because everyone deserves access to knowledge, privacy, and control over their digital life. We're not here for profit—we're here to give power back to the people. Whether you're a tech enthusiast, digital activist, or just someone curious about cybersecurity, the DedSec Project invites you to be part of the movement.
+     </p>
+     <p>
+      Welcome to the resistance.
+     </p>
+    </div>
+    <button class="accordion-header">
+     Secure Use Disclaimer
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <div class="note" style="margin-top: 0.5em; border-radius: 0; border: none; border-left: 4px solid #9370DB;">
+      <b>
+       Secure Use Disclaimer:
+      </b>
+      <br/>
+      This project is provided solely for educational purposes. Any unauthorized use or attempts to bypass security controls are strictly prohibited. By downloading or using this project, you agree to take full responsibility for all actions performed with it. You are required to use the project in full compliance with all applicable laws and security policies. The creator of this project is not liable for any direct, indirect, or consequential damages or legal actions arising from unauthorized or unsafe use. Always follow best security practices and organizational guidelines when handling this project.
+     </div>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Installation & Setup
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      Requirements
+     </h3>
+     <ul>
+      <li>
+       <b>
+        Device:
+       </b>
+       Android with
+       <a href="https://f-droid.org/" target="_blank">
+        Termux
+       </a>
+       installed.
+      </li>
+      <li>
+       <b>
+        Storage:
+       </b>
+       Min
+       <b>
+        3GB
+       </b>
+       free.
+       <span style="display:block;font-size:0.85em;line-height:1.3;">
+        (Radio takes more storage; images/recordings also consume space.)
+       </span>
+      </li>
+      <li>
+       <b>
+        RAM:
+       </b>
+       Min
+       <b>
+        2GB
+       </b>
+       .
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Step-by-Step Installation
+     </h3>
+     <ol>
+      <li>
+       <b>
+        Install Termux & Add-Ons
+       </b>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Note:
+        </b>
+        To install APKs (e.g., F-Droid), ensure:
+        <br/>
+        - Enabled unknown sources (Settings > Security >
+        <b>
+         Install Unknown Apps
+        </b>
+        ).
+        <br/>
+        - Download F-Droid, get Termux from
+        <a href="https://f-droid.org/">
+         F-Droid
+        </a>
+        .
+        <br/>
+        - Install add-ons: Termux:API, Termux:Styling.
+        <br/>
+        - Allow
+        <code>
+         fdeokd
+        </code>
+        process when prompted.
+       </div>
+      </li>
+      <li>
+       <b>
+        Run Setup Commands
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step1">
+         Copy
+        </button>
+        <code id="step1">
+         termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python git fzf nodejs openssh nano jq wget unzip curl proot openssl aapt rust cloudflared
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step2">
+         Copy
+        </button>
+        <code id="step2">
+         pip install flask blessed flask-socketio werkzeug requests datetime geopy pydub pycryptodome mutagen rust cryptography phonenumbers pycountry
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step3">
+         Copy
+        </button>
+        <code id="step3">
+         pkg install termux-api
+        </code>
+       </div>
+      </li>
+      <li>
+       <b>
+        Clone Repository
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step4">
+         Copy
+        </button>
+        <code id="step4">
+         git clone https://github.com/dedsec1121fk/DedSec
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Tip:
+        </b>
+        If you get his error "Traceback (most recent call last):                  File "/data/data/com.termux/files/home/DedSec/Scripts/Settings.py", line 7, in <module>               import requests                               ModuleNotFoundError: No module named 'requests'   " use this command and try again:
+        <div class="code-container">
+         <button class="copy-btn" data-target="pip_requests_en">
+          Copy
+         </button>
+         <code id="pip_requests_en">
+          pip install requests
+         </code>
+        </div>
+       </div>
+      </li>
+      <li>
+       <b>
+        Choose Menu Style
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step5">
+         Copy
+        </button>
+        <code id="step5">
+         cd DedSec/Scripts && python Settings.py
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Tip:
+        </b>
+        Open menu later by typing
+        <code>
+         m
+        </code>
+        in Termux.
+       </div>
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Scripts & Their Functionalities
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <p>
+      Summary of each script in the DedSec toolkit:
+     </p>
+     <ol>
+      <li>
+       <b>
+        Fox Chat
+       </b>
+       <br/>
+       Encrypted chat, file/voice/video calls. No saved nicks/passwords.
+      </li>
+      <li>
+       <b>
+        Android App Launcher
+       </b>
+       <br/>
+       Displays and manages downloaded Android apps.
+      </li>
+      <li>
+       <b>
+        Radio
+       </b>
+       <br/>
+       Offline radio (Greek/int'l artists).
+      </li>
+      <li>
+       <b>
+        Phishing Attacks
+       </b>
+       <br/>
+       Capture camera images, audio, exact location (address/store). Get card/personal info. All saved in Downloads.
+       <ul>
+        <li>
+         <b>
+          Card Details.py
+         </b>
+         : Saves credit card info to
+         <code>
+          ~/storage/downloads/CardActivations/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Data Grabber.py
+         </b>
+         : Saves personal info/photo to
+         <code>
+          ~/storage/downloads/People's Lives/{user}/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Back Camera.py
+         </b>
+         : Stores images/credentials to
+         <code>
+          ~/storage/downloads/Camera-Phish-Back/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Front Camera.py
+         </b>
+         : Saves front camera photos/credentials to
+         <code>
+          ~/storage/downloads/Camera-Phish-Front/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Location.py
+         </b>
+         : Stores location data/credentials to
+         <code>
+          ~/storage/downloads/LocationData/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Microphone.py
+         </b>
+         : Saves mic recordings/credentials to
+         <code>
+          ~/storage/downloads/Recordings/
+         </code>
+         .
+        </li>
+       </ul>
+      </li>
+      <li>
+       <b>
+        Settings
+       </b>
+       <br/>
+       Update project, install/update packages/modules, change username/menu style, view credits.
+      </li>
+      <li>
+       <b>
+        DedSec Database
+       </b>
+       <br/>
+       Upload, search, delete files. Device is server, files saved in hidden folder.
+      </li>
+      <li>
+       <b>
+        Extra Content
+       </b>
+       <br/>
+       Photos, unused scripts, voice overs, more.
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Legal & Ethical Notice
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      Educational & Research Use
+     </h3>
+     <p>
+      Toolkit for educational, research, ethical security testing in controlled environments. Use only on authorized systems.
+     </p>
+     <h3 style="text-align:center;">
+      Prohibited Uses
+     </h3>
+     <ul>
+      <li>
+       Unauthorized use, data breaches, identity theft, fraud strictly prohibited.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      User Responsibility
+     </h3>
+     <ul>
+      <li>
+       Comply with laws; explicit permission for security tests.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Liability Disclaimer
+     </h3>
+     <ul>
+      <li>
+       Authors disclaim all liability for damages from misuse.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Ethical Standards
+     </h3>
+     <ul>
+      <li>
+       Adhere to ethical hacking guidelines, respect privacy.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Export/Import Controls
+     </h3>
+     <ul>
+      <li>
+       Comply with export/import control laws.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Consult Legal Counsel
+     </h3>
+     <ul>
+      <li>
+       If in doubt, consult qualified legal professional.
+      </li>
+     </ul>
+    </div>
+   </div>
+   <div class="lang" id="gr" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <header>
+     <img alt="DedSec Logo" class="logo" src="https://github.com/dedsec1121fk/DedSec/blob/f5fabcbd129e7cc233a728f78299a4db5abd00fb/Extra%20Content/Images/Custom%20Purple%20Fox%20Logo.png?raw=true"/>
+     <h1>
+      DedSec Project
+     </h1>
+     <blockquote>
+      <b>
+       Αυτόνομη εφαρμογή DedSec Project θα είναι διαθέσιμη σύντομα με ακόμη περισσότερα χαρακτηριστικά. Μείνετε συντονισμένοι για ενημερώσεις και πληροφορίες έκδοσης.
+      </b>
+     </blockquote>
+     <div class="language-buttons">
+      <button class="language-button" onclick="changeLanguage('en')">
+       English
+      </button>
+      <button class="language-button" onclick="changeLanguage('gr')">
+       Ελληνικά
+      </button>
+      <button class="language-button" onclick="changeLanguage('de')">
+       Deutsch
+      </button>
+      <button class="language-button" onclick="changeLanguage('fr')">
+       Français
+      </button>
+      <button class="language-button" onclick="changeLanguage('ar')">
+       العربية
+      </button>
+      <button class="language-button" onclick="changeLanguage('hi')">
+       हिन्दी
+      </button>
+      <button class="language-button" onclick="changeLanguage('sq')">
+       Shqip
+      </button>
+     </div>
+    </header>
+    <div class="catching-eye-block">
+     <p>
+      Το DedSec Project είναι μια δωρεάν, κοινοτική πρωτοβουλία εμπνευσμένη από τα θέματα αντίστασης και κυβερνο-επανάστασης της σειράς Watch Dogs της Ubisoft. Όπως και το DedSec του παιχνιδιού, το έργο μας ενδυναμώνει τους καθημερινούς χρήστες με εργαλεία για ψηφιακή ελευθερία, ασφάλεια και ευαισθητοποίηση. Παρέχουμε βοηθητικά προγράμματα τύπου hacking, εργαλεία phishing, ασφαλείς πλατφόρμες επικοινωνίας και προσαρμογή συστήματος—όλα αυτά χωρίς καμία χρέωση.
+     </p>
+     <p>
+      Γιατί να το χρησιμοποιήσετε; Επειδή όλοι αξίζουν πρόσβαση στη γνώση, την ιδιωτικότητα και τον έλεγχο της ψηφιακής τους ζωής. Δεν είμαστε εδώ για κέρδος—είμαστε εδώ για να επιστρέψουμε τη δύναμη στους ανθρώπους. Είτε είστε λάτρης της τεχνολογίας, ψηφιακός ακτιβιστής, είτε απλά κάποιος περίεργος για την κυβερνοασφάλεια, το DedSec Project σας προσκαλεί να γίνετε μέρος του κινήματος.
+     </p>
+     <p>
+      Καλώς ήρθατε στην αντίσταση.
+     </p>
+    </div>
+    <button class="accordion-header">
+     Δήλωση Ασφαλούς Χρήσης
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <div class="note" style="margin-top: 0.5em; border-radius: 0; border: none; border-left: 4px solid #9370DB;">
+      <b>
+       Δήλωση Ασφαλούς Χρήσης:
+      </b>
+      <br/>
+      Αυτό το έργο παρέχεται αποκλειστικά για εκπαιδευτικούς σκοπούς. Κάθε μη εξουσιοδοτημένη χρήση ή προσπάθεια παράκαμψης ελέγχων ασφαλείας απαγορεύεται αυστηρά. Με τη λήψη ή χρήση αυτού του έργου, αναλαμβάνετε πλήρως την ευθύνη για όλες τις ενέργειες. Πρέπει να χρησιμοποιείτε το έργο σύμφωνα με όλους τους ισχύοντες νόμους και πολιτικές ασφαλείας. Ο δημιουργός αυτού του έργου δεν φέρει ευθύνη για οποιεσδήποτε άμεσες, έμμεσες ή επακόλουθες ζημιές ή νομικές ενέργειες που προκύπτουν από μη εξουσιοδοτημένη ή μη ασφαλή χρήση. Ακολουθείτε πάντα τις βέλτιστες πρακτικές ασφάλειας και τις οργανωτικές οδηγίες όταν χειρίζεστε αυτό το έργο.
+     </div>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Εγκατάσταση & Ρύθμιση
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      Απαιτήσεις
+     </h3>
+     <ul>
+      <li>
+       <b>
+        Συσκευή:
+       </b>
+       Android με
+       <a href="https://f-droid.org/" target="_blank">
+        Termux
+       </a>
+       εγκατεστημένο.
+      </li>
+      <li>
+       <b>
+        Χώρος:
+       </b>
+       Ελάχ.
+       <b>
+        3GB
+       </b>
+       ελεύθερα.
+       <span style="display:block;font-size:0.85em;line-height:1.3;">
+        (Το Radio απαιτεί περισσότερο χώρο. οι εικόνες/εγγραφές καταναλώνουν επίσης χώρο.)
+       </span>
+      </li>
+      <li>
+       <b>
+        RAM:
+       </b>
+       Ελάχ.
+       <b>
+        2GB
+       </b>
+       .
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Βήμα-Βήμα Εγκατάσταση
+     </h3>
+     <ol>
+      <li>
+       <b>
+        Εγκατάσταση Termux & Προσθέτων
+       </b>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Σημείωση:
+        </b>
+        Για εγκατάσταση APKs (π.χ. F-Droid), βεβαιωθείτε:
+        <br/>
+        - Ενεργοποιημένες άγνωστες πηγές (Ρυθμίσεις > Ασφάλεια >
+        <b>
+         Εγκατάσταση άγνωστων εφαρμογών
+        </b>
+        ).
+        <br/>
+        - Κατεβάστε το F-Droid, αποκτήστε το Termux από
+        <a href="https://f-droid.org/">
+         F-Droid
+        </a>
+        .
+        <br/>
+        - Εγκαταστήστε πρόσθετα: Termux:API, Termux:Styling.
+        <br/>
+        - Επιτρέψτε τη διαδικασία
+        <code>
+         fdeokd
+        </code>
+        όταν ζητηθεί.
+       </div>
+      </li>
+      <li>
+       <b>
+        Εκτελέστε εντολές εγκατάστασης
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="gr1">
+         Copy
+        </button>
+        <code id="gr1">
+         termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python git fzf nodejs openssh nano jq wget unzip curl proot openssl aapt rust cloudflared
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="gr2">
+         Copy
+        </button>
+        <code id="gr2">
+         pip install flask blessed flask-socketio werkzeug requests datetime geopy pydub pycryptodome mutagen rust cryptography phonenumbers pycountry
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="gr3">
+         Copy
+        </button>
+        <code id="gr3">
+         pkg install termux-api
+        </code>
+       </div>
+      </li>
+      <li>
+       <b>
+        Κλωνοποιήστε το αποθετήριο
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="gr4">
+         Copy
+        </button>
+        <code id="gr4">
+         git clone https://github.com/dedsec1121fk/DedSec
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Συμβουλή:
+        </b>
+        Αν λάβετε αυτό το σφάλμα "Traceback (most recent call last):                  File "/data/data/com.termux/files/home/DedSec/Scripts/Settings.py", line 7, in <module>               import requests                               ModuleNotFoundError: No module named 'requests'   " χρησιμοποιήστε αυτήν την εντολή και προσπαθήστε ξανά:
+        <div class="code-container">
+         <button class="copy-btn" data-target="pip_requests_gr">
+          Copy
+         </button>
+         <code id="pip_requests_gr">
+          pip install requests
+         </code>
+        </div>
+       </div>
+      </li>
+      <li>
+       <b>
+        Επιλέξτε στυλ μενού
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="gr5">
+         Copy
+        </button>
+        <code id="gr5">
+         cd DedSec/Scripts && python Settings.py
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Συμβουλή:
+        </b>
+        Ανοίξτε το μενού αργότερα πληκτρολογώντας
+        <code>
+         m
+        </code>
+        στο Termux.
+       </div>
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Σενάρια & Λειτουργίες
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <p>
+      Περίληψη κάθε σεναρίου στο DedSec toolkit:
+     </p>
+     <ol>
+      <li>
+       <b>
+        Fox Chat
+       </b>
+       <br/>
+       Κρυπτογραφημένη συνομιλία, ανταλλαγή αρχείων/φωνητικών/βίντεο κλήσεων. Δεν αποθηκεύονται ψευδώνυμα/κωδικοί.
+      </li>
+      <li>
+       <b>
+        Android App Launcher
+       </b>
+       <br/>
+       Εμφανίζει και διαχειρίζεται ληφθείσες εφαρμογές Android.
+      </li>
+      <li>
+       <b>
+        Radio
+       </b>
+       <br/>
+       Offline ραδιόφωνο (Έλληνες/διεθνείς καλλιτέχνες).
+      </li>
+      <li>
+       <b>
+        Phishing Attacks
+       </b>
+       <br/>
+       Λήψη εικόνων κάμερας, ήδου, ακριβής τοποθεσίας (διεύθυνση/κατάστημα). Απόκτηση στοιχείων κάρτας/προσωπικών. Όλα αποθηκεύονται στα Downloads.
+       <ul>
+        <li>
+         <b>
+          Card Details.py
+         </b>
+         : Αποθηκεύει στοιχεία πιστωτικής κάρτας στο
+         <code>
+          ~/storage/downloads/CardActivations/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Data Grabber.py
+         </b>
+         : Αποθηκεύει προσωπικά/φωτογραφία στο
+         <code>
+          ~/storage/downloads/People's Lives/{user}/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Back Camera.py
+         </b>
+         : Αποθηκεύει εικόνες/διαπιστευτήρια στο
+         <code>
+          ~/storage/downloads/Camera-Phish-Back/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Front Camera.py
+         </b>
+         : Αποθηκεύει φωτογραφίες μπροστινής κάμερας/διαπιστευτήρια στο
+         <code>
+          ~/storage/downloads/Camera-Phish-Front/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Location.py
+         </b>
+         : Αποθηκεύει δεδομένα τοποθεσίας/διαπιστευτήρια στο
+         <code>
+          ~/storage/downloads/LocationData/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Microphone.py
+         </b>
+         : Αποθηκεύει ηχογραφήσεις μικροφώνου/διαπιστευτήρια στο
+         <code>
+          ~/storage/downloads/Recordings/
+         </code>
+         .
+        </li>
+       </ul>
+      </li>
+      <li>
+       <b>
+        Settings
+       </b>
+       <br/>
+       Ενημέρωση έργου, εγκατάσταση/ενημέρωση πακέτων/modules, αλλαγή ονόματος χρήστη/στυλ μενού, προβολή credits.
+      </li>
+      <li>
+       <b>
+        DedSec Database
+       </b>
+       <br/>
+       Ανέβασμα, αναζήτηση, διαγραφή αρχείων. Συσκευή είναι server, αρχεία σε κρυφό φάκελο.
+      </li>
+      <li>
+       <b>
+        Extra Content
+       </b>
+       <br/>
+       Φωτογραφίες, αχρησιμοποίητα scripts, voice overs, κ.α.
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Νομική & Ηθική Δήλωση
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      Εκπαιδευτική & Ερευνητική Χρήση
+     </h3>
+     <p>
+      Αυτό το toolkit είναι για εκπαιδευτικούς, ερευνητικούς, ηθικούς σκοπούς δοκιμών ασφαλείας. Χρησιμοποιήστε μόνο σε εξουσιοδοτημένα συστήματα.
+     </p>
+     <h3 style="text-align:center;">
+      Απαγορευμένες Χρήσεις
+     </h3>
+     <ul>
+      <li>
+       Μη εξουσιοδοτημένη χρήση, παραβίαση δεδομένων, κλοπή ταυτότητας, απάτη αυστηρά απαγορεύονται.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Ευθύνη Χρήστη
+     </h3>
+     <ul>
+      <li>
+       Συμμορφωθείτε με νόμους; ρητή άδεια για δοκιμές ασφαλείας.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Δήλωση Αποποίησης Ευθύνης
+     </h3>
+     <ul>
+      <li>
+       Οι συγγραφείς αποποιούνται κάθε ευθύνη για ζημιές από κακή χρήση.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Ηθικά Πρότυπα
+     </h3>
+     <ul>
+      <li>
+       Τηρείτε ηθικές οδηγίες hacking, σεβαστείτε την ιδιωτικότητα.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Έλεγχοι Εξαγωγής/Εισαγωγής
+     </h3>
+     <ul>
+      <li>
+       Συμμορφωθείτε με τους νόμους εξαγωγής/εισαγωγής.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Συμβουλευτείτε Νομικό
+     </h3>
+     <ul>
+      <li>
+       Εάν αμφιβάλλετε, συμβουλευτείτε νομικό επαγγελματία.
+      </li>
+     </ul>
+    </div>
+   </div>
+   <div class="lang" id="de" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <header>
+     <img alt="DedSec Logo" class="logo" src="https://github.com/dedsec1121fk/DedSec/blob/f5fabcbd129e7cc233a728f78299a4db5abd00fb/Extra%20Content/Images/Custom%20Purple%20Fox%20Logo.png?raw=true"/>
+     <h1>
+      DedSec Project
+     </h1>
+     <blockquote>
+      <b>
+       Eine eigenständige DedSec Projekt-Anwendung wird bald mit noch mehr Funktionen verfügbar sein. Bleiben Sie dran für Updates und Release-Informationen.
+      </b>
+     </blockquote>
+     <div class="language-buttons">
+      <button class="language-button" onclick="changeLanguage('en')">
+       English
+      </button>
+      <button class="language-button" onclick="changeLanguage('gr')">
+       Ελληνικά
+      </button>
+      <button class="language-button" onclick="changeLanguage('de')">
+       Deutsch
+      </button>
+      <button class="language-button" onclick="changeLanguage('fr')">
+       Français
+      </button>
+      <button class="language-button" onclick="changeLanguage('ar')">
+       العربية
+      </button>
+      <button class="language-button" onclick="changeLanguage('hi')">
+       हिन्दी
+      </button>
+      <button class="language-button" onclick="changeLanguage('sq')">
+       Shqip
+      </button>
+     </div>
+    </header>
+    <div class="catching-eye-block">
+     <p>
+      Das DedSec Projekt ist eine kostenlose, gemeinschaftsgetriebene Initiative, inspiriert von Themen des Untergrundwiderstands und der Cyber-Revolution der Watch Dogs-Reihe von Ubisoft. Wie das In-Game-DedSec befähigt unser Projekt alltägliche Benutzer mit Werkzeugen für digitale Freiheit, Sicherheit und Bewusstsein. Wir stellen Hacking-ähnliche Dienstprogramme, Phishing-Tools, sichere Kommunikationsplattformen und Systemanpassungen zur Verfügung – alles kostenlos.
+     </p>
+     <p>
+      Warum nutzen? Weil jeder Zugang zu Wissen, Privatsphäre und Kontrolle über sein digitales Leben verdient. Wir sind nicht gewinnorientiert – wir geben den Menschen die Macht zurück. Ob Sie Technik-Enthusiast, Digitalaktivist oder einfach an Cybersicherheit interessiert sind, das DedSec Projekt lädt Sie ein, Teil der Bewegung zu sein.
+     </p>
+     <p>
+      Willkommen im Widerstand.
+     </p>
+    </div>
+    <button class="accordion-header">
+     Haftungsausschluss für sichere Nutzung
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <div class="note" style="margin-top: 0.5em; border-radius: 0; border: none; border-left: 4px solid #9370DB;">
+      <b>
+       Haftungsausschluss für sichere Nutzung:
+      </b>
+      <br/>
+      Dieses Projekt wird ausschließlich zu Bildungszwecken bereitgestellt. Unbefugte Nutzung oder Umgehungsversuche von Sicherheitskontrollen sind strengstens verboten. Durch Herunterladen/Nutzung dieses Projekts übernehmen Sie die volle Verantwortung für alle damit durchgeführten Aktionen. Sie müssen das Projekt in voller Übereinstimmung mit allen anwendbaren Gesetzen und Sicherheitsrichtlinien nutzen. Der Ersteller dieses Projekts haftet nicht für direkte, indirekte oder Folgeschäden oder rechtliche Schritte, die aus unbefugter oder unsicherer Nutzung resultieren. Befolgen Sie stets beste Sicherheitspraktiken und organisatorische Richtlinien beim Umgang mit diesem Projekt.
+     </div>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Installation & Einrichtung
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      Anforderungen
+     </h3>
+     <ul>
+      <li>
+       <b>
+        Gerät:
+       </b>
+       Android mit
+       <a href="https://f-droid.org/" target="_blank">
+        Termux
+       </a>
+       installiert.
+      </li>
+      <li>
+       <b>
+        Speicher:
+       </b>
+       Min.
+       <b>
+        3 GB
+       </b>
+       frei.
+       <span style="display:block;font-size:0.85em;line-height:1.3;">
+        (Radio benötigt mehr Speicher; Bilder/Aufnahmen verbrauchen auch Platz.)
+       </span>
+      </li>
+      <li>
+       <b>
+        RAM:
+       </b>
+       Min.
+       <b>
+        2 GB
+       </b>
+       .
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Schritt-für-Schritt-Installation
+     </h3>
+     <ol>
+      <li>
+       <b>
+        Termux & Add-Ons installieren
+       </b>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Hinweis:
+        </b>
+        Für APK-Installation (z.B. F-Droid), stellen Sie sicher:
+        <br/>
+        - Unbekannte Quellen aktiviert (Einstellungen > Sicherheit >
+        <b>
+         Unbekannte Apps installieren
+        </b>
+        ).
+        <br/>
+        - F-Droid herunterladen, Termux von
+        <a href="https://f-droid.org/">
+         F-Droid
+        </a>
+        beziehen.
+        <br/>
+        - Add-Ons installieren: Termux:API, Termux:Styling.
+        <br/>
+        -
+        <code>
+         fdeokd
+        </code>
+        -Prozess zulassen, wenn aufgefordert.
+       </div>
+      </li>
+      <li>
+       <b>
+        Setup-Befehle ausführen
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step1">
+         Copy
+        </button>
+        <code id="step1">
+         termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python git fzf nodejs openssh nano jq wget unzip curl proot openssl aapt rust cloudflared
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step2">
+         Copy
+        </button>
+        <code id="step2">
+         pip install flask blessed flask-socketio werkzeug requests datetime geopy pydub pycryptodome mutagen rust cryptography phonenumbers pycountry
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step3">
+         Copy
+        </button>
+        <code id="step3">
+         pkg install termux-api
+        </code>
+       </div>
+      </li>
+      <li>
+       <b>
+        Repository klonen
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step4">
+         Copy
+        </button>
+        <code id="step4">
+         git clone https://github.com/dedsec1121fk/DedSec
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Tipp:
+        </b>
+        Wenn Sie diesen Fehler erhalten "Traceback (most recent call last):                  File "/data/data/com.termux/files/home/DedSec/Scripts/Settings.py", line 7, in <module>               import requests                               ModuleNotFoundError: No module named 'requests'   " verwenden Sie diesen Befehl und versuchen Sie es erneut:
+        <div class="code-container">
+         <button class="copy-btn" data-target="pip_requests_de">
+          Copy
+         </button>
+         <code id="pip_requests_de">
+          pip install requests
+         </code>
+        </div>
+       </div>
+      </li>
+      <li>
+       <b>
+        Menüstil auswählen
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step5">
+         Copy
+        </button>
+        <code id="step5">
+         cd DedSec/Scripts && python Settings.py
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Tipp:
+        </b>
+        Menü später durch Eingabe von
+        <code>
+         m
+        </code>
+        in Termux öffnen.
+       </div>
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Skripte & ihre Funktionalitäten
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <p>
+      Zusammenfassung der Skripte im DedSec-Toolkit:
+     </p>
+     <ol>
+      <li>
+       <b>
+        Fox Chat
+       </b>
+       <br/>
+       Verschlüsselter Chat, Datei-/Sprach-/Videoanrufaustausch. Keine Spitznamen/Passwörter gespeichert.
+      </li>
+      <li>
+       <b>
+        Android App Launcher
+       </b>
+       <br/>
+       Zeigt heruntergeladene Android-Apps an und verwaltet sie.
+      </li>
+      <li>
+       <b>
+        Radio
+       </b>
+       <br/>
+       Offline-Radio (griechische/internationale Künstler).
+      </li>
+      <li>
+       <b>
+        Phishing-Angriffe
+       </b>
+       <br/>
+       Kamera-/Audioerfassung, genauer Standort (Adresse/Geschäft). Kreditkarten-/persönliche Daten erfassen. Alles in Downloads gespeichert.
+       <ul>
+        <li>
+         <b>
+          Card Details.py
+         </b>
+         : Speichert Kreditkarteninfos in
+         <code>
+          ~/storage/downloads/CardActivations/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Data Grabber.py
+         </b>
+         : Speichert persönliche Infos/Fotos in
+         <code>
+          ~/storage/downloads/People's Lives/{user}/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Back Camera.py
+         </b>
+         : Speichert Bilder/Anmeldedaten in
+         <code>
+          ~/storage/downloads/Camera-Phish-Back/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Front Camera.py
+         </b>
+         : Speichert Frontkamera-Fotos/Anmeldedaten in
+         <code>
+          ~/storage/downloads/Camera-Phish-Front/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Location.py
+         </b>
+         : Speichert Standortdaten/Anmeldedaten in
+         <code>
+          ~/storage/downloads/LocationData/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Microphone.py
+         </b>
+         : Speichert Mikrofonaufnahmen/Anmeldedaten in
+         <code>
+          ~/storage/downloads/Recordings/
+         </code>
+         .
+        </li>
+       </ul>
+      </li>
+      <li>
+       <b>
+        Einstellungen
+       </b>
+       <br/>
+       Projekt aktualisieren, Pakete/Module installieren/aktualisieren, Benutzernamen/Menüstil ändern, Credits anzeigen.
+      </li>
+      <li>
+       <b>
+        DedSec-Datenbank
+       </b>
+       <br/>
+       Dateien hochladen, suchen, löschen. Gerät ist Server, Dateien in verstecktem Ordner gespeichert.
+      </li>
+      <li>
+       <b>
+        Zusätzlicher Inhalt
+       </b>
+       <br/>
+       Fotos, ungenutzte Skripte, Voiceovers u.m.
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Rechtlicher & Ethiischer Hinweis
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      Bildungs- & Forschungszwecke
+     </h3>
+     <p>
+      Dieses Toolkit dient Bildungs-, Forschungs- und ethischen Sicherheitstests in kontrollierten Umgebungen. Nur auf autorisierten Systemen verwenden.
+     </p>
+     <h3 style="text-align:center;">
+      Verbotene Verwendungen
+     </h3>
+     <ul>
+      <li>
+       Unbefugte Nutzung, Datenlecks, Identitätsdiebstahl, Betrug strengstens verboten.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Benutzerverantwortung
+     </h3>
+     <ul>
+      <li>
+       Gesetze einhalten; explizite Genehmigung für Sicherheitstests.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Haftungsausschluss
+     </h3>
+     <ul>
+      <li>
+       Autoren lehnen jede Haftung für Schäden durch Missbrauch ab.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Ethische Standards
+     </h3>
+     <ul>
+      <li>
+       Ethische Hacking-Richtlinien einhalten, Privatsphäre respektieren.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Export-/Importkontrollen
+     </h3>
+     <ul>
+      <li>
+       Export-/Importkontrollgesetze einhalten.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Rechtsberatung einholen
+     </h3>
+     <ul>
+      <li>
+       Bei Zweifeln qualifizierten Rechtsanwalt konsultieren.
+      </li>
+     </ul>
+    </div>
+   </div>
+   <div class="lang" id="fr" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <header>
+     <img alt="DedSec Logo" class="logo" src="https://github.com/dedsec1121fk/DedSec/blob/f5fabcbd129e7cc233a728f78299a4db5abd00fb/Extra%20Content/Images/Custom%20Purple%20Fox%20Logo.png?raw=true"/>
+     <h1>
+      Projet DedSec
+     </h1>
+     <blockquote>
+      <b>
+       Une application autonome du Projet DedSec sera bientôt disponible avec encore plus de fonctionnalités. Restez à l'écoute pour les mises à jour et les informations de sortie.
+      </b>
+     </blockquote>
+     <div class="language-buttons">
+      <button class="language-button" onclick="changeLanguage('en')">
+       English
+      </button>
+      <button class="language-button" onclick="changeLanguage('gr')">
+       Ελληνικά
+      </button>
+      <button class="language-button" onclick="changeLanguage('de')">
+       Deutsch
+      </button>
+      <button class="language-button" onclick="changeLanguage('fr')">
+       Français
+      </button>
+      <button class="language-button" onclick="changeLanguage('ar')">
+       العربية
+      </button>
+      <button class="language-button" onclick="changeLanguage('hi')">
+       हिन्दी
+      </button>
+      <button class="language-button" onclick="changeLanguage('sq')">
+       Shqip
+      </button>
+     </div>
+    </header>
+    <div class="catching-eye-block">
+     <p>
+      Le Projet DedSec est une initiative gratuite et communautaire, inspirée par les thèmes de la résistance clandestine et de la cyber-révolution de la série Watch Dogs d'Ubisoft. Tout comme le DedSec du jeu, notre projet donne aux utilisateurs des outils pour la liberté numérique, la sécurité et la sensibilisation. Nous fournissons des utilitaires de type piratage, des outils de phishing, des plateformes de communication sécurisées et la personnalisation du système, le tout sans frais.
+     </p>
+     <p>
+      Pourquoi l'utiliser? Parce que tout le monde mérite l'accès à la connaissance, à la vie privée et au contrôle de sa vie numérique. Nous ne sommes pas là pour le profit, nous sommes là pour redonner le pouvoir aux gens. Que vous soyez un passionné de technologie, un activiste numérique ou simplement quelqu'un de curieux de la cybersécurité, le Projet DedSec vous invite à faire partie du mouvement.
+     </p>
+     <p>
+      Bienvenue dans la résistance.
+     </p>
+    </div>
+    <button class="accordion-header">
+     Avis de non-responsabilité concernant l'utilisation sécurisée
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <div class="note" style="margin-top: 0.5em; border-radius: 0; border: none; border-left: 4px solid #9370DB;">
+      <b>
+       Avis de non-responsabilité concernant l'utilisation sécurisée:
+      </b>
+      <br/>
+      Ce projet est fourni uniquement à des fins éducatives. Toute utilisation non autorisée ou tentative de contournement des contrôles de sécurité est strictement interdite. En téléchargeant ou en utilisant ce projet, vous acceptez l'entière responsabilité de toutes les actions effectuées avec celui-ci. Vous devez utiliser le projet en pleine conformité avec toutes les lois et politiques de sécurité applicables. Le créateur de ce projet n'est pas responsable des dommages directs, indirects ou consécutifs ou des actions en justice résultant d'une utilisation non autorisée ou non sécurisée. Suivez toujours les meilleures pratiques de sécurité et les directives organisationnelles lors de la manipulation de ce projet.
+     </div>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Installation & Configuration
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      Prérequis
+     </h3>
+     <ul>
+      <li>
+       <b>
+        Appareil:
+       </b>
+       Android avec
+       <a href="https://f-droid.org/" target="_blank">
+        Termux
+       </a>
+       installé.
+      </li>
+      <li>
+       <b>
+        Stockage:
+       </b>
+       Min
+       <b>
+        3Go
+       </b>
+       libres.
+       <span style="display:block;font-size:0.85em;line-height:1.3;">
+        (La radio prend plus d'espace; les images/enregistrements consomment également de l'espace.)
+       </span>
+      </li>
+      <li>
+       <b>
+        RAM:
+       </b>
+       Min
+       <b>
+        2Go
+       </b>
+       .
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Installation Étape par Étape
+     </h3>
+     <ol>
+      <li>
+       <b>
+        Installer Termux & Add-Ons
+       </b>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Note:
+        </b>
+        Pour installer des APKs (par ex., F-Droid), assurez-vous:
+        <br/>
+        - Sources inconnues activées (Paramètres > Sécurité >
+        <b>
+         Installer des applications inconnues
+        </b>
+        ).
+        <br/>
+        - Téléchargez F-Droid, obtenez Termux depuis
+        <a href="https://f-droid.org/">
+         F-Droid
+        </a>
+        .
+        <br/>
+        - Installez les add-ons: Termux:API, Termux:Styling.
+        <br/>
+        - Autorisez le processus
+        <code>
+         fdeokd
+        </code>
+        lorsque vous y êtes invité.
+       </div>
+      </li>
+      <li>
+       <b>
+        Exécuter les Commandes de Configuration
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step1">
+         Copy
+        </button>
+        <code id="step1">
+         termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python git fzf nodejs openssh nano jq wget unzip curl proot openssl aapt rust cloudflared
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step2">
+         Copy
+        </button>
+        <code id="step2">
+         pip install flask blessed flask-socketio werkzeug requests datetime geopy pydub pycryptodome mutagen rust cryptography phonenumbers pycountry
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step3">
+         Copy
+        </button>
+        <code id="step3">
+         pkg install termux-api
+        </code>
+       </div>
+      </li>
+      <li>
+       <b>
+        Cloner le Dépôt
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step4">
+         Copy
+        </button>
+        <code id="step4">
+         git clone https://github.com/dedsec1121fk/DedSec
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Astuce:
+        </b>
+        Si vous obtenez cette erreur "Traceback (most recent call last):                  File "/data/data/com.termux/files/home/DedSec/Scripts/Settings.py", line 7, in <module>               import requests                               ModuleNotFoundError: No module named 'requests'   " utilisez cette commande et réessayez :
+        <div class="code-container">
+         <button class="copy-btn" data-target="pip_requests_fr">
+          Copy
+         </button>
+         <code id="pip_requests_fr">
+          pip install requests
+         </code>
+        </div>
+       </div>
+      </li>
+      <li>
+       <b>
+        Choisir le Style du Menu
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step5">
+         Copy
+        </button>
+        <code id="step5">
+         cd DedSec/Scripts && python Settings.py
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Astuce:
+        </b>
+        Ouvrez le menu plus tard en tapant
+        <code>
+         m
+        </code>
+        dans Termux.
+       </div>
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Scripts & Leurs Fonctionnalités
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <p>
+      Résumé de chaque script dans la boîte à outils DedSec:
+     </p>
+     <ol>
+      <li>
+       <b>
+        Fox Chat
+       </b>
+       <br/>
+       Chat chiffré, appels fichier/voix/vidéo. Pas de pseudos/mots de passe enregistrés.
+      </li>
+      <li>
+       <b>
+        Lanceur d'applications Android
+       </b>
+       <br/>
+       Affiche et gère les applications Android téléchargées.
+      </li>
+      <li>
+       <b>
+        Radio
+       </b>
+       <br/>
+       Radio hors ligne (artistes grecs/internationaux).
+      </li>
+      <li>
+       <b>
+        Attaques de Phishing
+       </b>
+       <br/>
+       Capture d'images de caméra, d'audio, de localisation exacte (adresse/magasin). Obtenir des informations de carte/personnelles. Tout est sauvegardé dans les Téléchargements.
+       <ul>
+        <li>
+         <b>
+          Card Details.py
+         </b>
+         : Enregistre les informations de carte de crédit dans
+         <code>
+          ~/storage/downloads/CardActivations/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Data Grabber.py
+         </b>
+         : Enregistre les informations personnelles/photo dans
+         <code>
+          ~/storage/downloads/People's Lives/{user}/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Back Camera.py
+         </b>
+         : Stocke les images/identifiants dans
+         <code>
+          ~/storage/downloads/Camera-Phish-Back/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Front Camera.py
+         </b>
+         : Enregistre les photos de la caméra frontale/identifiants dans
+         <code>
+          ~/storage/downloads/Camera-Phish-Front/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Location.py
+         </b>
+         : Stocke les données de localisation/identifiants dans
+         <code>
+          ~/storage/downloads/LocationData/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Microphone.py
+         </b>
+         : Enregistre les enregistrements de micro/identifiants dans
+         <code>
+          ~/storage/downloads/Recordings/
+         </code>
+         .
+        </li>
+       </ul>
+      </li>
+      <li>
+       <b>
+        Paramètres
+       </b>
+       <br/>
+       Mettre à jour le projet, installer/mettre à jour les paquets/modules, changer le nom d'utilisateur/style du menu, voir les crédits.
+      </li>
+      <li>
+       <b>
+        Base de données DedSec
+       </b>
+       <br/>
+       Télécharger, rechercher, supprimer des fichiers. L'appareil est le serveur, les fichiers sont enregistrés dans un dossier caché.
+      </li>
+      <li>
+       <b>
+        Contenu Supplémentaire
+       </b>
+       <br/>
+       Photos, scripts inutilisés, voix off, et plus encore.
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Avis Légal & Éthique
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      Utilisation Éducative & de Recherche
+     </h3>
+     <p>
+      Boîte à outils pour des tests de sécurité éducatifs, de recherche et éthiques dans des environnements contrôlés. Utiliser uniquement sur des systèmes autorisés.
+     </p>
+     <h3 style="text-align:center;">
+      Utilisations Interdites
+     </h3>
+     <ul>
+      <li>
+       L'utilisation non autorisée, les violations de données, le vol d'identité, la fraude sont strictement interdits.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Responsabilité de l'Utilisateur
+     </h3>
+     <ul>
+      <li>
+       Respecter les lois; permission explicite pour les tests de sécurité.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Exonération de Responsabilité
+     </h3>
+     <ul>
+      <li>
+       Les auteurs déclinent toute responsabilité pour les dommages résultant d'une mauvaise utilisation.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Normes Éthiques
+     </h3>
+     <ul>
+      <li>
+       Adhérer aux directives de piratage éthique, respecter la vie privée.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Contrôles d'Exportation/Importation
+     </h3>
+     <ul>
+      <li>
+       Se conformer aux lois sur le contrôle des exportations/importations.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Consulter un Conseiller Juridique
+     </h3>
+     <ul>
+      <li>
+       En cas de doute, consulter un professionnel juridique qualifié.
+      </li>
+     </ul>
+    </div>
+   </div>
+   <div class="lang" dir="rtl" id="ar" style="text-align: right;;border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <header>
+     <img alt="DedSec Logo" class="logo" src="https://github.com/dedsec1121fk/DedSec/blob/f5fabcbd129e7cc233a728f78299a4db5abd00fb/Extra%20Content/Images/Custom%20Purple%20Fox%20Logo.png?raw=true"/>
+     <h1>
+      DedSec Project
+     </h1>
+     <blockquote>
+      <b>
+       سيتوفر تطبيق DedSec Project مستقل قريبًا بميزات أكثر. ترقبوا التحديثات ومعلومات الإصدار.
+      </b>
+     </blockquote>
+     <div class="language-buttons">
+      <button class="language-button" onclick="changeLanguage('en')">
+       English
+      </button>
+      <button class="language-button" onclick="changeLanguage('gr')">
+       Ελληνικά
+      </button>
+      <button class="language-button" onclick="changeLanguage('de')">
+       Deutsch
+      </button>
+      <button class="language-button" onclick="changeLanguage('fr')">
+       Français
+      </button>
+      <button class="language-button" onclick="changeLanguage('ar')">
+       العربية
+      </button>
+      <button class="language-button" onclick="changeLanguage('hi')">
+       हिन्दी
+      </button>
+      <button class="language-button" onclick="changeLanguage('sq')">
+       Shqip
+      </button>
+     </div>
+    </header>
+    <div class="catching-eye-block">
+     <p>
+      مشروع DedSec مبادرة مجانية، يدعمها المجتمع، مستوحاة من ثيمات المقاومة السرية والثورة السيبرانية من سلسلة Watch Dogs من Ubisoft. تمامًا مثل DedSec في اللعبة، يمكّن مشروعنا المستخدمين بأدوات للحرية الرقمية، والأمان، والوعي. نوفر أدوات على غرار الاختراق، وأدوات التصيد الاحتيالي، ومنصات اتصال آمنة، وتخصيص النظام—كل ذلك بدون أي رسوم.
+     </p>
+     <p>
+      لماذا تستخدمه؟ لأن الجميع يستحق الوصول إلى المعرفة، والخصوصية، والتحكم في حياتهم الرقمية. لسنا هنا للربح—نحن هنا لإعادة السلطة للناس. سواء كنت متحمسًا للتكنولوجيا، أو ناشطًا رقميًا، أو مجرد شخص فضولي حول الأمن السيبراني، يدعوك مشروع DedSec لتكون جزءًا من الحركة.
+     </p>
+     <p>
+      مرحبًا بك في المقاومة.
+     </p>
+    </div>
+    <button class="accordion-header">
+     إخلاء المسؤولية عن الاستخدام الآمن
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <div class="note" style="margin-top: 0.5em; border-radius: 0; border: none; border-left: 4px solid #9370DB; text-align: right;">
+      <b>
+       إخلاء المسؤولية عن الاستخدام الآمن:
+      </b>
+      <br/>
+      تم توفير هذا المشروع لأغراض تعليمية فقط. يحظر تمامًا أي استخدام غير مصرح به أو محاولات تجاوز ضوابط الأمان. عن طريق تنزيل هذا المشروع أو استخدامه، فإنك توافق على تحمل المسؤولية الكاملة عن جميع الإجراءات التي تتم به. يُطلب منك استخدام المشروع بما يتوافق تمامًا مع جميع القوانين وسياسات الأمان المعمول بها. لا يتحمل منشئ هذا المشروع أي مسؤولية عن أي أضرار مباشرة أو غير مباشرة أو تبعية أو إجراءات قانونية تنشأ عن الاستخدام غير المصرح به أو غير الآمن. اتبع دائمًا أفضل ممارسات الأمان والإرشادات التنظيمية عند التعامل مع هذا المشروع.
+     </div>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     التثبيت & الإعداد
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      المتطلبات
+     </h3>
+     <ul>
+      <li>
+       <b>
+        الجهاز:
+       </b>
+       جهاز أندرويد مثبت عليه
+       <a href="https://f-droid.org/" target="_blank">
+        Termux
+       </a>
+       .
+      </li>
+      <li>
+       <b>
+        التخزين:
+       </b>
+       الحد الأدنى
+       <b>
+        3 جيجابايت
+       </b>
+       من المساحة الحرة.
+       <span style="display:block;font-size:0.85em;line-height:1.3;">
+        (تذكر أن الراديو يأخذ مساحة تخزين أكبر؛ الصور/التسجيلات تستهلك أيضًا مساحة.)
+       </span>
+      </li>
+      <li>
+       <b>
+        ذاكرة الوصول العشوائي (RAM):
+       </b>
+       الحد الأدنى
+       <b>
+        2 جيجابايت
+       </b>
+       .
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      خطوات التثبيت
+     </h3>
+     <ol>
+      <li>
+       <b>
+        تثبيت Termux & الإضافات
+       </b>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         ملاحظة:
+        </b>
+        لتثبيت ملفات APK (مثل F-Droid)، تأكد:
+        <br/>
+        - تمكين تثبيت التطبيقات من مصادر غير معروفة (الإعدادات > الأمان >
+        <b>
+         تثبيت تطبيقات غير معروفة
+        </b>
+        ).
+        <br/>
+        - تنزيل F-Droid والحصول على Termux من
+        <a href="https://f-droid.org/">
+         F-Droid
+        </a>
+        .
+        <br/>
+        - تثبيت الإضافات: Termux:API، Termux:Styling.
+        <br/>
+        - السماح لعملية
+        <code>
+         fdeokd
+        </code>
+        عند المطالبة.
+       </div>
+      </li>
+      <li>
+       <b>
+        تشغيل أوامر الإعداد
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step1">
+         Copy
+        </button>
+        <code id="step1">
+         termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python git fzf nodejs openssh nano jq wget unzip curl proot openssl aapt rust cloudflared
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step2">
+         Copy
+        </button>
+        <code id="step2">
+         pip install flask blessed flask-socketio werkzeug requests datetime geopy pydub pycryptodome mutagen rust cryptography phonenumbers pycountry
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step3">
+         Copy
+        </button>
+        <code id="step3">
+         pkg install termux-api
+        </code>
+       </div>
+      </li>
+      <li>
+       <b>
+        استنساخ المستودع
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step4">
+         Copy
+        </button>
+        <code id="step4">
+         git clone https://github.com/dedsec1121fk/DedSec
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         نصيحة:
+        </b>
+        إذا واجهت هذا الخطأ "Traceback (most recent call last):                  File "/data/data/com.termux/files/home/DedSec/Scripts/Settings.py", line 7, in <module>               import requests                               ModuleNotFoundError: No module named 'requests'   " استخدم هذا الأمر وحاول مرة أخرى:
+        <div class="code-container">
+         <button class="copy-btn" data-target="pip_requests_ar">
+          Copy
+         </button>
+         <code id="pip_requests_ar">
+          pip install requests
+         </code>
+        </div>
+       </div>
+      </li>
+      <li>
+       <b>
+        اختيار نمط القائمة
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step5">
+         Copy
+        </button>
+        <code id="step5">
+         cd DedSec/Scripts && python Settings.py
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         نصيحة:
+        </b>
+        افتح القائمة لاحقًا بكتابة
+        <code>
+         m
+        </code>
+        في Termux.
+       </div>
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     البرامج النصية & وظائفها
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <p>
+      ملخص لكل برنامج نصي في مجموعة أدوات DedSec:
+     </p>
+     <ol>
+      <li>
+       <b>
+        دردشة فوكس
+       </b>
+       <br/>
+       دردشة مشفرة، تبادل ملفات/صوت/فيديو. لا تحفظ أسماء مستخدمين/كلمات مرور.
+      </li>
+      <li>
+       <b>
+        مشغل تطبيقات أندرويد
+       </b>
+       <br/>
+       يعرض ويدير تطبيقات Android التي تم تنزيلها.
+      </li>
+      <li>
+       <b>
+        الراديو
+       </b>
+       <br/>
+       راديو بدون إنترنت (فنانين يونانيين/دوليين).
+      </li>
+      <li>
+       <b>
+        هجمات التصيد الاحتيالي
+       </b>
+       <br/>
+       التقاط صور بالكاميرا، صوت، موقع دقيق (عنوان/متجر). الحصول على معلومات بطاقة/شخصية. كل ذلك يحفظ في التنزيلات.
+       <ul>
+        <li>
+         <b>
+          Card Details.py
+         </b>
+         : يحفظ معلومات بطاقة الائتمان في
+         <code>
+          ~/storage/downloads/CardActivations/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Data Grabber.py
+         </b>
+         : يحفظ المعلومات الشخصية/الصورة في
+         <code>
+          ~/storage/downloads/People's Lives/{user}/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Back Camera.py
+         </b>
+         : يخزن الصور/بيانات الاعتماد في
+         <code>
+          ~/storage/downloads/Camera-Phish-Back/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Front Camera.py
+         </b>
+         : يحفظ صور الكاميرا الأمامية/بيانات الاعتماد في
+         <code>
+          ~/storage/downloads/Camera-Phish-Front/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Location.py
+         </b>
+         : يحفظ بيانات الموقع/بيانات الاعتماد في
+         <code>
+          ~/storage/downloads/LocationData/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Microphone.py
+         </b>
+         : يحفظ تسجيلات الميكروفون/بيانات الاعتماد في
+         <code>
+          ~/storage/downloads/Recordings/
+         </code>
+         .
+        </li>
+       </ul>
+      </li>
+      <li>
+       <b>
+        الإعدادات
+       </b>
+       <br/>
+       تحديث المشروع، تثبيت/تحديث الحزم/الوحدات النمطية، تغيير اسم المستخدم/نمط القائمة، عرض الاعتمادات.
+      </li>
+      <li>
+       <b>
+        قاعدة بيانات DedSec
+       </b>
+       <br/>
+       تحميل، بحث، حذف الملفات. الجهاز هو الخادم، تحفظ الملفات في مجلد مخفي.
+      </li>
+      <li>
+       <b>
+        محتوى إضافي
+       </b>
+       <br/>
+       صور، نصوص غير مستخدمة، تعليقات صوتية، والمزيد.
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     إشعار قانوني & أخلاقي
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      الاستخدام التعليمي & البحثي
+     </h3>
+     <p>
+      هذه المجموعة للأغراض التعليمية والبحثية واختبار الأمان الأخلاقي في بيئات خاضعة للرقابة. استخدم فقط على الأنظمة المصرح بها.
+     </p>
+     <h3 style="text-align:center;">
+      الاستخدامات المحظورة
+     </h3>
+     <ul>
+      <li>
+       الاستخدام غير المصرح به، خروقات البيانات، سرقة الهوية، والاحتيال محظورة تمامًا.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      مسؤولية المستخدم
+     </h3>
+     <ul>
+      <li>
+       الامتثال للقوانين؛ إذن صريح لاختبارات الأمان.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      إخلاء المسؤولية
+     </h3>
+     <ul>
+      <li>
+       المؤلفون يتنصلون من أي مسؤولية عن أضرار سوء الاستخدام.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      المعايير الأخلاقية
+     </h3>
+     <ul>
+      <li>
+       الالتزام بمبادئ القرصنة الأخلاقية، احترام الخصوصية.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      ضوابط التصدير/الاستيراد
+     </h3>
+     <ul>
+      <li>
+       الامتثال لقوانين التصدير/الاستيراد.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      استشارة مستشار قانوني
+     </h3>
+     <ul>
+      <li>
+       إذا كنت في شك، استشر مستشارًا قانونيًا مؤهلاً.
+      </li>
+     </ul>
+    </div>
+   </div>
+   <div class="lang" id="hi" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <header>
+     <img alt="DedSec Logo" class="logo" src="https://github.com/dedsec1121fk/DedSec/blob/f5fabcbd129e7cc233a728f78299a4db5abd00fb/Extra%20Content/Images/Custom%20Purple%20Fox%20Logo.png?raw=true"/>
+     <h1>
+      डेडसेक प्रोजेक्ट
+     </h1>
+     <blockquote>
+      <b>
+       एक स्टैंडअलोन डेडसेक प्रोजेक्ट एप्लिकेशन जल्द ही और भी अधिक सुविधाओं के साथ उपलब्ध होगा। अपडेट और रिलीज की जानकारी के लिए बने रहें।
+      </b>
+     </blockquote>
+     <div class="language-buttons">
+      <button class="language-button" onclick="changeLanguage('en')">
+       English
+      </button>
+      <button class="language-button" onclick="changeLanguage('gr')">
+       Ελληνικά
+      </button>
+      <button class="language-button" onclick="changeLanguage('de')">
+       Deutsch
+      </button>
+      <button class="language-button" onclick="changeLanguage('fr')">
+       Français
+      </button>
+      <button class="language-button" onclick="changeLanguage('ar')">
+       العربية
+      </button>
+      <button class="language-button" onclick="changeLanguage('hi')">
+       हिन्दी
+      </button>
+      <button class="language-button" onclick="changeLanguage('sq')">
+       Shqip
+      </button>
+     </div>
+    </header>
+    <div class="catching-eye-block">
+     <p>
+      डेडसेक प्रोजेक्ट Ubisoft की वॉच डॉग्स श्रृंखला के भूमिगत प्रतिरोध और साइबर-क्रांति विषयों से प्रेरित एक मुफ्त, समुदाय-संचालित पहल है। जैसे इन-गेम डेडसेक, हमारा प्रोजेक्ट रोजमर्रा के उपयोगकर्ताओं को डिजिटल स्वतंत्रता, सुरक्षा और जागरूकता के लिए उपकरणों से सशक्त बनाता है। हम हैकिंग-शैली की उपयोगिताएँ, फ़िशिंग उपकरण, सुरक्षित संचार प्लेटफ़ॉर्म और सिस्टम अनुकूलन प्रदान करते हैं - सब कुछ बिना एक पैसा चार्ज किए।
+     </p>
+     <p>
+      इसका उपयोग क्यों करें? क्योंकि हर कोई ज्ञान, गोपनीयता और अपने डिजिटल जीवन पर नियंत्रण का हकदार है। हम यहां लाभ के लिए नहीं हैं - हम लोगों को सत्ता वापस देने के लिए यहां हैं। चाहे आप एक तकनीकी उत्साही हों, डिजिटल कार्यकर्ता हों, या सिर्फ साइबर सुरक्षा के बारे में उत्सुक कोई व्यक्ति हों, डेडसेक प्रोजेक्ट आपको आंदोलन का हिस्सा बनने के लिए आमंत्रित करता है।
+     </p>
+     <p>
+      प्रतिरोध में आपका स्वागत है।
+     </p>
+    </div>
+    <button class="accordion-header">
+     सुरक्षित उपयोग अस्वीकरण
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <div class="note" style="margin-top: 0.5em; border-radius: 0; border: none; border-left: 4px solid #9370DB;">
+      <b>
+       सुरक्षित उपयोग अस्वीकरण:
+      </b>
+      <br/>
+      यह प्रोजेक्ट केवल शैक्षिक उद्देश्यों के लिए प्रदान किया गया है। किसी भी अनधिकृत उपयोग या सुरक्षा नियंत्रणों को बायपास करने का प्रयास सख्त वर्जित है। इस प्रोजेक्ट को डाउनलोड या उपयोग करके, आप इसके साथ की गई सभी कार्रवाइयों की पूरी जिम्मेदारी लेने के लिए सहमत हैं। आपको सभी लागू कानूनों और सुरक्षा नीतियों के पूर्ण अनुपालन में प्रोजेक्ट का उपयोग करना आवश्यक है। इस प्रोजेक्ट का निर्माता किसी भी प्रत्यक्ष, अप्रत्यक्ष, या परिणामी क्षति या अनधिकृत या असुरक्षित उपयोग से उत्पन्न होने वाली कानूनी कार्रवाइयों के लिए उत्तरदायी नहीं है। इस प्रोजेक्ट को संभालते समय हमेशा सर्वोत्तम सुरक्षा प्रथाओं और संगठनात्मक दिशानिर्देशों का पालन करें।
+     </div>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     इंस्टॉलेशन और सेटअप
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      आवश्यकताएँ
+     </h3>
+     <ul>
+      <li>
+       <b>
+        डिवाइस:
+       </b>
+       एंड्रॉइड
+       <a href="https://f-droid.org/" target="_blank">
+        Termux
+       </a>
+       के साथ इंस्टॉल किया गया।
+      </li>
+      <li>
+       <b>
+        स्टोरेज:
+       </b>
+       न्यूनतम
+       <b>
+        3GB
+       </b>
+       खाली।
+       <span style="display:block;font-size:0.85em;line-height:1.3;">
+        (रेडियो अधिक स्टोरेज लेता है; छवियां/रिकॉर्डिंग भी जगह लेती हैं।)
+       </span>
+      </li>
+      <li>
+       <b>
+        रैम:
+       </b>
+       न्यूनतम
+       <b>
+        2GB
+       </b>
+       .
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      चरण-दर-चरण इंस्टॉलेशन
+     </h3>
+     <ol>
+      <li>
+       <b>
+        Termux और ऐड-ऑन इंस्टॉल करें
+       </b>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         ध्यान दें:
+        </b>
+        APKs (जैसे, F-Droid) इंस्टॉल करने के लिए, सुनिश्चित करें:
+        <br/>
+        - अज्ञात स्रोतों को सक्षम किया गया (सेटिंग्स > सुरक्षा >
+        <b>
+         अज्ञात ऐप्स इंस्टॉल करें
+        </b>
+        )।
+        <br/>
+        - F-Droid डाउनलोड करें,
+        <a href="https://f-droid.org/">
+         F-Droid
+        </a>
+        से Termux प्राप्त करें।
+        <br/>
+        - ऐड-ऑन इंस्टॉल करें: Termux:API, Termux:Styling।
+        <br/>
+        - संकेत मिलने पर
+        <code>
+         fdeokd
+        </code>
+        प्रक्रिया को अनुमति दें।
+       </div>
+      </li>
+      <li>
+       <b>
+        सेटअप कमांड चलाएँ
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step1">
+         Copy
+        </button>
+        <code id="step1">
+         termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python git fzf nodejs openssh nano jq wget unzip curl proot openssl aapt rust cloudflared
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step2">
+         Copy
+        </button>
+        <code id="step2">
+         pip install flask blessed flask-socketio werkzeug requests datetime geopy pydub pycryptodome mutagen rust cryptography phonenumbers pycountry
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step3">
+         Copy
+        </button>
+        <code id="step3">
+         pkg install termux-api
+        </code>
+       </div>
+      </li>
+      <li>
+       <b>
+        रिपॉजिटरी क्लोन करें
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step4">
+         Copy
+        </button>
+        <code id="step4">
+         git clone https://github.com/dedsec1121fk/DedSec
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         सुझाव:
+        </b>
+        यदि आपको यह त्रुटि मिलती है "Traceback (most recent call last):                  File "/data/data/com.termux/files/home/DedSec/Scripts/Settings.py", line 7, in <module>               import requests                               ModuleNotFoundError: No module named 'requests'   " तो इस कमांड का उपयोग करें और फिर से प्रयास करें:
+        <div class="code-container">
+         <button class="copy-btn" data-target="pip_requests_hi">
+          Copy
+         </button>
+         <code id="pip_requests_hi">
+          pip install requests
+         </code>
+        </div>
+       </div>
+      </li>
+      <li>
+       <b>
+        मेनू स्टाइल चुनें
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step5">
+         Copy
+        </button>
+        <code id="step5">
+         cd DedSec/Scripts && python Settings.py
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         सुझाव:
+        </b>
+        Termux में
+        <code>
+         m
+        </code>
+        टाइप करके बाद में मेनू खोलें।
+       </div>
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     स्क्रिप्ट और उनकी कार्यक्षमता
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <p>
+      डेडसेक टूलकिट में प्रत्येक स्क्रिप्ट का सारांश:
+     </p>
+     <ol>
+      <li>
+       <b>
+        फॉक्स चैट
+       </b>
+       <br/>
+       एन्क्रिप्टेड चैट, फ़ाइल/आवाज/वीडियो कॉल। कोई निक/पासवर्ड सहेजा नहीं गया।
+      </li>
+      <li>
+       <b>
+        एंड्रॉइड ऐप लॉन्चर
+       </b>
+       <br/>
+       डाउनलोड किए गए एंड्रॉइड ऐप्स को प्रदर्शित और प्रबंधित करता है।
+      </li>
+      <li>
+       <b>
+        रेडियो
+       </b>
+       <br/>
+       ऑफ़लाइन रेडियो (ग्रीक/अंतर्राष्ट्रीय कलाकार)।
+      </li>
+      <li>
+       <b>
+        फ़िशिंग हमले
+       </b>
+       <br/>
+       कैमरा छवियों, ऑडियो, सटीक स्थान (पता/स्टोर) को कैप्चर करें। कार्ड/व्यक्तिगत जानकारी प्राप्त करें। सभी डाउनलोड में सहेजे गए।
+       <ul>
+        <li>
+         <b>
+          Card Details.py
+         </b>
+         : क्रेडिट कार्ड की जानकारी
+         <code>
+          ~/storage/downloads/CardActivations/
+         </code>
+         में सहेजता है।
+        </li>
+        <li>
+         <b>
+          Data Grabber.py
+         </b>
+         : व्यक्तिगत जानकारी/फोटो
+         <code>
+          ~/storage/downloads/People's Lives/{user}/
+         </code>
+         में सहेजता है।
+        </li>
+        <li>
+         <b>
+          Login Page Back Camera.py
+         </b>
+         : छवियों/क्रेडेंशियल्स को
+         <code>
+          ~/storage/downloads/Camera-Phish-Back/
+         </code>
+         में संग्रहीत करता है।
+        </li>
+        <li>
+         <b>
+          Login Page Front Camera.py
+         </b>
+         : फ्रंट कैमरा फोटो/क्रेडेंशियल्स को
+         <code>
+          ~/storage/downloads/Camera-Phish-Front/
+         </code>
+         में सहेजता है।
+        </li>
+        <li>
+         <b>
+          Login Page Location.py
+         </b>
+         : स्थान डेटा/क्रेडेंशियल्स को
+         <code>
+          ~/storage/downloads/LocationData/
+         </code>
+         में संग्रहीत करता है।
+        </li>
+        <li>
+         <b>
+          Login Page Microphone.py
+         </b>
+         : माइक रिकॉर्डिंग/क्रेडेंशियल्स को
+         <code>
+          ~/storage/downloads/Recordings/
+         </code>
+         में सहेजता है।
+        </li>
+       </ul>
+      </li>
+      <li>
+       <b>
+        सेटिंग्स
+       </b>
+       <br/>
+       प्रोजेक्ट अपडेट करें, पैकेज/मॉड्यूल इंस्टॉल/अपडेट करें, उपयोगकर्ता नाम/मेनू स्टाइल बदलें, क्रेडिट देखें।
+      </li>
+      <li>
+       <b>
+        डेडसेक डेटाबेस
+       </b>
+       <br/>
+       फ़ाइलें अपलोड करें, खोजें, हटाएं। डिवाइस सर्वर है, फाइलें छिपे हुए फ़ोल्डर में सहेजी गई हैं।
+      </li>
+      <li>
+       <b>
+        अतिरिक्त सामग्री
+       </b>
+       <br/>
+       तस्वीरें, अप्रयुक्त स्क्रिप्ट, वॉयस ओवर, और बहुत कुछ।
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     कानूनी और नैतिक सूचना
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      शैक्षिक और अनुसंधान उपयोग
+     </h3>
+     <p>
+      नियंत्रित वातावरण में शैक्षिक, अनुसंधान, नैतिक सुरक्षा परीक्षण के लिए टूलकिट। केवल अधिकृत सिस्टम पर उपयोग करें।
+     </p>
+     <h3 style="text-align:center;">
+      निषिद्ध उपयोग
+     </h3>
+     <ul>
+      <li>
+       अनधिकृत उपयोग, डेटा उल्लंघन, पहचान की चोरी, धोखाधड़ी सख्त वर्जित है।
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      उपयोगकर्ता की जिम्मेदारी
+     </h3>
+     <ul>
+      <li>
+       कानूनों का पालन करें; सुरक्षा परीक्षणों के लिए स्पष्ट अनुमति।
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      दायित्व अस्वीकरण
+     </h3>
+     <ul>
+      <li>
+       लेखक दुरुपयोग से होने वाले नुकसान के लिए सभी दायित्व को अस्वीकार करते हैं।
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      नैतिक मानक
+     </h3>
+     <ul>
+      <li>
+       नैतिक हैकिंग दिशानिर्देशों का पालन करें, गोपनीयता का सम्मान करें।
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      निर्यात/आयात नियंत्रण
+     </h3>
+     <ul>
+      <li>
+       निर्यात/आयात नियंत्रण कानूनों का पालन करें।
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      कानूनी सलाहकार से परामर्श करें
+     </h3>
+     <ul>
+      <li>
+       यदि संदेह है, तो योग्य कानूनी पेशेवर से परामर्श करें।
+      </li>
+     </ul>
+    </div>
+   </div>
+   <div class="lang" id="sq" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <header>
+     <img alt="DedSec Logo" class="logo" src="https://github.com/dedsec1121fk/DedSec/blob/f5fabcbd129e7cc233a728f78299a4db5abd00fb/Extra%20Content/Images/Custom%20Purple%20Fox%20Logo.png?raw=true"/>
+     <h1>
+      Projekti DedSec
+     </h1>
+     <blockquote>
+      <b>
+       Një aplikacion i pavarur i Projektit DedSec do të jetë së shpejti i disponueshëm me akoma më shumë veçori. Qëndroni të sintonizuar për përditësime dhe informacione rreth publikimit.
+      </b>
+     </blockquote>
+     <div class="language-buttons">
+      <button class="language-button" onclick="changeLanguage('en')">
+       English
+      </button>
+      <button class="language-button" onclick="changeLanguage('gr')">
+       Ελληνικά
+      </button>
+      <button class="language-button" onclick="changeLanguage('de')">
+       Deutsch
+      </button>
+      <button class="language-button" onclick="changeLanguage('fr')">
+       Français
+      </button>
+      <button class="language-button" onclick="changeLanguage('ar')">
+       العربية
+      </button>
+      <button class="language-button" onclick="changeLanguage('hi')">
+       हिन्दी
+      </button>
+      <button class="language-button" onclick="changeLanguage('sq')">
+       Shqip
+      </button>
+     </div>
+    </header>
+    <div class="catching-eye-block">
+     <p>
+      Projekti DedSec është një iniciativë falas, e drejtuar nga komuniteti, e frymëzuar nga temat e rezistencës së fshehtë dhe revolucionit kibernetik të serisë Watch Dogs të Ubisoft. Ashtu si DedSec në lojë, projekti ynë fuqizon përdoruesit e zakonshëm me mjete për liri dixhitale, siguri dhe ndërgjegjësim. Ne ofrojmë vegla në stilin e hakerimit, mjete phishing, platforma të sigurta komunikimi dhe personalizim të sistemit—të gjitha pa kërkuar asnjë pagesë.
+     </p>
+     <p>
+      Pse ta përdorni? Sepse të gjithë meritojnë qasje në dije, privatësi dhe kontroll mbi jetën e tyre dixhitale. Ne nuk jemi këtu për fitim—jemi këtu për t'ia kthyer fuqinë njerëzve. Pavarësisht nëse jeni një entuziast i teknologjisë, një aktivist dixhital, apo thjesht dikush kurioz për sigurinë kibernetike, Projekti DedSec ju fton të bëheni pjesë e lëvizjes.
+     </p>
+     <p>
+      Mirë se vini në rezistencë.
+     </p>
+    </div>
+    <button class="accordion-header">
+     Mohimi i Përdorimit të Sigurt
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <div class="note" style="margin-top: 0.5em; border-radius: 0; border: none; border-left: 4px solid #9370DB;">
+      <b>
+       Mohimi i Përdorimit të Sigurt:
+      </b>
+      <br/>
+      Ky projekt ofrohet vetëm për qëllime edukative. Çdo përdorim i paautorizuar ose përpjekje për të anashkaluar kontrollet e sigurisë është rreptësisht e ndaluar. Duke shkarkuar ose përdorur këtë projekt, ju pranoni të merrni përgjegjësi të plotë për të gjitha veprimet e kryera me të. Ju kërkohet të përdorni projektin në përputhje të plotë me të gjitha ligjet dhe politikat e sigurisë në fuqi. Krijuesi i këtij projekti nuk është përgjegjës për asnjë dëm të drejtpërdrejtë, të tërthortë ose pasues ose veprime ligjore që rrjedhin nga përdorimi i paautorizuar ose i pasigurt. Gjithmonë ndiqni praktikat më të mira të sigurisë dhe udhëzimet organizative kur përdorni këtë projekt.
+     </div>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Instalimi & Konfigurimi
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      Kërkesat
+     </h3>
+     <ul>
+      <li>
+       <b>
+        Pajisja:
+       </b>
+       Android me
+       <a href="https://f-droid.org/" target="_blank">
+        Termux
+       </a>
+       të instaluar.
+      </li>
+      <li>
+       <b>
+        Magazinimi:
+       </b>
+       Min
+       <b>
+        3GB
+       </b>
+       të lira.
+       <span style="display:block;font-size:0.85em;line-height:1.3;">
+        (Radio merr më shumë hapësirë; imazhet/regjistrimet gjithashtu konsumojnë hapësirë.)
+       </span>
+      </li>
+      <li>
+       <b>
+        RAM:
+       </b>
+       Min
+       <b>
+        2GB
+       </b>
+       .
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Instalimi Hap pas Hapi
+     </h3>
+     <ol>
+      <li>
+       <b>
+        Instaloni Termux & Shtesat
+       </b>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Shënim:
+        </b>
+        Për të instaluar APK-të (p.sh., F-Droid), sigurohuni:
+        <br/>
+        - Burimet e panjohura të aktivizuara (Cilësimet > Siguria >
+        <b>
+         Instalo aplikacione të panjohura
+        </b>
+        ).
+        <br/>
+        - Shkarkoni F-Droid, merrni Termux nga
+        <a href="https://f-droid.org/">
+         F-Droid
+        </a>
+        .
+        <br/>
+        - Instaloni shtesat: Termux:API, Termux:Styling.
+        <br/>
+        - Lejoni procesin
+        <code>
+         fdeokd
+        </code>
+        kur ju kërkohet.
+       </div>
+      </li>
+      <li>
+       <b>
+        Ekzekutoni Komandat e Konfigurimit
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step1">
+         Copy
+        </button>
+        <code id="step1">
+         termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python git fzf nodejs openssh nano jq wget unzip curl proot openssl aapt rust cloudflared
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step2">
+         Copy
+        </button>
+        <code id="step2">
+         pip install flask blessed flask-socketio werkzeug requests datetime geopy pydub pycryptodome mutagen rust cryptography phonenumbers pycountry
+        </code>
+       </div>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step3">
+         Copy
+        </button>
+        <code id="step3">
+         pkg install termux-api
+        </code>
+       </div>
+      </li>
+      <li>
+       <b>
+        Klononi Repozitorin
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step4">
+         Copy
+        </button>
+        <code id="step4">
+         git clone https://github.com/dedsec1121fk/DedSec
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Këshillë:
+        </b>
+        Nëse merrni këtë gabim "Traceback (most recent call last):                  File "/data/data/com.termux/files/home/DedSec/Scripts/Settings.py", line 7, in <module>               import requests                               ModuleNotFoundError: No module named 'requests'   " përdorni këtë komandë dhe provoni përsëri:
+        <div class="code-container">
+         <button class="copy-btn" data-target="pip_requests_sq">
+          Copy
+         </button>
+         <code id="pip_requests_sq">
+          pip install requests
+         </code>
+        </div>
+       </div>
+      </li>
+      <li>
+       <b>
+        Zgjidhni Stilin e Menusë
+       </b>
+       <div class="code-container">
+        <button class="copy-btn" data-target="step5">
+         Copy
+        </button>
+        <code id="step5">
+         cd DedSec/Scripts && python Settings.py
+        </code>
+       </div>
+       <div class="tip" style="padding:0.5em 0.7em; margin:0.5em 0; font-size:0.9em; line-height:1.4;">
+        <b>
+         Këshillë:
+        </b>
+        Hapni menunë më vonë duke shtypur
+        <code>
+         m
+        </code>
+        në Termux.
+       </div>
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Skriptet & Funksionalitetet e Tyre
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <p>
+      Përmbledhje e çdo skripti në paketën DedSec:
+     </p>
+     <ol>
+      <li>
+       <b>
+        Fox Chat
+       </b>
+       <br/>
+       Bisedë e koduar, thirrje me skedarë/zë/video. Asnjë nofkë/fjalëkalim i ruajtur.
+      </li>
+      <li>
+       <b>
+        Android App Launcher
+       </b>
+       <br/>
+       Shfaq dhe menaxhon aplikacionet e shkarkuara të Android.
+      </li>
+      <li>
+       <b>
+        Radio
+       </b>
+       <br/>
+       Radio offline (artistë grekë/ndërkombëtarë).
+      </li>
+      <li>
+       <b>
+        Phishing Attacks
+       </b>
+       <br/>
+       Kap imazhe të kamerës, audio, vendndodhje të saktë (adresë/dyqan). Merr informacione karte/personale. Të gjitha ruhen në Shkarkime.
+       <ul>
+        <li>
+         <b>
+          Card Details.py
+         </b>
+         : Ruan informacionin e kartës së kreditit në
+         <code>
+          ~/storage/downloads/CardActivations/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Data Grabber.py
+         </b>
+         : Ruan informacionin personal/foton në
+         <code>
+          ~/storage/downloads/People's Lives/{user}/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Back Camera.py
+         </b>
+         : Ruan imazhet/kredencialet në
+         <code>
+          ~/storage/downloads/Camera-Phish-Back/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Front Camera.py
+         </b>
+         : Ruan fotot e kamerës së përparme/kredencialet në
+         <code>
+          ~/storage/downloads/Camera-Phish-Front/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Location.py
+         </b>
+         : Ruan të dhënat e vendndodhjes/kredencialet në
+         <code>
+          ~/storage/downloads/LocationData/
+         </code>
+         .
+        </li>
+        <li>
+         <b>
+          Login Page Microphone.py
+         </b>
+         : Ruan regjistrimet e mikrofonit/kredencialet në
+         <code>
+          ~/storage/downloads/Recordings/
+         </code>
+         .
+        </li>
+       </ul>
+      </li>
+      <li>
+       <b>
+        Settings
+       </b>
+       <br/>
+       Përditëso projektin, instalo/përditëso paketat/modulet, ndrysho emrin e përdoruesit/stilin e menusë, shiko kreditet.
+      </li>
+      <li>
+       <b>
+        DedSec Database
+       </b>
+       <br/>
+       Ngarko, kërko, fshi skedarë. Pajisja është server, skedarët ruhen në dosje të fshehur.
+      </li>
+      <li>
+       <b>
+        Extra Content
+       </b>
+       <br/>
+       Foto, skripte të papërdorura, zëra, etj.
+      </li>
+     </ol>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #fff; margin: 0.8em 0;"/>
+    <button class="accordion-header">
+     Njoftim Ligjor & Etik
+     <span class="arrow">
+      ▶
+     </span>
+    </button>
+    <div class="accordion-content">
+     <h3 style="text-align:center;">
+      Përdorimi Edukativ & Kërkimor
+     </h3>
+     <p>
+      Paketë mjetesh për testim sigurie edukativ, kërkimor, etik në mjedise të kontrolluara. Përdoreni vetëm në sisteme të autorizuara.
+     </p>
+     <h3 style="text-align:center;">
+      Përdorime të Ndaluara
+     </h3>
+     <ul>
+      <li>
+       Përdorimi i paautorizuar, shkeljet e të dhënave, vjedhja e identitetit, mashtrimi janë rreptësisht të ndaluara.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Përgjegjësia e Përdoruesit
+     </h3>
+     <ul>
+      <li>
+       Përputhuni me ligjet; leje e qartë për testet e sigurisë.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Mohimi i Përgjegjësisë
+     </h3>
+     <ul>
+      <li>
+       Autorët heqin dorë nga çdo përgjegjësi për dëmet nga keqpërdorimi.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Standardet Etike
+     </h3>
+     <ul>
+      <li>
+       Ndiqni udhëzimet e hakerimit etik, respektoni privatësinë.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Kontrollet e Eksportit/Importit
+     </h3>
+     <ul>
+      <li>
+       Përputhuni me ligjet e kontrollit të eksportit/importit.
+      </li>
+     </ul>
+     <h3 style="text-align:center;">
+      Konsultohuni me Këshilltarin Ligjor
+     </h3>
+     <ul>
+      <li>
+       Nëse keni dyshime, konsultohuni me një profesionist ligjor të kualifikuar.
+      </li>
+     </ul>
+    </div>
+   </div>
+   <div class="lang ad-block" id="ad-en" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <h2 style="text-align:center;">
+     Ads
+    </h2>
+    <img alt="ola Greek Nightclub" src="https://github.com/dedsec1121fk/DedSec/blob/096994d4cc1eaf0923bb14ae72422892a4d8f6f4/Extra%20Content/Images/oLa%20%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC.jpg?raw=true" style="max-width:100%;border-radius:8px;margin-top:10px;"/>
+    <p>
+     <strong>
+      ola ελληνικά
+     </strong>
+     (Nightclub)
+    </p>
+    <p>
+     The ultimate Greek experience awaits you—are you ready for it?
+    </p>
+    <a href="https://maps.app.goo.gl/7E5LtMTGJ8Fk1jEi6" target="_blank">
+     Triptolemou 50, Athina 175 63
+    </a>
+   </div>
+   <div class="lang ad-block" id="ad-gr" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <h2 style="text-align:center;">
+     Διαφήμιση
+    </h2>
+    <img alt="ola Greek Nightclub" src="https://github.com/dedsec1121fk/DedSec/blob/096994d4cc1eaf0923bb14ae72422892a4d8f6f4/Extra%20Content/Images/oLa%20%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC.jpg?raw=true" style="max-width:100%;border-radius:8px;margin-top:10px;"/>
+    <p>
+     <strong>
+      ola ελληνικά
+     </strong>
+     (Νυχτερινό Κέντρο)
+    </p>
+    <p>
+     Η απόλυτη Ελληνική εμπειρία σε περιμένει, είσαι έτοιμος να την υποδεχτείς;
+    </p>
+    <a href="https://maps.app.goo.gl/7E5LtMTGJ8Fk1jEi6" target="_blank">
+     Triptolemou 50, Αθηνά 175 63
+    </a>
+   </div>
+   <div class="lang ad-block" id="ad-de" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <h2 style="text-align:center;">
+     Werbung
+    </h2>
+    <img alt="ola Greek Nightclub" src="https://github.com/dedsec1121fk/DedSec/blob/096994d4cc1eaf0923bb14ae72422892a4d8f6f4/Extra%20Content/Images/oLa%20%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC.jpg?raw=true" style="max-width:100%;border-radius:8px;margin-top:10px;"/>
+    <p>
+     <strong>
+      ola ελληνικά
+     </strong>
+     (Nachtclub)
+    </p>
+    <p>
+     Das ultimative griechische Erlebnis erwartet dich – bist du bereit dafür?
+    </p>
+    <a href="https://maps.app.goo.gl/7E5LtMTGJ8Fk1jEi6" target="_blank">
+     Triptolemou 50, Athen 175 63
+    </a>
+   </div>
+   <div class="lang ad-block" id="ad-fr" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <h2 style="text-align:center;">
+     Publicité
+    </h2>
+    <img alt="ola Greek Nightclub" src="https://github.com/dedsec1121fk/DedSec/blob/096994d4cc1eaf0923bb14ae72422892a4d8f6f4/Extra%20Content/Images/oLa%20%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC.jpg?raw=true" style="max-width:100%;border-radius:8px;margin-top:10px;"/>
+    <p>
+     <strong>
+      ola ελληνικά
+     </strong>
+     (Boîte de nuit)
+    </p>
+    <p>
+     L'expérience grecque ultime vous attend, êtes-vous prêt?
+    </p>
+    <a href="https://maps.app.goo.gl/7E5LtMTGJ8Fk1jEi6" target="_blank">
+     Triptolemou 50, Athènes 175 63
+    </a>
+   </div>
+   <div class="lang ad-block" dir="rtl" id="ad-ar" style="text-align: right;;border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <h2 style="text-align:center;">
+     إعلان
+    </h2>
+    <img alt="ola Greek Nightclub" src="https://github.com/dedsec1121fk/DedSec/blob/096994d4cc1eaf0923bb14ae72422892a4d8f6f4/Extra%20Content/Images/oLa%20%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC.jpg?raw=true" style="max-width:100%;border-radius:8px;margin-top:10px;"/>
+    <p>
+     <strong>
+      ola ελληνικά
+     </strong>
+     (ملهى ليلي)
+    </p>
+    <p>
+     التجربة اليونانية المطلقة تنتظرك — هل أنت مستعد لها؟
+    </p>
+    <a href="https://maps.app.goo.gl/7E5LtMTGJ8Fk1jEi6" target="_blank">
+     Triptolemou 50، أثينا 175 63
+    </a>
+   </div>
+   <div class="lang ad-block" id="ad-hi" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <h2 style="text-align:center;">
+     विज्ञापन
+    </h2>
+    <img alt="ola Greek Nightclub" src="https://github.com/dedsec1121fk/DedSec/blob/096994d4cc1eaf0923bb14ae72422892a4d8f6f4/Extra%20Content/Images/oLa%20%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC.jpg?raw=true" style="max-width:100%;border-radius:8px;margin-top:10px;"/>
+    <p>
+     <strong>
+      ola ελληνικά
+     </strong>
+     (नाइट क्लब)
+    </p>
+    <p>
+     परम ग्रीक अनुभव आपका इंतजार कर रहा है—क्या आप इसके लिए तैयार हैं?
+    </p>
+    <a href="https://maps.app.goo.gl/7E5LtMTGJ8Fk1jEi6" target="_blank">
+     ट्रिप्टोलेमोउ 50, एथिना 175 63
+    </a>
+   </div>
+   <div class="lang ad-block" id="ad-sq" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+    <h2 style="text-align:center;">
+     Reklama
+    </h2>
+    <img alt="ola Greek Nightclub" src="https://github.com/dedsec1121fk/DedSec/blob/096994d4cc1eaf0923bb14ae72422892a4d8f6f4/Extra%20Content/Images/oLa%20%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC.jpg?raw=true" style="max-width:100%;border-radius:8px;margin-top:10px;"/>
+    <p>
+     <strong>
+      ola ελληνικά
+     </strong>
+     (Klub nate)
+    </p>
+    <p>
+     Përvoja supreme Greke ju pret—a jeni gati për të?
+    </p>
+    <a href="https://maps.app.goo.gl/7E5LtMTGJ8Fk1jEi6" target="_blank">
+     Triptolemou 50, Athinë 175 63
+    </a>
+   </div>
+   <div class="badge-row" style="margin-top: 1.5em;">
+    <a href="https://www.patreon.com/c/dedsec1121fk/membership?redirect=true" target="_blank">
+     <img alt="Become a Patron" src="https://img.shields.io/badge/Patreon-Become%20a%20Patron-orange?logo=patreon"/>
+    </a>
+    <a href="https://github.com/dedsec1121fk/DedSec" target="_blank">
+     <img alt="GitHub Repo" src="https://img.shields.io/badge/GitHub-View%20on%20GitHub-blue?logo=github"/>
+    </a>
+    <a href="https://www.instagram.com/username112104?igsh=MnR2eTdxaTN5ZHZi" target="_blank">
+     <img alt="Instagram" src="https://img.shields.io/badge/Instagram-Follow%20Me-purple?logo=instagram"/>
+    </a>
+   </div>
+   <div class="donation-block" style="margin-top: 0.8rem; text-align: center;">
+    <p>
+     Donate With Crypto POL (Polygon) Address:
+    </p>
+    <div class="code-container">
+     <button class="copy-btn" data-target="donationAddress">
+      Copy
+     </button>
+     <code id="donationAddress">
+      0x8a88c8bCCc1cCD1bB02622465EA9051051eB06Ff
+     </code>
+    </div>
+   </div>
+   <script>
+    document.getElementById("donationAddress").addEventListener("click", function () {
+  document.execCommand('copy'); // Use document.execCommand for clipboard copy
+    this.textContent = "Address Copied!";
+    setTimeout(() => {
+      this.textContent = "0x8a88c8bCCc1cCD1bB02622465EA9051051eB06Ff";
+    }, 1500);
+});
+
+// For copying, a custom handler for document.execCommand('copy') is needed
+document.addEventListener('copy', function(e) {
+  const codeElement = document.getElementById('donationAddress');
+  if (codeElement && window.getSelection().toString() === codeElement.textContent.trim()) {
+    e.clipboardData.setData('text/plain', codeElement.textContent.trim());
+    e.preventDefault();
+  }
+});
+   </script>
+   <style>
+    .language-button.selected {
+    background-color: black !important;
+    color: #9370DB !important;
+}
+   </style>
+   <script>
+    document.querySelectorAll('.language-button').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.language-button').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+    });
+});
+   </script>
+   <h2 id="credits-title" style="margin-top:1.5em;text-align:center;">
+    Credits
+   </h2>
+   <div style="border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px; font-size: 0.9rem; line-height: 1.4em; color: #fff;">
+    <div class="lang active" id="credits-en" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+     <p>
+      <b>
+       Creator:
+      </b>
+      dedsec1121fk
+     </p>
+     <p>
+      <b>
+       Music Artists:
+      </b>
+      BFR TEAM, PLANNO MAN, KouNouPi, ADDICTED, JAVASPA.ZY.A2.N, ICE, Lefka City, HXLX, Giannis Vardis, Lavyrinthos, Komis X, GR$, Sugar Boy, Sakin, XALILOP1, Family Lockations, Christina Markesini
+     </p>
+     <p>
+      <b>
+       Art Artist:
+      </b>
+      Christina Chatzidimitriou
+     </p>
+     <p>
+      <b>
+       Voice Overs:
+      </b>
+      Dimitra Isxuropoulou
+     </p>
+     <p>
+      <b>
+       Technical Help:
+      </b>
+      lamprouil, UKI_hunter
+     </p>
+    </div>
+    <div class="lang" id="credits-gr" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+     <p>
+      <b>
+       Δημιουργός:
+      </b>
+      dedsec1121fk
+     </p>
+     <p>
+      <b>
+       Μουσικοί Καλλιτέχνες:
+      </b>
+      BFR TEAM, PLANNO MAN, KouNouPi, ADDICTED, JAVASPA.ZY.A2.N, ICE, Lefka City, HXLX, Γιάννης Βαρδής, Λαβύρινθος, Κομισ Χ, GR$, Sugar Boy, Sakin, XALILOP1, Family Lockations, Χριστίνα Μαρκεσίνη
+     </p>
+     <p>
+      <b>
+       Καλλιτέχνης Τέχνης:
+      </b>
+      Χριστίνα Χατζηδημητρίου
+     </p>
+     <p>
+      <b>
+       Φωνητικά:
+      </b>
+      Δήμητρα Ισχυροπούλου
+     </p>
+     <p>
+      <b>
+       Τεχνική Βοήθεια:
+      </b>
+      lamprouil, UKI_hunter
+     </p>
+    </div>
+    <div class="lang" id="credits-de" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+     <p>
+      <b>
+       Ersteller:
+      </b>
+      dedsec1121fk
+     </p>
+     <p>
+      <b>
+       Musikkünstler:
+      </b>
+      BFR TEAM, PLANNO MAN, KouNouPi, ADDICTED, JAVASPA.ZY.A2.N, ICE, Lefka City, HXLX, Giannis Vardis, Lavyrinthos, Komis X, GR$, Sugar Boy, Sakin, XALILOP1, Family Lockations, Christina Markesini
+     </p>
+     <p>
+      <b>
+       Kunstkünstler:
+      </b>
+      Christina Chatzidimitriou
+     </p>
+     <p>
+      <b>
+       Synchronsprecher:
+      </b>
+      Dimitra Isxuropoulou
+     </p>
+     <p>
+      <b>
+       Technische Hilfe:
+      </b>
+      lamprouil, UKI_hunter
+     </p>
+    </div>
+    <div class="lang" id="credits-fr" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+     <p>
+      <b>
+       Créateur:
+      </b>
+      dedsec1121fk
+     </p>
+     <p>
+      <b>
+       Artistes Musicaux:
+      </b>
+      BFR TEAM, PLANNO MAN, KouNouPi, ADDICTED, JAVASPA.ZY.A2.N, ICE, Lefka City, HXLX, Giannis Vardis, Lavyrinthos, Komis X, GR$, Sugar Boy, Sakin, XALILOP1, Family Lockations, Christina Markesini
+     </p>
+     <p>
+      <b>
+       Artiste d'Art:
+      </b>
+      Christina Chatzidimitriou
+     </p>
+     <p>
+      <b>
+       Voix Off:
+      </b>
+      Dimitra Isxuropoulou
+     </p>
+     <p>
+      <b>
+       Aide Technique:
+      </b>
+      lamprouil, UKI_hunter
+     </p>
+    </div>
+    <div class="lang" dir="rtl" id="credits-ar" style="text-align: right;;border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+     <p>
+      <b>
+       المنشئ:
+      </b>
+      dedsec1121fk
+     </p>
+     <p>
+      <b>
+       فنانو الموسيقى:
+      </b>
+      BFR TEAM, PLANNO MAN, KouNouPi, ADDICTED, JAVASPA.ZY.A2.N, ICE, Lefka City, HXLX, يانيس فارديس, لافيرينثوس, كوميس إكس, GR$, شوغر بوي, ساكين, XALILOP1, فاميلي لوكيشنز, كريستينا ماركيسيني
+     </p>
+     <p>
+      <b>
+       فنان الرسم:
+      </b>
+      كريستينا حاتزيديميتريو
+     </p>
+     <p>
+      <b>
+       التعليق الصوتي:
+      </b>
+      ديميترا إيسكسيروبولو
+     </p>
+     <p>
+      <b>
+       المساعدة التقنية:
+      </b>
+      lamprouil, UKI_hunter
+     </p>
+    </div>
+    <div class="lang" id="credits-hi" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+     <p>
+      <b>
+       निर्माता:
+      </b>
+      dedsec1121fk
+     </p>
+     <p>
+      <b>
+       संगीत कलाकार:
+      </b>
+      BFR TEAM, PLANNO MAN, KouNouPi, ADDICTED, JAVASPA.ZY.A2.N, ICE, Lefka City, HXLX, Giannis Vardis, Lavyrinthos, Komis X, GR$, Sugar Boy, Sakin, XALILOP1, Family Lockations, Christina Markesini
+     </p>
+     <p>
+      <b>
+       कला कलाकार:
+      </b>
+      Christina Chatzidimitriou
+     </p>
+     <p>
+      <b>
+       वॉयस ओवर:
+      </b>
+      Dimitra Isxuropoulou
+     </p>
+     <p>
+      <b>
+       तकनीकी सहायता:
+      </b>
+      lamprouil, UKI_hunter
+     </p>
+    </div>
+    <div class="lang" id="credits-sq" style=";border: 1px solid #9370DB; padding: 0.8rem; margin-top: 1rem; border-radius: 6px;">
+     <p>
+      <b>
+       Krijuesi:
+      </b>
+      dedsec1121fk
+     </p>
+     <p>
+      <b>
+       Artistë Muzikorë:
+      </b>
+      BFR TEAM, PLANNO MAN, KouNouPi, ADDICTED, JAVASPA.ZY.A2.N, ICE, Lefka City, HXLX, Giannis Vardis, Lavyrinthos, Komis X, GR$, Sugar Boy, Sakin, XALILOP1, Family Lockations, Christina Markesini
+     </p>
+     <p>
+      <b>
+       Artist(e) Arti:
+      </b>
+      Christina Chatzidimitriou
+     </p>
+     <p>
+      <b>
+       Zërat:
+      </b>
+      Dimitra Isxuropoulou
+     </p>
+     <p>
+      <b>
+       Ndihmë Teknike:
+      </b>
+      lamprouil, UKI_hunter
+     </p>
+    </div>
+   </div>
+   <footer>
+    © 2025 DedSec Project. All rights reserved.
+   </footer>
+  </div>
+  <script>
+    // Global variable to keep track of the current language for content and credits
+    let currentLanguage = 'en';
+
+    // Function to change the displayed language
+    function changeLanguage(lang) {
+        currentLanguage = lang; // Update the global variable
+        document.querySelectorAll('.lang').forEach(el => el.classList.remove('active'));
+        
+        // Activate main content
+        const mainContent = document.getElementById(lang);
+        if (mainContent) {
+            mainContent.classList.add('active');
+        
+    // Ads
+    document.querySelectorAll('[id^="ad-"]').forEach(el => el.classList.remove('active'));
+    const adContent = document.getElementById('ad-' + lang);
+    if (adContent) {
+        adContent.classList.add('active');
+    }
+}
+
+        // Activate credits content
+        const creditsContent = document.getElementById('credits-' + lang);
+        if (creditsContent) {
+            creditsContent.classList.add('active');
+        } else {
+            // Fallback to English credits if translation is missing
+            document.getElementById('credits-en').classList.add('active');
+        }
+        
+        // Set text direction
+        if (lang === 'ar') {
+            document.getElementById(lang).dir = 'rtl';
+            document.getElementById(lang).style.textAlign = 'right';
+            if (document.getElementById('credits-' + lang)) {
+                document.getElementById('credits-' + lang).dir = 'rtl';
+                document.getElementById('credits-' + lang).style.textAlign = 'right';
+            }
+        } else {
+            document.getElementById(lang).dir = 'ltr';
+            document.getElementById(lang).style.textAlign = 'left';
+             if (document.getElementById('credits-' + lang)) {
+                document.getElementById('credits-' + lang).dir = 'ltr';
+                document.getElementById('credits-' + lang).style.textAlign = 'left';
+            }
+        }
+
+        updateStats(); // Call updateStats when language changes
+    }
+
+    // Event listener for copy buttons
+    document.querySelectorAll('.copy-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const code = document.getElementById(button.dataset.target);
+            // Select the text for copying
+            const range = document.createRange();
+            range.selectNode(code);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+                setTimeout(() => button.textContent = 'Copy', 1400);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                button.textContent = 'Error!';
+                setTimeout(() => button.textContent = 'Copy', 1400);
+            }
+            window.getSelection().removeAllRanges(); // Deselect text
+        });
+    });
+  </script>
+  <style>
+   .language-button.selected {
+    background-color: black !important;
+    color: #9370DB !important;
+}
+  </style>
+  <script>
+   document.querySelectorAll('.language-button').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.language-button').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+    });
+});
+  </script>
+  <script>
+   const countryMap = {
+  "Germany": { "gr": "Γερμανία", "de": "Deutschland", "ar": "ألمانيا", "en": "Germany", "fr": "Allemagne", "hi": "जर्मनी", "sq": "Gjermani" },
+  "France": { "gr": "Γαλλία", "de": "Frankreich", "ar": "فرنسا", "en": "France", "fr": "France", "hi": "फ्रांस", "sq": "Francë" },
+  "Brazil": { "gr": "Βραζιλία", "de": "Brasilien", "ar": "البرازيل", "en": "Brazil", "fr": "Brésil", "hi": "ब्राज़िल", "sq": "Brazil" },
+  "Japan": { "gr": "Ιαπωνία", "de": "Japan", "ar": "اليابان", "en": "Japan", "fr": "Japon", "hi": "जापान", "sq": "Japoni" },
+  "Australia": { "gr": "Αυστραλία", "de": "Australien", "ar": "أستراليا", "en": "Australia", "fr": "Australie", "hi": "ऑस्ट्रेलिया", "sq": "Australi" },
+  "Netherlands": { "gr": "Ολλανδία", "de": "Niederlande", "ar": "هولندا", "en": "Netherlands", "fr": "Pays-Bas", "hi": "नीदरलैंड", "sq": "Holandë" },
+  "India": { "gr": "Ινδία", "de": "Indien", "ar": "الهند", "en": "India", "fr": "Inde", "hi": "भारत", "sq": "Indi" },
+  "South Korea": { "gr": "Νότια Κορέα", "de": "Südkorea", "ar": "كوريا الجنوبية", "en": "South Korea", "fr": "Corée du Sud", "hi": "दक्षिण कोरिया", "sq": "Koreja e Jugut" },
+  "UK": { "gr": "Ηνωμένο Βασίλειο", "de": "Großbritannien", "ar": "المملكة المتحدة", "en": "UK", "fr": "Royaume-Uni", "hi": "यूके", "sq": "Mbretëria e Bashkuar" },
+  "Italy": { "gr": "Ιταλία", "de": "Italien", "ar": "إيطاليا", "en": "Italy", "fr": "Italie", "hi": "इटली", "sq": "Itali" },
+  "Canada": { "gr": "Καναδάς", "de": "Kanada", "ar": "كندا", "en": "Canada", "fr": "Canada", "hi": "कनाडा", "sq": "Kanada" },
+  "Spain": { "gr": "Ισπανία", "de": "Spanien", "ar": "إسبانيا", "en": "Spain", "fr": "Espagne", "hi": "स्पेन", "sq": "Spanjë" },
+  "Poland": { "gr": "Πολωνία", "de": "Polen", "ar": "بولندا", "en": "Poland", "fr": "Pologne", "hi": "पोलैंड", "sq": "Poloni" },
+  "Greece": { "gr": "Ελλάδα", "de": "Griechenland", "ar": "اليونان", "en": "Greece", "fr": "Grèce", "hi": "यूनान", "sq": "Greqi" },
+  "Portugal": { "gr": "Πορτογαλία", "de": "Portugal", "ar": "البرتغال", "en": "Portugal", "fr": "Portugal", "hi": "पुर्तगाल", "sq": "Portugali" },
+  "Belgium": { "gr": "Βέλγιο", "de": "Belgien", "ar": "بلجيكا", "en": "Belgium", "fr": "Belgique", "hi": "बेल्जियम", "sq": "Belgjikë" },
+  "Sweden": { "gr": "Σουηδία", "de": "Schweden", "ar": "السويد", "en": "Sweden", "fr": "Suède", "hi": "स्वीडन", "sq": "Suedi" },
+  "Switzerland": { "gr": "Ελβετία", "de": "Schweiz", "ar": "سويسرا", "en": "Switzerland", "fr": "Suisse", "hi": "स्विट्ज़रलैंड", "sq": "Zvicër" },
+  "Austria": { "gr": "Αυστρία", "de": "Österreich", "ar": "النمسا", "en": "Austria", "fr": "Autriche", "hi": "ऑस्ट्रिया", "sq": "Austri" },
+  "Ireland": { "gr": "Ιρλανδία", "de": "Irland", "ar": "أيرلندا", "en": "Ireland", "fr": "Irlande", "hi": "आयरलैंड", "sq": "Irlandë" },
+  "Norway": { "gr": "Νορβηγία", "de": "Norwegen", "ar": "النرويج", "en": "Norway", "fr": "Norvège", "hi": "नॉर्वे", "sq": "Norvegji" },
+  "Denmark": { "gr": "Δανία", "de": "Dänemark", "ar": "الدänemark", "en": "Denmark", "fr": "Danemark", "hi": "डेनमार्क", "sq": "Danimarkë" },
+  "Finland": { "gr": "Φινλανδία", "de": "Finnland", "ar": "فنلندا", "en": "Finland", "fr": "Finlande", "hi": "फिनलैंड", "sq": "Finlandë" },
+  "Mexico": { "gr": "Μεξικό", "de": "Mexiko", "ar": "المكسيك", "en": "Mexico", "fr": "Mexique", "hi": "मेक्सिको", "sq": "Meksikë" },
+  "Argentina": { "gr": "Αργεντινή", "de": "Argentinien", "ar": "الأرجنتين", "en": "Argentina", "fr": "Argentine", "hi": "अर्जेंटीना", "sq": "Argjentinë" },
+  "Colombia": { "gr": "Κολομβία", "de": "Kolumbien", "ar": "كولومبيا", "en": "Colombia", "fr": "Colombie", "hi": "कोलंबिया", "sq": "Kolumbi" },
+  "Chile": { "gr": "Χιλή", "de": "Chile", "ar": "تشيلي", "en": "Chile", "fr": "Chili", "hi": "चिली", "sq": "Kili" },
+  "Peru": { "gr": "Περού", "de": "Peru", "ar": "بيرو", "en": "Peru", "fr": "Pérou", "hi": "पेरू", "sq": "Peru" },
+  "Egypt": { "gr": "Αίγυπτος", "de": "Ägypten", "ar": "مصر", "en": "Egypt", "fr": "Égypte", "hi": "मिस्र", "sq": "Egjipt" },
+  "South Africa": { "gr": "Νότια Αφρική", "de": "Südafrika", "ar": "جنوب أفريقيا", "en": "South Africa", "fr": "Afrique du Sud", "hi": "दक्षिण अफ्रीका", "sq": "Afrika e Jugut" },
+  "Nigeria": { "gr": "Νιγηρία", "de": "Nigeria", "ar": "نيجيريا", "en": "Nigeria", "fr": "Nigéria", "hi": "नाइजीरिया", "sq": "Nigeri" },
+  "Kenya": { "gr": "Κένυα", "de": "Kenia", "ar": "كينيا", "en": "Kenya", "fr": "Kenya", "hi": "केन्या", "sq": "Kenia" },
+  "Saudi Arabia": { "gr": "Σαουδική Αραβία", "de": "Saudi-Arabien", "ar": "المملكة العربية السعودية", "en": "Saudi Arabia", "fr": "Arabie saoudite", "hi": "सऊदी अरब", "sq": "Arabia Saudite" },
+  "UAE": { "gr": "Ηνωμένα Αραβικά Εμιράτα", "de": "VAE", "ar": "الإمارات العربية المتحدة", "en": "UAE", "fr": "EAU", "hi": "यूएई", "sq": "Emiratet e Bashkuara Arabe" },
+  "Turkey": { "gr": "Τουρκία", "de": "Türkei", "ar": "تركيا", "en": "Turkey", "fr": "Turquie", "hi": "तुर्की", "sq": "Turqi" },
+  "Thailand": { "gr": "Ταϊλάνδη", "de": "Thailand", "ar": "تايلاند", "en": "Thailand", "fr": "Thaïlande", "hi": "थाईलैंड", "sq": "Tajlandë" },
+  "Vietnam": { "gr": "Βιετνάμ", "de": "Vietnam", "ar": "فيتنام", "en": "Vietnam", "fr": "Viêt Nam", "hi": "वियतनाम", "sq": "Vietnam" },
+  "Indonesia": { "gr": "Ινδονησία", "de": "Indonesien", "ar": "إندونيسيا", "en": "Indonesia", "fr": "Indonésie", "hi": "इंडोनेशिया", "sq": "Indonezi" },
+  "Malaysia": { "gr": "Μαλαισία", "de": "Malaysia", "ar": "ماليزيا", "en": "Malaysia", "fr": "Malaisie", "hi": "मलेशिया", "sq": "Malajzi" },
+  "Philippines": { "gr": "Φιλιππίνες", "de": "Philippinen", "ar": "الفلبين", "en": "Philippines", "fr": "Philippines", "hi": "फिलीपींस", "sq": "Filipine" },
+  "New Zealand": { "gr": "Νέα Ζηλανδία", "de": "Neuseeland", "ar": "نيوزيلندا", "en": "New Zealand", "fr": "Nouvelle-Zélande", "hi": "न्यूजीलैंड", "sq": "Zelanda e Re" },
+  "Israel": { "gr": "Ισραήλ", "de": "Israel", "ar": "إسرائيل", "en": "Israel", "fr": "Israël", "hi": "इज़राइल", "sq": "Izrael" },
+  "Russia": { "gr": "Ρωσία", "de": "Russland", "ar": "روسيا", "en": "Russia", "fr": "Russie", "hi": "रूस", "sq": "Rusi" },
+  "Ukraine": { "gr": "Ουκρανία", "de": "Ukraine", "ar": "أوكرانيا", "en": "Ukraine", "fr": "Ukraine", "hi": "यूक्रेन", "sq": "Ukrainë" },
+  "Romania": { "gr": "Ρουμανία", "de": "Rumänien", "ar": "رومانيا", "en": "Romania", "fr": "Roumanie", "hi": "रोमानिया", "sq": "Rumani" },
+  "Hungary": { "gr": "Ουγγαρία", "de": "Ungarn", "ar": "المجر", "en": "Hungary", "fr": "Hongrie", "hi": "हंगरी", "sq": "Hungari" },
+  "Czech Republic": { "gr": "Τσεχία", "de": "Tschechien", "ar": "جمهورية التشيك", "en": "Czech Republic", "fr": "République tchèque", "hi": "चेक गणराज्य", "sq": "Republika Çeke" },
+  "Slovakia": { "gr": "Σλοβακία", "de": "Slowakei", "ar": "سلوفاكيا", "en": "Slovakia", "fr": "Slovaquie", "hi": "स्लोवाकिया", "sq": "Sllovaki" },
+  "Croatia": { "gr": "Κροατία", "de": "Kroatien", "ar": "كرواتيا", "en": "Croatia", "fr": "Croatie", "hi": "क्रोएशिया", "sq": "Kroaci" },
+  "Serbia": { "gr": "Σερβία", "de": "Serbien", "ar": "صربيا", "en": "Serbia", "fr": "Serbie", "hi": "सर्बिया", "sq": "Serbi" },
+  "Bulgaria": { "gr": "Βουλγαρία", "de": "Bulgarien", "ar": "بلغاريا", "en": "Bulgaria", "fr": "Bulgarie", "hi": "बुल्गारिया", "sq": "Bullgari" },
+  "Cyprus": { "gr": "Κύπρος", "de": "Zypern", "ar": "قبرص", "en": "Cyprus", "fr": "Chypre", "hi": "साइप्रस", "sq": "Qipro" },
+  "Malta": { "gr": "Μάλτα", "de": "Malta", "ar": "مالطا", "en": "Malta", "fr": "Malte", "hi": "माल्टा", "sq": "Maltë" },
+  "Luxembourg": { "gr": "Λουξεμβούργο", "de": "Luxemburg", "ar": "لوكسمبورغ", "en": "Luxembourg", "fr": "Luxembourg", "hi": "लक्ज़मबर्ग", "sq": "Luksemburg" },
+  "Iceland": { "gr": "Ισλανδία", "de": "Island", "ar": "آيسلندا", "en": "Iceland", "fr": "Islande", "hi": "आइसलैंड", "sq": "Islandë" },
+  "Latvia": { "gr": "Λετονία", "de": "Lettland", "ar": "لاتفيا", "en": "Latvia", "fr": "Lettonie", "hi": "लातविया", "sq": "Letoni" },
+  "Lithuania": { "gr": "Λιθουανία", "de": "Litauen", "ar": "ليتوانيا", "en": "Lithuania", "fr": "Lituanie", "hi": "लिथुआनिया", "sq": "Lituani" },
+  "Estonia": { "gr": "Εσθονία", "de": "Estland", "ar": "إستونيا", "en": "Estonia", "fr": "Estonie", "hi": "एस्टोनिया", "sq": "Estoni" },
+  "Slovenia": { "gr": "Σλοβενία", "de": "Slowenien", "ar": "سلوفينيا", "en": "Slovenia", "fr": "Slovénie", "hi": "स्लोवेनिया", "sq": "Slloveni" },
+  "Bosnia and Herzegovina": { "gr": "Βοσνία-Ερζεγοβίνη", "de": "Bosnien und Herzegowina", "ar": "البوسنة والهرسك", "en": "Bosnia and Herzegovina", "fr": "Bosnie-Herzégovine", "hi": "बोस्निया और हर्ज़ेगोविना", "sq": "Bosnjë dhe Hercegovinë" },
+  "North Macedonia": { "gr": "Βόρεια Μακεδονία", "de": "Nordmazedonien", "ar": "مقدونيا الشمالية", "en": "North Macedonia", "fr": "Macédoine du Nord", "hi": "उत्तरी मैसेडोनिया", "sq": "Maqedonia e Veriut" },
+  "Albania": { "gr": "Αλβανία", "de": "Albanien", "ar": "ألبانيا", "en": "Albania", "fr": "Albanie", "hi": "अल्बानिया", "sq": "Shqipëri" },
+  "Montenegro": { "gr": "Μαυροβούνιο", "de": "Montenegro", "ar": "الجبل الأسود", "en": "Montenegro", "fr": "Monténégro", "hi": "मोंटेनेग्रो", "sq": "Mali i Zi" },
+  "Kosovo": { "gr": "Κοσσυφοπέδιο", "de": "Kosovo", "ar": "كوسوفو", "en": "Kosovo", "fr": "Kosovo", "hi": "कोसोवो", "sq": "Kosovë" },
+  "Moldova": { "gr": "Μολδαβία", "de": "Moldawien", "ar": "مولدوفا", "en": "Moldova", "fr": "Moldavie", "hi": "मोल्दोवा", "sq": "Moldavi" },
+  "Belarus": { "gr": "Λευκορωσία", "de": "Belarus", "ar": "بيلاروسيا", "en": "Belarus", "fr": "Biélorussie", "hi": "बेलारूस", "sq": "Bjellorusi" },
+  "Georgia": { "gr": "Γεωργία", "de": "Georgien", "ar": "جورجيا", "en": "Georgia", "fr": "Géorgie", "hi": "जॉर्जिया", "sq": "Gjeorgji" },
+  "Armenia": { "gr": "Αρμενία", "de": "Armenien", "ar": "أرمينيا", "en": "Armenia", "fr": "Arménie", "hi": "आर्मीनिया", "sq": "Armeni" },
+  "Azerbaijan": { "gr": "Αζερμπαϊτζάν", "de": "Aserbaidschan", "ar": "أذربيجان", "en": "Azerbaijan", "fr": "Azerbaïdjan", "hi": "अज़रबैजान", "sq": "Azerbajxhan" },
+  "Kazakhstan": { "gr": "Καζακστάν", "de": "Kasachstan", "ar": "كازاخستان", "en": "Kazakhstan", "fr": "Kazakhstan", "hi": "कज़ाखस्तान", "sq": "Kazakistan" },
+  "Uzbekistan": { "gr": "Ουζμπεκιστάν", "de": "Usbekistan", "ar": "أوزبكستان", "en": "Uzbekistan", "fr": "Ouzbékistan", "hi": "उज़्बेकिस्तान", "sq": "Uzbekistan" },
+  "Turkmenistan": { "gr": "Τουρκμενιστάν", "de": "Turkmenistan", "ar": "تركمانستان", "en": "Turkmenistan", "fr": "Turkménistan", "hi": "तुर्कमेनिस्तान", "sq": "Turkmenistan" },
+  "Kyrgyzstan": { "gr": "Κιργιστάν", "de": "Kirgisistan", "ar": "قيرغيزستان", "en": "Kyrgyzstan", "fr": "Kirghizistan", "hi": "किर्गिज़स्तान", "sq": "Kirgistan" },
+  "Tajikistan": { "gr": "Τατζικιστάν", "de": "Tadschikistan", "ar": "طاجيكستان", "en": "Tajikistan", "fr": "Tadjikistan", "hi": "ताजिकिस्तान", "sq": "Taxhikistan" },
+  "Afghanistan": { "gr": "Αφγανιστάν", "de": "Afghanistan", "ar": "أفغانستان", "en": "Afghanistan", "fr": "Afghanistan", "hi": "अफ़गानिस्तान", "sq": "Afganistan" },
+  "Pakistan": { "gr": "Πακιστάν", "de": "Pakistan", "ar": "باكستان", "en": "Pakistan", "fr": "Pakistan", "hi": "पाकिस्तान", "sq": "Pakistan" },
+  "Bangladesh": { "gr": "Μπαγκλαντές", "de": "Bangladesch", "ar": "بنجلاديش", "en": "Bangladesh", "fr": "Bangladesh", "hi": "बांग्लादेश", "sq": "Bangladesh" },
+  "Sri Lanka": { "gr": "Σρι Λάνκα", "de": "Sri Lanka", "ar": "سري لانكا", "en": "Sri Lanka", "fr": "Sri Lanka", "hi": "श्रीलंका", "sq": "Sri Lankë" },
+  "Nepal": { "gr": "Νεπάλ", "de": "Nepal", "ar": "نيبال", "en": "Nepal", "fr": "Népal", "hi": "नेपाल", "sq": "Nepal" },
+  "Myanmar": { "gr": "Μιανμάρ", "de": "Myanmar", "ar": "ميانمار", "en": "Myanmar", "fr": "Myanmar", "hi": "म्यांमार", "sq": "Mianmar" },
+  "Cambodia": { "gr": "Καμπότζη", "de": "Kambodscha", "ar": "كمبوديا", "en": "Cambodia", "fr": "Cambodge", "hi": "कंबोडिया", "sq": "Kamboxhia" },
+  "Laos": { "gr": "Λάος", "de": "Laos", "ar": "لاوس", "en": "Laos", "fr": "Laos", "hi": "लाओस", "sq": "Laos" },
+  "Mongolia": { "gr": "Μογγολία", "de": "Mongolei", "ar": "منغوليا", "en": "Mongolia", "fr": "Mongolie", "hi": "मंगोलिया", "sq": "Mongoli" },
+  "Iraq": { "gr": "Ιράκ", "de": "Irak", "ar": "العراق", "en": "Iraq", "fr": "Irak", "hi": "इराक", "sq": "Irak" },
+  "Iran": { "gr": "Ιράν", "de": "Iran", "ar": "إيران", "en": "Iran", "fr": "Iran", "hi": "ईरान", "sq": "Iran" },
+  "Syria": { "gr": "Συρία", "de": "Syrien", "ar": "سوريا", "en": "Syria", "fr": "Syrie", "hi": "सीरिया", "sq": "Siri" },
+  "Jordan": { "gr": "Ιορδανία", "de": "Jordanien", "ar": "الأردن", "en": "Jordan", "fr": "Jordanie", "hi": "जॉर्डन", "sq": "Jordani" },
+  "Lebanon": { "gr": "Λίβανος", "de": "Libanon", "ar": "لبنان", "en": "Lebanon", "fr": "Liban", "hi": "लेबनान", "sq": "Liban" },
+  "Kuwait": { "gr": "Κουβέιτ", "de": "Kuwait", "ar": "الكويت", "en": "Kuwait", "fr": "Koweït", "hi": "कुवैत", "sq": "Kuvajt" },
+  "Qatar": { "gr": "Κατάρ", "de": "Katar", "ar": "قطر", "en": "Qatar", "fr": "Qatar", "hi": "कतर", "sq": "Katar" },
+  "Bahrain": { "gr": "Μπαχρέιν", "de": "Bahrain", "ar": "البحرين", "en": "Bahrain", "fr": "Bahreïn", "hi": "बहरीन", "sq": "Bahrein" },
+  "Oman": { "gr": "Ομάν", "de": "Oman", "ar": "عمان", "en": "Oman", "fr": "Oman", "hi": "ओमान", "sq": "Oman" },
+  "Yemen": { "gr": "Υεμένη", "de": "Jemen", "ar": "اليمن", "en": "Yemen", "fr": "Yémen", "hi": "यमन", "sq": "Jemen" },
+  "Morocco": { "gr": "Μαρόκο", "de": "Marokko", "ar": "المغرب", "en": "Morocco", "fr": "Maroc", "hi": "मोरक्को", "sq": "Marok" },
+  "Algeria": { "gr": "Αλγερία", "de": "Algerien", "ar": "الجزائر", "en": "Algeria", "fr": "Algérie", "hi": "अल्जीरिया", "sq": "Algjeri" },
+  "Tunisia": { "gr": "Τυνησία", "de": "Tunesien", "ar": "تونس", "en": "Tunisia", "fr": "Tunisie", "hi": "ट्यूनीशिया", "sq": "Tunizi" },
+  "Libya": { "gr": "Λιβύη", "de": "Libyen", "ar": "ليبيا", "en": "Libya", "fr": "Libye", "hi": "लीबिया", "sq": "Libi" },
+  "Sudan": { "gr": "Σουδάν", "de": "Sudan", "ar": "السودان", "en": "Sudan", "fr": "Soudan", "hi": "सूडान", "sq": "Sudan" },
+  "Ethiopia": { "gr": "Αιθιοπία", "de": "Äthiopien", "ar": "إثيوبيا", "en": "Ethiopia", "fr": "Éthiopie", "hi": "इथियोपिया", "sq": "Etiopi" },
+  "Somalia": { "gr": "Σομαλία", "de": "Somalia", "ar": "الصومال", "en": "Somalia", "fr": "Somalie", "hi": "सोमालिया", "sq": "Somali" },
+  "DR Congo": { "gr": "Λ.Δ. Κονγκό", "de": "DR Kongo", "ar": "جمهورية الكونغو الديمقراطية", "en": "DR Congo", "fr": "RD Congo", "hi": "डीआर कांगो", "sq": "RD Kongo" },
+  "Angola": { "gr": "Ανγκόλα", "de": "Angola", "ar": "أنغولا", "en": "Angola", "fr": "Angola", "hi": "अंगोला", "sq": "Angolë" },
+  "Mozambique": { "gr": "Μοζαμβίκη", "de": "Mosambik", "ar": "موزمبيق", "en": "Mozambique", "fr": "Mozambique", "hi": "मोज़ाम्बिक", "sq": "Mozambik" },
+  "Madagascar": { "gr": "Μαδαγασκάρη", "de": "Madagaskar", "ar": "مدغشقر", "en": "Madagascar", "fr": "Madagascar", "hi": "मेडागास्कर", "sq": "Madagaskar" },
+  "Ghana": { "gr": "Γκάνα", "de": "Ghana", "ar": "غانا", "en": "Ghana", "fr": "Ghana", "hi": "घाना", "sq": "Ganë" },
+  "Ivory Coast": { "gr": "Ακτή Ελεφαντοστού", "de": "Elfenbeinküste", "ar": "ساحل العاج", "en": "Ivory Coast", "fr": "Côte d'Ivoire", "hi": "आइवरी कोस्ट", "sq": "Bregu i Fildishtë" },
+  "Cameroon": { "gr": "Καμερούν", "de": "Kamerun", "ar": "الكاميرون", "en": "Cameroon", "fr": "Cameroun", "hi": "कैमरून", "sq": "Kamerun" },
+  "Uganda": { "gr": "Ουγκάντα", "de": "Uganda", "ar": "أوغندا", "en": "Uganda", "fr": "Ouganda", "hi": "युगांडा", "sq": "Ugandë" },
+  "Tanzania": { "gr": "Τανζανία", "de": "Tansania", "ar": "تنزانيا", "en": "Tanzania", "fr": "Tanzanie", "hi": "तंजानिया", "sq": "Tanzani" },
+  "Zimbabwe": { "gr": "Ζιμπάμπουε", "de": "Simbabwe", "ar": "زيمبابوي", "en": "Zimbabwe", "fr": "Zimbabwe", "hi": "ज़िम्बाब्वे", "sq": "Zimbabve" },
+  "Zambia": { "gr": "Ζάμπια", "de": "Sambia", "ar": "زامبيا", "en": "Zambia", "fr": "Zambie", "hi": "ज़ाम्बिया", "sq": "Zambi" },
+  "Rwanda": { "gr": "Ρουάντα", "de": "Ruanda", "ar": "رواندا", "en": "Rwanda", "fr": "Rwanda", "hi": "रवांडा", "sq": "Ruandë" },
+  "Burundi": { "gr": "Μπουρούντι", "de": "Burundi", "ar": "بوروندي", "en": "Burundi", "fr": "Burundi", "hi": "बुरुंडी", "sq": "Burundi" },
+  "Benin": { "gr": "Μπενίν", "de": "Benin", "ar": "بنين", "en": "Benin", "fr": "Bénin", "hi": "बेनिन", "sq": "Benin" },
+  "Togo": { "gr": "Τόγκο", "de": "Togo", "ar": "توغو", "en": "Togo", "fr": "Togo", "hi": "टोगो", "sq": "Togo" },
+  "Niger": { "gr": "Νίγηρας", "de": "Niger", "ar": "النيجر", "en": "Niger", "fr": "Niger", "hi": "नाइजर", "sq": "Niger" },
+  "Mali": { "gr": "Μάλι", "de": "Mali", "ar": "مالي", "en": "Mali", "fr": "Mali", "hi": "माली", "sq": "Mali" },
+  "Burkina Faso": { "gr": "Μπουρκίνα Φάσο", "de": "Burkina Faso", "ar": "بوركينا فاسو", "en": "Burkina Faso", "fr": "Burkina Faso", "hi": "बुर्किना फासो", "sq": "Burkina Faso" },
+  "Senegal": { "gr": "Σενεγάλη", "de": "Senegal", "ar": "السنغال", "en": "Senegal", "fr": "Sénégal", "hi": "सेनेगल", "sq": "Senegal" },
+  "Guinea": { "gr": "Γουινέα", "de": "Guinea", "ar": "غينيا", "en": "Guinea", "fr": "Guinée", "hi": "गिनी", "sq": "Guine" },
+  "Chad": { "gr": "Τσαντ", "de": "Tschad", "ar": "تشاد", "en": "Chad", "fr": "Tchad", "hi": "चाड", "sq": "Çad" },
+  "South Sudan": { "gr": "Νότιο Σουδάν", "de": "Südsudan", "ar": "جنوب السودان", "en": "South Sudan", "fr": "Soudan du Sud", "hi": "दक्षिण सूडान", "sq": "Sudani i Jugut" },
+  "Central African Republic": { "gr": "Κεντροαφρικανική Δημοκρατία", "de": "Zentralafrikanische Republik", "ar": "جمهورية أفريقيا الوسطى", "en": "Central African Republic", "fr": "République centrafricaine", "hi": "मध्य अफ़्रीकी गणराज्य", "sq": "Republika e Afrikës Qendrore" },
+  "Congo": { "gr": "Κονγκό", "de": "Kongo", "ar": "الكونغو", "en": "Congo", "fr": "Congo", "hi": "कांगो", "sq": "Kongo" },
+  "Eritrea": { "gr": "Ερυθραία", "de": "Eritrea", "ar": "إريتريا", "en": "Eritrea", "fr": "Érythrée", "hi": "इरिट्रिया", "sq": "Eritre" },
+  "Djibouti": { "gr": "Τζιμπουτί", "de": "Dschibuti", "ar": "جيبوتي", "en": "Djibouti", "fr": "Djibouti", "hi": "जिबूती", "sq": "Xhibuti" },
+  "Gambia": { "gr": "Γκάμπια", "de": "Gambia", "ar": "غامبيا", "en": "Gambia", "fr": "Gambie", "hi": "गाम्बिया", "sq": "Gambi" },
+  "Liberia": { "gr": "Λιβερία", "de": "Liberia", "ar": "ليبيريا", "en": "Liberia", "fr": "Libéria", "hi": "लाइबेरिया", "sq": "Liberi" },
+  "Sierra Leone": { "gr": "Σιέρα Λεόνε", "de": "Sierra Leone", "ar": "سيراليون", "en": "Sierra Leone", "fr": "Sierra Leone", "hi": "सिएरा लियोन", "sq": "Sierra Leone" },
+  "Mauritania": { "gr": "Μαυριτανία", "de": "Mauretanien", "ar": "موريتانيا", "en": "Mauritania", "fr": "Mauritanie", "hi": "मॉरिटानिया", "sq": "Mauritani" },
+  "Gabon": { "gr": "Γκαμπόν", "de": "Gabun", "ar": "الجابون", "en": "Gabon", "fr": "Gabon", "hi": "गैबॉन", "sq": "Gabon" },
+  "Equatorial Guinea": { "gr": "Ισημερινή Γουινέα", "de": "Äquatorialguinea", "ar": "غينيا الاستوائية", "en": "Equatorial Guinea", "fr": "Guinée équatoriale", "hi": "भूमध्यरेखीय गिनी", "sq": "Guinea Ekuatoriale" },
+  "Guinea-Bissau": { "gr": "Γουινέα-Μπισάου", "de": "Guinea-Bissau", "ar": "غينيا بيساو", "en": "Guinea-Bissau", "fr": "Guinée-Bissau", "hi": "गिनी-बिसाऊ", "sq": "Guine-Bisau" },
+  "Comoros": { "gr": "Κομόρες", "de": "Komoren", "ar": "جزر القمر", "en": "Comoros", "fr": "Comores", "hi": "कोमोरोस", "sq": "Komore" },
+  "Cape Verde": { "gr": "Πράσινο Ακρωτήριο", "de": "Kap Verde", "ar": "الرأس الأخضر", "en": "Cape Verde", "fr": "Cap-Vert", "hi": "केप वर्डे", "sq": "Kepi i Gjelbër" },
+  "Sao Tome and Principe": { "gr": "Σάο Τομέ και Πρίνσιπε", "de": "São Tomé und Príncipe", "ar": "ساو تومي وبرينسيبي", "en": "Sao Tome and Principe", "fr": "Sao Tomé-et-Principe", "hi": "साओ टोमे और प्रिंसिपे", "sq": "Sao Tome dhe Principe" }
+};
+
+   function translateCountry(country, lang) {
+     return countryMap[country] ? countryMap[country][lang] : country;
+   }
+
+   function deterministicRandom(seed) {
+     const x = Math.sin(seed) * 10000;
+     return x - Math.floor(x);
+   }
+
+   function updateStats() {
+     const ips = [
+       ["192.168.1.1", "Germany"], ["10.0.0.5", "France"], ["172.16.0.10", "Brazil"],
+       ["192.168.0.100", "Japan"], ["10.10.10.10", "Australia"], ["192.168.2.1", "Netherlands"],
+       ["172.20.1.1", "India"], ["10.0.0.1", "South Korea"], ["192.168.1.254", "UK"],
+       ["10.0.0.250", "Italy"], ["172.16.0.1", "Canada"], ["192.168.10.1", "Spain"],
+       ["10.0.0.100", "Poland"], ["172.16.0.200", "Greece"], ["192.168.1.50", "Portugal"],
+       ["10.0.0.150", "Belgium"], ["172.16.0.250", "Sweden"], ["192.168.1.75", "Switzerland"],
+       ["10.0.0.200", "Austria"], ["172.16.0.50", "Ireland"], ["192.168.1.120", "Norway"],
+       ["10.0.0.120", "Denmark"], ["172.16.0.120", "Finland"], ["192.168.1.130", "Mexico"],
+       ["10.0.0.130", "Argentina"], ["172.16.0.130", "Colombia"], ["192.168.1.140", "Chile"],
+       ["10.0.0.140", "Peru"], ["172.16.0.140", "Egypt"], ["192.168.1.150", "South Africa"],
+       ["10.0.0.150", "Nigeria"], ["172.16.0.150", "Kenya"], ["192.168.1.160", "Saudi Arabia"],
+       ["10.0.0.160", "UAE"], ["172.16.0.160", "Turkey"], ["192.168.1.170", "Thailand"],
+       ["10.0.0.170", "Vietnam"], ["172.16.0.170", "Indonesia"], ["192.168.1.180", "Malaysia"],
+       ["10.0.0.180", "Philippines"], ["172.16.0.180", "New Zealand"], ["192.168.1.190", "Israel"],
+       ["10.0.0.190", "Russia"], ["172.16.0.190", "Ukraine"], ["192.168.1.200", "Romania"],
+       ["10.0.0.200", "Hungary"], ["172.16.0.200", "Czech Republic"], ["192.168.1.210", "Slovakia"],
+       ["10.0.0.210", "Croatia"], ["172.16.0.210", "Serbia"], ["192.168.1.220", "Bulgaria"],
+       ["10.0.0.220", "Cyprus"], ["172.16.0.220", "Malta"], ["192.168.1.230", "Luxembourg"],
+       ["10.0.0.230", "Iceland"], ["172.16.0.230", "Latvia"], ["192.168.1.240", "Lithuania"],
+       ["10.0.0.240", "Estonia"], ["172.16.0.240", "Slovenia"], ["192.168.1.250", "Bosnia and Herzegovina"],
+       ["10.0.0.250", "North Macedonia"], ["172.16.0.250", "Albania"], ["192.168.1.1", "Montenegro"],
+       ["10.0.0.5", "Kosovo"], ["172.16.0.10", "Moldova"], ["192.168.0.100", "Belarus"],
+       ["10.10.10.10", "Georgia"], ["192.168.2.1", "Armenia"], ["172.20.1.1", "Azerbaijan"],
+       ["10.0.0.1", "Kazakhstan"], ["192.168.1.254", "Uzbekistan"], ["10.0.0.250", "Turkmenistan"],
+       ["172.16.0.1", "Kyrgyzstan"], ["192.168.10.1", "Tajikistan"], ["10.0.0.100", "Afghanistan"],
+       ["172.16.0.200", "Pakistan"], ["192.168.1.50", "Bangladesh"], ["10.0.0.150", "Sri Lanka"],
+       ["172.16.0.250", "Nepal"], ["192.168.1.75", "Myanmar"], ["10.0.0.200", "Cambodia"],
+       ["172.16.0.50", "Laos"], ["192.168.1.120", "Mongolia"], ["10.0.0.120", "Iraq"],
+       ["172.16.0.120", "Iran"], ["192.168.1.130", "Syria"], ["10.0.0.130", "Jordan"],
+       ["172.16.0.130", "Lebanon"], ["192.168.1.140", "Kuwait"], ["10.0.0.140", "Qatar"],
+       ["172.16.0.140", "Bahrain"], ["192.168.1.150", "Oman"], ["10.0.0.150", "Yemen"],
+       ["172.16.0.150", "Morocco"], ["192.168.1.160", "Algeria"], ["10.0.0.160", "Tunisia"],
+       ["172.16.0.160", "Libya"], ["192.168.1.170", "Sudan"], ["10.0.0.170", "Ethiopia"],
+       ["172.16.0.170", "Somalia"], ["192.168.1.180", "DR Congo"], ["10.0.0.180", "Angola"],
+       ["172.16.0.180", "Mozambique"], ["192.168.1.190", "Madagascar"], ["10.0.0.190", "Ghana"],
+       ["172.16.0.190", "Ivory Coast"], ["192.168.1.200", "Cameroon"], ["10.0.0.200", "Uganda"],
+       ["172.16.0.200", "Tanzania"], ["192.168.1.210", "Zimbabwe"], ["10.0.0.210", "Zambia"],
+       ["172.16.0.210", "Rwanda"], ["192.168.1.220", "Burundi"], ["10.0.0.220", "Benin"],
+       ["172.16.0.220", "Togo"], ["192.168.1.230", "Niger"], ["10.0.0.230", "Mali"],
+       ["172.16.0.230", "Burkina Faso"], ["192.168.1.240", "Senegal"], ["10.0.0.240", "Guinea"],
+       ["172.16.0.240", "Chad"], ["192.168.1.250", "South Sudan"], ["10.0.0.250", "Central African Republic"],
+       ["172.16.0.250", "Congo"], ["192.168.1.1", "Eritrea"], ["10.0.0.5", "Djibouti"],
+       ["172.16.0.10", "Gambia"], ["192.168.0.100", "Liberia"], ["10.10.10.10", "Sierra Leone"],
+       ["192.168.2.1", "Mauritania"], ["172.20.1.1", "Gabon"], ["10.0.0.1", "Equatorial Guinea"],
+       ["192.168.1.254", "Guinea-Bissau"], ["10.0.0.250", "Comoros"], ["172.16.0.1", "Cape Verde"],
+       ["192.168.10.1", "Sao Tome and Principe"]
+     ];
+
+     const viewerMin = 5;
+     const viewerMax = 45;
+     const now = Date.now();
+
+     const ipListElem = document.getElementById('ipList');
+     const viewerElem = document.getElementById('viewerCount');
+     const lang = currentLanguage; // Use the global currentLanguage variable
+     
+     const viewerCount = Math.floor(deterministicRandom(now) * (viewerMax - viewerMin + 1)) + viewerMin;
+
+     const shuffled = ips.slice().sort((a, b) => {
+       const aSeed = deterministicRandom(now + a[0].charCodeAt(0));
+       const bSeed = deterministicRandom(now + b[0].charCodeAt(0));
+       return aSeed - bSeed;
+     });
+
+     ipListElem.innerText = `IP:\n${shuffled.slice(0, 3)
+       .map(ip => `${ip[0]} (${translateCountry(ip[1], lang)})`)
+       .join('\n')}`;
+
+     viewerElem.innerText = lang === 'gr'
+       ? `Ζωντανοί Θεατές: ${viewerCount}`
+       : lang === 'de'
+       ? `Live-Zuschauer: ${viewerCount}`
+       : lang === 'fr'
+       ? `Spectateurs en direct: ${viewerCount}`
+       : lang === 'ar'
+       ? `المشاهدون المباشرون: ${viewerCount}`
+       : lang === 'hi'
+       ? `लाइव दर्शक: ${viewerCount}`
+       : lang === 'sq'
+       ? `Shikuesit drejtpërdrejt: ${viewerCount}`
+       : `Live Viewers: ${viewerCount}`;
+   }
+
+   // Initial call and set interval
+   window.addEventListener('DOMContentLoaded', () => {
+       updateStats();
+       setInterval(updateStats, 12000);
+       // Set initial language to English
+       changeLanguage('en'); 
+   });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                // Toggle active class on header
+                header.classList.toggle('active');
+
+                // Toggle active class on content and manage max-height
+                if (content.classList.contains('active')) {
+                    content.classList.remove('active');
+                    content.style.maxHeight = '0';
+                } else {
+                    // Close all other open accordions in the same language block
+                    const parentLangBlock = header.closest('.lang');
+                    if (parentLangBlock) {
+                        parentLangBlock.querySelectorAll('.accordion-header.active').forEach(openHeader => {
+                            if (openHeader !== header) {
+                                openHeader.classList.remove('active');
+                                openHeader.nextElementSibling.classList.remove('active');
+                                openHeader.nextElementSibling.style.maxHeight = '0';
+                            }
+                        });
+                    }
+
+                    content.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+    });
+  </script>
+ </body>
+</html>
