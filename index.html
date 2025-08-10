@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   dedsec1121fk's Portfolio
+  </title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Base Styles & Lighter Purple Palette */
+    :root {
+        --bg-darkest: #231F2E;
+        --bg-dark: #2F2A40;
+        --bg-container: #3E3852;
+        --border-color: #595273;
+        --accent-primary: #A472E8;
+        --accent-hover: #BE93FD;
+        --warning-bg: #8A4FFF;
+        --text-light: #F0F0F0;
+        --text-muted: #9E9E9E;
+        --glow-color: rgba(164, 114, 232, 0.4);
+        --accept-color: #28a745;
+        --decline-color: #dc3545;
+    }
+
+    html {
+      font-size: 14px;
+      height: 100%;
+    }
+
+    body {
+      height: 100%;
+      width: 100vw;
+      margin: 0;
+      padding: 1rem;
+      background: var(--bg-darkest);
+      color: var(--text-light);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden !important;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .container {
+      width: 100%;
+      height: 100%;
+      max-width: 420px;
+      max-height: 900px;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      border: 2px solid var(--border-color);
+      border-radius: 0;
+      padding: 1rem;
+      box-sizing: border-box;
+      margin: 0 auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 25px var(--glow-color);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: max-width 0.3s ease-in-out;
+    }
+
+    /* --- HEADER LAYOUT --- */
+    .page-header {
+        display: flex;
+        flex-direction: column; 
+        align-items: center; 
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border-color); /* Separator between header and main content */
+        gap: 1.5rem;
+        text-align: center;
+        flex-shrink: 0;
+    }
+    
+    .header-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        order: 2;
+        width: 100%;
+    }
+
+    .header-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    .logo {
+      width: 120px; 
+      height: 120px;
+      display: block;
+      margin: 0;
+      border-radius: 0;
+      border: 3px solid var(--accent-primary);
+      transition: box-shadow 0.3s ease;
+      object-fit: cover;
+      flex-shrink: 0;
+      cursor: pointer;
+      order: 1;
+    }
+    
+    .logo:hover {
+        box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-light);
+      text-shadow: 0 0 8px var(--glow-color);
+    }
+    
+    blockquote {
+      background: var(--bg-dark);
+      border-left: 4px solid var(--accent-primary);
+      margin: 2rem 0;
+      padding: 0.8em 1em;
+      border-radius: 0;
+      font-style: italic;
+      color: var(--text-light);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      max-width: 90%;
+      align-self: center;
+    }
+    
+    main {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    
+    /* --- APP GRID (2 columns) --- */
+    .app-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .app-button {
+      background-color: var(--bg-container);
+      color: var(--text-light);
+      border: 1px solid var(--border-color);
+      border-radius: 0;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      line-height: 1.2;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+      padding: 0.8rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      word-break: break-word;
+      min-height: 50px;
+      justify-content: flex-start;
+      text-decoration: none;
+    }
+    
+    .app-button:hover {
+        background-color: var(--bg-dark);
+        border-color: var(--accent-primary);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4), 0 0 15px var(--glow-color);
+    }
+
+    .app-button i {
+        color: var(--accent-hover);
+        flex-shrink: 0;
+        font-size: 1.4rem;
+        margin-right: 0.8rem;
+        width: 25px;
+        text-align: center;
+    }
+
+    .app-button span {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    
+    .app-grid .app-button:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+    }
+
+    /* --- AD BLOCK (Original Style) --- */
+    .ad-block-container {
+        margin-top: auto;
+        padding: 1rem;
+        padding-top: 1.5rem;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        flex-shrink: 0;
+    }
+    .ad-block-container .ad-content {
+        background-color: var(--bg-container);
+        border-radius: 0;
+        border: 1px solid var(--border-color);
+        padding: 1rem;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+    .ad-block-container h2 {
+        font-size: 1.1rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        color: var(--accent-hover);
+    }
+    .ad-block-container img {
+        max-width: 100%;
+        border-radius: 0;
+        margin-bottom: 0.5rem;
+    }
+    .ad-block-container p {
+        margin: 0.3rem 0;
+        font-size: 0.9rem;
+    }
+    
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .modal-content {
+        background: var(--bg-container);
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        border-radius: 0;
+        padding: 1.5rem;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 0 30px var(--glow-color);
+        overflow-y: auto;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .modal-overlay.visible .modal-content {
+        transform: scale(1);
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.8rem;
+        flex-shrink: 0;
+    }
+
+    .modal-header h2 {
+        font-size: 1.3rem;
+        margin: 0;
+        color: var(--accent-primary);
+    }
+    
+    .modal-body {
+        overflow-y: auto;
+        flex-grow: 1;
+    }
+
+    .modal-body h3 {
+        color: var(--accent-hover);
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.3rem;
+    }
+
+    .close-modal {
+        background: none;
+        border: none;
+        color: var(--text-light);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .close-modal:hover {
+        color: var(--accent-hover);
+    }
+    
+    .language-buttons {
+        display: flex;
+        gap: 0.5rem;
+        grid-column: 1 / -1; /* Span full width on mobile */
+        justify-content: center;
+        padding-bottom: 1rem; /* Space for separator line */
+        margin-bottom: 1rem; /* Space after separator line */
+        border-bottom: 1px solid var(--border-color); /* Separator line for mobile */
+    }
+
+    .language-button {
+        background-color: var(--bg-dark);
+        color: var(--text-light);
+        border: 1px solid var(--border-color);
+        border-radius: 0;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        padding: 0.6rem 1.2rem; /* Make same size as other header buttons */
+    }
+
+    .language-button.selected {
+      background-color: var(--accent-primary);
+      border-color: var(--accent-primary);
+    }
+
+    .language-choice-btn {
+        background-color: var(--bg-container);
+        color: var(--text-light);
+        border: 1px solid var(--border-color);
+        border-radius: 0;
+        padding: 0.8rem 1.5rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .language-choice-btn:hover {
+        background-color: var(--bg-dark);
+        border-color: var(--accent-primary);
+    }
+    
+    .header-btn {
+        background-color: var(--bg-container);
+        color: var(--text-light);
+        border: 1px solid var(--border-color);
+        border-radius: 0;
+        padding: 0.6rem 1.2rem;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    .header-btn:hover {
+        background-color: var(--bg-dark);
+        border-color: var(--accent-primary);
+        color: var(--text-light);
+    }
+    
+    code, .inline-code {
+      background: var(--bg-darkest);
+      padding: 3px 6px;
+      border-radius: 0;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9em;
+      word-break: break-all;
+    }
+
+    .code-container {
+      position: relative;
+      margin: 1rem 0;
+      background: var(--bg-darkest);
+      border-radius: 0;
+      border: 1px solid var(--border-color);
+      padding: 1.2rem;
+      width: 100%;
+      max-width: 90%;
+      box-sizing: border-box;
+    }
+
+    .code-container code {
+        word-break: break-all;
+        text-align: center;
+        display: block;
+        padding-right: 65px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .copy-btn {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      background: var(--accent-primary);
+      color: var(--text-light);
+      border: none;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      border-radius: 0;
+      cursor: pointer;
+      z-index: 10;
+    }
+    
+    .note, .tip {
+      background: var(--bg-dark);
+      border-left: 4px solid #BF55EC;
+      margin: 1em 0;
+      padding: 0.8em 1em;
+      border-radius: 0;
+    }
+    
+    a {
+      color: var(--accent-primary);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+        flex-shrink: 0;
+    }
+
+    .modal-footer button {
+        padding: 0.6rem 1.2rem;
+        border-radius: 0;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: white;
+    }
+
+    .accept-btn {
+        background-color: var(--accept-color);
+    }
+    .accept-btn:hover {
+        opacity: 0.9;
+    }
+
+    .decline-btn {
+        background-color: var(--decline-color);
+    }
+    .decline-btn:hover {
+        opacity: 0.9;
+    }
+    
+    footer {
+        text-align: center;
+        padding: 1.5rem 1rem 0.5rem 1rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        flex-shrink: 0;
+        margin-top: auto;
+    }
+
+    #image-viewer-modal #expanded-img {
+        display: block;
+        max-width: 90vw;
+        max-height: 90vh;
+        width: auto;
+        height: auto;
+        border: 3px solid var(--accent-primary);
+        border-radius: 0;
+        box-shadow: 0 0 40px var(--glow-color);
+        object-fit: contain;
+        cursor: pointer;
+    }
+    
+    .donation-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: 1.5rem;
+    }
+
+    #contact-modal .modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 0;
+    }
+    
+    /* --- DESKTOP & TABLET STYLES --- */
+    @media (min-width: 768px) {
+        body {
+            padding: 2rem;
+        }
+        .container {
+            max-width: 960px;
+            padding: 2rem;
+        }
+
+        .page-header {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+        }
+        .header-text {
+            align-items: flex-start;
+            flex: 1;
+            order: 1;
+        }
+        .header-actions {
+            grid-template-columns: auto auto;
+            width: auto;
+            justify-content: flex-start;
+        }
+        .language-buttons {
+            grid-column: auto; /* Revert span */
+            justify-content: flex-start;
+            border-bottom: none; /* Remove horizontal separator */
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-right: 1px solid var(--border-color); /* Add vertical separator */
+            padding-right: 1rem;
+            margin-right: 1rem;
+        }
+        .logo {
+            width: 150px;
+            height: 150px;
+            order: 2;
+            margin-left: 2rem;
+        }
+        h1 {
+            font-size: 2.8rem;
+        }
+
+        .app-grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        .app-grid .app-button:last-child:nth-child(odd) {
+            grid-column: auto;
+        }
+    }
+    
+    /* --- SEPARATOR STYLE --- */
+    hr {
+        border: none;
+        border-top: 1px solid var(--border-color);
+        width: 100%;
+        margin: 1.5rem 0;
+    }
+
+  </style>
+ </head>
+ <body>
+  <div class="container">
+   <div class="page-header">
+        <div class="header-text">
+            <h1 data-en="dedsec1121fk's Portfolio" data-gr="Το Portfolio του dedsec1121fk">dedsec1121fk's Portfolio</h1>
+            <hr>
+            <div class="header-actions">
+                <div class="language-buttons">
+                    <button class="language-button" data-lang="en">English</button>
+                    <button class="language-button" data-lang="gr">Ελληνικά</button>
+                </div>
+                <button id="download-cv-btn" class="header-btn">
+                    <i class="fas fa-file-pdf"></i>
+                    <span data-en="Download CV" data-gr="Λήψη Βιογραφικού">Download CV</span>
+                </button>
+                <a href="https://instagram.com/username112104" target="_blank" class="header-btn">
+                    <i class="fab fa-instagram"></i>
+                    <span data-en="Instagram" data-gr="Instagram">Instagram</span>
+                </a>
+            </div>
+        </div>
+        <img alt="dedsec1121fk Logo" class="logo" src="https://github.com/dedsec1121fk/DedSec/raw/main/Extra%20Content/Images/Portofolio.jpg"/>
+   </div>
+  
+   <main>
+       <!-- App Grid (2 columns) -->
+       <div class="app-grid">
+           <button class="app-button" data-modal="about">
+               <i class="fas fa-info-circle"></i>
+               <span data-en="About The DedSec Project" data-gr="Σχετικά με το DedSec Project">About The DedSec Project</span>
+           </button>
+           <button class="app-button" data-modal="resistance">
+               <i class="fas fa-fist-raised"></i>
+               <span data-en="Digital Resistance" data-gr="Ψηφιακή Αντίσταση">Digital Resistance</span>
+           </button>
+           <button class="app-button" data-modal="installation">
+               <i class="fas fa-download"></i>
+               <span data-en="Installation & Setup" data-gr="Εγκατάσταση & Ρύθμιση">Installation & Setup</span>
+           </button>
+           <button class="app-button" data-modal="scripts">
+               <i class="fas fa-code"></i>
+               <span data-en="Scripts & Their Functionalities" data-gr="Σενάρια & Λειτουργίες">Scripts & Their Functionalities</span>
+           </button>
+           <button class="app-button" data-modal="legal">
+               <i class="fas fa-gavel"></i>
+               <span data-en="Legal & Ethical Notice" data-gr="Νομική & Ηθική Δήλωση">Legal & Ethical Notice</span>
+           </button>
+           <button class="app-button" data-modal="contact">
+               <i class="fas fa-link"></i>
+               <span data-en="Contact & Links" data-gr="Επικοινωνία & Σύνδεσμοι">Contact & Links</span>
+           </button>
+           <button class="app-button" data-modal="credits">
+               <i class="fas fa-users"></i>
+               <span data-en="Credits" data-gr="Συντελεστές">Credits</span>
+           </button>
+       </div>
+
+        <hr>
+        
+        <!-- GitHub Stats Graphs -->
+        <div style="text-align:center; margin-bottom:1rem;">
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=dedsec1121fk&theme=dracula&layout=compact" alt="Top Languages" style="width:100%; max-width:320px; border-radius:0; margin-bottom:1rem;">
+            <img src="https://github-readme-stats.vercel.app/api?username=dedsec1121fk&show_icons=true&theme=dracula" alt="GitHub Stats" style="width:100%; max-width:320px; border-radius:0;">
+        </div>
+
+        <hr>
+
+        <!-- EN Warning -->
+        <blockquote data-lang-section="en"><b>A standalone DedSec Project application will be available soon with even more features. Stay tuned for updates and release information.</b></blockquote>
+        <!-- GR Warning -->
+        <blockquote style="display:none;" data-lang-section="gr"><b>Μια αυτόνομη εφαρμογή του DedSec Project θα είναι σύντομα διαθέσιμη με ακόμη περισσότερα χαρακτηριστικά. Μείνετε συντονισμένοι για ενημερώσεις και πληροφορίες σχετικά με την κυκλοφορία.</b></blockquote>
+
+       <hr>
+
+       <div class="ad-block-container">
+           <div class="ad-content">
+                <div data-lang-section="en">
+                    <h2 data-en="Ads" data-gr="Διαφημίσεις">Ads</h2>
+                    <img alt="ola Greek Nightclub" src="https://github.com/dedsec1121fk/DedSec/blob/096994d4cc1eaf0923bb14ae72422892a4d8f6f4/Extra%20Content/Images/oLa%20%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC.jpg?raw=true"/>
+                    <p><strong>ola ελληνικά</strong> (Nightclub)</p>
+                    <p>The ultimate Greek experience awaits you!</p>
+                    <a href="https://maps.app.goo.gl/7E5LtMTGJ8Fk1jEi6" target="_blank">Triptolemou 50, Athina 175 63</a>
+                </div>
+                <div data-lang-section="gr" style="display:none;">
+                    <h2 data-en="Ads" data-gr="Διαφημίσεις">Διαφημίσεις</h2>
+                    <img alt="ola Greek Nightclub" src="https://github.com/dedsec1121fk/DedSec/blob/096994d4cc1eaf0923bb14ae72422892a4d8f6f4/Extra%20Content/Images/oLa%20%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC.jpg?raw=true"/>
+                    <p><strong>ola ελληνικά</strong> (Νυχτερινό Κέντρο)</p>
+                    <p>Η απόλυτη Ελληνική εμπειρία σε περιμένει!</p>
+                    <a href="https://maps.app.goo.gl/7E5LtMTGJ8Fk1jEi6" target="_blank">Triptolemou 50, Αθήνα 175 63</a>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+   </main>
+   
+   <footer>
+        <div data-lang-section="en">
+            <p>© 2025 dedsec1121fk. All Rights Reserved.</p>
+        </div>
+        <div data-lang-section="gr" style="display:none;">
+            <p>© 2025 dedsec1121fk. Με επιφύλαξη παντός δικαιώματος.</p>
+        </div>
+   </footer>
+  </div>
+
+  <!-- MODALS START HERE -->
+
+  <!-- Image Viewer Modal -->
+  <div id="image-viewer-modal" class="modal-overlay">
+      <img id="expanded-img" src="" alt="Expanded Profile Picture">
+  </div>
+
+  <!-- Language Selection Modal -->
+  <div id="language-selection-modal" class="modal-overlay">
+      <div class="modal-content" style="text-align: center;">
+          <div class="modal-header" style="justify-content: center; border-bottom: none;">
+              <h2>Choose Language / Επιλέξτε Γλώσσα</h2>
+          </div>
+          <div class="modal-body" style="display: flex; justify-content: center; gap: 1rem; padding: 2rem 0;">
+              <button class="language-choice-btn" data-lang="en">English</button>
+              <button class="language-choice-btn" data-lang="gr">Ελληνικά</button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Disclaimer Modal -->
+  <div id="disclaimer-modal" class="modal-overlay">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h2 data-en="Disclaimer & Terms of Use" data-gr="Αποποίηση Ευθύνης & Όροι Χρήσης">Disclaimer & Terms of Use</h2>
+          </div>
+          <div class="modal-body">
+            <div data-lang-section="en">
+              <div class="note">
+                <p><strong>PLEASE READ CAREFULLY BEFORE PROCEEDING.</strong></p>
+                <p>This project, including all associated tools, scripts, and documentation ("the Software"), is provided strictly for educational, research, and ethical security testing purposes. It is intended for use exclusively in controlled, authorized environments by users who have obtained explicit, prior written permission from the owners of any systems they intend to test.</p>
+                <p><strong>1. Assumption of Risk and Responsibility:</strong> By accessing or using the Software, you acknowledge and agree that you are doing so at your own risk. You are solely and entirely responsible for your actions and for any consequences that may arise from the use or misuse of this Software. This includes, but is not limited to, compliance with all applicable local, state, national, and international laws and regulations related to cybersecurity, data privacy, and electronic communications.</p>
+                <p><strong>2. Prohibited Activities:</strong> Any use of the Software for unauthorized or malicious activities is strictly prohibited. This includes, without limitation: accessing systems, networks, or data without authorization; performing denial-of-service attacks; data theft; fraud; spreading malware; or any other activity that violates applicable laws. Engaging in such activities may result in severe civil and criminal penalties.</p>
+                <p><strong>3. No Warranty:</strong> The Software is provided "AS IS," without any warranty of any kind, express or implied. This includes, but is not limited to, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement. The developers and contributors make no guarantee that the Software will be error-free, secure, or uninterrupted.</p>
+                <p><strong>4. Limitation of Liability:</strong> In no event shall the developers, contributors, or distributors of the Software be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the Software or the use or other dealings in the Software. This includes any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption).</p>
+                <p><strong>By clicking "Accept," you confirm that you have read, understood, and agree to be bound by all the terms and conditions outlined in this disclaimer. If you do not agree with these terms, you must click "Decline" and cease all use of the Software immediately.</strong></p>
+              </div>
+            </div>
+            <div data-lang-section="gr" style="display:none;">
+              <div class="note">
+                <p><strong>ΠΑΡΑΚΑΛΩ ΔΙΑΒΑΣΤΕ ΠΡΟΣΕΚΤΙΚΑ ΠΡΙΝ ΠΡΟΧΩΡΗΣΕΤΕ.</strong></p>
+                <p>Αυτό το έργο, συμπεριλαμβανομένων όλων των σχετικών εργαλείων, σεναρίων και τεκμηρίωσης («το Λογισμικό»), παρέχεται αυστηρά για εκπαιδευτικούς, ερευνητικούς και ηθικούς σκοπούς δοκιμών ασφαλείας. Προορίζεται για χρήση αποκλειστικά σε ελεγχόμενα, εξουσιοδοτημένα περιβάλλοντα από χρήστες που έχουν λάβει ρητή, προηγούμενη γραπτή άδεια από τους ιδιοκτήτες οποιωνδήποτε συστημάτων σκοπεύουν να δοκιμάσουν.</p>
+                <p><strong>1. Ανάληψη Κινδύνου και Ευθύνης:</strong> Με την πρόσβαση ή τη χρήση του Λογισμικού, αναγνωρίζετε και συμφωνείτε ότι το κάνετε με δική σας ευθύνη. Είστε αποκλειστικά και εξ ολοκλήρου υπεύθυνοι για τις πράξεις σας και για οποιεσδήποτε συνέπειες μπορεί να προκύψουν από τη χρήση ή την κακή χρήση αυτού του Λογισμικού. Αυτό περιλαμβάνει, αλλά δεν περιορίζεται σε, τη συμμόρφωση με όλους τους ισχύοντες τοπικούς, πολιτειακούς, εθνικούς και διεθνείς νόμους και κανονισμούς που σχετίζονται με την κυβερνοασφάλεια, το απόρρητο δεδομένων και τις ηλεκτρονικές επικοινωνίες.</p>
+                <p><strong>2. Απαγορευμένες Δραστηριότητες:</strong> Οποιαδήποτε χρήση του Λογισμικού για μη εξουσιοδοτημένες ή κακόβουλες δραστηριότητες απαγορεύεται αυστηρά. Αυτό περιλαμβάνει, χωρίς περιορισμό: την πρόσβαση σε συστήματα, δίκτυα ή δεδομένα χωρίς εξουσιοδότηση· την εκτέλεση επιθέσεων άρνησης υπηρεσίας· την κλοπή δεδομένων· την απάτη· τη διάδοση κακόβουλου λογισμικού· ή οποιαδήποτε άλλη δραστηριότητα που παραβιάζει τους ισχύοντες νόμους. Η ενασχόληση με τέτοιες δραστηριότητες μπορεί να οδηγήσει σε σοβαρές αστικές και ποινικές κυρώσεις.</p>
+                <p><strong>3. Καμία Εγγύηση:</strong> Το Λογισμικό παρέχεται «ΩΣ ΕΧΕΙ», χωρίς καμία εγγύηση οποιουδήποτε είδους, ρητή ή σιωπηρή. Αυτό περιλαμβάνει, αλλά δεν περιορίζεται σε, τις σιωπηρές εγγυήσεις εμπορευσιμότητας, καταλληλότητας για συγκεκριμένο σκοπό και μη παραβίασης. Οι προγραμματιστές και οι συνεισφέροντες δεν παρέχουν καμία εγγύηση ότι το Λογισμικό θα είναι χωρίς σφάλματα, ασφαλές ή αδιάλειπτο.</p>
+                <p><strong>4. Περιορισμός Ευθύνης:</strong> Σε καμία περίπτωση οι προγραμματιστές, οι συνεισφέροντες ή οι διανομείς του Λογισμικού δεν θα ευθύνονται για οποιαδήποτε αξίωση, ζημία ή άλλη ευθύνη, είτε σε αγωγή σύμβασης, αδικοπραξίας ή άλλως, που προκύπτει από, εκτός ή σε σχέση με το Λογισμικό ή τη χρήση ή άλλες συναλλαγές με το Λογισμικό. Αυτό περιλαμβάνει οποιεσδήποτε άμεσες, έμμεσες, τυχαίες, ειδικές, παραδειγματικές ή παρεπόμενες ζημίες (συμπεριλαμβανομένων, ενδεικτικά, της προμήθειας υποκατάστατων αγαθών ή υπηρεσιών· της απώλειας χρήσης, δεδομένων ή κερδών· ή της διακοπής της επιχειρηματικής δραστηριότητας).</p>
+                <p><strong>Κάνοντας κλικ στο «Αποδοχή», επιβεβαιώνετε ότι έχετε διαβάσει, κατανοήσει και συμφωνείτε να δεσμεύεστε από όλους τους όρους και τις προϋποθέσεις που περιγράφονται σε αυτήν την αποποίηση ευθύνης. Εάν δεν συμφωνείτε με αυτούς τους όρους, πρέπει να κάνετε κλικ στο «Απόρριψη» και να σταματήσετε αμέσως κάθε χρήση του Λογισμικού.</strong></p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="decline-disclaimer" class="decline-btn" data-en="Decline" data-gr="Απόρριψη">Decline</button>
+            <button id="accept-disclaimer" class="accept-btn" data-en="Accept" data-gr="Αποδοχή">Accept</button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Other Modals -->
+  <div id="about-modal" class="modal-overlay">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h2 data-en="About The DedSec Project" data-gr="Σχετικά με το DedSec Project">About The DedSec Project</h2>
+              <button class="close-modal">×</button>
+          </div>
+          <div class="modal-body" data-lang-section="en">
+              <p>The DedSec Project is a free, community-driven initiative inspired by the cyber-resistance themes of Ubisoft’s Watch Dogs series. Our mission is to empower users with tools and knowledge for digital freedom, security, and privacy awareness. We provide a suite of utilities for ethical security testing, secure communication, and system customization, all available at no cost.</p>
+              <p>Why use it? Because everyone deserves access to knowledge, privacy, and control over their digital life. We're not here for profit—we're here to give power back to the people. Whether you're a tech enthusiast, digital activist, or just someone curious about cybersecurity, the DedSec Project invites you to be part of the movement.</p>
+              <p>Welcome to the resistance.</p>
+          </div>
+          <div class="modal-body" data-lang-section="gr" style="display:none;">
+              <p>Το DedSec Project είναι μια δωρεάν, κοινοτική πρωτοβουλία, εμπνευσμένη από τα θέματα της ψηφιακής αντίστασης της σειράς Watch Dogs της Ubisoft. Η αποστολή μας είναι να ενδυναμώσουμε τους χρήστες με εργαλεία και γνώσεις για την ψηφιακή ελευθερία, την ασφάλεια και την ευαισθητοποίηση σχετικά με την ιδιωτικότητα. Παρέχουμε μια σουίτα βοηθητικών προγραμμάτων για ηθικό έλεγχο ασφαλείας, ασφαλή επικοινωνία και προσαρμογή συστήματος, όλα διαθέσιμα χωρίς κόστος.</p>
+              <p>Γιατί να το χρησιμοποιήσετε; Επειδή όλοι αξίζουν πρόσβαση στη γνώση, την ιδιωτικότητα και τον έλεγχο της ψηφιακής τους ζωής. Δεν είμαστε εδώ για κέρδος—είμαστε εδώ για να δώσουμε πίσω τη δύναμη στους ανθρώπους. Είτε είστε λάτρης της τεχνολογίας, ψηφιακός ακτιβιστής, είτε απλώς κάποιος περίεργος για την κυβερνοασφάλεια, το DedSec Project σας προσκαλεί να γίνετε μέρος του κινήματος.</p>
+              <p>Καλώς ήρθατε στην αντίσταση.</p>
+          </div>
+      </div>
+  </div>
+  <div id="resistance-modal" class="modal-overlay">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h2 data-en="Digital Resistance" data-gr="Ψηφιακή Αντίσταση">Digital Resistance</h2>
+              <button class="close-modal">×</button>
+          </div>
+          <div class="modal-body" data-lang-section="en">
+              <p>They sold you convenience, safety, and progress. While you were distracted by the glow of your screen, they built a prison around your digital life. This isn't a conspiracy theory; it's the operating manual for the new world order. AI surveillance, mandatory online IDs, the death of ownership, and the forgery of reality itself are not separate bugs—they are interconnected features in a global system of control. They've already built the cage. This is your key to seeing the bars. The question is what you'll do once your eyes are open.</p>
+              <h3>The Digital Panopticon</h3>
+              <p>The digital panopticon is no longer fiction. A silent, sprawling network of AI-powered cameras and robotic sentinels blankets our cities, turning public spaces into data farms. This isn't a niche market; it's a booming economy built on your submission. The security robotics industry is set to explode from $19.12 billion in 2024 to nearly $90 billion by 2035. In cities like Seoul, AI CCTV systems "predict crimes" before they happen, targeting individuals based on algorithmic suspicion, not actions. The code is corrupt. Landmark studies confirm that facial recognition is up to 100 times more likely to misidentify Black and Asian faces, automating prejudice and creating a feedback loop of digital injustice.</p>
+              <h3>Erasing Anonymity & Ownership</h3>
+              <p>Your anonymity and your property are being systematically erased. Under the guise of "child safety," governments are forcing you to link your real-world ID to your online activity, creating a permanent record of your most private interests. This digital passport is a honeypot for hackers and a dream for state surveillance. At the same time, corporations are rewriting the rules of ownership. You no longer buy a game; you rent a temporary license. The ultimate proof? Ubisoft's execution of The Crew, a game thousands paid for, was remotely disabled and rendered permanently unplayable at the flip of a corporate switch.</p>
+              <h3>Corrupting Reality</h3>
+              <p>If they can't control your actions, they'll corrupt your reality. Deepfake technology has made truth a commodity. For less than $400 a month, anyone can run a disinformation campaign, and deepfake-related fraud surged by 3,000% in 2023 alone. Political elections are now battlegrounds for synthetic media, with AI-cloned voices of world leaders used to suppress votes. The defense is a lie; a major study found that the world's best deepfake detectors are no more reliable than a coin flip. This creates the "liar's dividend": as you lose the ability to distinguish real from fake, any authentic evidence can be dismissed as a deepfake, making accountability impossible.</p>
+              <h3>The Engine: Surveillance Capitalism</h3>
+              <p>All these systems are fueled by one engine: surveillance capitalism. A shadow industry of data brokers, worth hundreds of billions, harvests the raw material of your life. They scrape public records, track your every click, and buy your purchase history to build a "digital ghost"—a psychographic profile that predicts and influences your behavior. This creates a backdoor for the state. Instead of getting a warrant, government agencies simply buy your precise location history from these brokers, laundering mass surveillance through the private sector and stripping you of your constitutional protections.</p>
+              <h3>The Final Frontier: Your Home</h3>
+              <p>Your home is the final frontier, and they've already breached the gates. The smart devices you welcomed for their convenience—the speakers, cameras, locks, and even refrigerators—are Trojan horses, transforming your sanctuary into a 24/7 surveillance outpost. The global smart home market is projected to hit $135 billion by 2025, built on a foundation of your most intimate data. These devices are always listening. In a brazen move, Amazon announced that starting in March 2025, users can no longer stop their Alexa voice recordings from being sent to the cloud for AI processing, eliminating a key privacy option. Your private conversations, arguments, and moments of vulnerability are now raw material for their algorithms. This data, from your security camera footage to your thermostat settings, can be shared with third parties and law enforcement, creating a permanent, searchable log of your life within your own walls.</p>
+              <h3>The Response: Hacktivism</h3>
+              <p>When the system is rigged, the only logical response is to break the rules. This is the core of hacktivism: not as mindless vandalism, but as a calculated act of digital civil disobedience. In an age where protest is monitored and dissent is algorithmically suppressed, the traditional avenues for change are being choked off. Hacktivism transposes the sit-in and the picket line into cyberspace, using code as its bullhorn. Motivated by ideals of transparency, free speech, and human rights—not profit—groups like Anonymous target the very corporations and governments that build these systems of control. Their methods—DDoS attacks, data leaks, website defacements—are designed to disrupt operations, expose hypocrisy, and force a public reckoning. It is a direct response to a world where power has become unaccountable, a necessary counter-force in the fight for information freedom.</p>
+              <h3>The Call to Action</h3>
+              <p>The system is not invincible. It thrives on your apathy. Resistance begins now. Community-driven initiatives like the DedSec Project (ded-sec.space) offer a starting point, providing free tools for encrypted communication and education on recognizing digital threats. This is the first step. The next is arming yourself with a professional toolkit: privacy-focused browsers like Tor, encrypted messaging apps like Signal, and password managers. But individual defense isn't enough. Support the digital rights organizations fighting these systems in the courts and legislatures. The code of control has been written. It's time we started a rewrite. Do what you will.</p>
+          </div>
+          <div class="modal-body" data-lang-section="gr" style="display:none;">
+              <p>Σας πούλησαν την ευκολία, την ασφάλεια και την πρόοδο. Ενώ ήσασταν αφηρημένοι από τη λάμψη της οθόνης σας, έχτισαν μια φυλακή γύρω από την ψηφιακή σας ζωή. Αυτό δεν είναι μια θεωρία συνωμοσίας· είναι το εγχειρίδιο λειτουργίας για τη νέα παγκόσμια τάξη. Η παρακολούθηση από AI, οι υποχρεωτικές διαδικτυακές ταυτότητες, ο θάνατος της ιδιοκτησίας και η παραποίηση της ίδιας της πραγματικότητας δεν είναι μεμονωμένα σφάλματα—είναι αλληλένδετα χαρακτηριστικά σε ένα παγκόσμιο σύστημα ελέγχου. Έχουν ήδη χτίσει το κλουβί. Αυτό είναι το κλειδί σας για να δείτε τα κάγκελα. Το ερώτημα είναι τι θα κάνετε μόλις ανοίξουν τα μάτια σας.</p>
+              <h3>Το Ψηφιακό Πανοπτικό</h3>
+              <p>Το ψηφιακό πανοπτικό δεν είναι πλέον φαντασία. Ένα σιωπηλό, εκτεταμένο δίκτυο καμερών με τεχνητή νοημοσύνη και ρομποτικών φρουρών καλύπτει τις πόλεις μας, μετατρέποντας τους δημόσιους χώρους σε φάρμες δεδομένων. Αυτή δεν είναι μια εξειδικευμένη αγορά· είναι μια ακμάζουσα οικονομία που βασίζεται στην υποταγή σας. Η βιομηχανία ρομποτικής ασφαλείας πρόκειται να εκτιναχθεί από 19,12 δισεκατομμύρια δολάρια το 2024 σε σχεδόν 90 δισεκατομμύρια δολάρια έως το 2035. Σε πόλεις όπως η Σεούλ, τα συστήματα CCTV με AI «προβλέπουν εγκλήματα» πριν συμβούν, στοχεύοντας άτομα βάσει αλγοριθμικής υποψίας, όχι πράξεων. Ο κώδικας είναι διεφθαρμένος. Σημαντικές μελέτες επιβεβαιώνουν ότι η αναγνώριση προσώπου είναι έως και 100 φορές πιο πιθανό να αναγνωρίσει λανθασμένα πρόσωπα Μαύρων και Ασιατών, αυτοματοποιώντας την προκατάληψη και δημιουργώντας έναν βρόχο ανάδρασης ψηφιακής αδικίας.</p>
+              <h3>Διαγράφοντας την Ανωνυμία & την Ιδιοκτησία</h3>
+              <p>Η ανωνυμία και η περιουσία σας διαγράφονται συστηματικά. Υπό το πρόσχημα της «ασφάλειας των παιδιών», οι κυβερνήσεις σας αναγκάζουν να συνδέσετε την πραγματική σας ταυτότητα με τη διαδικτυακή σας δραστηριότητα, δημιουργώντας ένα μόνιμο αρχείο των πιο ιδιωτικών σας ενδιαφερόντων. Αυτό το ψηφιακό διαβατήριο είναι ένα δόλωμα για χάκερ και ένα όνειρο για την κρατική παρακολούθηση. Ταυτόχρονα, οι εταιρείες ξαναγράφουν τους κανόνες της ιδιοκτησίας. Δεν αγοράζετε πλέον ένα παιχνίδι· νοικιάζετε μια προσωρινή άδεια. Η απόλυτη απόδειξη; Η εκτέλεση του The Crew από την Ubisoft, ενός παιχνιδιού για το οποίο πλήρωσαν χιλιάδες, το οποίο απενεργοποιήθηκε απομακρυσμένα και κατέστη μόνιμα μη παιζόμενο με το πάτημα ενός εταιρικού διακόπτη.</p>
+              <h3>Διαφθείροντας την Πραγματικότητα</h3>
+              <p>Αν δεν μπορούν να ελέγξουν τις πράξεις σας, θα διαφθείρουν την πραγματικότητά σας. Η τεχνολογία Deepfake έχει καταστήσει την αλήθεια εμπόρευμα. Για λιγότερο από 400 δολάρια το μήνα, ο καθένας μπορεί να διεξάγει μια εκστρατεία παραπληροφόρησης, και η απάτη που σχετίζεται με deepfake αυξήθηκε κατά 3,000% μόνο το 2023. Οι πολιτικές εκλογές είναι πλέον πεδία μάχης για συνθετικά μέσα, με κλωνοποιημένες φωνές παγκόσμιων ηγετών από AI να χρησιμοποιούνται για την καταστολή ψήφων. Η άμυνα είναι ένα ψέμα· μια μεγάλη μελέτη διαπίστωσε ότι οι καλύτεροι ανιχνευτές deepfake στον κόσμο δεν είναι πιο αξιόπιστοι από το ρίξιμο ενός νομίσματος. Αυτό δημιουργεί το «μέρισμα του ψεύτη»: καθώς χάνετε την ικανότητα να διακρίνετε το πραγματικό από το ψεύτικο, οποιοδήποτε αυθεντικό αποδεικτικό στοιχείο μπορεί να απορριφθεί ως deepfake, καθιστώντας την απόδοση ευθυνών αδύνατη.</p>
+              <h3>Ο Κινητήρας: Καπιταλισμός της Παρακολούθησης</h3>
+              <p>Όλα αυτά τα συστήματα τροφοδοτούνται από έναν κινητήρα: τον καπιταλισμό της παρακολούθησης. Μια σκιώδης βιομηχανία μεσιτών δεδομένων, αξίας εκατοντάδων δισεκατομμυρίων, συλλέγει την πρώτη ύλη της ζωής σας. Ξύνουν δημόσια αρχεία, παρακολουθούν κάθε σας κλικ και αγοράζουν το ιστορικό αγορών σας για να δημιουργήσουν ένα «ψηφιακό φάντασμα»—ένα ψυχογραφικό προφίλ που προβλέπει και επηρεάζει τη συμπεριφορά σας. Αυτό δημιουργεί μια κερκόπορτα για το κράτος. Αντί να εκδίδουν ένταλμα, οι κυβερνητικές υπηρεσίες απλώς αγοράζουν το ακριβές ιστορικό τοποθεσίας σας από αυτούς τους μεσίτες, ξεπλένοντας τη μαζική παρακολούθηση μέσω του ιδιωτικού τομέα και αφαιρώντας σας τις συνταγματικές προστασίες σας.</p>
+              <h3>Το Τελευταίο Σύνορο: Το Σπίτι σας</h3>
+              <p>Το σπίτι σας είναι το τελευταίο σύνορο, και έχουν ήδη παραβιάσει τις πύλες. Οι έξυπνες συσκευές που καλωσορίσατε για την ευκολία τους—τα ηχεία, οι κάμερες, οι κλειδαριές, ακόμη και τα ψυγεία—είναι Δούρειοι Ίπποι, μετατρέποντας το άσυλό σας σε ένα 24/7 φυλάκιο παρακολούθησης. Η παγκόσμια αγορά έξυπνου σπιτιού προβλέπεται να φτάσει τα 135 δισεκατομμύρια δολάρια έως το 2025, χτισμένη πάνω σε ένα θεμέλιο των πιο προσωπικών σας δεδομένων. Αυτές οι συσκευές ακούνε πάντα. Σε μια θρασύτατη κίνηση, η Amazon ανακοίνωσε ότι από τον Μάρτιο του 2025, οι χρήστες δεν θα μπορούν πλέον να εμποδίσουν την αποστολή των ηχογραφήσεων της Alexa στο cloud για επεξεργασία από AI, εξαλείφοντας μια βασική επιλογή απορρήτου. Οι ιδιωτικές σας συνομιλίες, οι διαφωνίες και οι στιγμές ευαλωτότητας είναι πλέον πρώτη ύλη για τους αλγόριθμούς τους. Αυτά τα δεδομένα, από το υλικό της κάμερας ασφαλείας σας έως τις ρυθμίσεις του θερμοστάτη σας, μπορούν να κοινοποιηθούν σε τρίτους και στις αρχές επιβολής του νόμου, δημιουργώντας ένα μόνιμο, αναζητήσιμο αρχείο της ζωής σας μέσα στους ίδιους σας τους τοίχους.</p>
+              <h3>Η Απάντηση: Χακτιβισμός</h3>
+              <p>Όταν το σύστημα είναι στημένο, η μόνη λογική απάντηση είναι να παραβιάσεις τους κανόνες. Αυτός είναι ο πυρήνας του χακτιβισμού: όχι ως ανούσιος βανδαλισμός, αλλά ως μια υπολογισμένη πράξη ψηφιακής πολιτικής ανυπακοής. Σε μια εποχή όπου η διαμαρτυρία παρακολουθείται και η διαφωνία καταστέλλεται αλγοριθμικά, οι παραδοσιακοί δρόμοι για την αλλαγή πνίγονται. Ο χακτιβισμός μεταφέρει την καθιστική διαμαρτυρία και την πικετοφορία στον κυβερνοχώρο, χρησιμοποιώντας τον κώδικα ως τηλεβόα. Με κίνητρα τα ιδανικά της διαφάνειας, της ελευθερίας του λόγου και των ανθρωπίνων δικαιωμάτων—όχι το κέρδος—ομάδες όπως οι Anonymous στοχεύουν τις ίδιες τις εταιρείες και τις κυβερνήσεις που χτίζουν αυτά τα συστήματα ελέγχου. Οι μέθοδοί τους—επιθέσεις DDoS, διαρροές δεδομένων, παραμορφώσεις ιστοσελίδων—είναι σχεδιασμένες για να διαταράξουν τις λειτουργίες, να εκθέσουν την υποκρισία και να επιβάλουν μια δημόσια λογοδοσία. Είναι μια άμεση απάντηση σε έναν κόσμο όπου η εξουσία έχει γίνει ανεξέλεγκτη, μια απαραίτητη αντεπίθεση στον αγώνα για την ελευθερία της πληροφορίας.</p>
+              <h3>Κάλεσμα για Δράση</h3>
+              <p>Το σύστημα δεν είναι ανίκητο. Ευδοκιμεί με την απάθειά σας. Η αντίσταση ξεκινά τώρα. Κοινοτικές πρωτοβουλίες όπως το DedSec Project (ded-sec.space) προσφέρουν ένα σημείο εκκίνησης, παρέχοντας δωρεάν εργαλεία για κρυπτογραφημένη επικοινωνία και εκπαίδευση στην αναγνώριση ψηφιακών απειλών. Αυτό είναι το πρώτο βήμα. Το επόμενο είναι να οπλιστείτε με ένα επαγγελματικό σύνολο εργαλείων: προγράμματα περιήγησης που εστιάζουν στην ιδιωτικότητα όπως το Tor, εφαρμογές κρυπτογραφημένων μηνυμάτων όπως το Signal και διαχειριστές κωδικών πρόσβασης. Αλλά η ατομική άμυνα δεν είναι αρκετή. Υποστηρίξτε τις οργανώσεις ψηφιακών δικαιωμάτων που πολεμούν αυτά τα συστήματα στα δικαστήρια και τα νομοθετικά σώματα. Ο κώδικας του ελέγχου έχει γραφτεί. Είναι καιρός να ξεκινήσουμε να τον ξαναγράφουμε. Κάντε ό,τι θέλετε.</p>
+          </div>
+      </div>
+  </div>
+  <div id="installation-modal" class="modal-overlay">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h2 data-en="Installation & Setup" data-gr="Εγκατάσταση & Ρύθμιση">Installation & Setup</h2>
+              <button class="close-modal">×</button>
+          </div>
+          <div class="modal-body" data-lang-section="en">
+              <h3>Requirements</h3>
+              <ul>
+               <li><b>Device:</b> Android with <a href="https://f-droid.org/" target="_blank">Termux</a> installed.</li>
+               <li><b>Storage:</b> Min <b>3GB</b> free. <span style="display:block;font-size:0.85em;line-height:1.3;">(The Radio feature requires more storage; images and recordings also consume space.)</span></li>
+               <li><b>RAM:</b> Min <b>2GB</b>.</li>
+              </ul>
+              <h3>Step-by-Step Installation</h3>
+              <ol>
+               <li>
+                <b>Install Termux & Add-Ons</b>
+                <div class="tip" style="padding:0.8em 1em; margin:0.8em 0; font-size:0.9em; line-height:1.4;">
+                 <b>Note:</b> To install APKs (e.g., F-Droid), ensure you:<br/>
+                 - Enable unknown sources (Settings > Security > <b>Install Unknown Apps</b>).<br/>
+                 - Download F-Droid, then get Termux from <a href="https://f-droid.org/">F-Droid</a>.<br/>
+                 - Install add-ons: Termux:API, Termux:Styling.<br/>
+                 - Allow the <code>fdroid</code> process when prompted.
+                </div>
+               </li>
+               <li>
+                <b>Run Setup Commands</b>
+                 <div class="note" style="background-color: var(--warning-bg); color: white; font-weight: bold; border-color: var(--accent-primary);">
+                  <b>Important:</b> Open the Termux application on your device before copying and pasting the commands below.
+                </div>
+                <div class="code-container">
+                 <button class="copy-btn" onclick="copyToClipboard(this, 'step1_en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button>
+                 <code id="step1_en">termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python git fzf nodejs openssh nano jq wget unzip curl proot openssl aapt rust cloudflared</code>
+                </div>
+                <div class="code-container">
+                 <button class="copy-btn" onclick="copyToClipboard(this, 'step2_en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button>
+                 <code id="step2_en">pip install flask blessed flask-socketio werkzeug requests datetime geopy pydub pycryptodome mutagen rust cryptography phonenumbers pycountry</code>
+                </div>
+                <div class="code-container">
+                 <button class="copy-btn" onclick="copyToClipboard(this, 'step3_en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button>
+                 <code id="step3_en">pkg install termux-api</code>
+                </div>
+               </li>
+               <li>
+                <b>Clone Repository</b>
+                <div class="code-container">
+                 <button class="copy-btn" onclick="copyToClipboard(this, 'step4_en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button>
+                 <code id="step4_en">git clone https://github.com/dedsec1121fk/DedSec</code>
+                </div>
+                <div class="tip" style="padding:0.8em 1em; margin:0.8em 0; font-size:0.9em; line-height:1.4;">
+                 <b>Tip:</b> If you get an error like "ModuleNotFoundError: No module named 'requests'", use this command and try again:
+                 <div class="code-container">
+                  <button class="copy-btn" onclick="copyToClipboard(this, 'pip_requests_en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button>
+                  <code id="pip_requests_en">pip install requests</code>
+                 </div>
+                </div>
+               </li>
+               <li>
+                <b>Choose Menu Style</b>
+                <div class="code-container">
+                 <button class="copy-btn" onclick="copyToClipboard(this, 'step5_en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button>
+                 <code id="step5_en">cd DedSec/Scripts && python Settings.py</code>
+                </div>
+                <div class="tip" style="padding:0.8em 1em; margin:0.8em 0; font-size:0.9em; line-height:1.4;">
+                 <b>Tip:</b> You can open the menu later by typing <code>m</code> in Termux.
+                </div>
+               </li>
+              </ol>
+          </div>
+           <div class="modal-body" data-lang-section="gr" style="display:none;">
+              <h3>Απαιτήσεις</h3>
+              <ul>
+               <li><b>Συσκευή:</b> Android με εγκατεστημένο το <a href="https://f-droid.org/" target="_blank">Termux</a>.</li>
+               <li><b>Αποθηκευτικός Χώρος:</b> Ελάχιστος <b>3GB</b> ελεύθερος.<span style="display:block;font-size:0.85em;line-height:1.3;">(Η λειτουργία του Ραδιοφώνου απαιτεί περισσότερο χώρο. Οι εικόνες και οι ηχογραφήσεις καταναλώνουν επίσης χώρο.)</span></li>
+               <li><b>RAM:</b> Ελάχ. <b>2GB</b>.</li>
+              </ul>
+              <h3>Βήμα-Βήμα Εγκατάσταση</h3>
+              <ol>
+               <li>
+                <b>Εγκατάσταση του Termux & Πρόσθετων</b>
+                <div class="tip" style="padding:0.8em 1em; margin:0.8em 0; font-size:0.9em; line-height:1.4;">
+                 <b>Σημείωση:</b> Για την εγκατάσταση APKs (π.χ. F-Droid), βεβαιωθείτε ότι έχετε:<br/>
+                 - Ενεργοποίηση άγνωστων πηγών (Ρυθμίσεις > Ασφάλεια > <b>Εγκατάσταση άγνωστων εφαρμογών</b>).<br/>
+                 - Κατεβάστε το F-Droid και, στη συνέχεια, εγκαταστήστε το Termux μέσω του <a href="https://f-droid.org/">F-Droid</a>.<br/>
+                 - Επιτρέψτε τη διαδικασία <code>fdroid</code> όταν σας ζητηθεί.
+                </div>
+               </li>
+               <li>
+                <b>Εκτελέστε τις εντολές εγκατάστασης</b>
+                <div class="note" style="background-color: var(--warning-bg); color: white; font-weight: bold; border-color: var(--accent-primary);">
+                  <b>Σημαντικό:</b> Ανοίξτε την εφαρμογή Termux στη συσκευή σας πριν αντιγράψετε και επικολλήσετε τις παρακάτω εντολές.
+                </div>
+                <div class="code-container">
+                 <button class="copy-btn" onclick="copyToClipboard(this, 'gr1')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button>
+                 <code id="gr1">termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python git fzf nodejs openssh nano jq wget unzip curl proot openssl aapt rust cloudflared</code>
+                </div>
+                <div class="code-container">
+                 <button class="copy-btn" onclick="copyToClipboard(this, 'gr2')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button>
+                 <code id="gr2">pip install flask blessed flask-socketio werkzeug requests datetime geopy pydub pycryptodome mutagen rust cryptography phonenumbers pycountry</code>
+                </div>
+                <div class="code-container">
+                 <button class="copy-btn" onclick="copyToClipboard(this, 'gr3')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button>
+                 <code id="gr3">pkg install termux-api</code>
+                </div>
+               </li>
+               <li>
+                <b>Κλωνοποιήστε το αποθετήριο</b>
+                <div class="code-container">
+                 <button class="copy-btn" onclick="copyToClipboard(this, 'gr4')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button>
+                 <code id="gr4">git clone https://github.com/dedsec1121fk/DedSec</code>
+                </div>
+                <div class="tip" style="padding:0.8em 1em; margin:0.8em 0; font-size:0.9em; line-height:1.4;">
+                 <b>Συμβουλή:</b> Αν λάβετε σφάλμα "ModuleNotFoundError: No module named 'requests'", χρησιμοποιήστε την ακόλουθη εντολή και προσπαθήστε ξανά:
+                 <div class="code-container">
+                  <button class="copy-btn" onclick="copyToClipboard(this, 'pip_requests_gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button>
+                  <code id="pip_requests_gr">pip install requests</code>
+                 </div>
+                </div>
+               </li>
+               <li>
+                <b>Επιλέξτε στυλ μενού</b>
+                <div class="code-container">
+                 <button class="copy-btn" onclick="copyToClipboard(this, 'gr5')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button>
+                 <code id="gr5">cd DedSec/Scripts && python Settings.py</code>
+                </div>
+                <div class="tip" style="padding:0.8em 1em; margin:0.8em 0; font-size:0.9em; line-height:1.4;">
+                 <b>Συμβουλή:</b> Μπορείτε να ανοίξετε το μενού αργότερα πληκτρολογώντας <code>m</code> στο Termux.
+                </div>
+               </li>
+              </ol>
+          </div>
+      </div>
+  </div>
+  <div id="scripts-modal" class="modal-overlay">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h2 data-en="Scripts & Their Functionalities" data-gr="Σενάρια & Λειτουργίες">Scripts & Their Functionalities</h2>
+              <button class="close-modal">×</button>
+          </div>
+          <div class="modal-body" data-lang-section="en">
+              <p>Summary of each script in the DedSec toolkit:</p>
+              <ol>
+               <li><b>Fox Chat</b><br/>Features encrypted chat, along with file, voice, and video calls. Nicks and passwords are not saved.</li>
+               <li><b>Android App Launcher</b><br/>Displays and manages downloaded Android apps.</li>
+               <li><b>Radio</b><br/>Features an offline radio with Greek and international artists.</li>
+               <li>
+                <b>Phishing Attacks</b><br/>
+                Captures camera images, audio, and the target's exact location (address/store). It can also obtain credit card and personal information. All captured data is saved in the Downloads folder.
+                <ul>
+                 <li><b>Card Details.py</b>: Saves credit card info to <code>~/storage/downloads/CardActivations/</code>.</li>
+                 <li><b>Data Grabber.py</b>: Saves personal info/photo to <code>~/storage/downloads/People's Lives/{user}/</code>.</li>
+                 <li><b>FaceFriends.py</b>: Stores credentials to <code>~/storage/downloads/FaceFriends/</code>.</li>
+                 <li><b>Google Free Money.py</b>: Saves credentials to <code>~/storage/downloads/GoogleFreeMoney/</code>.</li>
+                 <li><b>Insta Followers.py</b>: Saves credentials to <code>~/storage/downloads/FreeFollowers/</code>.</li>
+                 <li><b>Login Page Back Camera.py</b>: Stores images/credentials to <code>~/storage/downloads/Camera-Phish-Back/</code>.</li>
+                 <li><b>Login Page Front Camera.py</b>: Saves front camera photos/credentials to <code>~/storage/downloads/Camera-Phish-Front/</code>.</li>
+                 <li><b>Login Page Location.py</b>: Stores location data/credentials to <code>~/storage/downloads/LocationData/</code>.</li>
+                 <li><b>Login Page Microphone.py</b>: Saves mic recordings/credentials to <code>~/storage/downloads/Recordings/</code>.</li>
+                 <li><b>Snap Friends.py</b>: Stores credentials to <code>~/storage/downloads/SnapFriends/</code>.</li>
+                 <li><b>Tik Followers.py</b>: Saves credentials to <code>~/storage/downloads/TikFollowers/</code>.</li>
+                </ul>
+               </li>
+               <li><b>Settings</b><br/>Allows you to update the project, install or update packages and modules, change your username and menu style, and view credits.</li>
+               <li><b>DedSec Database</b><br/>Lets you upload, search for, and delete files. Your device acts as the server, and files are saved in a hidden folder.</li>
+               <li>
+                <b>HTML Finder</b><br/>
+                A utility to inspect, download, and locally edit any public webpage.
+               </li>
+               <li><b>URL Masker (Masker.py)</b><br/>A tool to conceal and shorten URLs.</li>
+               <li><b>SocialBrute (SocialBrute.py)</b><br/>An advanced multi-service brute-force tool for social media platforms.</li>
+               <li><b>Extra Content</b><br/>Contains photos, unused scripts, voice-overs, and more.</li>
+              </ol>
+          </div>
+          <div class="modal-body" data-lang-section="gr" style="display:none;">
+              <p>Περίληψη κάθε σεναρίου στο DedSec toolkit:</p>
+              <ol>
+               <li><b>Fox Chat</b><br/>Κρυπτογραφημένη συνομιλία, με δυνατότητα ανταλλαγής αρχείων και πραγματοποίησης φωνητικών κλήσεων/βιντεοκλήσεων. Δεν αποθηκεύονται ψευδώνυμα ή κωδικοί πρόσβασης.</li>
+               <li><b>Android App Launcher</b><br/>Εμφανίζει και διαχειρίζεται τις εγκατεστημένες εφαρμογές Android.</li>
+               <li><b>Radio</b><br/>Ραδιόφωνο εκτός σύνδεσης με Έλληνες και διεθνείς καλλιτέχνες.</li>
+               <li>
+                <b>Phishing Attacks</b><br/>
+                Καταγραφή εικόνων κάμερας, ήχου και ακριβούς τοποθεσίας (διεύθυνση/κατάστημα). Δυνατότητα απόκτησης στοιχείων πιστωτικής κάρτας και προσωπικών πληροφοριών. Όλα τα δεδομένα αποθηκεύονται στον φάκελο 'Λήψεις'.
+                <ul>
+                 <li><b>Card Details.py</b>: Αποθηκεύει στοιχεία πιστωτικής κάρτας στο <code>~/storage/downloads/CardActivations/</code>.</li>
+                 <li><b>Data Grabber.py</b>: Αποθηκεύει προσωπικά στοιχεία/φωτογραφίες στο <code>~/storage/downloads/People's Lives/{user}/</code>.</li>
+                 <li><b>FaceFriends.py</b>: Αποθηκεύει διαπιστευτήρια στο <code>~/storage/downloads/FaceFriends/</code>.</li>
+                 <li><b>Google Free Money.py</b>: Αποθηκεύει διαπιστευτήρια στο <code>~/storage/downloads/GoogleFreeMoney/</code>.</li>
+                 <li><b>Insta Followers.py</b>: Αποθηκεύει διαπιστευτήρια στο <code>~/storage/downloads/FreeFollowers/</code>.</li>
+                 <li><b>Login Page Back Camera.py</b>: Αποθηκεύει εικόνες/διαπιστευτήρια στο <code>~/storage/downloads/Camera-Phish-Back/</code>.</li>
+                 <li><b>Login Page Front Camera.py</b>: Αποθηκεύει φωτογραφίες/διαπιστευτήρια στο <code>~/storage/downloads/Camera-Phish-Front/</code>.</li>
+                 <li><b>Login Page Location.py</b>: Αποθηκεύει δεδομένα τοποθεσίας/διαπιστευτήρια στο <code>~/storage/downloads/LocationData/</code>.</li>
+                 <li><b>Login Page Microphone.py</b>: Αποθηκεύει ηχογραφήσεις/διαπιστευτήρια στο <code>~/storage/downloads/Recordings/</code>.</li>
+                 <li><b>Snap Friends.py</b>: Αποθηκεύει διαπιστευτήρια στο <code>~/storage/downloads/SnapFriends/</code>.</li>
+                 <li><b>Tik Followers.py</b>: Αποθηκεύει διαπιστευτήρια στο <code>~/storage/downloads/TikFollowers/</code>.</li>
+                </ul>
+               </li>
+               <li><b>Settings</b><br/>Ενημέρωση του έργου, εγκατάσταση/ενημέρωση πακέτων/modules, αλλαγή ονόματος χρήστη/στυλ μενού και προβολή συντελεστών.</li>
+               <li><b>DedSec Database</b><br/>Ανέβασμα, αναζήτηση και διαγραφή αρχείων. Η συσκευή λειτουργεί ως διακομιστής και τα αρχεία αποθηκεύονται σε έναν κρυφό φάκελο.</li>
+               <li>
+                <b>HTML Finder</b><br/>
+                Βοηθητικό πρόγραμμα για επιθεώρηση, λήψη και τοπική επεξεργασία οποιασδήποτε δημόσιας ιστοσελίδας.
+               </li>
+               <li><b>URL Masker (Masker.py)</b><br/>Εργαλείο για την απόκρυψη και συντόμευση διευθύνσεων URL.</li>
+               <li><b>SocialBrute (SocialBrute.py)</b><br/>Προηγμένο εργαλείο brute-force πολλαπλών υπηρεσιών για πλατφόρμες κοινωνικής δικτύωσης.</li>
+               <li><b>Extra Content</b><br/>Περιέχει φωτογραφίες, αχρησιμοποίητα σενάρια, αφηγήσεις και άλλα.</li>
+              </ol>
+          </div>
+      </div>
+  </div>
+  <div id="legal-modal" class="modal-overlay">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h2 data-en="Legal & Ethical Notice" data-gr="Νομική & Ηθική Δήλωση">Legal & Ethical Notice</h2>
+              <button class="close-modal">×</button>
+          </div>
+          <div class="modal-body" data-lang-section="en">
+              <p>The tools and scripts within the DedSec Project are provided for educational, research, and ethical security testing purposes. Users are expected to adhere to the highest ethical standards, including respecting privacy and obtaining explicit, written authorization before testing any system or network. Unauthorized activities such as attempting to breach systems without consent, data theft, fraud, or any form of malicious attack are illegal and strictly forbidden. The user bears all responsibility for complying with applicable laws, including those governing cybersecurity and data privacy. The authors disclaim all liability for any direct or indirect damages that may result from the use or misuse of this software. If you are uncertain about the legality of your intended actions, consult a qualified legal professional.</p>
+          </div>
+          <div class="modal-body" data-lang-section="gr" style="display:none;">
+              <p>Τα εργαλεία και τα σενάρια του DedSec Project παρέχονται για εκπαιδευτικούς, ερευνητικούς και για σκοπούς ηθικού ελέγχου ασφαλείας. Οι χρήστες οφείλουν να τηρούν τα υψηλότερα ηθικά πρότυπα, συμπεριλαμβανομένου του σεβασμού της ιδιωτικής ζωής και της λήψης ρητής, γραπτής εξουσιοδότησης πριν από τη δοκιμή οποιουδήποτε συστήματος ή δικτύου. Μη εξουσιοδοτημένες ενέργειες όπως η προσπάθεια παραβίασης συστημάτων χωρίς συγκατάθεση, η κλοπή δεδομένων, η απάτη ή οποιαδήποτε μορφή κακόβουλης επίθεσης είναι παράνομες και απαγορεύονται αυστηρά. Ο χρήστης φέρει την πλήρη ευθύνη για τη συμμόρφωση με την ισχύουσα νομοθεσία, συμπεριλαμβανομένων των νόμων που διέπουν την κυβερνοασφάλεια και την προστασία δεδομένων. Οι δημιουργοί αποποιούνται κάθε ευθύνης για οποιαδήποτε άμεση ή έμμεση ζημία που μπορεί να προκύψει από τη χρήση ή την κακή χρήση αυτού του λογισμικού. Εάν δεν είστε βέβαιοι για τη νομιμότητα των σκοπούμενων ενεργειών σας, συμβουλευτείτε έναν εξειδικευμένο νομικό σύμβουλο.</p>
+          </div>
+      </div>
+  </div>
+  <div id="contact-modal" class="modal-overlay">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h2 data-en="Contact & Links" data-gr="Επικοινωνία & Σύνδεσμοι">Contact & Links</h2>
+              <button class="close-modal">×</button>
+          </div>
+          <div class="modal-body" data-lang-section="en">
+              <a href="https://github.com/dedsec1121fk/DedSec" target="_blank" class="header-btn" style="width: 100%; justify-content: center; margin-bottom: 1rem;">
+                  <i class="fab fa-github"></i> View on GitHub
+              </a>
+              <a href="https://t.me/dedsecproject" target="_blank" class="header-btn" style="width: 100%; justify-content: center;">
+                  <i class="fab fa-telegram"></i> Contact on Telegram
+              </a>
+              <div class="donation-section">
+                  <p>Donate With Crypto POL (Polygon) Address:</p>
+                  <div class="code-container">
+                      <button class="copy-btn" onclick="copyToClipboard(this, 'donationAddressEn')" data-en="Copy" data-gr="Αντιγραφή">Copy</button>
+                      <code id="donationAddressEn">0x8a88c8bCCc1cCD1bB02622465EA9051051eB06Ff</code>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-body" data-lang-section="gr" style="display:none;">
+              <a href="https://github.com/dedsec1121fk/DedSec" target="_blank" class="header-btn" style="width: 100%; justify-content: center; margin-bottom: 1rem;">
+                  <i class="fab fa-github"></i> Προβολή στο GitHub
+              </a>
+              <a href="https://t.me/dedsecproject" target="_blank" class="header-btn" style="width: 100%; justify-content: center;">
+                  <i class="fab fa-telegram"></i> Επικοινωνία στο Telegram
+              </a>
+              <div class="donation-section">
+                  <p>Δωρίστε Με Crypto POL (Polygon) Διεύθυνση:</p>
+                  <div class="code-container">
+                      <button class="copy-btn" onclick="copyToClipboard(this, 'donationAddressGr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button>
+                      <code id="donationAddressGr">0x8a88c8bCCc1cCD1bB02622465EA9051051eB06Ff</code>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div id="credits-modal" class="modal-overlay">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h2 data-en="Credits" data-gr="Συντελεστές">Credits</h2>
+              <button class="close-modal">×</button>
+          </div>
+          <div class="modal-body" data-lang-section="en">
+              <p><b>Creator:</b> dedsec1121fk</p>
+              <p><b>Music Artists:</b> BFR TEAM, PLANNO MAN, KouNouPi, ADDICTED, JAVASPA, ICE, Lefka City, Giannis Vardis, Lavyrinthos, Komis X, GR$, Sakin, Family Lockations, Christina Markesini, Dafne Kritharas, Grave_North, YungKapa, Aroy, Pi Thita, Ecostones Band, Bossikan, B-Mat, Stamatis Kapiris, Lau Jr, XALIPOP</p>
+              <p><b>Artwork:</b> Christina Chatzidimitriou</p>
+              <p><b>Voice-overs:</b> Dimitra Isxuropoulou</p>
+              <p><b>Technical Help:</b> lamprouil, UKI_hunter, apoloco</p>
+          </div>
+          <div class="modal-body" data-lang-section="gr" style="display:none;">
+              <p><b>Δημιουργός:</b> dedsec1121fk</p>
+              <p><b>Μουσικοί Καλλιτέχνες:</b> BFR TEAM, PLANNO MAN, KouNouPi, ADDICTED, JAVASPA, ICE, Lefka City, Γιάννης Βαρδής, Λαβύρινθος, Komis Χ, GR$, Sakin, Family Lockations, Χριστίνα Μαρκεσίνη, Δάφνη Κριθαρά, Grave_North, YungKapa, Aroy, Pi Thita, Ecostones Band, Bossikan, B-Mat, Σταμάτης Καπίρης, Lau Jr, XALIPOP</p>
+              <p><b>Καλλιτεχνική Επιμέλεια:</b> Χριστίνα Χατζηδημητρίου</p>
+              <p><b>Αφηγήσεις:</b> Δήμητρα Ισχυροπούλου</p>
+              <p><b>Τεχνική Βοήθεια:</b> lamprouil, UKI_hunter, apoloco</p>
+          </div>
+      </div>
+  </div>
+
+  <div id="cv-source" style="display: none;">
+    <div id="cv-en">
+     <h2>Professional Summary</h2>
+     <p>Highly motivated and versatile professional with diverse experience in HVAC technology, environmental maintenance, and programming. Passionate about digital freedom and security, with a strong commitment to empowering individuals through technology. Eager to apply a unique blend of technical, practical, and problem-solving skills to challenging new roles.</p>
+     <h2>Personal Details</h2>
+     <p><b>Name:</b> Loukas</p><p><b>Last Name:</b> Floros</p><p><b>Birthday:</b> 14 August 2004</p>
+     <h2>Skills</h2>
+     <h3>Technical Skills</h3>
+     <p><strong>HVAC Systems:</strong> Experience in installation, maintenance, and repair of air conditioning units and solar water heaters. <strong>Programming Languages:</strong> Proficient in Python; working knowledge of Flask, JavaScript, HTML, CSS. <strong>Cybersecurity Concepts:</strong> Familiarity with ethical hacking principles, security testing, and secure communication protocols; experience in developing basic phishing tools for educational purposes. <strong>Operating Systems:</strong> Experience with Android (Termux environment). <strong>Development Tools:</strong> Practical use of Git, Termux, Nano, Vim.</p>
+     <h3>Professional Skills</h3>
+     <p><strong>Teamwork:</strong> Demonstrated ability to collaborate effectively in team-based environmental maintenance projects and software development. <strong>Adaptability:</strong> Capable of quickly learning and applying new skills across various technical and practical domains. <strong>Communication:</strong> Ability to convey technical information clearly.</p>
+     <h2>Experience</h2>
+     <h3>HVAC Technician (3 Years):</h3>
+     <p>Involved in the installation, maintenance, and repair of heating, ventilation, and air conditioning (HVAC) systems, including solar water heaters. Responsibilities included ensuring system functionality and performing routine checks.</p>
+     <h3>Programmer (5 Years):</h3>
+     <p>Engaged in the development and maintenance of cybersecurity-focused tools and applications, primarily using Python. Contributed to projects aimed at digital freedom, secure communication, and educational security testing.</p>
+    </div>
+    <div id="cv-gr">
+     <h2>Επαγγελματική Περίληψη</h2>
+     <p>Επαγγελματίας με υψηλό κίνητρο και ευέλικτο πνεύμα, με ποικίλη εμπειρία στην τεχνολογία HVAC, την περιβαλλοντική συντήρηση και τον προγραμματισμό. Πάθος για την ψηφιακή ελευθερία και την ασφάλεια, με ισχυρή δέσμευση στην ενδυνάμωση των ατόμων μέσω της τεχνολογίας. Πρόθυμος να εφαρμόσει ένα μοναδικό συνδυασμό τεχνικών, πρακτικών και δεξιοτήτων επίλυσης προβλημάτων σε απαιτητικούς νέους ρόλους.</p>
+     <h2>Προσωπικά Στοιχεία</h2>
+     <p><b>Όνομα:</b> Λουκάς</p><p><b>Επίθετο:</b> Φλώρος</p><p><b>Ημερομηνία Γέννησης:</b> 14 Αυγούστου 2004</p>
+     <h2>Δεξιότητες</h2>
+     <h3>Τεχνικές Δεξιότητες</h3>
+     <p><strong>Συστήματα HVAC:</strong> Εμπειρία στην εγκατάσταση, συντήρηση και επισκευή μονάδων κλιματισμού και ηλιακών θερμοσιφώνων. <strong>Γλώσσες Προγραμματισμού:</strong> Άριστη γνώση Python· καλή γνώση Flask, JavaScript, HTML, CSS. <strong>Έννοιες Κυβερνοασφάλειας:</strong> Εξοικείωση με τις αρχές του ηθικού hacking, τις δοκιμές ασφαλείας και τα ασφαλή πρωτόκολλα επικοινωνίας· εμπειρία στην ανάπτυξη βασικών εργαλείων phishing για εκπαιδευτικούς σκοπούς. <strong>Λειτουργικά Συστήματα:</strong> Εμπειρία με Android (περιβάλλον Termux). <strong>Εργαλεία Ανάπτυξης:</strong> Πρακτική χρήση Git, Termux, Nano, Vim.</p>
+     <h3>Επαγγελματικές Δεξιότητες</h3>
+     <p><strong>Ομαδικότητα:</strong> Αποδεδειγμένη ικανότητα αποτελεσματικής συνεργασίας σε ομαδικά έργα περιβαλλοντικής συντήρησης και ανάπτυξης λογισμικού. <strong>Προσαρμοστικότητα:</strong> Ικανότητα ταχείας εκμάθησης και εφαρμογής νέων δεξιοτήτων σε διάφορους τεχνικούς και πρακτικούς τομείς. <strong>Επικοινωνία:</strong> Ικανότητα σαφούς μετάδοσης τεχνικών πληροφοριών.</p>
+     <h2>Εμπειρία</h2>
+     <h3>Τεχνικός HVAC (3 Έτη):</h3>
+     <p>Συμμετοχή στην εγκατάσταση, συντήρηση και επισκευή συστημάτων θέρμανσης, εξαερισμού και κλιματισμού (HVAC), συμπεριλαμβανομένων των ηλιακών θερμοσιφώνων. Οι αρμοδιότητες περιλάμβαναν την εξασφάλιση της λειτουργικότητας του συστήματος και τη διενέργεια τακτικών ελέγχων.</p>
+     <h3>Προγραμματιστής (5 Έτη):</h3>
+     <p>Ενασχόληση με την ανάπτυξη και συντήρηση εργαλείων και εφαρμογών με επίκεντρο την κυβερνοασφάλεια, κυρίως χρησιμοποιώντας Python. Συμβολή σε έργα που στόχευαν στην ψηφιακή ελευθερία, την ασφαλή επικοινωνία και τις εκπαιδευτικές δοκιμές ασφαλείας.</p>
+    </div>
+  </div>
+
+
+  <script>
+    let currentLanguage = 'en';
+
+    function changeLanguage(lang) {
+        currentLanguage = lang;
+
+        document.querySelectorAll('.language-button').forEach(button => {
+            if (button.dataset.lang === lang) {
+                button.classList.add('selected');
+            } else {
+                button.classList.remove('selected');
+            }
+        });
+
+        document.querySelectorAll('[data-en][data-gr]').forEach(el => {
+            const newText = el.dataset[lang];
+            
+            let targetElement = el;
+            if (el.querySelector('span[data-en][data-gr]')) {
+                targetElement = el.querySelector('span[data-en][data-gr]');
+            } else if (el.querySelector('span')) {
+                 targetElement = el.querySelector('span');
+            }
+
+            if (targetElement && targetElement.dataset[lang]) {
+                targetElement.textContent = targetElement.dataset[lang];
+            } else if (el.dataset[lang]) {
+                el.textContent = el.dataset[lang];
+            }
+        });
+        
+        document.querySelectorAll('[data-lang-section]').forEach(el => {
+            el.style.display = (el.dataset.langSection === lang) ? 'block' : 'none';
+        });
+    }
+
+    function copyToClipboard(button, targetId) {
+        const codeElement = document.getElementById(targetId);
+        if (!codeElement) return;
+
+        const textArea = document.createElement("textarea");
+        textArea.value = codeElement.innerText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            const originalTextKey = (currentLanguage === 'gr') ? 'gr' : 'en';
+            const originalText = button.dataset[originalTextKey];
+            button.textContent = (currentLanguage === 'gr') ? 'Αντιγράφηκε!' : 'Copied!';
+            setTimeout(() => { button.textContent = originalText; }, 1500);
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+        }
+        document.body.removeChild(textArea);
+    }
+
+    async function downloadCV() {
+        const { jsPDF } = window.jspdf;
+        const downloadButton = document.getElementById('download-cv-btn');
+        const originalButtonHTML = downloadButton.innerHTML;
+        downloadButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i> <span data-en="Generating..." data-gr="Δημιουργία...">Generating...</span>`;
+        changeLanguage(currentLanguage);
+        
+        const sourceId = `cv-${currentLanguage}`;
+        const source = document.getElementById(sourceId);
+        if (!source) return;
+
+        const pdfContainer = document.createElement('div');
+        Object.assign(pdfContainer.style, {
+            position: 'absolute', left: '-9999px', top: '0',
+            width: '700px', padding: '40px', backgroundColor: 'white', color: 'black',
+            fontFamily: 'Inter, sans-serif', fontSize: '10pt'
+        });
+        pdfContainer.innerHTML = source.innerHTML;
+        document.body.appendChild(pdfContainer);
+
+        try {
+            const canvas = await html2canvas(pdfContainer, { scale: 2, useCORS: true });
+            const imgData = canvas.toDataURL('image/png');
+            const doc = new jsPDF('p', 'pt', 'a4');
+            const pdfWidth = doc.internal.pageSize.getWidth();
+            const imgProps = doc.getImageProperties(imgData);
+            const ratio = imgProps.height / imgProps.width;
+            const imgHeight = pdfWidth * ratio;
+            doc.addImage(imgData, 'PNG', 15, 15, pdfWidth - 30, imgHeight);
+            doc.save(`CV-Loukas-Floros-${currentLanguage}.pdf`);
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+        } finally {
+            document.body.removeChild(pdfContainer);
+            downloadButton.innerHTML = originalButtonHTML;
+            changeLanguage(currentLanguage); 
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const languageModal = document.getElementById('language-selection-modal');
+        const disclaimerModal = document.getElementById('disclaimer-modal');
+        const imageViewerModal = document.getElementById('image-viewer-modal');
+        const expandedImg = document.getElementById('expanded-img');
+        const profilePic = document.querySelector('.logo');
+
+        const closeViewer = () => imageViewerModal.classList.remove('visible');
+        
+        if (profilePic) {
+            profilePic.addEventListener('click', () => {
+                expandedImg.src = profilePic.src;
+                imageViewerModal.classList.add('visible');
+            });
+        }
+        
+        if(expandedImg) {
+            expandedImg.addEventListener('click', closeViewer);
+        }
+
+        if(imageViewerModal) {
+            imageViewerModal.addEventListener('click', (e) => {
+                if (e.target === imageViewerModal) {
+                    closeViewer();
+                }
+            });
+        }
+
+        languageModal.classList.add('visible');
+
+        document.querySelectorAll('.language-choice-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const selectedLang = button.dataset.lang;
+                changeLanguage(selectedLang);
+                languageModal.classList.remove('visible');
+                disclaimerModal.classList.add('visible'); // Show disclaimer directly
+            });
+        });
+
+        document.getElementById('accept-disclaimer').addEventListener('click', () => {
+            disclaimerModal.classList.remove('visible');
+        });
+
+        document.getElementById('decline-disclaimer').addEventListener('click', () => {
+            window.location.href = 'https://www.google.com';
+        });
+
+        document.querySelectorAll('.app-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                if (button.tagName === 'A') return;
+                const modalId = button.dataset.modal + '-modal';
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add('visible');
+                }
+            });
+        });
+
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            if (modal.id === 'disclaimer-modal' || modal.id === 'language-selection-modal' || modal.id === 'image-viewer-modal') return;
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('visible');
+                }
+            });
+        });
+        
+        document.querySelectorAll('.close-modal').forEach(button => {
+            button.addEventListener('click', () => {
+                button.closest('.modal-overlay').classList.remove('visible');
+            });
+        });
+
+        document.querySelectorAll('.language-button').forEach(button => {
+            button.addEventListener('click', () => {
+                changeLanguage(button.dataset.lang);
+            });
+        });
+
+        document.getElementById('download-cv-btn').addEventListener('click', downloadCV);
+
+    });
+  </script>
+ </body>
+</html>
