@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>dedsec1121fk's Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@400;700&family=Inter:wght@400;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --nm-deep-purple: #100e14;
+            --nm-darkest: #1a1721;
+            --nm-dark: #231F2E;
+            --nm-container: #3E3852;
+            --nm-border: #595273;
+            --nm-accent: #A472E8;
+            --nm-accent-hover: #BE93FD;
+            --nm-text: #F0F0F0;
+            --nm-text-muted: #9E9E9E;
+            --nm-danger: #dc3545;
+            --nm-success: #28a745;
+            --warning-bg: #8A4FFF;
+            --glow-color: rgba(164, 114, 232, 0.4);
+            --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Roboto Mono', monospace;
+            color: var(--nm-text);
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #access-denied {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: var(--nm-deep-purple);
+        }
+        #access-denied .message-container {
+            transform: skewY(-5deg);
+        }
+        #access-denied h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 6vmin, 8rem);
+            text-shadow: 0 0 15px var(--glow-color), 0 0 25px var(--glow-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.2;
+        }
+        #access-denied .dedsec-tag {
+            font-family: 'Orbitron', sans-serif;
+            margin-top: 2rem;
+            font-weight: 700;
+            color: var(--nm-accent);
+            font-size: clamp(1.2rem, 4vmin, 6rem);
+            text-shadow: 0 0 8px var(--nm-accent), 0 0 15px var(--nm-accent);
+            line-height: 1.3;
+        }
+
+        .phone-container {
+            display: none;
+        }
+        html.mobile-device .phone-container {
+            display: flex;
+        }
+        html.mobile-device #access-denied {
+            display: none;
+        }
+
+        .phone-container {
+            width: 100%;
+            height: 100%;
+            max-width: 450px;
+            max-height: 940px;
+            background: var(--nm-darkest);
+            border: 2px solid var(--nm-border);
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 0 30px var(--glow-color);
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background-color: var(--nm-deep-purple);
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--nm-border);
+        }
+        
+        .screen-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(0deg, rgba(164, 114, 232, 0.03), rgba(164, 114, 232, 0.03) 1px, transparent 1px, transparent 5px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+            flex-shrink: 0;
+            background: rgba(35, 31, 46, 0.5);
+            border-bottom: 1px solid var(--nm-border);
+        }
+        
+        .home-screen {
+            flex-grow: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            min-height: 0;
+            padding: 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .home-screen::-webkit-scrollbar,
+        .modal-body::-webkit-scrollbar,
+        #quiz-container::-webkit-scrollbar {
+            width: 10px;
+        }
+        .home-screen::-webkit-scrollbar-track,
+        .modal-body::-webkit-scrollbar-track,
+         #quiz-container::-webkit-scrollbar-track {
+            background: var(--nm-dark);
+            border-radius: 10px;
+        }
+        .home-screen::-webkit-scrollbar-thumb,
+        .modal-body::-webkit-scrollbar-thumb,
+         #quiz-container::-webkit-scrollbar-thumb {
+            background-color: var(--nm-accent);
+            border-radius: 10px;
+            border: 2px solid var(--nm-dark);
+        }
+        .home-screen::-webkit-scrollbar-thumb:hover,
+        .modal-body::-webkit-scrollbar-thumb:hover,
+         #quiz-container::-webkit-scrollbar-thumb:hover {
+            background-color: var(--nm-accent-hover);
+        }
+
+        .profile-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+        .profile-pic {
+            width: 90px;
+            height: 90px;
+            border-radius: 15px;
+            border: 3px solid var(--nm-accent);
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .profile-pic:hover {
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+        .profile-info {
+            text-align: left;
+            flex-grow: 1;
+        }
+        .profile-info h1 {
+            text-align: left;
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--nm-text);
+            text-shadow: 0 0 8px var(--glow-color);
+        }
+        .quote {
+            font-style: italic;
+            font-size: 0.8rem;
+            color: var(--nm-text-muted);
+            margin-top: 5px;
+            text-align: left;
+            max-width: 100%;
+        }
+        
+        .github-stats {
+            text-align: center;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .github-stats img {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+         .github-stats img:last-child {
+            margin-bottom: 0;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 320px;
+            margin-bottom: 15px;
+        }
+
+        .app-icon {
+            background: var(--nm-container);
+            border: 1px solid var(--nm-border);
+            border-radius: 15px;
+            color: var(--nm-text);
+            cursor: pointer;
+            font-family: 'Roboto Mono', monospace;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 4px;
+            text-align: center;
+            text-decoration: none;
+            aspect-ratio: 1 / 1;
+        }
+        .app-icon:hover {
+            background: var(--nm-accent-hover);
+            border-color: var(--nm-accent);
+            color: var(--nm-darkest);
+        }
+        .app-icon i {
+            font-size: 1.6rem; 
+            margin-bottom: 6px;
+            color: var(--nm-accent);
+            transition: color 0.2s ease;
+        }
+        .app-icon:hover i {
+            color: var(--nm-darkest);
+        }
+        .app-icon span {
+            font-size: 0.65rem;
+            font-weight: 700;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+        
+        .ad-widget {
+            width: 100%;
+            margin-top: 15px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .ad-widget .ad-content {
+            background-color: var(--nm-container);
+            border-radius: 15px;
+            border: 1px solid var(--nm-border);
+            padding: 10px;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+        .ad-widget h2 {
+            font-size: 1rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--nm-accent-hover);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .ad-widget img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+        .ad-widget p {
+            margin: 0.2rem 0;
+            font-size: 0.8rem;
+        }
+        .ad-widget a {
+            color: var(--nm-accent);
+            font-size: 0.8rem;
+        }
+
+        .dock {
+            padding: 8px;
+            padding-bottom: var(--safe-area-inset-bottom);
+            background: rgba(35, 31, 46, 0.7);
+            border-top: 1px solid var(--nm-border);
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            z-index: 2;
+        }
+        .dock .app-icon {
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 15px;
+            padding: 5px;
+        }
+        .dock .app-icon i {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+        .dock .app-icon span {
+            font-size: 0.6rem;
+        }
+        .dock .app-icon:hover {
+            background: var(--nm-accent-hover);
+            color: var(--nm-darkest);
+            border-color: var(--nm-accent-hover);
+        }
+
+        .main-footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.7rem;
+            color: var(--nm-text-muted);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0s 0.3s;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            background: var(--nm-dark);
+            width: 95%;
+            max-width: 800px;
+            height: 85%;
+            max-height: 800px;
+            border-radius: 15px;
+            border: 1px solid var(--nm-border);
+            box-shadow: 0 0 40px var(--glow-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: translateY(0);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: var(--nm-container);
+            border-bottom: 1px solid var(--nm-border);
+            flex-shrink: 0;
+        }
+        .modal-header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            margin: 0;
+            color: var(--nm-accent);
+            text-transform: uppercase;
+        }
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--nm-text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s, text-shadow 0.2s;
+        }
+        .close-modal:hover {
+            color: var(--nm-danger);
+            text-shadow: 0 0 10px var(--nm-danger);
+        }
+        .modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            flex-grow: 1;
+            line-height: 1.7;
+        }
+        .modal-body h3 {
+            color: var(--nm-accent-hover);
+            border-bottom: 1px solid var(--nm-border);
+            padding-bottom: 8px;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .modal-body h3:first-child {
+            margin-top: 0;
+        }
+        .modal-body a {
+            color: var(--nm-accent);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .modal-body a:hover {
+            text-decoration: underline;
+            color: var(--nm-accent-hover);
+        }
+        .modal-body .code-container {
+            position: relative;
+            background: var(--nm-darkest);
+            border: 1px solid var(--nm-border);
+            border-radius: 5px;
+            padding: 15px;
+            margin: 1em 0;
+        }
+        .modal-body code {
+            font-family: 'Roboto Mono', monospace;
+            color: var(--nm-text);
+            word-break: break-all;
+            padding-right: 60px;
+            display: block;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--nm-container);
+            border: 1px solid var(--nm-border);
+            color: var(--nm-accent);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .copy-btn:hover {
+            background: var(--nm-accent-hover);
+            color: var(--nm-darkest);
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--nm-border);
+        }
+        .modal-footer button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+        }
+        .accept-btn {
+            background-color: var(--nm-success);
+            border-color: var(--nm-success);
+        }
+        .accept-btn:hover {
+            opacity: 0.9;
+        }
+        .decline-btn {
+            background-color: var(--nm-danger);
+            border-color: var(--nm-danger);
+        }
+        .decline-btn:hover {
+            opacity: 0.9;
+        }
+        .language-button {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: 1px solid var(--nm-border);
+            background: var(--nm-container);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .language-button:hover, .language-button.selected {
+            background: var(--nm-accent);
+            border-color: var(--nm-accent);
+            color: var(--nm-darkest);
+        }
+        .modal-body .note, .modal-body .tip {
+            background: var(--nm-dark);
+            border-left: 4px solid var(--nm-accent-hover);
+            margin: 1em 0;
+            padding: 0.8em 1em;
+            border-radius: 4px;
+        }
+        
+        /* --- Certification Modal Styles --- */
+        #certification-modal .modal-body {
+            padding: 15px;
+            background-color: var(--nm-deep-purple);
+        }
+        #app-container {
+            background-color: var(--nm-dark);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px var(--glow-color);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: var(--nm-text);
+        }
+        .hidden { display: none !important; }
+
+        #language-selection h1, #user-info h1, #results-container h1 {
+            color: var(--nm-text);
+            text-shadow: 0 0 8px var(--glow-color);
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        #language-selection p, #user-info label {
+            color: var(--nm-text-muted);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        #language-selection .button-container, #user-info form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+        #language-selection button, #user-info button, #navigation-container button, #results-container button {
+            background-color: var(--nm-container);
+            color: var(--nm-text);
+            border: 1px solid var(--nm-border);
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+            cursor: pointer;
+        }
+        #language-selection button:hover, #user-info button:hover, #navigation-container button:hover, #results-container button:hover {
+            background-color: var(--nm-accent-hover);
+            color: var(--nm-darkest);
+            border-color: var(--nm-accent);
+        }
+        #navigation-container button#submit-btn, #results-container .download-cert-btn {
+             background-color: var(--nm-success);
+             border-color: var(--nm-success);
+        }
+         #navigation-container button#submit-btn:hover, #results-container .download-cert-btn:hover {
+             opacity: 0.9;
+        }
+        #results-container .text-red-600 { color: var(--nm-danger); }
+        #user-info input {
+            background-color: var(--nm-darkest);
+            border: 1px solid var(--nm-border);
+            color: var(--nm-text);
+            border-radius: 8px;
+            padding: 12px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        #user-info input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--nm-accent);
+            border-color: var(--nm-accent);
+        }
+        #quiz-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        #quiz-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: var(--nm-darkest);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            border: 1px solid var(--nm-border);
+        }
+        .quiz-page { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .quiz-page h2 { color: var(--nm-accent-hover); font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .quiz-page hr { border-color: var(--nm-border); margin: 1rem 0;}
+        .quiz-page .question-box { background-color: var(--nm-darkest); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+        .quiz-page .options-container { display: flex; flex-direction: column; gap: 0.75rem; }
+        .quiz-page label {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border: 1px solid var(--nm-border);
+            border-radius: 8px;
+            background-color: var(--nm-container);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .quiz-page label:hover {
+            background-color: var(--nm-accent-hover);
+            color: var(--nm-darkest);
+        }
+        .quiz-page input[type="radio"] {
+             accent-color: var(--nm-accent);
+             margin-right: 10px;
+        }
+        
+        #navigation-container {
+            margin-top: 1rem;
+            gap: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        #navigation-container button { width: auto; }
+        #navigation-container button:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        /* --- Professional Certificate Styles --- */
+        .certificate-container {
+            background: var(--nm-darkest);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px var(--glow-color);
+        }
+        .certificate {
+            background-image: 
+                linear-gradient(rgba(164, 114, 232, 0.1), rgba(164, 114, 232, 0.1)),
+                radial-gradient(ellipse at center, rgba(35, 31, 46, 0.5) 0%, var(--nm-deep-purple) 70%);
+            border: 2px solid var(--nm-accent);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            font-family: 'Noto Serif', serif;
+            color: var(--nm-text);
+            border-radius: 5px;
+        }
+        .certificate-header {
+            margin-bottom: 1.5rem;
+        }
+        .certificate-header .seal {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+        }
+        .certificate-header .seal .seal-border {
+            fill: none;
+            stroke: var(--nm-accent);
+            stroke-width: 2;
+        }
+        .certificate-header .seal .seal-star {
+            fill: var(--nm-accent-hover);
+        }
+        .certificate-header .seal .seal-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            fill: var(--nm-darkest);
+            text-anchor: middle;
+            font-weight: bold;
+        }
+        .certificate-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--nm-text);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+        .certificate-body p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--nm-text-muted);
+            margin: 0.5rem 0;
+        }
+        .certificate-body .recipient-name {
+            font-family: 'Noto Serif', serif;
+            font-style: italic;
+            font-size: 2.5rem;
+            color: var(--nm-accent-hover);
+            margin: 1.5rem 0;
+            font-weight: 700;
+            border-bottom: 2px solid var(--nm-border);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .certificate-footer {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        .certificate-footer .signature, .certificate-footer .date-info {
+            border-top: 1px solid var(--nm-text-muted);
+            padding-top: 0.5rem;
+            width: 45%;
+        }
+        .certificate-footer strong {
+            color: var(--nm-text);
+        }
+        .grade-display {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--nm-accent);
+            color: var(--nm-darkest);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .serif { font-family: 'Noto Serif', serif; }
+        .text-green-600 { color: var(--nm-success) !important; }
+        
+        @media (max-width: 480px) {
+            .phone-container {
+                max-width: 100%;
+                max-height: 100%;
+                border-radius: 0;
+                padding: 0;
+                border: none;
+                box-shadow: none;
+            }
+            .screen, .modal-content {
+                border-radius: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+    <script>
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            document.documentElement.classList.add('mobile-device');
+        }
+    </script>
+</head>
+<body>
+    <!-- This message is shown to non-mobile users -->
+    <div id="access-denied">
+        <div class="message-container">
+            <h1>Sorry you're a spy, if not use a mobile device!</h1>
+            <h1>Συγγνώμη, είστε κατάσκοπος, αν όχι, χρησιμοποιήστε μια κινητή συσκευή!</h1>
+            <p class="dedsec-tag">DedSec Is Back!</p>
+            <p class="dedsec-tag">Ο DedSec Επέστρεψε!</p>
+        </div>
+    </div>
+
+    <!-- This is the main content, only shown on mobile devices -->
+    <div class="phone-container">
+        <div class="screen">
+            <div class="screen-overlay"></div>
+            
+            <header class="status-bar">
+                <div class="status-left">
+                    <span id="time-display">20:04</span>
+                    <span id="country-code"></span>
+                </div>
+                <div class="status-right">
+                    <i class="fas fa-wifi"></i>
+                    <span class="data-signal">5G</span>
+                    <span id="battery-level">100%</span>
+                    <i id="battery-icon" class="fas fa-battery-full"></i>
+                </div>
+            </header>
+
+            <main class="home-screen">
+                <div class="profile-header">
+                    <img alt="dedsec1121fk Logo" class="profile-pic" src="https://github.com/dedsec1121fk/DedSec/raw/main/Extra%20Content/Images/Portofolio.jpg"/>
+                    <div class="profile-info">
+                        <h1 data-en="dedsec1121fk's Portfolio" data-gr="Το Portfolio του dedsec1121fk">dedsec1121fk's Portfolio</h1>
+                        <div class="quote">
+                            <p data-en="When tyranny becomes law, rebellion becomes duty. - Thomas Jefferson" 
+                               data-gr="Όταν η τυραννία γίνεται νόμος, η εξέγερση γίνεται καθήκον. - Τόμας Τζέφερσον">
+                               When tyranny becomes law, rebellion becomes duty. - Thomas Jefferson
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="github-stats">
+                    <img src="https://github-readme-stats.vercel.app/api?username=dedsec1121fk&show_icons=true&theme=dracula" alt="GitHub Stats">
+                </div>
+
+                <div class="app-grid">
+                    <div class="app-icon" data-modal="about"><i class="fas fa-info-circle"></i><span data-en="About The DedSec Project" data-gr="Σχετικά με το DedSec Project">About The DedSec Project</span></div>
+                    <div class="app-icon" data-modal="resistance"><i class="fas fa-fist-raised"></i><span data-en="Digital Resistance" data-gr="Ψηφιακή Αντίσταση">Digital Resistance</span></div>
+                    <div class="app-icon" data-modal="installation"><i class="fas fa-download"></i><span data-en="Installation & Setup" data-gr="Εγκατάσταση & Ρύθμιση">Installation & Setup</span></div>
+                    <div class="app-icon" data-modal="scripts"><i class="fas fa-code"></i><span data-en="Scripts & Their Functionalities" data-gr="Σενάρια & Λειτουργίες">Scripts & Their Functionalities</span></div>
+                    <div class="app-icon" data-modal="legal"><i class="fas fa-gavel"></i><span data-en="Legal & Ethical Notice" data-gr="Νομική & Ηθική Δήλωση">Legal & Ethical Notice</span></div>
+                    <a href="https://dedsec1121fk.gumroad.com" target="_blank" class="app-icon"><i class="fas fa-store"></i><span data-en="DedSec Store" data-gr="DedSec Store">DedSec Store</span></a>
+                    <div class="app-icon" data-modal="certification"><i class="fas fa-certificate"></i><span data-en="Get Certified" data-gr="Πιστοποίηση">Get Certified</span></div>
+                    <div class="app-icon" data-modal="credits"><i class="fas fa-users"></i><span data-en="Credits" data-gr="Συντελεστές">Credits</span></div>
+                </div>
+
+                <div class="github-stats">
+                    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=dedsec1121fk&theme=dracula&layout=compact" alt="Top Languages">
+                </div>
+
+                <div class="ad-widget">
+                   <div class="ad-content">
+                        <div data-lang-section="en">
+                            <h2 data-en="Ads" data-gr="Διαφημίσεις">Ads</h2>
+                            <img alt="ola Greek Nightclub" src="https://github.com/dedsec1121fk/DedSec/blob/096994d4cc1eaf0923bb14ae72422892a4d8f6f4/Extra%20Content/Images/oLa%20%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC.jpg?raw=true"/>
+                            <p><strong>ola ελληνικά</strong> (Nightclub)</p>
+                            <p>The ultimate Greek experience awaits you!</p>
+                            <a href="https://maps.app.goo.gl/7E5LtMTGJ8Fk1jEi6" target="_blank">Triptolemou 50, Athina 175 63</a>
+                        </div>
+                        <div data-lang-section="gr" style="display:none;">
+                            <h2 data-en="Ads" data-gr="Διαφημίσεις">Διαφημίσεις</h2>
+                            <img alt="ola Greek Nightclub" src="https://github.com/dedsec1121fk/DedSec/blob/096994d4cc1eaf0923bb14ae72422892a4d8f6f4/Extra%20Content/Images/oLa%20%CE%B5%CE%BB%CE%BB%CE%B7%CE%BD%CE%B9%CE%BA%CE%AC.jpg?raw=true"/>
+                            <p><strong>ola ελληνικά</strong> (Νυχτερινό Κέντρο)</p>
+                            <p>Η απόλυτη Ελληνική εμπειρία σε περιμένει!</p>
+                            <a href="https://maps.app.goo.gl/7E5LtMTGJ8Fk1jEi6" target="_blank">Triptolemou 50, Αθήνα 175 63</a>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="main-footer">
+                    <div data-lang-section="en"><p>© 2025 dedsec1121fk. All Rights Reserved.</p></div>
+                    <div data-lang-section="gr" style="display:none;"><p>© 2025 dedsec1121fk. Με επιφύλαξη παντός δικαιώματος.</p></div>
+                </footer>
+            </main>
+
+            <footer class="dock">
+                <a href="https://github.com/dedsec1121fk/DedSec" target="_blank" class="app-icon"><i class="fab fa-github"></i><span>GitHub</span></a>
+                <a href="https://t.me/dedsecproject" target="_blank" class="app-icon"><i class="fab fa-telegram"></i><span>Telegram</span></a>
+                <a href="https://instagram.com/username112104" target="_blank" class="app-icon"><i class="fab fa-instagram"></i><span>Instagram</span></a>
+                <div id="download-cv-btn" class="app-icon"><i class="fas fa-file-alt"></i><span data-en="CV" data-gr="Βιογραφικό">CV</span></div>
+                <div id="lang-switcher-btn" class="app-icon"><i class="fas fa-globe"></i><span data-en="Επιλογή Γλώσσας" data-gr="Choose Language">Language</span></div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- All Modals -->
+    <div id="image-viewer-modal" class="modal-overlay"><img id="expanded-img" src="" alt="Expanded Profile Picture" style="max-width: 90vw; max-height: 90vh; border: 3px solid var(--nm-accent); box-shadow: 0 0 25px var(--glow-color);"></div>
+
+    <div id="language-selection-modal" class="modal-overlay">
+      <div class="modal-content" style="height: auto;">
+          <div class="modal-header">
+            <h2 data-en="Choose Language" data-gr="Επιλογή Γλώσσας">Choose Language / Επιλογή Γλώσσας</h2>
+            <button class="close-modal">×</button>
+          </div>
+          <div class="modal-body" style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1rem;">
+              <button class="language-button" data-lang="en">English</button>
+              <button class="language-button" data-lang="gr">Ελληνικά</button>
+          </div>
+      </div>
+    </div>
+
+    <div id="disclaimer-modal" class="modal-overlay">
+      <div class="modal-content">
+          <div class="modal-header"><h2 data-en="Disclaimer & Terms of Use" data-gr="Αποποίηση Ευθύνης & Όροι Χρήσης">Disclaimer & Terms of Use</h2></div>
+          <div class="modal-body">
+            <div data-lang-section="en"><div class="note"><p><strong>PLEASE READ CAREFULLY BEFORE PROCEEDING.</strong></p><p>This project, including all associated tools, scripts, and documentation ("the Software"), is provided strictly for educational, research, and ethical security testing purposes. It is intended for use exclusively in controlled, authorized environments by users who have obtained explicit, prior written permission from the owners of any systems they intend to test.</p><p><strong>1. Assumption of Risk and Responsibility:</strong> By accessing or using the Software, you acknowledge and agree that you are doing so at your own risk. You are solely and entirely responsible for your actions and for any consequences that may arise from the use or misuse of this Software. This includes, but is not limited to, compliance with all applicable local, state, national, and international laws and regulations related to cybersecurity, data privacy, and electronic communications.</p><p><strong>2. Prohibited Activities:</strong> Any use of the Software for unauthorized or malicious activities is strictly prohibited. This includes, without limitation: accessing systems, networks, or data without authorization; performing denial-of-service attacks; data theft; fraud; spreading malware; or any other activity that violates applicable laws. Engaging in such activities may result in severe civil and criminal penalties.</p><p><strong>3. No Warranty:</strong> The Software is provided "AS IS," without any warranty of any kind, express or implied. This includes, but is not limited to, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement. The developers and contributors make no guarantee that the Software will be error-free, secure, or uninterrupted.</p><p><strong>4. Limitation of Liability:</strong> In no event shall the developers, contributors, or distributors of the Software be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the Software or the use or other dealings in the Software. This includes any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption).</p><p><strong>By clicking "Accept," you confirm that you have read, understood, and agree to be bound by all the terms and conditions outlined in this disclaimer. If you do not agree with these terms, you must click "Decline" and cease all use of the Software immediately.</strong></p></div></div>
+            <div data-lang-section="gr" style="display:none;"><div class="note"><p><strong>ΠΑΡΑΚΑΛΩ ΔΙΑΒΑΣΤΕ ΠΡΟΣΕΚΤΙΚΑ ΠΡΙΝ ΠΡΟΧΩΡΗΣΕΤΕ.</strong></p><p>Αυτό το έργο, συμπεριλαμβανομένων όλων των σχετικών εργαλείων, σεναρίων και τεκμηρίωσης («το Λογισμικό»), παρέχεται αυστηρά για εκπαιδευτικούς, ερευνητικούς και ηθικούς σκοπούς δοκιμών ασφαλείας. Προορίζεται για χρήση αποκλειστικά σε ελεγχόμενα, εξουσιοδοτημένα περιβάλλοντα από χρήστες που έχουν λάβει ρητή, προηγούμενη γραπτή άδεια από τους ιδιοκτήτες οποιωνδήποτε συστημάτων σκοπεύουν να δοκιμάσουν.</p><p><strong>1. Ανάληψη Κινδύνου και Ευθύνης:</strong> Με την πρόσβαση ή τη χρήση του Λογισμικού, αναγνωρίζετε και συμφωνείτε ότι το κάνετε με δική σας ευθύνη. Είστε αποκλειστικά και εξ ολοκλήρου υπεύθυνοι για τις πράξεις σας και για οποιεσδήποτε συνέπειες μπορεί να προκύψουν από τη χρήση ή την κακή χρήση αυτού του Λογισμικού. Αυτό περιλαμβάνει, αλλά δεν περιορίζεται σε, τη συμμόρφωση με όλους τους ισχύοντες τοπικούς, πολιτειακούς, εθνικούς και διεθνείς νόμους και κανονισμούς που σχετίζονται με την κυβερνοασφάλεια, το απόρρητο δεδομένων και τις ηλεκτρονικές επικοινωνίες.</p><p><strong>2. Απαγορευμένες Δραστηριότητες:</strong> Οποιαδήποτε χρήση του Λογισμικού για μη εξουσιοδοτημένες ή κακόβουλες δραστηριότητες απαγορεύεται αυστηρά. Αυτό περιλαμβάνει, χωρίς περιορισμό: την πρόσβαση σε συστήματα, δίκτυα ή δεδομένα χωρίς εξουσιοδότηση· την εκτέλεση επιθέσεων άρνησης υπηρεσίας· την κλοπή δεδομένων· την απάτη· τη διάδοση κακόβουλου λογισμικού· ή οποιαδήποτε άλλη δραστηριότητα που παραβιάζει τους ισχύοντες νόμους. Η ενασχόληση με τέτοιες δραστηριότητες μπορεί να οδηγήσει σε σοβαρές αστικές και ποινικές κυρώσεις.</p><p><strong>3. Καμία Εγγύηση:</strong> Το Λογισμικό παρέχεται «ΩΣ ΕΧΕΙ», χωρίς καμία εγγύηση οποιουδήποτε είδους, ρητή ή σιωπηρή. Αυτό περιλαμβάνει, αλλά δεν περιορίζεται σε, τις σιωπηρές εγγυήσεις εμπορευσιμότητας, καταλληλότητας για συγκεκριμένο σκοπό και μη παραβίασης. Οι προγραμματιστές και οι συνεισφέροντες δεν παρέχουν καμία εγγύηση ότι το Λογισμικό θα είναι χωρίς σφάλματα, ασφαλές ή αδιάλειπτο.</p><p><strong>4. Περιορισμός Ευθύνης:</strong> Σε καμία περίπτωση οι προγραμματιστές, οι συνεισφέροντες ή οι διανομείς του Λογισμικού δεν θα ευθύνονται για οποιαδήποτε αξίωση, ζημία ή άλλη ευθύνη, είτε σε αγωγή σύμβασης, αδικοπραξίας ή άλλως, που προκύπτει από, εκτός ή σε σχέση με το Λογισμικό ή τη χρήση ή άλλες συναλλαγές με το Λογισμικό. Αυτό περιλαμβάνει οποιεσδήποτε άμεσες, έμμεσες, τυχαίες, ειδικές, παραδειγματικές ή παρεπόμενες ζημίες (συμπεριλαμβανομένων, ενδεικτικά, της προμήθειας υποκατάστατων αγαθών ή υπηρεσιών· της απώλειας χρήσης, δεδομένων ή κερδών· ή της διακοπής της επιχειρηματικής δραστηριότητας).</p><p><strong>Κάνοντας κλικ στο «Αποδοχή», επιβεβαιώνετε ότι έχετε διαβάσει, κατανοήσει και συμφωνείτε να δεσμεύεστε από όλους τους όρους και τις προϋποθέσεις που περιγράφονται σε αυτήν την αποποίηση ευθύνης. Εάν δεν συμφωνείτε με αυτούς τους όρους, πρέπει να κάνετε κλικ στο «Απόρριψη» και να σταματήσετε αμέσως κάθε χρήση του Λογισμικού.</strong></p></div></div>
+          </div>
+          <div class="modal-footer">
+            <button id="decline-disclaimer" class="decline-btn" data-en="Decline" data-gr="Απόρριψη">Decline</button>
+            <button id="accept-disclaimer" class="accept-btn" data-en="Accept" data-gr="Αποδοχή">Accept</button>
+          </div>
+      </div>
+    </div>
+    
+    <div id="about-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h2 data-en="About The DedSec Project" data-gr="Σχετικά με το DedSec Project">About The DedSec Project</h2><button class="close-modal">×</button></div><div class="modal-body" data-lang-section="en"><p>The DedSec Project is a free, community-driven initiative inspired by the cyber-resistance themes of Ubisoft’s Watch Dogs series. Our mission is to empower users with tools and knowledge for digital freedom, security, and privacy awareness. We provide a suite of utilities for ethical security testing, secure communication, and system customization, all available at no cost.</p><p>Why use it? Because everyone deserves access to knowledge, privacy, and control over their digital life. We're not here for profit—we're here to give power back to the people. Whether you're a tech enthusiast, digital activist, or just someone curious about cybersecurity, the DedSec Project invites you to be part of the movement.</p><p>Welcome to the resistance.</p></div><div class="modal-body" data-lang-section="gr" style="display:none;"><p>Το DedSec Project είναι μια δωρεάν, κοινοτική πρωτοβουλία, εμπνευσμένη από τα θέματα της ψηφιακής αντίστασης της σειράς Watch Dogs της Ubisoft. Η αποστολή μας είναι να ενδυναμώσουμε τους χρήστες με εργαλεία και γνώσεις για την ψηφιακή ελευθερία, την ασφάλεια και την ευαισθητοποίηση σχετικά με την ιδιωτικότητα. Παρέχουμε μια σουίτα βοηθητικών προγραμμάτων για ηθικό έλεγχο ασφαλείας, ασφαλή επικοινωνία και προσαρμογή συστήματος, όλα διαθέσιμα χωρίς κόστος.</p><p>Γιατί να το χρησιμοποιήσετε; Επειδή όλοι αξίζουν πρόσβαση στη γνώση, την ιδιωτικότητα και τον έλεγχο της ψηφιακής τους ζωής. Δεν είμαστε εδώ για κέρδος—είμαστε εδώ για να δώσουμε πίσω τη δύναμη στους ανθρώπους. Είτε είστε λάτρης της τεχνολογίας, ψηφιακός ακτιβιστής, είτε απλώς κάποιος περίεργος για την κυβερνοασφάλεια, το DedSec Project σας προσκαλεί να γίνετε μέρος του κινήματος.</p><p>Καλώς ήρθατε στην αντίσταση.</p></div></div></div>
+    <div id="resistance-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h2 data-en="Digital Resistance" data-gr="Ψηφιακή Αντίσταση">Digital Resistance</h2><button class="close-modal">×</button></div><div class="modal-body" data-lang-section="en"><p>They sold you convenience, safety, and progress. While you were distracted by the glow of your screen, they built a prison around your digital life. This isn't a conspiracy theory; it's the operating manual for the new world order. AI surveillance, mandatory online IDs, the death of ownership, and the forgery of reality itself are not separate bugs—they are interconnected features in a global system of control. They've already built the cage. This is your key to seeing the bars. The question is what you'll do once your eyes are open.</p><h3>The Digital Panopticon</h3><p>The digital panopticon is no longer fiction. A silent, sprawling network of AI-powered cameras and robotic sentinels blankets our cities, turning public spaces into data farms. This isn't a niche market; it's a booming economy built on your submission. The security robotics industry is set to explode from $19.12 billion in 2024 to nearly $90 billion by 2035. In cities like Seoul, AI CCTV systems "predict crimes" before they happen, targeting individuals based on algorithmic suspicion, not actions. The code is corrupt. Landmark studies confirm that facial recognition is up to 100 times more likely to misidentify Black and Asian faces, automating prejudice and creating a feedback loop of digital injustice.</p><h3>Erasing Anonymity & Ownership</h3><p>Your anonymity and your property are being systematically erased. Under the guise of "child safety," governments are forcing you to link your real-world ID to your online activity, creating a permanent record of your most private interests. This digital passport is a honeypot for hackers and a dream for state surveillance. At the same time, corporations are rewriting the rules of ownership. You no longer buy a game; you rent a temporary license. The ultimate proof? Ubisoft's execution of The Crew, a game thousands paid for, was remotely disabled and rendered permanently unplayable at the flip of a corporate switch.</p><h3>Corrupting Reality</h3><p>If they can't control your actions, they'll corrupt your reality. Deepfake technology has made truth a commodity. For less than $400 a month, anyone can run a disinformation campaign, and deepfake-related fraud surged by 3,000% in 2023 alone. Political elections are now battlegrounds for synthetic media, with AI-cloned voices of world leaders used to suppress votes. The defense is a lie; a major study found that the world's best deepfake detectors are no more reliable than a coin flip. This creates the "liar's dividend": as you lose the ability to distinguish real from fake, any authentic evidence can be dismissed as a deepfake, making accountability impossible.</p><h3>The Engine: Surveillance Capitalism</h3><p>All these systems are fueled by one engine: surveillance capitalism. A shadow industry of data brokers, worth hundreds of billions, harvests the raw material of your life. They scrape public records, track your every click, and buy your purchase history to build a "digital ghost"—a psychographic profile that predicts and influences your behavior. This creates a backdoor for the state. Instead of getting a warrant, government agencies simply buy your precise location history from these brokers, laundering mass surveillance through the private sector and stripping you of your constitutional protections.</p><h3>The Final Frontier: Your Home</h3><p>Your home is the final frontier, and they've already breached the gates. The smart devices you welcomed for their convenience—the speakers, cameras, locks, and even refrigerators—are Trojan horses, transforming your sanctuary into a 24/7 surveillance outpost. The global smart home market is projected to hit $135 billion by 2025, built on a foundation of your most intimate data. These devices are always listening. In a brazen move, Amazon announced that starting in March 2025, users can no longer stop their Alexa voice recordings from being sent to the cloud for AI processing, eliminating a key privacy option. Your private conversations, arguments, and moments of vulnerability are now raw material for their algorithms. This data, from your security camera footage to your thermostat settings, can be shared with third parties and law enforcement, creating a permanent, searchable log of your life within your own walls.</p><h3>The Response: Hacktivism</h3><p>When the system is rigged, the only logical response is to break the rules. This is the core of hacktivism: not as mindless vandalism, but as a calculated act of digital civil disobedience. In an age where protest is monitored and dissent is algorithmically suppressed, the traditional avenues for change are being choked off. Hacktivism transposes the sit-in and the picket line into cyberspace, using code as its bullhorn. Motivated by ideals of transparency, free speech, and human rights—not profit—groups like Anonymous target the very corporations and governments that build these systems of control. Their methods—DDoS attacks, data leaks, website defacements—are designed to disrupt operations, expose hypocrisy, and force a public reckoning. It is a direct response to a world where power has become unaccountable, a necessary counter-force in the fight for information freedom.</p><h3>The Call to Action</h3><p>The system is not invincible. It thrives on your apathy. Resistance begins now. Community-driven initiatives like the DedSec Project (ded-sec.space) offer a starting point, providing free tools for encrypted communication and education on recognizing digital threats. This is the first step. The next is arming yourself with a professional toolkit: privacy-focused browsers like Tor, encrypted messaging apps like Signal, and password managers. But individual defense isn't enough. Support the digital rights organizations fighting these systems in the courts and legislatures. The code of control has been written. It's time we started a rewrite. Do what you will.</p></div><div class="modal-body" data-lang-section="gr" style="display:none;"><p>Σας πούλησαν την ευκολία, την ασφάλεια και την πρόοδο. Ενώ ήσασταν αφηρημένοι από τη λάμψη της οθόνης σας, έχτισαν μια φυλακή γύρω από την ψηφιακή σας ζωή. Αυτό δεν είναι μια θεωρία συνωμοσίας· είναι το εγχειρίδιο λειτουργίας για τη νέα παγκόσμια τάξη. Η παρακολούθηση από AI, οι υποχρεωτικές διαδικτυακές ταυτότητες, ο θάνατος της ιδιοκτησίας και η παραποίηση της ίδιας της πραγματικότητας δεν είναι μεμονωμένα σφάλματα—είναι αλληλένδετα χαρακτηριστικά σε ένα παγκόσμιο σύστημα ελέγχου. Έχουν ήδη χτίσει το κλουβί. Αυτό είναι το κλειδί σας για να δείτε τα κάγκελα. Το ερώτημα είναι τι θα κάνετε μόλις ανοίξουν τα μάτια σας.</p><h3>Το Ψηφιακό Πανοπτικό</h3><p>Το ψηφιακό πανοπτικό δεν είναι πλέον φαντασία. Ένα σιωπηλό, εκτεταμένο δίκτυο καμερών με τεχνητή νοημοσύνη και ρομποτικών φρουρών καλύπτει τις πόλεις μας, μετατρέποντας τους δημόσιους χώρους σε φάρμες δεδομένων. Αυτή δεν είναι μια εξειδικευμένη αγορά· είναι μια ακμάζουσα οικονομία που βασίζεται στην υποταγή σας. Η βιομηχανία ρομποτικής ασφαλείας πρόκειται να εκτιναχθεί από 19,12 δισεκατομμύρια δολάρια το 2024 σε σχεδόν 90 δισεκατομμύρια δολάρια έως το 2035. Σε πόλεις όπως η Σεούλ, τα συστήματα CCTV με AI «προβλέπουν εγκλήματα» πριν συμβούν, στοχεύοντας άτομα βάσει αλγοριθμικής υποψίας, όχι πράξεων. Ο κώδικας είναι διεφθαρμένος. Σημαντικές μελέτες επιβεβαιώνουν ότι η αναγνώριση προσώπου είναι έως και 100 φορές πιο πιθανό να αναγνωρίσει λανθασμένα πρόσωπα Μαύρων και Ασιατών, αυτοματοποιώντας την προκατάληψη και δημιουργώντας έναν βρόχο ανάδρασης ψηφιακής αδικίας.</p><h3>Διαγράφοντας την Ανωνυμία & την Ιδιοκτησία</h3><p>Η ανωνυμία και η περιουσία σας διαγράφονται συστηματικά. Υπό το πρόσχημα της «ασφάλειας των παιδιών», οι κυβερνήσεις σας αναγκάζουν να συνδέσετε την πραγματική σας ταυτότητα με τη διαδικτυακή σας δραστηριότητα, δημιουργώντας ένα μόνιμο αρχείο των πιο ιδιωτικών σας ενδιαφερόντων. Αυτό το ψηφιακό διαβατήριο είναι ένα δόλωμα για χάκερ και ένα όνειρο για την κρατική παρακολούθηση. Ταυτόχρονα, οι εταιρείες ξαναγράφουν τους κανόνες της ιδιοκτησίας. Δεν αγοράζετε πλέον ένα παιχνίδι· νοικιάζετε μια προσωρινή άδεια. Η απόλυτη απόδειξη; Η εκτέλεση του The Crew από την Ubisoft, ενός παιχνιδιού για το οποίο πλήρωσαν χιλιάδες, το οποίο απενεργοποιήθηκε απομακρυσμένα και κατέστη μόνιμα μη παιζόμενο με το πάτημα ενός εταιρικού διακόπτη.</p><h3>Διαφθείροντας την Πραγματικότητα</h3><p>Αν δεν μπορούν να ελέγξουν τις πράξεις σας, θα διαφθείρουν την πραγματικότητά σας. Η τεχνολογία Deepfake έχει καταστήσει την αλήθεια εμπόρευμα. Για λιγότερο από 400 δολάρια το μήνα, ο καθένας μπορεί να διεξάγει μια εκστρατεία παραπληροφόρησης, και η απάτη που σχετίζεται με deepfake αυξήθηκε κατά 3,000% μόνο το 2023. Οι πολιτικές εκλογές είναι πλέον πεδία μάχης για συνθετικά μέσα, με κλωνοποιημένες φωνές παγκόσμιων ηγετών από AI να χρησιμοποιούνται για την καταστολή ψήφων. Η άμυνα είναι ένα ψέμα· μια μεγάλη μελέτη διαπίστωσε ότι οι καλύτεροι ανιχνευτές deepfake στον κόσμο δεν είναι πιο αξιόπιστοι από το ρίξιμο ενός νομίσματος. Αυτό δημιουργεί το «μέρισμα του ψεύτη»: καθώς χάνετε την ικανότητα να διακρίνετε το πραγματικό από το ψεύτικο, οποιοδήποτε αυθεντικό αποδεικτικό στοιχείο μπορεί να απορριφθεί ως deepfake, καθιστώντας την απόδοση ευθυνών αδύνατη.</p><h3>Ο Κινητήρας: Καπιταλισμός της Παρακολούθησης</h3><p>Όλα αυτά τα συστήματα τροφοδοτούνται από έναν κινητήρα: τον καπιταλισμό της παρακολούθησης. Μια σκιώδης βιομηχανία μεσιτών δεδομένων, αξίας εκατοντάδων δισεκατομμυρίων, συλλέγει την πρώτη ύλη της ζωής σας. Ξύνουν δημόσια αρχεία, παρακολουθούν κάθε σας κλικ και αγοράζουν το ιστορικό αγορών σας για να δημιουργήσουν ένα «ψηφιακό φάντασμα»—ένα ψυχογραφικό προφίλ που προβλέπει και επηρεάζει τη συμπεριφορά σας. Αυτό δημιουργεί μια κερκόπορτα για το κράτος. Αντί να εκδίδουν ένταλμα, οι κυβερνητικές υπηρεσίες απλώς αγοράζουν το ακριβές ιστορικό τοποθεσίας σας από αυτούς τους μεσίτες, ξεπλένοντας τη μαζική παρακολούθηση μέσω του ιδιωτικού τομέα και αφαιρώντας σας τις συνταγματικές προστασίες σας.</p><h3>Το Τελευταίο Σύνορο: Το Σπίτι σας</h3><p>Το σπίτι σας είναι το τελευταίο σύνορο, και έχουν ήδη παραβιάσει τις πύλες. Οι έξυπνες συσκευές που καλωσορίσατε για την ευκολία τους—τα ηχεία, οι κάμερες, οι κλειδαριές, ακόμη και τα ψυγεία—είναι Δούρειοι Ίπποι, μετατρέποντας το άσυλό σας σε ένα 24/7 φυλάκιο παρακολούθησης. Η παγκόσμια αγορά έξυπνου σπιτιού προβλέπεται να φτάσει τα 135 δισεκατομμύρια δολάρια έως το 2025, χτισμένη πάνω σε ένα θεμέλιο των πιο προσωπικών σας δεδομένων. Αυτές οι συσκευές ακούνε πάντα. Σε μια θρασύτατη κίνηση, η Amazon ανακοίνωσε ότι από τον Μάρτιο του 2025, οι χρήστες δεν θα μπορούν πλέον να εμποδίσουν την αποστολή των ηχογραφήσεων της Alexa στο cloud για επεξεργασία από AI, εξαλείφοντας μια βασική επιλογή απορρήτου. Οι ιδιωτικές σας συνομιλίες, οι διαφωνίες και οι στιγμές ευαλωτότητας είναι πλέον πρώτη ύλη για τους αλγόριθμούς τους. Αυτά τα δεδομένα, από το υλικό της κάμερας ασφαλείας σας έως τις ρυθμίσεις του θερμοστάτη σας, μπορούν να κοινοποιηθούν σε τρίτους και στις αρχές επιβολής του νόμου, δημιουργώντας ένα μόνιμο, αναζητήσιμο αρχείο της ζωής σας μέσα στους ίδιους σας τους τοίχους.</p><h3>Η Απάντηση: Χακτιβισμός</h3><p>Όταν το σύστημα είναι στημένο, η μόνη λογική απάντηση είναι να παραβιάσεις τους κανόνες. Αυτός είναι ο πυρήνας του χακτιβισμού: όχι ως ανούσιος βανδαλισμός, αλλά ως μια υπολογισμένη πράξη ψηφιακής πολιτικής ανυπακοής. Σε μια εποχή όπου η διαμαρτυρία παρακολουθείται και η διαφωνία καταστέλλεται αλγοριθμικά, οι παραδοσιακοί δρόμοι για την αλλαγή πνίγονται. Ο χακτιβισμός μεταφέρει την καθιστική διαμαρτυρία και την πικετοφορία στον κυβερνοχώρο, χρησιμοποιώντας τον κώδικα ως τηλεβόα. Με κίνητρα τα ιδανικά της διαφάνειας, της ελευθερίας του λόγου και των ανθρωπίνων δικαιωμάτων—όχι το κέρδος—ομάδες όπως οι Anonymous στοχεύουν τις ίδιες τις εταιρείες και τις κυβερνήσεις που χτίζουν αυτά τα συστήματα ελέγχου. Οι μέθοδοί τους—επιθέσεις DDoS, διαρροές δεδομένων, παραμορφώσεις ιστοσελίδων—είναι σχεδιασμένες για να διαταράξουν τις λειτουργίες, να εκθέσουν την υποκρισία και να επιβάλουν μια δημόσια λογοδοσία. Είναι μια άμεση απάντηση σε έναν κόσμο όπου η εξουσία έχει γίνει ανεξέλεγκτη, μια απαραίτητη αντεπίθεση στον αγώνα για την ελευθερία της πληροφορίας.</p><h3>Κάλεσμα για Δράση</h3><p>Το σύστημα δεν είναι ανίκητο. Ευδοκιμεί με την απάθειά σας. Η αντίσταση ξεκινά τώρα. Κοινοτικές πρωτοβουλίες όπως το DedSec Project (ded-sec.space) προσφέρουν ένα σημείο εκκίνησης, παρέχοντας δωρεάν εργαλεία για κρυπτογραφημένη επικοινωνία και εκπαίδευση στην αναγνώριση ψηφιακών απειλών. Αυτό είναι το πρώτο βήμα. Το επόμενο είναι να οπλιστείτε με ένα επαγγελματικό σύνολο εργαλείων: προγράμματα περιήγησης που εστιάζουν στην ιδιωτικότητα όπως το Tor, εφαρμογές κρυπτογραφημένων μηνυμάτων όπως το Signal και διαχειριστές κωδικών πρόσβασης. Αλλά η ατομική άμυνα δεν είναι αρκετή. Υποστηρίξτε τις οργανώσεις ψηφιακών δικαιωμάτων που πολεμούν αυτά τα συστήματα στα δικαστήρια και τα νομοθετικά σώματα. Ο κώδικας του ελέγχου έχει γραφτεί. Είναι καιρός να ξεκινήσουμε να τον ξαναγράφουμε. Κάντε ό,τι θέλετε.</p></div></div></div>
+    <div id="installation-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h2 data-en="Installation & Setup" data-gr="Εγκατάσταση & Ρύθμιση">Installation & Setup</h2><button class="close-modal">×</button></div><div class="modal-body" data-lang-section="en"><h3>Requirements</h3><ul><li><b>Device:</b> Android with <a href="https://f-droid.org/" target="_blank">Termux</a> installed.</li><li><b>Storage:</b> Min <b>3GB</b> free. <span style="display:block;font-size:0.85em;line-height:1.3;">(The Radio feature requires more storage; images and recordings also consume space.)</span></li><li><b>RAM:</b> Min <b>2GB</b>.</li></ul><h3>Step-by-Step Installation</h3><ol><li><b>Install Termux & Add-Ons</b><div class="tip"><p><b>Note:</b> To install APKs (e.g., F-Droid), ensure you:<br>- Enable unknown sources (Settings > Security > <b>Install Unknown Apps</b>).<br>- Download F-Droid, then get Termux from <a href="https://f-droid.org/">F-Droid</a>.<br>- Install add-ons: Termux:API, Termux:Styling.<br>- Allow the <code>fdroid</code> process when prompted.</p></div></li><li><b>Run Setup Commands</b><div class="note" style="background-color: var(--warning-bg); color: white; font-weight: bold; border-color: var(--accent-primary);"><b>Important:</b> Open the Termux application on your device before copying and pasting the commands below.</div><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'step1_en')">Copy</button><code id="step1_en">termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python git fzf nodejs openssh nano jq wget unzip curl proot openssl aapt rust cloudflared</code></div><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'step2_en')">Copy</button><code id="step2_en">pip install flask blessed flask-socketio werkzeug requests datetime geopy pydub pycryptodome mutagen rust cryptography phonenumbers pycountry</code></div><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'step3_en')">Copy</button><code id="step3_en">pkg install termux-api</code></div></li><li><b>Clone Repository</b><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'step4_en')">Copy</button><code id="step4_en">git clone https://github.com/dedsec1121fk/DedSec</code></div><div class="tip"><p><b>Tip:</b> If you get an error like "ModuleNotFoundError: No module named 'requests'", use this command and try again:</p><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'pip_requests_en')">Copy</button><code id="pip_requests_en">pip install requests</code></div></div></li><li><b>Choose Menu Style</b><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'step5_en')">Copy</button><code id="step5_en">cd DedSec/Scripts && python Settings.py</code></div><div class="tip"><p><b>Tip:</b> You can open the menu later by typing <code>m</code> in Termux.</p></div></li></ol></div><div class="modal-body" data-lang-section="gr" style="display:none;"><h3>Απαιτήσεις</h3><ul><li><b>Συσκευή:</b> Android με εγκατεστημένο το <a href="https://f-droid.org/" target="_blank">Termux</a>.</li><li><b>Αποθηκευτικός Χώρος:</b> Ελάχιστος <b>3GB</b> ελεύθερος.<span style="display:block;font-size:0.85em;line-height:1.3;">(Η λειτουργία του Ραδιοφώνου απαιτεί περισσότερο χώρο. Οι εικόνες και οι ηχογραφήσεις καταναλώνουν επίσης χώρο.)</span></li><li><b>RAM:</b> Ελάχ. <b>2GB</b>.</li></ul><h3>Βήμα-Βήμα Εγκατάσταση</h3><ol><li><b>Εγκατάσταση του Termux & Πρόσθετων</b><div class="tip"><p><b>Σημείωση:</b> Για την εγκατάσταση APKs (π.χ. F-Droid), βεβαιωθείτε ότι έχετε:<br/>- Ενεργοποίηση άγνωστων πηγών (Ρυθμίσεις > Ασφάλεια > <b>Εγκατάσταση άγνωστων εφαρμογών</b>).<br/>- Κατεβάστε το F-Droid και, στη συνέχεια, εγκαταστήστε το Termux μέσω του <a href="https://f-droid.org/">F-Droid</a>.<br/>- Επιτρέψτε τη διαδικασία <code>fdroid</code> όταν σας ζητηθεί.</p></div></li><li><b>Εκτελέστε τις εντολές εγκατάστασης</b><div class="note" style="background-color: var(--warning-bg); color: white; font-weight: bold; border-color: var(--accent-primary);"><b>Σημαντικό:</b> Ανοίξτε την εφαρμογή Termux στη συσκευή σας πριν αντιγράψετε και επικολλήσετε τις παρακάτω εντολές.</div><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'gr1')">Αντιγραφή</button><code id="gr1">termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install python git fzf nodejs openssh nano jq wget unzip curl proot openssl aapt rust cloudflared</code></div><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'gr2')">Αντιγραφή</button><code id="gr2">pip install flask blessed flask-socketio werkzeug requests datetime geopy pydub pycryptodome mutagen rust cryptography phonenumbers pycountry</code></div><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'gr3')">Αντιγραφή</button><code id="gr3">pkg install termux-api</code></div></li><li><b>Κλωνοποιήστε το αποθετήριο</b><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'gr4')">Αντιγραφή</button><code id="gr4">git clone https://github.com/dedsec1121fk/DedSec</code></div><div class="tip"><p><b>Συμβουλή:</b> Αν λάβετε σφάλμα "ModuleNotFoundError: No module named 'requests'", χρησιμοποιήστε την ακόλουθη εντολή και προσπαθήστε ξανά:</p><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'pip_requests_gr')">Αντιγραφή</button><code id="pip_requests_gr">pip install requests</code></div></div></li><li><b>Επιλέξτε στυλ μενού</b><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'gr5')">Αντιγραφή</button><code id="gr5">cd DedSec/Scripts && python Settings.py</code></div><div class="tip"><p><b>Συμβουλή:</b> Μπορείτε να ανοίξετε το μενού αργότερα πληκτρολογώντας <code>m</code> στο Termux.</p></div></li></ol></div></div></div>
+    <div id="scripts-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h2 data-en="Scripts & Their Functionalities" data-gr="Σενάρια & Λειτουργίες">Scripts & Their Functionalities</h2><button class="close-modal">×</button></div><div class="modal-body" data-lang-section="en"><h3>Toolkit Summary</h3><ol><li><b>Fox Chat</b><br/>Features encrypted chat, along with file, voice, and video calls. Nicks and passwords are not saved.</li><li><b>Android App Launcher</b><br/>Displays and manages downloaded Android apps.</li><li><b>Radio</b><br/>Features an offline radio with Greek and international artists.</li><li><b>Phishing Attacks</b><br/>Captures camera images, audio, and the target's exact location (address/store). It can also obtain credit card and personal information. All captured data is saved in the Downloads folder.<ul><li><b>Card Details.py</b>: Saves credit card info to <code>~/storage/downloads/CardActivations/</code>.</li><li><b>Data Grabber.py</b>: Saves personal info/photo to <code>~/storage/downloads/People's Lives/{user}/</code>.</li><li><b>FaceFriends.py</b>: Stores credentials to <code>~/storage/downloads/FaceFriends/</code>.</li><li><b>Google Free Money.py</b>: Saves credentials to <code>~/storage/downloads/GoogleFreeMoney/</code>.</li><li><b>Insta Followers.py</b>: Saves credentials to <code>~/storage/downloads/FreeFollowers/</code>.</li><li><b>Login Page Back Camera.py</b>: Stores images/credentials to <code>~/storage/downloads/Camera-Phish-Back/</code>.</li><li><b>Login Page Front Camera.py</b>: Saves front camera photos/credentials to <code>~/storage/downloads/Camera-Phish-Front/</code>.</li><li><b>Login Page Location.py</b>: Stores location data/credentials to <code>~/storage/downloads/LocationData/</code>.</li><li><b>Login Page Microphone.py</b>: Saves mic recordings/credentials to <code>~/storage/downloads/Recordings/</code>.</li><li><b>Snap Friends.py</b>: Stores credentials to <code>~/storage/downloads/SnapFriends/</code>.</li><li><b>Tik Followers.py</b>: Saves credentials to <code>~/storage/downloads/TikFollowers/</code>.</li></ul></li><li><b>Settings</b><br/>Allows you to update the project, install or update packages and modules, change your username and menu style, and view credits.</li><li><b>DedSec Database</b><br/>Lets you upload, search for, and delete files. Your device acts as the server, and files are saved in a hidden folder.</li><li><b>HTML Finder</b><br/>A utility to inspect, download, and locally edit any public webpage.</li><li><b>URL Masker (Masker.py)</b><br/>A tool to conceal and shorten URLs.</li><li><b>SocialBrute (SocialBrute.py)</b><br/>An advanced multi-service brute-force tool for social media platforms.</li><li><b>Extra Content</b><br/>Contains photos, unused scripts, voice-overs, and more.</li></ol></div><div class="modal-body" data-lang-section="gr" style="display:none;"><h3>Περίληψη Εργαλείων</h3><ol><li><b>Fox Chat</b><br/>Κρυπτογραφημένη συνομιλία, με δυνατότητα ανταλλαγής αρχείων και πραγματοποίησης φωνητικών κλήσεων/βιντεοκλήσεων.</li><li><b>Android App Launcher</b><br/>Εμφανίζει και διαχειρίζεται τις εγκατεστημένες εφαρμογές Android.</li><li><b>Radio</b><br/>Ραδιόφωνο εκτός σύνδεσης με Έλληνες και διεθνείς καλλιτέχνες.</li><li><b>Phishing Attacks</b><br/>Καταγραφή εικόνων κάμερας, ήχου και ακριβούς τοποθεσίας (διεύθυνση/κατάστημα). Δυνατότητα απόκτησης στοιχείων πιστωτικής κάρτας και προσωπικών πληροφοριών. Όλα τα δεδομένα αποθηκεύονται στον φάκελο 'Λήψεις'.<ul><li><b>Card Details.py</b>: Αποθηκεύει στοιχεία πιστωτικής κάρτας στο <code>~/storage/downloads/CardActivations/</code>.</li><li><b>Data Grabber.py</b>: Αποθηκεύει προσωπικά στοιχεία/φωτογραφίες στο <code>~/storage/downloads/People's Lives/{user}/</code>.</li><li><b>FaceFriends.py</b>: Αποθηκεύει διαπιστευτήρια στο <code>~/storage/downloads/FaceFriends/</code>.</li><li><b>Google Free Money.py</b>: Αποθηκεύει διαπιστευτήρια στο <code>~/storage/downloads/GoogleFreeMoney/</code>.</li><li><b>Insta Followers.py</b>: Αποθηκεύει διαπιστευτήρια στο <code>~/storage/downloads/FreeFollowers/</code>.</li><li><b>Login Page Back Camera.py</b>: Αποθηκεύει εικόνες/διαπιστευτήρια στο <code>~/storage/downloads/Camera-Phish-Back/</code>.</li><li><b>Login Page Front Camera.py</b>: Αποθηκεύει φωτογραφίες/διαπιστευτήρια στο <code>~/storage/downloads/Camera-Phish-Front/</code>.</li><li><b>Login Page Location.py</b>: Αποθηκεύει δεδομένα τοποθεσίας/διαπιστευτήρια στο <code>~/storage/downloads/LocationData/</code>.</li><li><b>Login Page Microphone.py</b>: Αποθηκεύει ηχογραφήσεις/διαπιστευτήρια στο <code>~/storage/downloads/Recordings/</code>.</li><li><b>Snap Friends.py</b>: Αποθηκεύει διαπιστευτήρια στο <code>~/storage/downloads/SnapFriends/</code>.</li><li><b>Tik Followers.py</b>: Αποθηκεύει διαπιστευτήρια στο <code>~/storage/downloads/TikFollowers/</code>.</li></ul></li><li><b>Settings</b><br/>Ενημέρωση του έργου, εγκατάσταση/ενημέρωση πακέτων/modules, αλλαγή ονόματος χρήστη/στυλ μενού και προβολή συντελεστών.</li><li><b>DedSec Database</b><br/>Ανέβασμα, αναζήτηση και διαγραφή αρχείων σε τοπικό διακομιστή.</li><li><b>HTML Finder</b><br/>Βοηθητικό πρόγραμμα για επιθεώρηση, λήψη και τοπική επεξεργασία δημόσιων ιστοσελίδων.</li><li><b>URL Masker (Masker.py)</b><br/>Εργαλείο για την απόκρυψη και συντόμευση διευθύνσεων URL.</li><li><b>SocialBrute (SocialBrute.py)</b><br/>Προηγμένο εργαλείο brute-force πολλαπλών υπηρεσιών για πλατφόρμες κοινωνικής δικτύωσης.</li><li><b>Extra Content</b><br/>Περιέχει φωτογραφίες, αχρησιμοποίητα σενάρια, αφηγήσεις και άλλα.</li></ol></div></div></div>
+    <div id="legal-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h2 data-en="Legal & Ethical Notice" data-gr="Νομική & Ηθική Δήλωση">Legal & Ethical Notice</h2><button class="close-modal">×</button></div><div class="modal-body" data-lang-section="en"><p>The tools and scripts within the DedSec Project are provided for educational, research, and ethical security testing purposes. Users are expected to adhere to the highest ethical standards, including respecting privacy and obtaining explicit, written authorization before testing any system or network. Unauthorized activities such as attempting to breach systems without consent, data theft, fraud, or any form of malicious attack are illegal and strictly forbidden. The user bears all responsibility for complying with applicable laws, including those governing cybersecurity and data privacy. The authors disclaim all liability for any direct or indirect damages that may result from the use or misuse of this software. If you are uncertain about the legality of your intended actions, consult a qualified legal professional.</p></div><div class="modal-body" data-lang-section="gr" style="display:none;"><p>Τα εργαλεία και τα σενάρια του DedSec Project παρέχονται για εκπαιδευτικούς, ερευνητικούς και για σκοπούς ηθικού ελέγχου ασφαλείας. Οι χρήστες οφείλουν να τηρούν τα υψηλότερα ηθικά πρότυπα, συμπεριλαμβανομένου του σεβασμού της ιδιωτικής ζωής και της λήψης ρητής, γραπτής εξουσιοδότησης πριν από τη δοκιμή οποιουδήποτε συστήματος ή δικτύου. Μη εξουσιοδοτημένες ενέργειες όπως η προσπάθεια παραβίασης συστημάτων χωρίς συγκατάθεση, η κλοπή δεδομένων, η απάτη ή οποιαδήποτε μορφή κακόβουλης επίθεσης είναι παράνομες και απαγορεύονται αυστηρά. Ο χρήστης φέρει την πλήρη ευθύνη για τη συμμόρφωση με την ισχύουσα νομοθεσία, συμπεριλαμβανομένων των νόμων που διέπουν την κυβερνοασφάλεια και την προστασία δεδομένων. Οι δημιουργοί αποποιούνται κάθε ευθύνης για οποιαδήποτε άμεση ή έμμεση ζημία που μπορεί να προκύψει από τη χρήση ή την κακή χρήση αυτού του λογισμικού. Εάν δεν είστε βέβαιοι για τη νομιμότητα των σκοπούμενων ενεργειών σας, συμβουλευτείτε έναν εξειδικευμένο νομικό σύμβουλο.</p></div></div></div>
+    <div id="credits-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h2 data-en="Credits" data-gr="Συντελεστές">Credits</h2><button class="close-modal">×</button></div><div class="modal-body" data-lang-section="en"><p><b>Creator:</b> dedsec1121fk</p><p><b>Music Artists:</b> BFR TEAM, PLANNO MAN, KouNouPi, ADDICTED, JAVASPA, ICE, Lefka City, Giannis Vardis, Lavyrinthos, Komis X, GR$, Sakin, Family Lockations, Christina Markesini, Dafne Kritharas, Grave_North, YungKapa, Aroy, Pi Thita, Ecostones Band, Bossikan, B-Mat, Stamatis Kapiris, Lau Jr, XALIPOP</p><p><b>Artwork:</b> Christina Chatzidimitriou</p><p><b>Voice-overs:</b> Dimitra Isxuropoulou</p><p><b>Technical Help:</b> lamprouil, UKI_hunter, apoloco</p></div><div class="modal-body" data-lang-section="gr" style="display:none;"><p><b>Δημιουργός:</b> dedsec1121fk</p><p><b>Μουσικοί Καλλιτέχνες:</b> BFR TEAM, PLANNO MAN, KouNouPi, ADDICTED, JAVASPA, ICE, Lefka City, Γιάννης Βαρδής, Λαβύρινθος, Komis Χ, GR$, Sakin, Family Lockations, Χριστίνα Μαρκεσίνη, Δάφνη Κριθαρά, Grave_North, YungKapa, Aroy, Pi Thita, Ecostones Band, Bossikan, B-Mat, Σταμάτης Καπίρης, Lau Jr, XALIPOP</p><p><b>Καλλιτεχνική Επιμέλεια:</b> Χριστίνα Χατζηδημητρίου</p><p><b>Αφηγήσεις:</b> Δήμητρα Ισχυροπούλου</p><p><b>Τεχνική Βοήθεια:</b> lamprouil, UKI_hunter, apoloco</p></div></div></div>
+    
+    <div id="certification-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-en="Termux Mastery Series Exam" data-gr="Εξέταση Termux Mastery Series">Termux Mastery Series Exam</h2>
+                <button class="close-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="app-container">
+                    <div id="language-selection">
+                        <h1>Welcome / Καλώς Ήρθατε</h1>
+                        <p>Please select your language / Παρακαλώ επιλέξτε τη γλώσσα σας</p>
+                        <div class="button-container">
+                            <button data-lang="en">English</button>
+                            <button data-lang="gr">Ελληνικά</button>
+                        </div>
+                    </div>
+
+                    <div id="user-info" class="hidden">
+                        <h1 id="user-info-title"></h1>
+                        <form id="name-form">
+                            <div class="mb-4">
+                                <label id="first-name-label" for="first-name"></label>
+                                <input type="text" id="first-name" required>
+                            </div>
+                            <div class="mb-6">
+                                <label id="last-name-label" for="last-name"></label>
+                                <input type="text" id="last-name" required>
+                            </div>
+                            <button id="start-btn" type="submit"></button>
+                        </form>
+                    </div>
+
+                    <div id="quiz-stats" class="hidden">
+                        <span id="mistake-counter"></span>
+                        <span id="timer-display"></span>
+                    </div>
+                    <div id="quiz-container" class="hidden"></div>
+                    
+                    <div id="navigation-container" class="hidden">
+                         <button id="prev-btn"></button>
+                         <span id="page-indicator" class="font-semibold"></span>
+                         <button id="next-btn"></button>
+                         <button id="submit-btn" class="hidden"></button>
+                    </div>
+
+                    <div id="results-container" class="hidden text-center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="cv-source" style="display: none;"><div id="cv-en"><h2>Professional Summary</h2><p>Highly motivated and versatile professional with diverse experience in HVAC technology, environmental maintenance, and programming. Passionate about digital freedom and security, with a strong commitment to empowering individuals through technology. Eager to apply a unique blend of technical, practical, and problem-solving skills to challenging new roles.</p><h2>Personal Details</h2><p><b>Name:</b> Loukas</p><p><b>Last Name:</b> Floros</p><p><b>Birthday:</b> 14 August 2004</p><h2>Skills</h2><h3>Technical Skills</h3><p><strong>HVAC Systems:</strong> Experience in installation, maintenance, and repair of air conditioning units and solar water heaters. <strong>Programming Languages:</strong> Proficient in Python; working knowledge of Flask, JavaScript, HTML, CSS. <strong>Cybersecurity Concepts:</strong> Familiarity with ethical hacking principles, security testing, and secure communication protocols; experience in developing basic phishing tools for educational purposes. <strong>Operating Systems:</strong> Experience with Android (Termux environment). <strong>Development Tools:</strong> Practical use of Git, Termux, Nano, Vim.</p><h3>Professional Skills</h3><p><strong>Teamwork:</strong> Demonstrated ability to collaborate effectively in team-based environmental maintenance projects and software development. <strong>Adaptability:</strong> Capable of quickly learning and applying new skills across various technical and practical domains. <strong>Communication:</strong> Ability to convey technical information clearly.</p><h2>Experience</h2><h3>HVAC Technician (3 Years):</h3><p>Involved in the installation, maintenance, and repair of heating, ventilation, and air conditioning (HVAC) systems, including solar water heaters. Responsibilities included ensuring system functionality and performing routine checks.</p><h3>Programmer (5 Years):</h3><p>Engaged in the development and maintenance of cybersecurity-focused tools and applications, primarily using Python. Contributed to projects aimed at digital freedom, secure communication, and educational security testing.</p></div><div id="cv-gr"><h2>Επαγγελματική Περίληψη</h2><p>Επαγγελματίας με υψηλό κίνητρο και ευέλικτο πνεύμα, με ποικίλη εμπειρία στην τεχνολογία HVAC, την περιβαλλοντική συντήρηση και τον προγραμματισμό. Πάθος για την ψηφιακή ελευθερία και την ασφάλεια, με ισχυρή δέσμευση στην ενδυνάμωση των ατόμων μέσω της τεχνολογίας. Πρόθυμος να εφαρμόσει ένα μοναδικό συνδυασμό τεχνικών, πρακτικών και δεξιοτήτων επίλυσης προβλημάτων σε απαιτητικούς νέους ρόλους.</p><h2>Προσωπικά Στοιχεία</h2><p><b>Όνομα:</b> Λουκάς</p><p><b>Επίθετο:</b> Φλώρος</p><p><b>Ημερομηνία Γέννησης:</b> 14 Αυγούστου 2004</p><h2>Δεξιότητες</h2><h3>Τεχνικές Δεξιότητες</h3><p><strong>Συστήματα HVAC:</strong> Εμπειρία στην εγκατάσταση, συντήρηση και επισκευή μονάδων κλιματισμού και ηλιακών θερμοσιφώνων. <strong>Γλώσσες Προγραμματισμού:</strong> Άριστη γνώση Python· καλή γνώση Flask, JavaScript, HTML, CSS. <strong>Έννοιες Κυβερνοασφάλειας:</strong> Εξοικείωση με τις αρχές του ηθικού hacking, τις δοκιμές ασφαλείας και τα ασφαλή πρωτόκολλα επικοινωνίας· εμπειρία στην ανάπτυξη βασικών εργαλείων phishing για εκπαιδευτικούς σκοπούς. <strong>Λειτουργικά Συστήματα:</strong> Εμπειρία με Android (περιβάλλον Termux). <strong>Εργαλεία Ανάπτυξης:</strong> Πρακτική χρήση Git, Termux, Nano, Vim.</p><h3>Επαγγελματικές Δεξιότητες</h3><p><strong>Ομαδικότητα:</strong> Αποδεδειγμένη ικανότητα αποτελεσματικής συνεργασίας σε ομαδικά έργα περιβαλλοντικής συντήρησης και ανάπτυξης λογισμικού. <strong>Προσαρμοστικότητα:</strong> Ικανότητα ταχείας εκμάθησης και εφαρμογής νέων δεξιοτήτων σε διάφορους τεχνικούς και πρακτικούς τομείς. <strong>Επικοινωνία:</strong> Ικανότητα σαφούς μετάδοσης τεχνικών πληροφοριών.</p><h2>Εμπειρία</h2><h3>Τεχνικός HVAC (3 Έτη):</h3><p>Συμμετοχή στην εγκατάσταση, συντήρηση και επισκευή συστημάτων θέρμανσης, εξαερισμού και κλιματισμού (HVAC), συμπεριλαμβανομένων των ηλιακών θερμοσιφώνων. Οι αρμοδιότητες περιλάμβαναν την εξασφάλιση της λειτουργικότητας του συστήματος και τη διενέργεια τακτικών ελέγχων.</p><h3>Προγραμματιστής (5 Έτη):</h3><p>Ενασχόληση με την ανάπτυξη και συντήρηση εργαλείων και εφαρμογών με επίκεντρο την κυβερνοασφάλεια, κυρίως χρησιμοποιώντας Python. Συμβολή σε έργα που στόχευαν στην ψηφιακή ελευθερία, την ασφαλή επικοινωνία και τις εκπαιδευτικές δοκιμές ασφαλείας.</p></div></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // This script only runs for mobile users
+        if (!document.documentElement.classList.contains('mobile-device')) {
+            return;
+        }
+
+        // --- GLOBAL PORTFOLIO STATE ---
+        let currentLanguage = 'en';
+        let initialSetupDone = false;
+        
+        // --- PORTFOLIO INITIALIZATION ---
+        function initializePortfolio() {
+            // Time, Battery, and Location updates
+            const timeElement = document.getElementById('time-display');
+            function updateTime() {
+                const now = new Date();
+                const userTime = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Athens"}));
+                const hours = userTime.getHours().toString().padStart(2, '0');
+                const minutes = userTime.getMinutes().toString().padStart(2, '0');
+                timeElement.textContent = `${hours}:${minutes}`;
+            }
+            
+            function updateBattery() {
+                if ('getBattery' in navigator) {
+                    navigator.getBattery().then(battery => {
+                        const levelEl = document.getElementById('battery-level');
+                        const iconEl = document.getElementById('battery-icon');
+                        const updateLevelInfo = () => {
+                            const batteryLevel = Math.floor(battery.level * 100);
+                            levelEl.textContent = `${batteryLevel}%`;
+                            if (battery.charging) iconEl.className = 'fas fa-bolt';
+                            else if (batteryLevel > 85) iconEl.className = 'fas fa-battery-full';
+                            else if (batteryLevel > 60) iconEl.className = 'fas fa-battery-three-quarters';
+                            else if (batteryLevel > 35) iconEl.className = 'fas fa-battery-half';
+                            else if (batteryLevel > 10) iconEl.className = 'fas fa-battery-quarter';
+                            else iconEl.className = 'fas fa-battery-empty';
+                        };
+                        updateLevelInfo();
+                        battery.addEventListener('levelchange', updateLevelInfo);
+                    });
+                }
+            }
+
+            async function updateLocation() {
+                try {
+                    const response = await fetch('https://ip-api.com/json/?fields=countryCode');
+                    if (!response.ok) throw new Error('Failed to fetch');
+                    const data = await response.json();
+                    document.getElementById('country-code').textContent = data.countryCode;
+                } catch (error) {
+                    document.getElementById('country-code').textContent = 'GR'; // Fallback
+                }
+            }
+
+            updateTime();
+            updateBattery();
+            updateLocation();
+            setInterval(updateTime, 60000);
+
+            // --- LANGUAGE AND MODAL LOGIC ---
+            const languageModal = document.getElementById('language-selection-modal');
+            const disclaimerModal = document.getElementById('disclaimer-modal');
+
+            window.changeLanguage = (lang) => {
+                currentLanguage = lang;
+                document.documentElement.lang = lang;
+                
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    el.textContent = el.getAttribute(`data-${lang}`) || el.getAttribute('data-en');
+                });
+
+                document.querySelectorAll('[data-lang-section]').forEach(el => {
+                    el.style.display = el.dataset.langSection === lang ? '' : 'none';
+                });
+                
+                document.querySelectorAll('.language-button').forEach(button => {
+                    button.classList.toggle('selected', button.dataset.lang === lang);
+                });
+
+                const pageTitleEl = document.querySelector('.profile-info h1');
+                if (pageTitleEl) document.title = pageTitleEl.getAttribute(`data-${lang}`);
+            };
+            
+            languageModal.querySelectorAll('.language-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    changeLanguage(button.dataset.lang);
+                    languageModal.classList.remove('visible');
+                    if (!initialSetupDone) {
+                        disclaimerModal.classList.add('visible');
+                    }
+                });
+            });
+            
+            document.getElementById('lang-switcher-btn').addEventListener('click', () => languageModal.classList.add('visible'));
+
+            document.getElementById('accept-disclaimer').addEventListener('click', () => {
+                disclaimerModal.classList.remove('visible');
+                initialSetupDone = true;
+            });
+            document.getElementById('decline-disclaimer').addEventListener('click', () => window.location.href = 'https://www.google.com');
+
+            document.querySelectorAll('.app-icon[data-modal], a.app-icon[target="_blank"]').forEach(icon => {
+                if (icon.dataset.modal) {
+                    icon.addEventListener('click', () => {
+                        const modalId = `${icon.dataset.modal}-modal`;
+                        const modal = document.getElementById(modalId);
+                        if (modal) {
+                             modal.classList.add('visible');
+                             if (modalId === 'certification-modal' && window.resetQuiz) {
+                                 window.resetQuiz();
+                             }
+                        }
+                    });
+                }
+            });
+
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', e => {
+                    if (e.target === modal) {
+                        modal.classList.remove('visible');
+                    }
+                });
+                const closeModalButton = modal.querySelector('.close-modal');
+                if (closeModalButton) {
+                    closeModalButton.addEventListener('click', () => {
+                        modal.classList.remove('visible');
+                    });
+                }
+            });
+
+            const profilePic = document.querySelector('.profile-pic');
+            const imageViewer = document.getElementById('image-viewer-modal');
+            profilePic.addEventListener('click', () => {
+                imageViewer.querySelector('#expanded-img').src = profilePic.src;
+                imageViewer.classList.add('visible');
+            });
+
+            // This makes the expanded image modal close when tapped again.
+            imageViewer.addEventListener('click', () => {
+                imageViewer.classList.remove('visible');
+            });
+            
+            window.copyToClipboard = (button, targetId) => {
+                const codeElement = document.getElementById(targetId);
+                if (!codeElement) return;
+                navigator.clipboard.writeText(codeElement.innerText).then(() => {
+                    const originalText = button.textContent;
+                    button.textContent = (currentLanguage === 'gr') ? 'Αντιγράφηκε!' : 'Copied!';
+                    setTimeout(() => { button.textContent = originalText; }, 1500);
+                }).catch(err => console.error('Failed to copy', err));
+            };
+
+            document.getElementById('download-cv-btn').addEventListener('click', async () => {
+                const { jsPDF } = window.jspdf;
+                const source = document.getElementById(`cv-${currentLanguage}`);
+                if (!source) return;
+
+                const pdfContainer = document.createElement('div');
+                Object.assign(pdfContainer.style, {
+                    position: 'absolute', left: '-9999px', width: '700px', padding: '40px', background: 'white', color: 'black',
+                    fontFamily: "'Roboto Mono', monospace", fontSize: '10pt'
+                });
+                pdfContainer.innerHTML = source.innerHTML;
+                document.body.appendChild(pdfContainer);
+
+                try {
+                    const canvas = await html2canvas(pdfContainer, { scale: 2, useCORS: true });
+                    const imgData = canvas.toDataURL('image/png');
+                    const doc = new jsPDF('p', 'pt', 'a4');
+                    const { width: pdfWidth } = doc.internal.pageSize;
+                    const imgProps = doc.getImageProperties(imgData);
+                    const ratio = imgProps.height / imgProps.width;
+                    const imgHeight = (pdfWidth - 30) * ratio;
+                    doc.addImage(imgData, 'PNG', 15, 15, pdfWidth - 30, imgHeight);
+                    doc.save(`CV-Loukas-Floros-${currentLanguage}.pdf`);
+                } catch (error) {
+                    console.error('PDF generation error:', error);
+                } finally {
+                    document.body.removeChild(pdfContainer);
+                }
+            });
+
+            languageModal.classList.add('visible');
+            changeLanguage('en'); 
+            document.querySelector('#language-selection-modal .modal-header h2').textContent = 'Choose Language / Επιλογή Γλώσσας';
+        }
+        
+        // --- CERTIFICATION QUIZ LOGIC ---
+        function initializeCertificationQuiz() {
+            const quizData = [
+                { id: 1, title_en: "First Contact & Navigation", title_gr: "Πρώτη Επαφή & Πλοήγηση", question_en: "Which command shows your current directory path?", question_gr: "Ποια εντολή δείχνει την τρέχουσα διαδρομή του καταλόγου σας;", options_en: ["ls", "cd", "pwd", "whoami"], options_gr: ["ls", "cd", "pwd", "whoami"], correct_answer: 2 },
+                { id: 2, title_en: "File Management & Permissions", title_gr: "Διαχείριση Αρχείων & Δικαιώματα", question_en: "What does `chmod 755 script.sh` do?", question_gr: "Τι κάνει η εντολή `chmod 755 script.sh`;", options_en: ["Makes it readable by everyone", "Makes it executable for you, readable/executable for others", "Deletes the script", "Makes it writable by the group"], options_gr: ["Το κάνει αναγνώσιμο από όλους", "Το κάνει εκτελέσιμο για εσάς, αναγνώσιμο/εκτελέσιμο για τους άλλους", "Διαγράφει το σενάrio", "Το κάνει εγγράψιμο από την ομάδα"], correct_answer: 1 },
+                { id: 3, title_en: "Pipes & Redirection", title_gr: "Pipes & Ανακατεύθυνση", question_en: "Which symbol appends the output of a command to a file?", question_gr: "Ποιο σύμβολο προσθέτει την έξοδο μιας εντολής στο τέλος ενός αρχείου;", options_en: [">", "&", "|", ">>"], options_gr: [">", "&", "|", ">>"], correct_answer: 3 },
+                { id: 4, title_en: "Software & Text Editing", title_gr: "Λογισμικό & Επεξεργασία Κειμένου", question_en: "Which command is used to install new packages in Termux?", question_gr: "Ποια εντολή χρησιμοποιείται για την εγκατάσταση νέων πακέτων στο Termux;", options_en: ["install", "apt-get", "pkg install", "termux-install"], options_gr: ["install", "apt-get", "pkg install", "termux-install"], correct_answer: 2 },
+                { id: 5, title_en: "Shell Scripting Fundamentals", title_gr: "Θεμελιώδεις Αρχές Σεναρίων Κελύφους", question_en: "What is the first line of a bash script called?", question_gr: "Πώς ονομάζεται η πρώτη γραμμή ενός σεναρίου bash;", options_en: ["Header", "Shebang", "Initializer", "Comment"], options_gr: ["Κεφαλίδα", "Shebang", "Αρχικοποιητής", "Σχόλιο"], correct_answer: 1 },
+                { id: 6, title_en: "Logic and Loops", title_gr: "Λογική και Βρόχοι", question_en: "Which statement is used for decision making in scripts?", question_gr: "Ποια δήλωση χρησιμοποιείται για τη λήψη αποφάσεων στα σενάρια;", options_en: ["for", "while", "decide", "if/else"], options_gr: ["for", "while", "decide", "if/else"], correct_answer: 3 },
+                { id: 7, title_en: "Functions & Arrays", title_gr: "Συναρτήσεις & Πίνακες", question_en: "How do you access the first argument passed to a function?", question_gr: "Πώς αποκτάτε πρόσβαση στο πρώτο όρισμα που δίνεται σε μια συνάρτηση;", options_en: ["$0", "$1", "$@", "$#"], options_gr: ["$0", "$1", "$@", "$#"], correct_answer: 1 },
+                { id: 8, title_en: "Mastering Regex", title_gr: "Εξειδίκευση στις Regex", question_en: "In Regex, what does the `.` (dot) character match?", question_gr: "Στις Κανονικές Εκφράσεις (Regex), με τι αντιστοιχεί ο χαρακτήρας `.` (τελεία);", options_en: ["A literal dot", "The end of a line", "Any single character", "A digit"], options_gr: ["Μια κυριολεκτική τελεία", "Το τέλος μιας γραμμής", "Οποιονδήποτε μεμονωμένο χαρακτήρα", "Ένα ψηφίο"], correct_answer: 2 },
+                { id: 9, title_en: "Finding with `grep` and `find`", title_gr: "Βρίσκοντας με `grep` και `find`", question_en: "Which `grep` option makes the search case-insensitive?", question_gr: "Ποια επιλογή της `grep` κάνει την αναζήτηση χωρίς διάκριση πεζών-κεφαλαίων;", options_en: ["-c", "-v", "-i", "-r"], options_gr: ["-c", "-v", "-i", "-r"], correct_answer: 2 },
+                { id: 10, title_en: "Text Manipulation with `sed` and `awk`", title_gr: "Χειρισμός Κειμένου με `sed` και `awk`", question_en: "Which command is primarily used for programmatic find-and-replace?", question_gr: "Ποια εντολή χρησιμοποιείται κυρίως για προγραμματιστική εύρεση-και-αντικατάσταση;", options_en: ["awk", "grep", "find", "sed"], options_gr: ["awk", "grep", "find", "sed"], correct_answer: 3 },
+            ];
+            const translations = {
+                en: { userInfoTitle: "Enter Your Details", firstNameLabel: "First Name", lastNameLabel: "Last Name", startBtn: "Start Workbook Exam", page: "Page", of: "of", prevBtn: "Previous", nextBtn: "Next", submitBtn: "Submit Test", resultsTitle: "Test Complete!", certTitle: "Certificate of Completion", certAwardedTo: "This certificate is awarded to", certAchievement: "for successfully completing the Termux Mastery Series seminar with exceptional knowledge and skill.", certDate: "Date of Completion", failureTitle: "Keep Studying!", failureText1: "You have completed the test, but you made", failureText2: "mistakes. You need fewer than 20 mistakes to pass. Please review the material and try again!", restartBtn: "Try Again", gradeLabel: "Grade", gradeExcellent: "Excellent", gradeVeryGood: "Very Good", gradeGood: "Good", pdfError: "Sorry, there was an error creating the PDF.", mistakesLabel: "Mistakes", timeLeftLabel: "Time Left" },
+                gr: { userInfoTitle: "Εισάγετε τα Στοιχεία σας", firstNameLabel: "Όνομα", lastNameLabel: "Επώνυμο", startBtn: "Έναρξη Εξέτασης", page: "Σελίδα", of: "από", prevBtn: "Προηγούμενο", nextBtn: "Επόμενο", submitBtn: "Υποβολή Εξέτασης", resultsTitle: "Η Εξέταση Ολοκληρώθηκε!", certTitle: "Πιστοποιητικό Ολοκλήρωσης", certAwardedTo: "Αυτό το πιστοποιητικό απονέμεται στον/στην", certAchievement: "για την επιτυχή ολοκλήρωση του σεμιναρίου Termux Mastery Series με εξαιρετική γνώση και δεξιότητα.", certDate: "Ημερομηνία Ολοκλήρωσης", failureTitle: "Συνεχίστε τη Μελέτη!", failureText1: "Ολοκληρώσατε την εξέταση, αλλά κάνατε", failureText2: "λάθη. Χρειάζεστε λιγότερα από 20 λάθη για να περάσετε. Παρακαλώ μελετήστε ξανά την ύλη και προσπαθήστε ξανά!", restartBtn: "Προσπαθήστε Ξανά", gradeLabel: "Βαθμός", gradeExcellent: "Άριστα", gradeVeryGood: "Πολύ Καλά", gradeGood: "Καλά", pdfError: "Παρουσιάστηκε σφάλμα κατά τη δημιουργία του PDF.", mistakesLabel: "Λάθη", timeLeftLabel: "Χρόνος Που Απομένει" }
+            };
+
+            // Quiz state variables
+            let currentPage, userLang, userName, userAnswers, shuffledQuestions;
+            let mistakes = 0;
+            const maxMistakes = 20;
+            let timerInterval;
+            let timeLeft = 80;
+
+            const certModal = document.getElementById('certification-modal');
+            const languageSelectionDiv = certModal.querySelector('#language-selection');
+            const userInfoDiv = certModal.querySelector('#user-info');
+            const quizStatsDiv = certModal.querySelector('#quiz-stats');
+            const quizContainerDiv = certModal.querySelector('#quiz-container');
+            const resultsContainerDiv = certModal.querySelector('#results-container');
+            const navigationContainerDiv = certModal.querySelector('#navigation-container');
+            const prevBtn = certModal.querySelector('#prev-btn');
+            const nextBtn = certModal.querySelector('#next-btn');
+            const submitBtn = certModal.querySelector('#submit-btn');
+            const pageIndicator = certModal.querySelector('#page-indicator');
+            const nameForm = certModal.querySelector('#name-form');
+            const firstNameInput = certModal.querySelector('#first-name');
+            const lastNameInput = certModal.querySelector('#last-name');
+            const mistakeCounterEl = certModal.querySelector('#mistake-counter');
+            const timerDisplayEl = certModal.querySelector('#timer-display');
+
+
+            window.resetQuiz = () => {
+                currentPage = 1;
+                userLang = 'en';
+                userName = '';
+                mistakes = 0;
+                clearInterval(timerInterval);
+                
+                firstNameInput.value = '';
+                lastNameInput.value = '';
+                quizContainerDiv.innerHTML = '';
+                resultsContainerDiv.innerHTML = '';
+
+                userInfoDiv.classList.add('hidden');
+                quizContainerDiv.classList.add('hidden');
+                quizStatsDiv.classList.add('hidden');
+                resultsContainerDiv.classList.add('hidden');
+                navigationContainerDiv.classList.add('hidden');
+                languageSelectionDiv.classList.remove('hidden');
+            };
+
+            const selectLanguage = (lang) => {
+                userLang = lang;
+                const t = translations[lang];
+                certModal.querySelector('#user-info-title').innerText = t.userInfoTitle;
+                certModal.querySelector('#first-name-label').innerText = t.firstNameLabel;
+                certModal.querySelector('#last-name-label').innerText = t.lastNameLabel;
+                certModal.querySelector('#start-btn').innerText = t.startBtn;
+                languageSelectionDiv.classList.add('hidden');
+                userInfoDiv.classList.remove('hidden');
+            };
+
+            const startQuiz = (event) => {
+                event.preventDefault();
+                const firstName = firstNameInput.value.trim();
+                const lastName = lastNameInput.value.trim();
+                if (firstName && lastName) {
+                    userName = `${firstName} ${lastName}`;
+                    // Shuffle questions and reset answers
+                    shuffledQuestions = [...quizData].sort(() => Math.random() - 0.5);
+                    userAnswers = new Array(shuffledQuestions.length).fill(null);
+                    
+                    userInfoDiv.classList.add('hidden');
+                    quizContainerDiv.classList.remove('hidden');
+                    navigationContainerDiv.classList.remove('hidden');
+                    quizStatsDiv.classList.remove('hidden');
+                    
+                    buildPages();
+                    renderPage();
+                }
+            };
+            
+            const buildPages = () => {
+                quizContainerDiv.innerHTML = '';
+                shuffledQuestions.forEach((q, index) => {
+                    const t = translations[userLang];
+                    const pageDiv = document.createElement('div');
+                    pageDiv.id = `page-${index + 1}`;
+                    pageDiv.classList.add('quiz-page', 'hidden');
+
+                    const optionsHTML = q[`options_${userLang}`].map((opt, optIndex) => `
+                        <label>
+                            <input type="radio" name="question-${index}" value="${optIndex}">
+                            <span>${opt}</span>
+                        </label>
+                    `).join('');
+
+                    pageDiv.innerHTML = `
+                        <h2>${t.page} ${index + 1} ${t.of} ${shuffledQuestions.length}: ${q[`title_${userLang}`]}</h2>
+                        <hr>
+                        <div class="question-box"><p>${q[`question_${userLang}`]}</p></div>
+                        <div class="options-container">${optionsHTML}</div>
+                    `;
+                    pageDiv.querySelectorAll(`input[name="question-${index}"]`).forEach(radio => {
+                        radio.addEventListener('change', () => saveAnswer(index, parseInt(radio.value)));
+                    });
+                    quizContainerDiv.appendChild(pageDiv);
+                });
+            };
+
+            const saveAnswer = (questionIndex, answerIndex) => {
+                userAnswers[questionIndex] = answerIndex;
+            };
+
+            const handleTimeout = () => {
+                clearInterval(timerInterval);
+                mistakes++;
+                updateStatsDisplay();
+                
+                if (mistakes >= maxMistakes) {
+                    showResults();
+                    return;
+                }
+
+                if (currentPage === shuffledQuestions.length) {
+                    showResults();
+                } else {
+                    navigatePage(1);
+                }
+            };
+
+            const startTimer = () => {
+                clearInterval(timerInterval);
+                timeLeft = 80;
+                updateStatsDisplay();
+
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    updateStatsDisplay();
+                    if (timeLeft <= 0) {
+                        handleTimeout();
+                    }
+                }, 1000);
+            };
+
+            const updateStatsDisplay = () => {
+                const t = translations[userLang];
+                mistakeCounterEl.innerText = `${t.mistakesLabel}: ${mistakes} / ${maxMistakes}`;
+                timerDisplayEl.innerText = `${t.timeLeftLabel}: ${timeLeft}s`;
+            };
+
+            const renderPage = () => {
+                certModal.querySelectorAll('.quiz-page').forEach(p => p.classList.add('hidden'));
+                certModal.querySelector(`#page-${currentPage}`).classList.remove('hidden');
+
+                const savedAnswer = userAnswers[currentPage - 1];
+                if (savedAnswer !== null) {
+                    const radioButtons = certModal.querySelectorAll(`#page-${currentPage} input[type="radio"]`);
+                    if(radioButtons[savedAnswer]) radioButtons[savedAnswer].checked = true;
+                }
+                updateNavigation();
+                startTimer();
+            };
+
+            const updateNavigation = () => {
+                const t = translations[userLang];
+                prevBtn.disabled = currentPage === 1;
+                prevBtn.innerText = t.prevBtn;
+                nextBtn.innerText = t.nextBtn;
+                submitBtn.innerText = t.submitBtn;
+                nextBtn.classList.toggle('hidden', currentPage === shuffledQuestions.length);
+                submitBtn.classList.toggle('hidden', currentPage !== shuffledQuestions.length);
+                pageIndicator.innerText = `${t.page} ${currentPage} ${t.of} ${shuffledQuestions.length}`;
+            };
+
+            const navigatePage = (direction) => {
+                currentPage += direction;
+                renderPage();
+            };
+
+            const generateCertificateHTML = (lang, name, grade) => {
+                const t = translations[lang];
+                const today = new Date();
+                const dateString = lang === 'gr' 
+                    ? `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`
+                    : today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                return `
+                <div class="certificate-container">
+                    <div class="certificate">
+                        <div class="grade-display">${grade}</div>
+                        <div class="certificate-header">
+                            <svg class="seal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="seal-border" cx="50" cy="50" r="48"/>
+                                <path class="seal-star" d="M50,15 L55.9,34.5 H77.1 L60.6,46.4 L66.5,65.9 L50,54 L33.5,65.9 L39.4,46.4 L22.9,34.5 H44.1 Z"/>
+                                <text class="seal-text" x="50" y="55">DEDSEC</text>
+                            </svg>
+                            <h1>${t.certTitle}</h1>
+                        </div>
+                        <div class="certificate-body">
+                            <p class="serif">${t.certAwardedTo}</p>
+                            <h2 class="recipient-name">${name}</h2>
+                            <p class="serif">${t.certAchievement}</p>
+                        </div>
+                        <div class="certificate-footer">
+                            <div class="date-info">
+                                <strong>${t.certDate}</strong><br>
+                                <span class="serif">${dateString}</span>
+                            </div>
+                            <div class="signature">
+                                <strong>Project Lead</strong><br>
+                                <span class="serif" style="font-style: italic;">dedsec1121fk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            };
+
+            const downloadCertificates = async (name, gradeEn, gradeGr) => {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: 'a4' });
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+
+                const captureCertificate = async (lang, grade) => {
+                    const html = generateCertificateHTML(lang, name, grade);
+                    const container = document.createElement('div');
+                    container.style.position = 'absolute';
+                    container.style.left = '-9999px';
+                    container.style.width = '900px'; // A fixed width for consistent rendering
+                    document.body.appendChild(container);
+                    container.innerHTML = html;
+
+                    // Wait for images/fonts if any
+                    await new Promise(resolve => setTimeout(resolve, 100)); 
+
+                    const canvas = await html2canvas(container.querySelector('.certificate-container'), { 
+                        scale: 2,
+                        useCORS: true,
+                        backgroundColor: null // Make background transparent to see the container's bg
+                    });
+                    const imgData = canvas.toDataURL('image/png');
+                    document.body.removeChild(container);
+                    return imgData;
+                };
+                
+                try {
+                    const imgDataEn = await captureCertificate('en', gradeEn);
+                    pdf.addImage(imgDataEn, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                    pdf.addPage();
+                    const imgDataGr = await captureCertificate('gr', gradeGr);
+                    pdf.addImage(imgDataGr, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                    pdf.save(`Termux_Mastery_Certificate_${name.replace(/\s/g, '_')}.pdf`);
+                } catch (error) {
+                    console.error("PDF Generation Failed:", error);
+                    alert(translations[userLang].pdfError);
+                }
+            };
+
+            const showResults = async () => {
+                clearInterval(timerInterval);
+                
+                // Calculate final mistakes based on answers
+                let finalMistakes = 0;
+                userAnswers.forEach((answer, index) => {
+                    if (answer !== null && answer !== shuffledQuestions[index].correct_answer) {
+                        finalMistakes++;
+                    }
+                });
+                // Add mistakes from timeouts
+                finalMistakes = mistakes; // The 'mistakes' variable already tracks timeouts
+
+                quizContainerDiv.classList.add('hidden');
+                navigationContainerDiv.classList.add('hidden');
+                quizStatsDiv.classList.add('hidden');
+                resultsContainerDiv.classList.remove('hidden');
+                const t = translations[userLang];
+                
+                if (finalMistakes < maxMistakes) { // Passing score
+                    const getGrade = (m) => {
+                        if (m <= 2) return 'Excellent';
+                        if (m <= 7) return 'Very Good';
+                        return 'Good';
+                    };
+                    const gradeKey = getGrade(finalMistakes);
+                    const gradeEn = translations.en[`grade${gradeKey}`];
+                    const gradeGr = translations.gr[`grade${gradeKey}`];
+                    const userVisibleGrade = userLang === 'en' ? gradeEn : gradeGr;
+
+                    resultsContainerDiv.innerHTML = generateCertificateHTML(userLang, userName, userVisibleGrade);
+                    
+                    const downloadMessage = document.createElement('p');
+                    const messageText = {
+                        en: 'Your certificate PDF is downloading automatically...',
+                        gr: 'Το πιστοποιητικό σας σε PDF κατεβαίνει αυτόματα...'
+                    };
+                    downloadMessage.innerText = messageText[userLang];
+                    downloadMessage.style.marginTop = '1rem';
+                    downloadMessage.style.color = 'var(--nm-accent)';
+                    downloadMessage.style.fontFamily = "'Roboto Mono', monospace";
+                    resultsContainerDiv.appendChild(downloadMessage);
+
+                    setTimeout(() => {
+                        downloadCertificates(userName, gradeEn, gradeGr);
+                    }, 500);
+
+                } else {
+                    resultsContainerDiv.innerHTML = `
+                        <h1 class="text-red-600">${t.failureTitle}</h1>
+                        <p>${t.failureText1} <strong>${finalMistakes}</strong> ${t.failureText2}</p>
+                        <button id="restart-quiz-btn">${t.restartBtn}</button>
+                    `;
+                    certModal.querySelector('#restart-quiz-btn').addEventListener('click', resetQuiz);
+                }
+            };
+
+            languageSelectionDiv.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => selectLanguage(btn.dataset.lang));
+            });
+            nameForm.addEventListener('submit', startQuiz);
+            prevBtn.addEventListener('click', () => navigatePage(-1));
+            nextBtn.addEventListener('click', () => navigatePage(1));
+            submitBtn.addEventListener('click', showResults);
+        }
+
+        initializePortfolio();
+        initializeCertificationQuiz();
+    });
+    </script>
+</body>
+</html>
