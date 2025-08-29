@@ -778,25 +778,14 @@ body.light-theme .certificate-header h1 {
     color: var(--nm-accent);
     margin-bottom: 1rem;
 }
-.content-section .discount-text {
-    color: var(--nm-text-muted);
-    font-size: 0.9rem;
+.content-section .tip {
     margin-bottom: 1rem;
-    max-width: 350px;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: left;
 }
-.code-container.discount-code {
-    margin: 0.5em auto 1.5em auto;
-    padding: 10px 15px;
-    max-width: 200px;
+.content-section .code-container {
+    margin-bottom: 1.5rem;
 }
-.discount-code code {
-    text-align: center;
-    font-size: 1.1em;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
+
 
 /* Gym Clothing Carousel Styles */
 .gym-carousel {
