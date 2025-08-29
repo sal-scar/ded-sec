@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 25, book: 9, question_en: "What does `grep -v 'pattern'` do?", question_gr: "Τι κάνει η εντολή `grep -v 'pattern'`;", options_en: ["Searches verbosely", "Counts matching lines", "Inverts the match (shows non-matching lines)", "Searches recursively"], options_gr: ["Αναζητά με λεπτομέρειες", "Μετρά τις γραμμές που ταιριάζουν", "Αντιστρέφει την αντιστοίχιση (δείχνει τις γραμμές που δεν ταιριάζουν)", "Αναζητά αναδρομικά"], correct_answer: 2 },
             { id: 26, book: 10, question_en: "In `sed`, what does the `g` flag in `s/old/new/g` signify?", question_gr: "Στη `sed`, τι υποδηλώνει η σημαία `g` στην εντολή `s/old/new/g`;", options_en: ["Greedy match", "Global (replace all occurrences on a line)", "Group match", "Go to next line"], options_gr: ["Άπληστη αντιστοίχιση", "Καθολική (αντικατάσταση όλων των εμφανίσεων σε μια γραμμή)", "Αντιστοίχιση ομάδας", "Μετάβαση στην επόμενη γραμμή"], correct_answer: 1 },
             { id: 27, book: 10, question_en: "In `awk`, which variable represents the entire current line?", question_gr: "Στην `awk`, ποια μεταβλητή αντιπροσωπεύει ολόκληρη την τρέχουσα γραμμή;", options_en: ["$1", "$NF", "$0", "$NR"], options_gr: ["$1", "$NF", "$0", "$NR"], correct_answer: 2 },
-            { id: 28, book: 11, question_en: "Which command is used to securely log in to a remote server?", question_gr: "Ποια εντολή χρησιμοποιείται για την ασφαλή σύνδεση σε έναν απομακρυσμένο διακομιστή;", options_en: ["telnet", "ftp", "ssh", "connect"], options_gr: ["telnet", "ftp", "ssh", "connect"], correct_answer: 2 },
+            { id: 28, book: 11, question_en: "Which command is used to securely log in to a remote server?", question_gr: "Ποια εντολή χρησιμοποιείται για την ασφαλή σύνδεση σε έναν απομακρυμμένο διακομιστή;", options_en: ["telnet", "ftp", "ssh", "connect"], options_gr: ["telnet", "ftp", "ssh", "connect"], correct_answer: 2 },
             { id: 29, book: 11, question_en: "What is the primary advantage of `rsync` over `cp` for network transfers?", question_gr: "Ποιο είναι το κύριο πλεονέκτημα της `rsync` έναντι της `cp` για μεταφορές δικτύου;", options_en: ["It is faster for a single file", "It only transfers the differences (delta transfer)", "It is more secure", "It can copy directories"], options_gr: ["Είναι ταχύτερη για ένα μόνο αρχείο", "Μεταφέρει μόνο τις διαφορές (μεταφορά δέλτα)", "Είναι πιο ασφαλής", "Μπορεί να αντιγράψει καταλόγους"], correct_answer: 1 },
             { id: 30, book: 12, question_en: "What is the command to initialize a new Git repository?", question_gr: "Ποια είναι η εντολή για την αρχικοποίηση ενός νέου αποθετηρίου Git;", options_en: ["git new", "git start", "git init", "git create"], options_gr: ["git new", "git start", "git init", "git create"], correct_answer: 2 },
             { id: 31, book: 12, question_en: "What is the three-step process for saving changes in Git?", question_gr: "Ποια είναι η διαδικασία τριών βημάτων για την αποθήκευση αλλαγών στο Git;", options_en: ["Modify, Commit, Push", "Modify, Stage (add), Commit", "Stage, Push, Save", "Add, Save, Push"], options_gr: ["Τροποποίηση, Commit, Push", "Τροποποίηση, Προετοιμασία (add), Commit", "Προετοιμασία, Push, Αποθήκευση", "Add, Αποθήκευση, Push"], correct_answer: 1 },
@@ -424,6 +424,11 @@ document.addEventListener('DOMContentLoaded', () => {
             nextBtn.classList.toggle('hidden', currentPage === activeQuestions.length);
             submitBtn.classList.toggle('hidden', currentPage !== activeQuestions.length);
             pageIndicator.innerText = `${t.page} ${currentPage} ${t.of} ${activeQuestions.length}`;
+        };
+
+        const navigatePage = (direction) => {
+            currentPage += direction;
+            renderPage();
         };
 
         const generateCertificateHTML = (lang, name, grade, finalMistakes) => {
