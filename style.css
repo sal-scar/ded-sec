@@ -440,6 +440,7 @@ body.light-theme .modal-content {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    white-space: nowrap;
 }
 .copy-btn:hover {
     background: var(--nm-accent-hover);
@@ -799,6 +800,7 @@ body.light-theme .certificate-header h1 {
     border-radius: 8px;
     background-color: var(--nm-container);
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 .store-link a:hover {
     background-color: var(--nm-accent-hover);
