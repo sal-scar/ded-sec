@@ -499,12 +499,6 @@ body.light-theme .modal-content {
     border-radius: 4px;
     transition: background-color 0.3s ease;
 }
-.modal-body .tip { /* Keep modal-specific tips as they were */
-    background: var(--nm-dark);
-    margin: 1em 0;
-    padding: 0.8em 1em;
-}
-
 
 .contact-grid {
     display: grid;
@@ -791,7 +785,25 @@ body.light-theme .certificate-header h1 {
 }
 .content-section .code-container {
     margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+}
+.store-link {
+    margin: 0 0 1.5rem 0;
+}
+.store-link a {
+    color: var(--nm-accent);
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid var(--nm-border);
+    padding: 8px 15px;
+    border-radius: 8px;
+    background-color: var(--nm-container);
+    transition: all 0.2s ease;
+}
+.store-link a:hover {
+    background-color: var(--nm-accent-hover);
+    border-color: var(--nm-accent);
+    color: var(--nm-darkest);
 }
 
 
