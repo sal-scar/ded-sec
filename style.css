@@ -230,91 +230,6 @@ body.light-theme .app-icon {
     word-break: break-word;
 }
 
-.gym-clothing-section {
-    width: 90%;
-    max-width: 500px;
-    margin: 20px auto;
-    text-align: center;
-}
-
-.gym-clothing-section h2 {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--nm-accent-hover);
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.gym-clothing-section p {
-    font-size: 0.9rem;
-    color: var(--nm-text-muted);
-    margin-bottom: 15px;
-}
-
-.gym-carousel {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    margin: auto;
-}
-
-.gym-clothing-images {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-}
-
-.gym-clothing-images img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    border-radius: 10px;
-    border: 1px solid var(--nm-border);
-    background-color: var(--nm-container);
-    object-fit: cover;
-}
-
-.gym-clothing-images img.active {
-    opacity: 1;
-}
-
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(26, 23, 33, 0.7);
-    color: var(--nm-text);
-    border: 1px solid var(--nm-border);
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    cursor: pointer;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    transition: all 0.2s ease;
-}
-
-.carousel-btn:hover {
-    background-color: var(--nm-accent);
-    color: var(--nm-darkest);
-}
-
-.carousel-btn.prev {
-    left: 10px;
-}
-
-.carousel-btn.next {
-    right: 10px;
-}
-
 .github-stats {
     display: flex;
     flex-direction: column;
@@ -441,8 +356,8 @@ body.light-theme .modal-content {
     padding: 12px 20px;
     background: var(--nm-container);
     border-bottom: 1px solid var(--nm-border);
-    flex-shrink: 0;
     transition: background-color 0.3s ease;
+    flex-shrink: 0; /* Ensures header doesn't shrink */
 }
 .modal-header h2 {
     font-family: 'Orbitron', sans-serif;
@@ -468,6 +383,7 @@ body.light-theme .modal-content {
     overflow-y: auto;
     flex-grow: 1;
     line-height: 1.7;
+    min-height: 0; /* Important for flex-grow to work correctly with overflow */
 }
 .modal-body h3 {
     color: var(--nm-accent-hover);
@@ -532,9 +448,9 @@ body.light-theme .modal-content {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-top: 1.5rem;
-    padding-top: 1rem;
+    padding: 1rem; /* Use padding for spacing instead of margin */
     border-top: 1px solid var(--nm-border);
+    flex-shrink: 0; /* Ensures footer doesn't shrink */
 }
 .modal-footer button {
     padding: 10px 20px;
