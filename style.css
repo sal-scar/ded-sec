@@ -413,7 +413,8 @@ body.light-theme .modal-content {
     text-decoration: underline;
     color: var(--nm-accent-hover);
 }
-.modal-body .code-container {
+
+.code-container {
     position: relative;
     background: var(--nm-darkest);
     border: 1px solid var(--nm-border);
@@ -422,7 +423,7 @@ body.light-theme .modal-content {
     margin: 1em 0;
     transition: background-color 0.3s ease;
 }
-.modal-body code {
+.code-container code {
     font-family: 'Roboto Mono', monospace;
     color: var(--nm-text);
     word-break: break-all;
@@ -490,7 +491,7 @@ body.light-theme .modal-content {
     border-color: var(--nm-accent);
     color: var(--nm-darkest);
 }
-.modal-body .note, .modal-body .tip {
+.tip {
     background: var(--nm-dark);
     border-left: 4-px solid var(--nm-accent-hover);
     margin: 1em 0;
@@ -498,6 +499,12 @@ body.light-theme .modal-content {
     border-radius: 4px;
     transition: background-color 0.3s ease;
 }
+.modal-body .tip { /* Keep modal-specific tips as they were */
+    background: var(--nm-dark);
+    margin: 1em 0;
+    padding: 0.8em 1em;
+}
+
 
 .contact-grid {
     display: grid;
@@ -779,10 +786,11 @@ body.light-theme .certificate-header h1 {
     margin-bottom: 1rem;
 }
 .content-section .tip {
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     text-align: left;
 }
 .content-section .code-container {
+    margin-top: 0.5rem;
     margin-bottom: 1.5rem;
 }
 
