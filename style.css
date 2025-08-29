@@ -230,6 +230,42 @@ body.light-theme .app-icon {
     word-break: break-word;
 }
 
+.gym-clothing-section {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.gym-clothing-section h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--nm-accent-hover);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.gym-clothing-section p {
+    font-size: 0.9rem;
+    color: var(--nm-text-muted);
+    margin-bottom: 15px;
+}
+
+.gym-clothing-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
+.gym-clothing-images img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--nm-border);
+    background-color: var(--nm-container);
+    object-fit: cover;
+}
+
 .github-stats {
     display: flex;
     flex-direction: column;
@@ -491,7 +527,7 @@ body.light-theme .modal-content {
 }
 .modal-body .note, .modal-body .tip {
     background: var(--nm-dark);
-    border-left: 4px solid var(--nm-accent-hover);
+    border-left: 4-px solid var(--nm-accent-hover);
     margin: 1em 0;
     padding: 0.8em 1em;
     border-radius: 4px;
@@ -628,7 +664,7 @@ body.light-theme #results-container h1 {
     align-items: center;
     padding: 0.75rem;
     border: 1px solid var(--nm-border);
-    border-radius: 8px;
+    border-radius: 8-px;
     background-color: var(--nm-container);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -764,70 +800,6 @@ body.light-theme .certificate-header h1 {
 }
 .serif { font-family: 'Noto Serif', serif; }
 .text-green-600 { color: var(--nm-success) !important; }
-
-/* --- Promo Section & Carousel Styles --- */
-.promo-section {
-    width: 90%;
-    max-width: 500px;
-    margin: 20px auto;
-    text-align: center;
-    background-color: var(--nm-container);
-    border: 1px solid var(--nm-border);
-    border-radius: 15px;
-    padding: 20px;
-    box-sizing: border-box;
-}
-.promo-section h2 {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--nm-accent);
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-.promo-section p {
-    color: var(--nm-text-muted);
-    font-size: 0.85rem;
-    margin-bottom: 15px;
-}
-.carousel-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    border: 1px solid var(--nm-border);
-}
-.carousel-slides {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-.carousel-slides img {
-    width: 100%;
-    flex-shrink: 0;
-    display: block;
-}
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    font-weight: bold;
-    z-index: 1;
-    transition: background-color 0.2s ease;
-}
-.carousel-btn:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-.carousel-btn.prev {
-    left: 10px;
-    border-radius: 5px;
-}
-.carousel-btn.next {
-    right: 10px;
-    border-radius: 5px;
-}
 
 @media (min-width: 600px) {
     .app-grid {
