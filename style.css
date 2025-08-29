@@ -796,11 +796,14 @@ body.light-theme .certificate-header h1 {
     font-weight: bold;
     text-decoration: none;
     border: 1px solid var(--nm-border);
-    padding: 8px 15px;
+    padding: 10px 15px;
     border-radius: 8px;
     background-color: var(--nm-container);
     transition: all 0.2s ease;
-    white-space: nowrap;
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+    line-height: 1.4;
 }
 .store-link a:hover {
     background-color: var(--nm-accent-hover);
