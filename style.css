@@ -8,11 +8,17 @@
     --nm-accent-hover: #BE93FD;
     --nm-text: #F0F0F0;
     --nm-text-muted: #9E9E9E;
-    --nm-danger: #dc3545;
-    --nm-success: #28a745;
+    --nm-danger: #e53935; /* Brighter Red */
+    --nm-success: #43a047; /* Brighter Green */
     --warning-bg: #8A4FFF;
     --glow-color: rgba(164, 114, 232, 0.4);
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
+    
+    /* Dead Space UI Inspired Variables */
+    --ds-blue: #00A8FF;
+    --ds-blue-glow: rgba(0, 168, 255, 0.7);
+    --ds-dark-bg: rgba(20, 30, 45, 0.8);
+    --ds-text: #E0F8FF;
 }
 
 body.light-theme {
@@ -430,71 +436,89 @@ body.light-theme .modal-content {
     display: block;
     font-size: 0.85em;
 }
+
 .copy-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: var(--nm-container);
-    border: 1px solid var(--nm-border);
-    color: var(--nm-accent);
-    padding: 5px 10px;
-    border-radius: 5px;
+    top: 8px;
+    right: 8px;
+    background: var(--ds-dark-bg);
+    border: 1px solid var(--ds-blue);
+    color: var(--ds-text);
+    padding: 4px 8px;
+    border-radius: 0;
     cursor: pointer;
     white-space: nowrap;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 5px rgba(0, 168, 255, 0.4);
 }
 .copy-btn:hover {
-    background: var(--nm-accent-hover);
+    background: var(--ds-blue);
     color: var(--nm-darkest);
+    box-shadow: 0 0 10px var(--ds-blue);
 }
+
 .modal-footer {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    padding: 1rem; /* Use padding for spacing instead of margin */
+    padding: 1rem;
     border-top: 1px solid var(--nm-border);
-    flex-shrink: 0; /* Ensures footer doesn't shrink */
+    flex-shrink: 0;
 }
-.modal-footer button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: 1px solid;
+
+/* --- BUTTON REDESIGN (DEAD SPACE UI) --- */
+.modal-footer button,
+.language-button {
+    background-color: var(--ds-dark-bg);
+    color: var(--ds-text);
+    border: 1px solid var(--ds-blue);
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
     font-weight: 700;
+    padding: 12px 25px;
+    border-radius: 0; /* Sharp corners */
     cursor: pointer;
     transition: all 0.2s ease;
-    font-family: 'Orbitron', sans-serif;
-    color: white;
+    box-shadow: 0 0 8px rgba(0, 168, 255, 0.4), inset 0 0 4px rgba(0, 168, 255, 0.2);
 }
+
+.modal-footer button:hover,
+.language-button:hover, 
+.language-button.selected {
+    color: var(--nm-darkest);
+    background-color: var(--ds-blue);
+    border-color: var(--ds-blue);
+    box-shadow: 0 0 15px var(--ds-blue), inset 0 0 8px rgba(255,255,255,0.5);
+}
+
 .accept-btn {
-    background-color: var(--nm-success);
-    border-color: var(--nm-success);
+    border-color: var(--nm-success) !important;
+    box-shadow: 0 0 8px var(--nm-success), inset 0 0 4px rgba(76, 175, 80, 0.3) !important;
 }
 .accept-btn:hover {
-    opacity: 0.9;
+    background-color: var(--nm-success) !important;
+    border-color: var(--nm-success) !important;
+    box-shadow: 0 0 15px var(--nm-success), inset 0 0 8px rgba(255,255,255,0.5) !important;
 }
+
 .decline-btn {
-    background-color: var(--nm-danger);
-    border-color: var(--nm-danger);
+    border-color: var(--nm-danger) !important;
+    box-shadow: 0 0 8px var(--nm-danger), inset 0 0 4px rgba(229, 57, 53, 0.3) !important;
 }
 .decline-btn:hover {
-    opacity: 0.9;
+    background-color: var(--nm-danger) !important;
+    border-color: var(--nm-danger) !important;
+    box-shadow: 0 0 15px var(--nm-danger), inset 0 0 8px rgba(255,255,255,0.5) !important;
 }
-.language-button {
-    padding: 12px 25px;
-    font-size: 1.2rem;
-    border: 1px solid var(--nm-border);
-    background: var(--nm-container);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: 'Orbitron', sans-serif;
-}
-.language-button:hover, .language-button.selected {
-    background: var(--nm-accent);
-    border-color: var(--nm-accent);
-    color: var(--nm-darkest);
-}
+
+/* --- End Button Redesign --- */
+
 .tip {
     background: var(--nm-dark);
-    border-left: 4-px solid var(--nm-accent-hover);
+    border-left: 4px solid var(--nm-accent-hover);
     margin: 1em 0;
     padding: 0.8em 1em;
     border-radius: 4px;
@@ -559,31 +583,41 @@ body.light-theme #results-container h1 {
     gap: 1rem;
     align-items: center;
 }
+
+/* --- Certification Button Redesign --- */
 #language-selection button, #user-info button, #navigation-container button, #results-container button {
-    background-color: var(--nm-container);
-    color: var(--nm-text);
-    border: 1px solid var(--nm-border);
+    background-color: var(--ds-dark-bg);
+    color: var(--ds-text);
+    border: 1px solid var(--ds-blue);
+    font-family: 'Orbitron', sans-serif;
     font-weight: bold;
+    text-transform: uppercase;
     padding: 12px 20px;
-    border-radius: 8px;
+    border-radius: 0;
     transition: all 0.3s ease;
     width: 100%;
     max-width: 250px;
     cursor: pointer;
+    box-shadow: 0 0 8px rgba(0, 168, 255, 0.4), inset 0 0 4px rgba(0, 168, 255, 0.2);
 }
 #language-selection button:hover, #user-info button:hover, #navigation-container button:hover, #results-container button:hover {
-    background-color: var(--nm-accent-hover);
+    background-color: var(--ds-blue);
     color: var(--nm-darkest);
-    border-color: var(--nm-accent);
+    border-color: var(--ds-blue);
+    box-shadow: 0 0 15px var(--ds-blue), inset 0 0 8px rgba(255,255,255,0.5);
 }
 #navigation-container button#submit-btn, #results-container .download-cert-btn {
-     background-color: var(--nm-success);
-     border-color: var(--nm-success);
+     border-color: var(--nm-success) !important;
+     box-shadow: 0 0 8px var(--nm-success), inset 0 0 4px rgba(76, 175, 80, 0.3) !important;
 }
  #navigation-container button#submit-btn:hover, #results-container .download-cert-btn:hover {
-     opacity: 0.9;
+    background-color: var(--nm-success) !important;
+    border-color: var(--nm-success) !important;
+    box-shadow: 0 0 15px var(--nm-success), inset 0 0 8px rgba(255,255,255,0.5) !important;
 }
 #results-container .text-red-600 { color: var(--nm-danger); }
+/* --- End Certification Button Redesign --- */
+
 #user-info input {
     background-color: var(--nm-darkest);
     border: 1px solid var(--nm-border);
@@ -631,7 +665,7 @@ body.light-theme #results-container h1 {
     align-items: center;
     padding: 0.75rem;
     border: 1px solid var(--nm-border);
-    border-radius: 8-px;
+    border-radius: 8px;
     background-color: var(--nm-container);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -654,7 +688,14 @@ body.light-theme #results-container h1 {
     flex-shrink: 0;
 }
 #navigation-container button { width: auto; }
-#navigation-container button:disabled { opacity: 0.5; cursor: not-allowed; }
+#navigation-container button:disabled { 
+    opacity: 0.4; 
+    cursor: not-allowed; 
+    box-shadow: none !important;
+    background-color: var(--ds-dark-bg) !important;
+    color: var(--ds-text) !important;
+    border-color: var(--ds-blue) !important;
+}
 
 /* --- Professional Certificate Styles --- */
 .certificate-container {
