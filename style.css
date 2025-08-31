@@ -129,6 +129,16 @@ body.light-theme .screen-overlay {
     margin-bottom: 20px;
     text-align: center;
 }
+
+.header-top-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
 .profile-pic {
     width: 90%;
     max-width: 150px; /* New size */
@@ -171,14 +181,6 @@ body.light-theme .profile-info h1 {
     margin-right: auto;
 }
 
-.separator {
-    width: 90%;
-    max-width: 400px;
-    height: 1px;
-    background-color: var(--nm-border);
-    margin: 15px auto;
-}
-
 /* --- APP GRID IS NOW A SINGLE COLUMN LIST --- */
 .app-grid {
     display: flex;
@@ -186,7 +188,7 @@ body.light-theme .profile-info h1 {
     gap: 15px;
     width: 100%;
     max-width: 420px; /* Can be wider now */
-    margin: 0 auto 15px auto;
+    margin: 15px auto;
 }
 
 /* --- APP ICONS ARE NOW LONG RECTANGLES --- */
@@ -266,9 +268,9 @@ body.light-theme .app-icon:hover {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    width: 90%;
-    max-width: 500px;
-    margin: 20px auto;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
 }
 .github-stats img {
     width: 100%;
@@ -845,28 +847,21 @@ body.light-theme .certificate-header h1 {
 .serif { font-family: 'Noto Serif', serif; }
 .text-green-600 { color: var(--nm-success) !important; }
 
-/* --- Content Section Styles --- */
-.content-section {
-    width: 90%;
-    max-width: 500px;
-    margin: 20px auto;
+/* --- Content Section Styles (for Modal) --- */
+.content-section-modal {
     text-align: center;
 }
-.content-section h3 {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--nm-accent);
-    margin-bottom: 1rem;
-}
-.content-section .tip {
+
+.content-section-modal .tip {
     margin-bottom: 0;
     text-align: left;
 }
-.content-section .code-container {
+.content-section-modal .code-container {
     margin-top: 0.5rem;
     margin-bottom: 1rem;
 }
 .store-link {
-    margin: 0 0 1.5rem 0;
+    margin: 1rem 0 1.5rem 0;
 }
 .store-link a {
     color: var(--nm-accent);
@@ -893,6 +888,8 @@ body.light-theme .certificate-header h1 {
 .gym-carousel {
     position: relative;
     width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
     aspect-ratio: 3 / 4;
     border-radius: 10px;
     overflow: hidden;

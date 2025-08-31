@@ -459,6 +459,14 @@ document.addEventListener('DOMContentLoaded', () => {
             pageIndicator.innerText = `${t.page} ${currentPage} ${t.of} ${activeQuestions.length}`;
         };
 
+        const navigatePage = (direction) => {
+            const newPage = currentPage + direction;
+            if (newPage > 0 && newPage <= activeQuestions.length) {
+                currentPage = newPage;
+                renderPage();
+            }
+        };
+
         const generateCertificateHTML = (lang, name, grade, finalMistakes) => {
             const t = translations[lang];
             const today = new Date();
