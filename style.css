@@ -157,16 +157,16 @@ body.light-theme .screen-overlay {
     text-align: center;
     flex-grow: 1;
 }
-.profile-info h1 {
+main.home-screen > h1 {
     text-align: center;
-    margin: 0;
+    margin: 0 0 20px 0;
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
+    font-size: 2.75rem;
     color: var(--nm-text);
     text-shadow: 0 0 8px var(--glow-color);
     transition: text-shadow 0.3s ease;
 }
-body.light-theme .profile-info h1 {
+body.light-theme main.home-screen > h1 {
     text-shadow: none;
 }
 
