@@ -126,7 +126,7 @@ body.light-theme .screen-overlay {
     padding-bottom: 15px;
     width: 100%;
     box-sizing: border-box;
-    margin-bottom: 20px;
+    margin-bottom: 0;
     text-align: center;
 }
 
@@ -188,7 +188,7 @@ body.light-theme main.home-screen > h1 {
     gap: 15px;
     width: 100%;
     max-width: 420px; /* Can be wider now */
-    margin: 15px auto;
+    margin: 0 auto 15px;
 }
 
 /* --- APP ICONS ARE NOW LONG RECTANGLES --- */
@@ -276,9 +276,9 @@ body.light-theme .app-icon:hover {
     width: 100%;
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
     border: 1px solid var(--nm-border);
     background-color: var(--nm-container);
+    clip-path: var(--clip-path-shape);
 }
 
 .dock {
