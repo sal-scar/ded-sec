@@ -141,7 +141,7 @@ body.light-theme .screen-overlay {
 
 .profile-pic {
     width: 90%;
-    max-width: 150px; /* New size */
+    max-width: 105px; /* 30% smaller: 150px * 0.7 */
     height: auto;
     border-radius: 0;
     border: 3px solid var(--nm-accent);
