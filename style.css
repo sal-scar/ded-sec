@@ -1,17 +1,18 @@
 :root {
-    --nm-deep-purple: #000000;
-    --nm-darkest: #1a1721;
-    --nm-dark: #231F2E;
-    --nm-container: #3E3852;
-    --nm-border: #595273;
-    --nm-accent: #A472E8;
-    --nm-accent-hover: #BE93FD;
-    --nm-text: #F0F0F0;
-    --nm-text-muted: #9E9E9E;
-    --nm-danger: #e53935; /* Brighter Red */
-    --nm-success: #43a047; /* Brighter Green */
-    --warning-bg: #8A4FFF;
-    --glow-color: rgba(164, 114, 232, 0.4);
+    /* Dead Space 2 Inspired Palette */
+    --nm-deep-purple: #0a0f14; /* Deep space background */
+    --nm-darkest: #111820;     /* Darker panel */
+    --nm-dark: #1d2a38;        /* Mid-tone panel */
+    --nm-container: #2a3b4f;    /* Lighter panel / container */
+    --nm-border: #4f6a83;       /* Structural border */
+    --nm-accent: #66fbfd;       /* RIG Cyan */
+    --nm-accent-hover: #ffffff;  /* Brightest RIG Glow */
+    --nm-text: #e0e8f0;         /* Off-white text */
+    --nm-text-muted: #8fa6c1;   /* Muted UI text */
+    --nm-danger: #ff8a00;       /* Objective/Warning Amber */
+    --nm-success: #43a047;     /* Standard Green (for clarity) */
+    --warning-bg: #ff8a00;      /* Amber for special warnings */
+    --glow-color: rgba(102, 251, 253, 0.5); /* RIG Cyan Glow */
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
 
     /* Shape Definition */
@@ -20,14 +21,15 @@
 }
 
 body.light-theme {
-    --nm-deep-purple: #ffffff;
-    --nm-darkest: #f0f0f0;
-    --nm-dark: #e9e9e9;
+    /* A "clean room" or "medical bay" light theme variant */
+    --nm-deep-purple: #e8edf2;
+    --nm-darkest: #f2f5f8;
+    --nm-dark: #ffffff;
     --nm-container: #ffffff;
-    --nm-border: #cccccc;
-    --nm-text: #000000;
-    --nm-text-muted: #555555;
-    --glow-color: rgba(164, 114, 232, 0.2);
+    --nm-border: #c1d0e0;
+    --nm-text: #111820;
+    --nm-text-muted: #526173;
+    --glow-color: rgba(102, 251, 253, 0.3);
 }
 
 html, body {
@@ -78,7 +80,7 @@ body {
     width: 100%;
     height: 100%;
     background: 
-        repeating-linear-gradient(0deg, rgba(164, 114, 232, 0.03), rgba(164, 114, 232, 0.03) 1px, transparent 1px, transparent 5px);
+        repeating-linear-gradient(0deg, rgba(102, 251, 253, 0.05), rgba(102, 251, 253, 0.05) 1px, transparent 1px, transparent 4px);
     pointer-events: none;
     z-index: 1;
 }
@@ -237,10 +239,12 @@ body.light-theme main.home-screen > h1 {
     transition: color 0.2s ease;
     font-size: 1.5rem;
     margin: 0;
+    text-shadow: 0 0 8px var(--glow-color);
 }
 
 .app-icon:hover i {
     color: var(--nm-darkest);
+    text-shadow: none;
 }
 
 body.light-theme .app-icon {
@@ -284,7 +288,7 @@ body.light-theme .app-icon:hover {
 .dock {
     padding: 6px 8px;
     padding-bottom: var(--safe-area-inset-bottom);
-    background: rgba(35, 31, 46, 0.7);
+    background: rgba(17, 24, 32, 0.7);
     border-top: 1px solid var(--nm-border);
     display: flex;
     justify-content: center;
@@ -401,6 +405,7 @@ body.light-theme .modal-content {
     margin: 0;
     color: var(--nm-accent);
     text-transform: uppercase;
+    text-shadow: 0 0 10px var(--glow-color);
 }
 .close-modal {
     background: none;
@@ -560,7 +565,7 @@ body.light-theme .modal-content {
 
 .tip {
     background: var(--nm-dark);
-    border-left: 4px solid var(--nm-accent-hover);
+    border-left: 4px solid var(--nm-accent);
     margin: 1em 0;
     padding: 0.8em 1em;
     border-radius: 4px;
@@ -694,7 +699,7 @@ body.light-theme #results-container h1 {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-.quiz-page h2 { color: var(--nm-accent-hover); font-size: 1.1rem; margin-bottom: 0.5rem; }
+.quiz-page h2 { color: var(--nm-accent); font-size: 1.1rem; margin-bottom: 0.5rem; }
 .quiz-page hr { border-color: var(--nm-border); margin: 1rem 0;}
 .quiz-page .question-box { background-color: var(--nm-darkest); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; transition: background-color 0.3s ease;}
 .quiz-page .options-container { display: flex; flex-direction: column; gap: 0.75rem; }
@@ -709,7 +714,7 @@ body.light-theme #results-container h1 {
     transition: all 0.2s ease;
 }
 .quiz-page label:hover {
-    background-color: var(--nm-accent-hover);
+    background-color: var(--nm-accent);
     color: var(--nm-darkest);
 }
 .quiz-page input[type="radio"] {
@@ -745,8 +750,8 @@ body.light-theme #results-container h1 {
 }
 .certificate {
     background-image: 
-        linear-gradient(rgba(164, 114, 232, 0.1), rgba(164, 114, 232, 0.1)),
-        radial-gradient(ellipse at center, rgba(35, 31, 46, 0.5) 0%, var(--nm-deep-purple) 70%);
+        linear-gradient(rgba(102, 251, 253, 0.08), rgba(102, 251, 253, 0.08)),
+        radial-gradient(ellipse at center, rgba(29, 42, 56, 0.5) 0%, var(--nm-deep-purple) 70%);
     border: 2px solid var(--nm-accent);
     padding: 2rem;
     text-align: center;
@@ -758,8 +763,8 @@ body.light-theme #results-container h1 {
 
 body.light-theme .certificate {
      background-image: 
-        linear-gradient(rgba(164, 114, 232, 0.1), rgba(164, 114, 232, 0.1)),
-        radial-gradient(ellipse at center, rgba(230, 230, 230, 0.5) 0%, var(--nm-deep-purple) 70%);
+        linear-gradient(rgba(102, 251, 253, 0.1), rgba(102, 251, 253, 0.1)),
+        radial-gradient(ellipse at center, rgba(200, 210, 220, 0.5) 0%, var(--nm-deep-purple) 70%);
 }
 
 .certificate-header {
@@ -776,7 +781,7 @@ body.light-theme .certificate {
     stroke-width: 2;
 }
 .certificate-header .seal .seal-star {
-    fill: var(--nm-accent-hover);
+    fill: var(--nm-accent);
 }
 .certificate-header .seal .seal-text {
     font-family: 'Orbitron', sans-serif;
@@ -809,12 +814,13 @@ body.light-theme .certificate-header h1 {
     font-family: 'Noto Serif', serif;
     font-style: italic;
     font-size: 2.5rem;
-    color: var(--nm-accent-hover);
+    color: var(--nm-accent);
     margin: 1.5rem 0;
     font-weight: 700;
     border-bottom: 2px solid var(--nm-border);
     display: inline-block;
     padding-bottom: 0.5rem;
+    text-shadow: 0 0 15px var(--glow-color);
 }
 .certificate-footer {
     margin-top: 2.5rem;
@@ -878,8 +884,8 @@ body.light-theme .certificate-header h1 {
     line-height: 1.4;
 }
 .store-link a:hover {
-    background-color: var(--nm-accent-hover);
-    border-color: var(--nm-accent);
+    background-color: var(--nm-accent);
+    border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
 }
 
@@ -935,4 +941,10 @@ body.light-theme .certificate-header h1 {
 }
 .carousel-btn:hover {
     background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Hardcoded styles from HTML fix */
+#scripts-modal .note[style*="--nm-danger"] {
+    border-left-color: var(--nm-danger) !important;
+    background: rgba(255, 138, 0, 0.15) !important;
 }
