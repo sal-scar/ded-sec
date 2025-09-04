@@ -1,119 +1,938 @@
-/* --- Dead Space 2 Inspired Aesthetic Enhancements --- */
+:root {
+    --nm-deep-purple: #000000;
+    --nm-darkest: #1a1721;
+    --nm-dark: #231F2E;
+    --nm-container: #3E3852;
+    --nm-border: #595273;
+    --nm-accent: #A472E8;
+    --nm-accent-hover: #BE93FD;
+    --nm-text: #F0F0F0;
+    --nm-text-muted: #9E9E9E;
+    --nm-danger: #e53935; /* Brighter Red */
+    --nm-success: #43a047; /* Brighter Green */
+    --warning-bg: #8A4FFF;
+    --glow-color: rgba(164, 114, 232, 0.4);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
 
-/* 1. Global Atmospheric Effects */
-
-/* Add a subtle flicker/pulse animation */
-@keyframes holographic-flicker {
-    0% { opacity: 1; }
-    48% { opacity: 1; }
-    50% { opacity: 0.95; }
-    52% { opacity: 1; }
-    98% { opacity: 1; }
-    100% { opacity: 0.97; }
+    /* Shape Definition */
+    --shape-cut: 8px;
+    --clip-path-shape: polygon(0 0, calc(100% - var(--shape-cut)) 0, 100% var(--shape-cut), 100% 100%, var(--shape-cut) 100%, 0 calc(100% - var(--shape-cut)));
 }
 
-/* Add a vignette to the screen for a focused, HUD-like feel */
-.screen::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
+body.light-theme {
+    --nm-deep-purple: #ffffff;
+    --nm-darkest: #f0f0f0;
+    --nm-dark: #e9e9e9;
+    --nm-container: #ffffff;
+    --nm-border: #cccccc;
+    --nm-text: #000000;
+    --nm-text-muted: #555555;
+    --glow-color: rgba(164, 114, 232, 0.2);
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--nm-deep-purple);
+    font-family: 'Roboto Mono', monospace;
+    color: var(--nm-text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.phone-container {
     width: 100%;
     height: 100%;
-    /* Darkening around the edges */
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%);
-    pointer-events: none;
-    z-index: 3; /* Ensures it's on top of content but below modals */
-    transition: background 0.3s ease;
+    background: var(--nm-darkest);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
 }
 
-body.light-theme .screen::before {
-    background: none; /* Disable vignette on light theme */
+.screen {
+    width: 100%;
+    height: 100%;
+    background-color: var(--nm-deep-purple);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease;
 }
 
-/* Make existing scanlines slightly more visible */
 .screen-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: 
-        repeating-linear-gradient(0deg, rgba(164, 114, 232, 0.05), rgba(164, 114, 232, 0.05) 1px, transparent 1px, transparent 4px);
-    animation: holographic-flicker 7s infinite linear;
+        repeating-linear-gradient(0deg, rgba(164, 114, 232, 0.03), rgba(164, 114, 232, 0.03) 1px, transparent 1px, transparent 5px);
+    pointer-events: none;
+    z-index: 1;
 }
 
+body.light-theme .screen-overlay {
+    display: none;
+}
 
-/* 2. Enhanced Glows for Interactive Elements */
+.home-screen {
+    flex-grow: 1;
+    overflow-y: auto;
+    min-height: 0;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-/* Main heading with a much stronger, more defined glow */
+.modal-body::-webkit-scrollbar,
+#quiz-container::-webkit-scrollbar {
+    width: 10px;
+}
+.modal-body::-webkit-scrollbar-track,
+ #quiz-container::-webkit-scrollbar-track {
+    background: var(--nm-dark);
+    border-radius: 10px;
+}
+.modal-body::-webkit-scrollbar-thumb,
+ #quiz-container::-webkit-scrollbar-thumb {
+    background-color: var(--nm-accent);
+    border-radius: 10px;
+    border: 2px solid var(--nm-dark);
+}
+.modal-body::-webkit-scrollbar-thumb:hover,
+ #quiz-container::-webkit-scrollbar-thumb:hover {
+    background-color: var(--nm-accent-hover);
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.header-top-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.profile-pic {
+    width: 90%;
+    max-width: 105px; /* 30% smaller: 150px * 0.7 */
+    height: auto;
+    border-radius: 0;
+    border: 3px solid var(--nm-accent);
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+.profile-pic:hover {
+    box-shadow: 0 0 15px var(--glow-color);
+}
+.profile-info {
+    text-align: center;
+    flex-grow: 1;
+}
 main.home-screen > h1 {
-    text-shadow: 0 0 5px var(--glow-color), 
-                 0 0 10px var(--glow-color), 
-                 0 0 20px var(--nm-accent);
-    animation: holographic-flicker 5s infinite;
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+    color: var(--nm-text);
+    text-shadow: 0 0 8px var(--glow-color);
+    transition: text-shadow 0.3s ease;
+}
+body.light-theme main.home-screen > h1 {
+    text-shadow: none;
 }
 
-/* Make app icons feel like they are emitting light */
+.quote {
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--nm-text-muted);
+    margin-top: 5px;
+    text-align: center;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- APP GRID IS NOW A SINGLE COLUMN LIST --- */
+.app-grid {
+    display: flex;
+    flex-direction: column; /* This makes it a single column */
+    gap: 15px;
+    width: 100%;
+    max-width: 420px; /* Can be wider now */
+    margin: 0 auto 15px;
+}
+
+/* --- APP ICONS ARE NOW LONG RECTANGLES --- */
 .app-icon {
-     /* Add a very subtle base glow */
-    box-shadow: 0 0 5px rgba(164, 114, 232, 0.1);
+    background: var(--nm-container);
+    border: 1px solid var(--nm-border);
+    border-radius: 0;
+    color: var(--nm-text);
+    cursor: pointer;
+    font-family: 'Roboto Mono', monospace;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: row; /* Horizontal layout for icon and text */
+    align-items: center;
+    justify-content: flex-start; /* Align content to the left */
+    text-decoration: none;
+    padding: 15px;
+    box-sizing: border-box;
+    position: relative;
+    clip-path: var(--clip-path-shape);
+    gap: 15px;
 }
 
 .app-icon:hover {
-    /* Significantly amplify the glow on hover for a reactive feel */
+    background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
-    box-shadow: 0 0 8px var(--glow-color), 
-                0 0 20px var(--glow-color), 
-                inset 0 0 10px rgba(190, 147, 253, 0.3); /* Inner glow */
+    color: var(--nm-darkest);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
-/* Apply the same intense glow to buttons */
+.app-icon:hover::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid var(--nm-darkest);
+}
+
+.app-icon i {
+    color: var(--nm-accent);
+    transition: color 0.2s ease;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.app-icon:hover i {
+    color: var(--nm-darkest);
+}
+
+body.light-theme .app-icon {
+    background: var(--nm-container);
+    border: 1px solid var(--nm-border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    color: var(--nm-text);
+}
+
+body.light-theme .app-icon:hover {
+    background: var(--nm-accent);
+    border-color: var(--nm-accent-hover);
+    color: var(--nm-darkest);
+}
+
+.app-icon span {
+    font-size: 0.8rem; /* Slightly larger text */
+    font-weight: 700;
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+.github-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 1;
+    min-width: 0;
+    margin: 0;
+}
+.github-stats img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--nm-border);
+    background-color: var(--nm-container);
+    clip-path: var(--clip-path-shape);
+}
+
+.dock {
+    padding: 6px 8px;
+    padding-bottom: var(--safe-area-inset-bottom);
+    background: rgba(35, 31, 46, 0.7);
+    border-top: 1px solid var(--nm-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+body.light-theme .dock {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* Dock Icon adjustment */
+.dock .app-icon {
+    background: transparent;
+    border: 1px solid transparent;
+    height: auto;
+    clip-path: none; /* Dock icons are simpler */
+    border-radius: 10px; /* Rounded corners for dock */
+    flex-direction: column; /* Return to vertical layout for dock */
+    gap: 0;
+    padding: 5px;
+    width: auto;
+}
+.dock .app-icon i {
+    margin: 0 0 8px 0;
+}
+.dock .app-icon span {
+    font-size: 0.6rem;
+}
+.dock .app-icon:hover {
+    background: var(--nm-accent);
+    color: var(--nm-darkest);
+    border-color: var(--nm-accent-hover);
+    box-shadow: none;
+}
+.dock .app-icon:hover::after {
+    content: none; /* No arrow on dock icons */
+}
+
+.main-footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.7rem;
+    color: var(--nm-text-muted);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+body.light-theme .modal-overlay {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+.modal-content {
+    background: var(--nm-dark);
+    width: 95%;
+    max-width: 800px;
+    height: 85%;
+    max-height: 800px;
+    border-radius: 15px;
+    border: 1px solid var(--nm-border);
+    box-shadow: 0 0 40px var(--glow-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px);
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.light-theme .modal-content {
+     box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+}
+
+.modal-overlay.visible .modal-content {
+    transform: translateY(0);
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: var(--nm-container);
+    border-bottom: 1px solid var(--nm-border);
+    transition: background-color 0.3s ease;
+    flex-shrink: 0; /* Ensures header doesn't shrink */
+}
+.modal-header h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    margin: 0;
+    color: var(--nm-accent);
+    text-transform: uppercase;
+}
+.close-modal {
+    background: none;
+    border: none;
+    color: var(--nm-text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s, text-shadow 0.2s;
+}
+.close-modal:hover {
+    color: var(--nm-danger);
+    text-shadow: 0 0 10px var(--nm-danger);
+}
+.modal-body {
+    padding: 25px;
+    overflow-y: auto;
+    flex-grow: 1;
+    line-height: 1.7;
+    min-height: 0; /* Important for flex-grow to work correctly with overflow */
+}
+.modal-body h3 {
+    color: var(--nm-accent-hover);
+    border-bottom: 1px solid var(--nm-border);
+    padding-bottom: 8px;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+}
+.modal-body h4 {
+    color: var(--nm-accent);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+}
+.modal-body h3:first-child {
+    margin-top: 0;
+}
+.modal-body a {
+    color: var(--nm-accent);
+    text-decoration: none;
+    font-weight: bold;
+}
+.modal-body a:hover {
+    text-decoration: underline;
+    color: var(--nm-accent-hover);
+}
+
+.code-container {
+    position: relative;
+    background: var(--nm-darkest);
+    border: 1px solid var(--nm-border);
+    border-radius: 5px;
+    padding: 15px;
+    margin: 1em 0;
+    transition: background-color 0.3s ease;
+}
+.code-container code {
+    font-family: 'Roboto Mono', monospace;
+    color: var(--nm-text);
+    word-break: break-all;
+    display: block;
+    font-size: 0.85em;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--nm-container);
+    border: 1px solid var(--nm-border);
+    color: var(--nm-text);
+    padding: 4px 8px;
+    border-radius: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    clip-path: var(--clip-path-shape);
+}
+.copy-btn:hover {
+    background: var(--nm-accent);
+    color: var(--nm-darkest);
+    box-shadow: 0 0 10px var(--glow-color);
+    border-color: var(--nm-accent-hover);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 1px solid var(--nm-border);
+    flex-shrink: 0;
+}
+
+/* --- BUTTON REDESIGN (EXACT SHAPE, SITE COLORS) --- */
+.modal-footer button,
+.language-button {
+    background-color: var(--nm-container);
+    color: var(--nm-text);
+    border: 1px solid var(--nm-border);
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 12px 25px;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    clip-path: var(--clip-path-shape);
+}
+
 .modal-footer button:hover,
 .language-button:hover, 
-.language-button.selected,
-#language-selection button:hover, 
-#user-info button:hover, 
-#navigation-container button:hover, 
-#results-container button:hover {
-    box-shadow: 0 0 8px var(--glow-color), 
-                0 0 20px var(--glow-color), 
-                inset 0 0 10px rgba(190, 147, 253, 0.3);
-}
-
-/* Make the profile picture's glow more intense */
-.profile-pic:hover {
-    box-shadow: 0 0 8px var(--glow-color), 0 0 25px var(--glow-color);
-}
-
-/* Give modals a more prominent outer glow */
-.modal-content {
-    box-shadow: 0 0 15px rgba(164, 114, 232, 0.2), 
-                0 0 45px var(--glow-color);
-}
-
-/* Make focused form inputs glow like an active terminal screen */
-#user-info input:focus {
-    box-shadow: 0 0 0 2px var(--nm-accent), 
-                0 0 15px var(--glow-color);
+.language-button.selected {
+    color: var(--nm-darkest);
+    background-color: var(--nm-accent);
     border-color: var(--nm-accent-hover);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
-
-/* 3. Holographic Text & Header Effects */
-
-/* Make modal headers glow, as if projected */
-.modal-header h2 {
-    text-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--nm-accent);
+.modal-footer button:hover::after,
+.language-button:hover::after, 
+.language-button.selected::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid var(--nm-darkest);
 }
 
-.modal-body h3 {
-    text-shadow: 0 0 5px var(--glow-color);
+.accept-btn {
+    background-color: var(--nm-success) !important;
+    border-color: var(--nm-success) !important;
+}
+.accept-btn:hover {
+    opacity: 0.9;
 }
 
-/* Give the certificate a more ethereal, glowing background */
+.decline-btn {
+    background-color: var(--nm-danger) !important;
+    border-color: var(--nm-danger) !important;
+}
+.decline-btn:hover {
+    opacity: 0.9;
+}
+/* --- End Button Redesign --- */
+
+.tip {
+    background: var(--nm-dark);
+    border-left: 4px solid var(--nm-accent-hover);
+    margin: 1em 0;
+    padding: 0.8em 1em;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    justify-items: center;
+    padding-top: 20px;
+}
+.contact-grid .app-icon {
+    width: 100%;
+    max-width: 350px;
+}
+
+/* --- Certification Modal Styles --- */
+#certification-modal .modal-body {
+    padding: 15px;
+    background-color: var(--nm-deep-purple);
+}
+#app-container {
+    background-color: var(--nm-dark);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 20px var(--glow-color);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: var(--nm-text);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.hidden { display: none !important; }
+
+#language-selection h1, #user-info h1, #results-container h1 {
+    color: var(--nm-text);
+    text-shadow: 0 0 8px var(--glow-color);
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+body.light-theme #language-selection h1, 
+body.light-theme #user-info h1, 
+body.light-theme #results-container h1 {
+    text-shadow: none;
+}
+
+#language-selection p, #user-info label {
+    color: var(--nm-text-muted);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+#language-selection .button-container, #user-info form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* --- Certification Button Redesign (EXACT SHAPE, SITE COLORS) --- */
+#language-selection button, #user-info button, #navigation-container button, #results-container button {
+    background-color: var(--nm-container);
+    color: var(--nm-text);
+    border: 1px solid var(--nm-border);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    border-radius: 0;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 250px;
+    cursor: pointer;
+    position: relative;
+    clip-path: var(--clip-path-shape);
+}
+#language-selection button:hover, #user-info button:hover, #navigation-container button:hover, #results-container button:hover {
+    background-color: var(--nm-accent);
+    color: var(--nm-darkest);
+    border-color: var(--nm-accent-hover);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+#navigation-container button#submit-btn {
+    background-color: var(--nm-success);
+    border-color: var(--nm-success);
+}
+#navigation-container button#submit-btn:hover {
+    opacity: 0.9;
+}
+#results-container .text-red-600 { color: var(--nm-danger); }
+/* --- End Certification Button Redesign --- */
+
+#user-info input {
+    background-color: var(--nm-darkest);
+    border: 1px solid var(--nm-border);
+    color: var(--nm-text);
+    border-radius: 8px;
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+#user-info input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--nm-accent);
+    border-color: var(--nm-accent);
+}
+#quiz-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+#quiz-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: var(--nm-darkest);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    border: 1px solid var(--nm-border);
+    transition: background-color 0.3s ease;
+}
+.quiz-page { animation: fadeIn 0.5s ease-in-out; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.quiz-page h2 { color: var(--nm-accent-hover); font-size: 1.1rem; margin-bottom: 0.5rem; }
+.quiz-page hr { border-color: var(--nm-border); margin: 1rem 0;}
+.quiz-page .question-box { background-color: var(--nm-darkest); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; transition: background-color 0.3s ease;}
+.quiz-page .options-container { display: flex; flex-direction: column; gap: 0.75rem; }
+.quiz-page label {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border: 1px solid var(--nm-border);
+    border-radius: 8px;
+    background-color: var(--nm-container);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.quiz-page label:hover {
+    background-color: var(--nm-accent-hover);
+    color: var(--nm-darkest);
+}
+.quiz-page input[type="radio"] {
+     accent-color: var(--nm-accent);
+     margin-right: 10px;
+}
+
+#navigation-container {
+    margin-top: 1rem;
+    gap: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+#navigation-container button { width: auto; }
+#navigation-container button:disabled { 
+    opacity: 0.4; 
+    cursor: not-allowed; 
+    box-shadow: none !important;
+    background-color: var(--nm-container) !important;
+    color: var(--nm-text) !important;
+    border-color: var(--nm-border) !important;
+}
+
+/* --- Professional Certificate Styles --- */
+.certificate-container {
+    background: var(--nm-darkest);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px var(--glow-color);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
 .certificate {
-    box-shadow: inset 0 0 40px rgba(164, 114, 232, 0.2);
+    background-image: 
+        linear-gradient(rgba(164, 114, 232, 0.1), rgba(164, 114, 232, 0.1)),
+        radial-gradient(ellipse at center, rgba(35, 31, 46, 0.5) 0%, var(--nm-deep-purple) 70%);
+    border: 2px solid var(--nm-accent);
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    font-family: 'Noto Serif', serif;
+    color: var(--nm-text);
+    border-radius: 5px;
 }
 
+body.light-theme .certificate {
+     background-image: 
+        linear-gradient(rgba(164, 114, 232, 0.1), rgba(164, 114, 232, 0.1)),
+        radial-gradient(ellipse at center, rgba(230, 230, 230, 0.5) 0%, var(--nm-deep-purple) 70%);
+}
+
+.certificate-header {
+    margin-bottom: 1.5rem;
+}
+.certificate-header .seal {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+}
+.certificate-header .seal .seal-border {
+    fill: none;
+    stroke: var(--nm-accent);
+    stroke-width: 2;
+}
+.certificate-header .seal .seal-star {
+    fill: var(--nm-accent-hover);
+}
+.certificate-header .seal .seal-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    fill: var(--nm-darkest);
+    text-anchor: middle;
+    font-weight: bold;
+}
 .certificate-header h1 {
-    text-shadow: 0 0 6px var(--glow-color), 0 0 15px var(--nm-accent);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: var(--nm-text);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--glow-color);
 }
 
+body.light-theme .certificate-header h1 {
+    text-shadow: none;
+}
+
+.certificate-body p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--nm-text-muted);
+    margin: 0.5rem 0;
+}
 .certificate-body .recipient-name {
-    text-shadow: 0 0 8px var(--nm-accent-hover);
+    font-family: 'Noto Serif', serif;
+    font-style: italic;
+    font-size: 2.5rem;
+    color: var(--nm-accent-hover);
+    margin: 1.5rem 0;
+    font-weight: 700;
+    border-bottom: 2px solid var(--nm-border);
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+.certificate-footer {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    text-align: center;
+    font-size: 0.8rem;
+}
+.certificate-footer .signature, .certificate-footer .date-info {
+    border-top: 1px solid var(--nm-text-muted);
+    padding-top: 0.5rem;
+    width: 45%;
+}
+.certificate-footer strong {
+    color: var(--nm-text);
+}
+.grade-display {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--nm-accent);
+    color: var(--nm-darkest);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+.serif { font-family: 'Noto Serif', serif; }
+.text-green-600 { color: var(--nm-success) !important; }
+
+/* --- Content Section Styles (for Modal) --- */
+.content-section-modal {
+    text-align: center;
+}
+
+.content-section-modal .tip {
+    margin-bottom: 0;
+    text-align: left;
+}
+.content-section-modal .code-container {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+.store-link {
+    margin: 1rem 0 1.5rem 0;
+}
+.store-link a {
+    color: var(--nm-accent);
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid var(--nm-border);
+    padding: 10px 15px;
+    border-radius: 8px;
+    background-color: var(--nm-container);
+    transition: all 0.2s ease;
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+    line-height: 1.4;
+}
+.store-link a:hover {
+    background-color: var(--nm-accent-hover);
+    border-color: var(--nm-accent);
+    color: var(--nm-darkest);
+}
+
+
+/* Gym Clothing Carousel Styles */
+.gym-carousel {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    aspect-ratio: 3 / 4;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--nm-border);
+    background-color: var(--nm-container);
+}
+.gym-clothing-images {
+    width: 100%;
+    height: 100%;
+}
+.gym-clothing-images img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.gym-clothing-images img.active {
+    opacity: 1;
+}
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 10;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+.carousel-btn.prev {
+    left: 0;
+}
+.carousel-btn.next {
+    right: 0;
+}
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
