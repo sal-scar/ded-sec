@@ -283,9 +283,9 @@ body.light-theme main.home-screen > h1 {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center; /* MODIFIED: Centered content */
+    justify-content: center;
     text-decoration: none;
-    padding: 15px;
+    padding: 12px 15px; /* MODIFIED: Reduced vertical padding */
     box-sizing: border-box;
     position: relative;
     clip-path: var(--clip-path-shape);
@@ -540,7 +540,6 @@ body.light-theme .modal-content {
     color: var(--nm-accent-hover);
 }
 
-/* --- NEW RULE TO FIX OVERFLOW --- */
 .modal-body code {
     background: rgba(0,0,0,0.2);
     padding: 0.1em 0.4em;
