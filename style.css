@@ -170,21 +170,26 @@ body.light-theme .screen::before {
     width: 100%;
 }
 
+/* MODIFIED: .profile-pic now uses a background image */
 .profile-pic {
-    width: 90%;
-    max-width: 105px;
-    height: auto;
+    width: 105px;
+    height: 105px;
     border: 3px solid var(--nm-accent);
     cursor: pointer;
     transition: all 0.3s ease;
-    object-fit: contain;
     flex-shrink: 0;
     clip-path: var(--clip-path-shape);
+    background-image: url('https://i.imgur.com/815j34g.jpeg'); /* <-- REPLACE WITH YOUR IMAGE URL */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
 .profile-pic:hover {
     box-shadow: 0 0 15px var(--glow-color), 0 0 40px var(--glow-color);
     transform: scale(1.05);
 }
+
 .profile-info {
     text-align: center;
     flex-grow: 1;
@@ -304,20 +309,20 @@ body.light-theme .app-icon:hover {
     word-break: break-word;
 }
 
+/* MODIFIED: Styles for GitHub stats now apply within the modal context */
 .github-stats {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    flex-grow: 1;
-    min-width: 0;
-    margin: 0;
+    width: 100%;
 }
 .github-stats img {
     width: 100%;
     max-width: 100%;
     height: auto;
     border: 1px solid var(--nm-border);
+    /* The background color of the image is set in the URL, this is a fallback */
     background-color: var(--nm-container);
     clip-path: var(--clip-path-shape);
 }
