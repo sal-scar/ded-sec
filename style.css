@@ -314,7 +314,6 @@ body.light-theme main.home-screen > h1 {
     border-left: 6px solid var(--nm-darkest);
 }
 
-/* --- MODIFIED FOR LAYOUT STABILITY --- */
 .app-icon i {
     color: var(--nm-accent-hover);
     transition: color 0.2s ease;
@@ -342,7 +341,6 @@ body.light-theme .app-icon:hover {
     color: var(--nm-darkest);
 }
 
-/* --- MODIFIED FOR LAYOUT STABILITY --- */
 .app-icon span {
     font-size: 0.8rem;
     font-weight: 700;
@@ -404,7 +402,6 @@ body.light-theme .dock {
     margin: 0 0 8px 0;
 }
 
-/* --- MODIFIED FOR LAYOUT STABILITY --- */
 .dock .app-icon span {
     font-size: 0.6rem;
     text-align: center; /* Ensures text is centered in the column layout */
@@ -543,6 +540,19 @@ body.light-theme .modal-content {
     color: var(--nm-accent-hover);
 }
 
+/* --- NEW RULE TO FIX OVERFLOW --- */
+.modal-body code {
+    background: rgba(0,0,0,0.2);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: var(--nm-text-muted);
+    
+    /* Fix for overflow */
+    overflow-wrap: break-word;
+    word-break: break-word; 
+}
+
 .code-container {
     position: relative;
     background: var(--nm-darkest);
@@ -558,6 +568,10 @@ body.light-theme .modal-content {
     word-break: break-all;
     display: block;
     font-size: 0.85em;
+    /* Reset styles from the new rule above */
+    background: none;
+    padding: 0;
+    border-radius: 0;
 }
 
 .copy-btn {
