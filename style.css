@@ -1,21 +1,21 @@
 :root {
-    /* MODIFIED: Dead Space 2 Inspired Color Palette */
-    --nm-deep-purple: #010409; /* Colder, near-black */
+    /* MODIFIED: Dead Space 2 "Biohazard Green" Palette */
+    --nm-deep-purple: #010409;
     --nm-darkest: #0d1117;
     --nm-dark: #161b22;
     --nm-container: #21262d;
     --nm-border: #30363d;
-    --nm-accent: #60D5FA; /* Iconic Cyan */
-    --nm-accent-hover: #A7EFFF; /* Brighter Cyan/White */
+    --nm-accent: #39FF14; /* Iconic Terminal Green */
+    --nm-accent-hover: #B0FF91; /* Brighter, Lighter Green */
     --nm-text: #e6edf3;
     --nm-text-muted: #8b949e;
     --nm-danger: #f85149;
-    --nm-success: #58a6ff; /* A more fitting blue for success */
+    --nm-success: #39FF14; /* Success is also green */
     --warning-bg: #8A4FFF;
-    --glow-color: rgba(96, 213, 250, 0.6); /* Intense Cyan Glow */
+    --glow-color: rgba(57, 255, 20, 0.6); /* Intense Green Glow */
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
 
-    /* MODIFIED: Shape Definition - More aggressive cut */
+    /* Shape Definition - More aggressive cut */
     --shape-cut: 12px;
     --clip-path-shape: polygon(0 0, calc(100% - var(--shape-cut)) 0, 100% var(--shape-cut), 100% 100%, var(--shape-cut) 100%, 0 calc(100% - var(--shape-cut)));
 }
@@ -29,7 +29,7 @@ body.light-theme {
     --nm-border: #cccccc;
     --nm-text: #000000;
     --nm-text-muted: #555555;
-    --glow-color: rgba(96, 213, 250, 0.3);
+    --glow-color: rgba(57, 255, 20, 0.3);
 }
 
 html, body {
@@ -80,7 +80,7 @@ body {
     width: 100%;
     height: 100%;
     background:
-        repeating-linear-gradient(0deg, rgba(96, 213, 250, 0.07), rgba(96, 213, 250, 0.07) 1px, transparent 1px, transparent 4px);
+        repeating-linear-gradient(0deg, rgba(57, 255, 20, 0.07), rgba(57, 255, 20, 0.07) 1px, transparent 1px, transparent 4px);
     pointer-events: none;
     z-index: 1;
 }
@@ -208,7 +208,7 @@ body.light-theme main.home-screen > h1 {
 }
 
 .app-icon {
-    background: rgba(96, 213, 250, 0.05);
+    background: rgba(57, 255, 20, 0.05);
     border: 1px solid var(--nm-accent);
     color: var(--nm-accent-hover);
     cursor: pointer;
@@ -224,7 +224,7 @@ body.light-theme main.home-screen > h1 {
     position: relative;
     clip-path: var(--clip-path-shape);
     gap: 15px;
-    box-shadow: inset 0 0 10px rgba(96, 213, 250, 0.2);
+    box-shadow: inset 0 0 10px rgba(57, 255, 20, 0.2);
 }
 
 .app-icon:hover {
@@ -533,7 +533,7 @@ body.light-theme .modal-content {
     transition: all 0.2s ease;
     position: relative;
     clip-path: var(--clip-path-shape);
-    box-shadow: inset 0 0 10px rgba(96, 213, 250, 0.2);
+    box-shadow: inset 0 0 10px rgba(57, 255, 20, 0.2);
 }
 
 .modal-footer button:hover,
@@ -656,7 +656,7 @@ body.light-theme #results-container h1 {
     cursor: pointer;
     position: relative;
     clip-path: var(--clip-path-shape);
-    box-shadow: inset 0 0 10px rgba(96, 213, 250, 0.2);
+    box-shadow: inset 0 0 10px rgba(57, 255, 20, 0.2);
 }
 #language-selection button:hover, #user-info button:hover, #navigation-container button:hover, #results-container button:hover {
     background-color: var(--nm-accent);
@@ -764,7 +764,7 @@ body.light-theme #results-container h1 {
 }
 .certificate {
     background-image:
-        linear-gradient(rgba(96, 213, 250, 0.1), rgba(96, 213, 250, 0.1)),
+        linear-gradient(rgba(57, 255, 20, 0.1), rgba(57, 255, 20, 0.1)),
         radial-gradient(ellipse at center, rgba(22, 27, 34, 0.5) 0%, var(--nm-deep-purple) 70%);
     border: 2px solid var(--nm-accent);
     padding: 2rem;
@@ -776,7 +776,7 @@ body.light-theme #results-container h1 {
 
 body.light-theme .certificate {
      background-image:
-        linear-gradient(rgba(96, 213, 250, 0.1), rgba(96, 213, 250, 0.1)),
+        linear-gradient(rgba(57, 255, 20, 0.1), rgba(57, 255, 20, 0.1)),
         radial-gradient(ellipse at center, rgba(230, 230, 230, 0.5) 0%, var(--nm-deep-purple) 70%);
 }
 
