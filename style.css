@@ -43,6 +43,16 @@ body.light-theme {
     62% { transform: translate(0, 0) skew(5deg); }
 }
 
+/* ADDED: Flicker animation for horror aesthetic */
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.8;
+  }
+}
+
 
 html, body {
     height: 100%;
@@ -86,9 +96,10 @@ body {
     flex-direction: column;
     transition: background-color 0.3s ease;
     z-index: 0;
+    animation: flicker 5s linear infinite; /* ADDED */
 }
 
-/* MODIFIED: Background logo with 20% opacity */
+/* MODIFIED: Background logo with 10% opacity */
 .screen::after {
     content: '';
     position: absolute;
@@ -100,7 +111,7 @@ body {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.2;
+    opacity: 0.1;
     z-index: -1;
 }
 
