@@ -77,28 +77,10 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* MODIFIED: Made scanlines slightly more visible */
-    background:
-        repeating-linear-gradient(0deg, rgba(164, 114, 232, 0.05), rgba(164, 114, 232, 0.05) 1px, transparent 1px, transparent 4px);
+    background: 
+        repeating-linear-gradient(0deg, rgba(164, 114, 232, 0.03), rgba(164, 114, 232, 0.03) 1px, transparent 1px, transparent 5px);
     pointer-events: none;
     z-index: 1;
-}
-
-/* ADDED: Vignette effect for atmosphere */
-.screen::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
-    pointer-events: none;
-    z-index: 3;
-    transition: background 0.3s ease;
-}
-
-body.light-theme .screen::before {
-    background: none; /* Disables the effect on light theme */
 }
 
 body.light-theme .screen-overlay {
@@ -169,8 +151,7 @@ body.light-theme .screen-overlay {
     flex-shrink: 0;
 }
 .profile-pic:hover {
-    /* MODIFIED: More intense glow */
-    box-shadow: 0 0 10px var(--glow-color), 0 0 30px var(--glow-color);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 .profile-info {
     text-align: center;
@@ -182,8 +163,7 @@ main.home-screen > h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(1.8rem, 8vw, 2.5rem);
     color: var(--nm-text);
-    /* MODIFIED: More pronounced glow */
-    text-shadow: 0 0 15px var(--glow-color);
+    text-shadow: 0 0 8px var(--glow-color);
     transition: text-shadow 0.3s ease;
 }
 body.light-theme main.home-screen > h1 {
@@ -236,10 +216,7 @@ body.light-theme main.home-screen > h1 {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    /* MODIFIED: Intense, light-emitting glow */
-    box-shadow: 0 0 8px var(--glow-color),
-                0 0 20px var(--glow-color),
-                inset 0 0 10px rgba(190, 147, 253, 0.25);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
 .app-icon:hover::after {
@@ -393,9 +370,7 @@ body.light-theme .modal-overlay {
     max-height: 800px;
     border-radius: 15px;
     border: 1px solid var(--nm-border);
-    /* MODIFIED: Softer, layered glow for a floating screen effect */
-    box-shadow: 0 0 15px rgba(164, 114, 232, 0.1),
-                0 0 40px var(--glow-color);
+    box-shadow: 0 0 40px var(--glow-color);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -426,8 +401,6 @@ body.light-theme .modal-content {
     margin: 0;
     color: var(--nm-accent);
     text-transform: uppercase;
-    /* ADDED: Subtle text glow */
-    text-shadow: 0 0 8px var(--nm-accent);
 }
 .close-modal {
     background: none;
@@ -545,19 +518,16 @@ body.light-theme .modal-content {
 }
 
 .modal-footer button:hover,
-.language-button:hover,
+.language-button:hover, 
 .language-button.selected {
     color: var(--nm-darkest);
     background-color: var(--nm-accent);
     border-color: var(--nm-accent-hover);
-    /* MODIFIED: Intense, light-emitting glow */
-    box-shadow: 0 0 8px var(--glow-color),
-                0 0 20px var(--glow-color),
-                inset 0 0 10px rgba(190, 147, 253, 0.25);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
 .modal-footer button:hover::after,
-.language-button:hover::after,
+.language-button:hover::after, 
 .language-button.selected::after {
     content: '';
     position: absolute;
@@ -635,8 +605,8 @@ body.light-theme .modal-content {
     margin-bottom: 1rem;
 }
 
-body.light-theme #language-selection h1,
-body.light-theme #user-info h1,
+body.light-theme #language-selection h1, 
+body.light-theme #user-info h1, 
 body.light-theme #results-container h1 {
     text-shadow: none;
 }
@@ -674,10 +644,7 @@ body.light-theme #results-container h1 {
     background-color: var(--nm-accent);
     color: var(--nm-darkest);
     border-color: var(--nm-accent-hover);
-    /* MODIFIED: Intense, light-emitting glow */
-    box-shadow: 0 0 8px var(--glow-color),
-                0 0 20px var(--glow-color),
-                inset 0 0 10px rgba(190, 147, 253, 0.25);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 #navigation-container button#submit-btn {
     background-color: var(--nm-success);
@@ -701,10 +668,8 @@ body.light-theme #results-container h1 {
 }
 #user-info input:focus {
     outline: none;
-    /* MODIFIED: Terminal-style focus glow */
-    box-shadow: 0 0 0 2px var(--nm-accent),
-                0 0 12px var(--glow-color);
-    border-color: var(--nm-accent-hover);
+    box-shadow: 0 0 0 2px var(--nm-accent);
+    border-color: var(--nm-accent);
 }
 #quiz-container {
     flex-grow: 1;
@@ -761,9 +726,9 @@ body.light-theme #results-container h1 {
     flex-shrink: 0;
 }
 #navigation-container button { width: auto; }
-#navigation-container button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+#navigation-container button:disabled { 
+    opacity: 0.4; 
+    cursor: not-allowed; 
     box-shadow: none !important;
     background-color: var(--nm-container) !important;
     color: var(--nm-text) !important;
@@ -779,7 +744,7 @@ body.light-theme #results-container h1 {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 .certificate {
-    background-image:
+    background-image: 
         linear-gradient(rgba(164, 114, 232, 0.1), rgba(164, 114, 232, 0.1)),
         radial-gradient(ellipse at center, rgba(35, 31, 46, 0.5) 0%, var(--nm-deep-purple) 70%);
     border: 2px solid var(--nm-accent);
@@ -792,7 +757,7 @@ body.light-theme #results-container h1 {
 }
 
 body.light-theme .certificate {
-     background-image:
+     background-image: 
         linear-gradient(rgba(164, 114, 232, 0.1), rgba(164, 114, 232, 0.1)),
         radial-gradient(ellipse at center, rgba(230, 230, 230, 0.5) 0%, var(--nm-deep-purple) 70%);
 }
