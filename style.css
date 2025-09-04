@@ -88,7 +88,7 @@ body {
     z-index: 0;
 }
 
-/* ADDED: Background logo with 30% opacity */
+/* MODIFIED: Background logo with 20% opacity */
 .screen::after {
     content: '';
     position: absolute;
@@ -100,7 +100,7 @@ body {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.3;
+    opacity: 0.2;
     z-index: -1;
 }
 
@@ -145,21 +145,26 @@ body.light-theme .screen::before {
     align-items: center;
 }
 
+/* ADDED: Scrollbar styling for main screen */
+.home-screen::-webkit-scrollbar,
 .modal-body::-webkit-scrollbar,
 #quiz-container::-webkit-scrollbar {
     width: 10px;
 }
+.home-screen::-webkit-scrollbar-track,
 .modal-body::-webkit-scrollbar-track,
  #quiz-container::-webkit-scrollbar-track {
     background: var(--nm-dark);
     border-radius: 10px;
 }
+.home-screen::-webkit-scrollbar-thumb,
 .modal-body::-webkit-scrollbar-thumb,
  #quiz-container::-webkit-scrollbar-thumb {
     background-color: var(--nm-accent);
     border-radius: 10px;
     border: 2px solid var(--nm-dark);
 }
+.home-screen::-webkit-scrollbar-thumb:hover,
 .modal-body::-webkit-scrollbar-thumb:hover,
  #quiz-container::-webkit-scrollbar-thumb:hover {
     background-color: var(--nm-accent-hover);
