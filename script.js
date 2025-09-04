@@ -126,7 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (profilePic) {
             profilePic.addEventListener('click', () => {
-                imageViewer.querySelector('#expanded-img').src = profilePic.src;
+                // --- THIS IS THE MODIFIED SECTION ---
+                // Get the URL from the CSS 'background-image' property instead of an <img> 'src'
+                const style = window.getComputedStyle(profilePic);
+                const bgImage = style.backgroundImage;
+                const imageUrl = bgImage.slice(5, -2); // Extracts URL from 'url("...")'
+                
+                imageViewer.querySelector('#expanded-img').src = imageUrl;
                 imageViewer.classList.add('visible');
             });
         }
