@@ -32,9 +32,14 @@ body.light-theme {
     --glow-color: rgba(38, 184, 242, 0.3);
 }
 
+/* --- MODIFIED FOR PERFORMANCE --- */
 @keyframes scanline-scroll {
-    0% { background-position: 0 0; }
-    100% { background-position: 0 100%; }
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50%);
+    }
 }
 
 @keyframes text-glitch {
@@ -115,17 +120,29 @@ body {
     z-index: -1;
 }
 
+/* --- MODIFIED FOR PERFORMANCE --- */
 .screen-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background:
-        repeating-linear-gradient(0deg, rgba(38, 184, 242, 0.08), rgba(38, 184, 242, 0.08) 1px, transparent 1px, transparent 4px);
     pointer-events: none;
     z-index: 1;
+    overflow: hidden; /* Add this */
+}
+
+.screen-overlay::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 200%; /* Make it twice as tall */
+    background: 
+        repeating-linear-gradient(0deg, rgba(38, 184, 242, 0.08), rgba(38, 184, 242, 0.08) 1px, transparent 1px, transparent 4px);
     animation: scanline-scroll 20s linear infinite;
+    will-change: transform; /* Hint for the browser to optimize */
 }
 
 .screen::before {
