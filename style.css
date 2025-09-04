@@ -1,48 +1,34 @@
 :root {
-    /* MODIFIED: Dead Space 2 "RIG" Palette */
-    --nm-abyss-blue: #010811; /* Deepest space blue */
-    --nm-darkest: #0B121C;    /* Industrial hull gray-blue */
-    --nm-dark: #151E2A;       /* Darker UI panel */
-    --nm-container: #1F2A38;  /* UI panel background */
-    --nm-border: #3A4A5E;      /* Panel border */
-    --nm-accent: #26B8F2;      /* RIG Cyan */
-    --nm-accent-hover: #87CEEB; /* Brighter, Lighter Cyan */
-    --nm-text: #D0D8E0;        /* Cool off-white text */
-    --nm-text-muted: #7A8899;  /* Muted gray text */
-    --nm-danger: #F25419;      /* Rusty warning orange */
-    --nm-success: #26B8F2;     /* Success is also RIG cyan */
+    --nm-deep-purple: #000000;
+    --nm-darkest: #1a1721;
+    --nm-dark: #231F2E;
+    --nm-container: #3E3852;
+    --nm-border: #595273;
+    --nm-accent: #A472E8;
+    --nm-accent-hover: #BE93FD;
+    --nm-text: #F0F0F0;
+    --nm-text-muted: #9E9E9E;
+    --nm-danger: #e53935; /* Brighter Red */
+    --nm-success: #43a047; /* Brighter Green */
     --warning-bg: #8A4FFF;
-    --glow-color: rgba(38, 184, 242, 0.7); /* Intense Cyan Glow */
+    --glow-color: rgba(164, 114, 232, 0.4);
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
 
-    /* Shape Definition - More aggressive cut */
-    --shape-cut: 15px;
+    /* Shape Definition */
+    --shape-cut: 8px;
     --clip-path-shape: polygon(0 0, calc(100% - var(--shape-cut)) 0, 100% var(--shape-cut), 100% 100%, var(--shape-cut) 100%, 0 calc(100% - var(--shape-cut)));
 }
 
 body.light-theme {
-    /* Light theme is less of a focus for this aesthetic, but updated for consistency */
-    --nm-abyss-blue: #ffffff;
+    --nm-deep-purple: #ffffff;
     --nm-darkest: #f0f0f0;
     --nm-dark: #e9e9e9;
     --nm-container: #ffffff;
     --nm-border: #cccccc;
     --nm-text: #000000;
     --nm-text-muted: #555555;
-    --glow-color: rgba(38, 184, 242, 0.3);
+    --glow-color: rgba(164, 114, 232, 0.2);
 }
-
-@keyframes scanline-scroll {
-    0% { background-position: 0 0; }
-    100% { background-position: 0 100%; }
-}
-
-@keyframes text-glitch {
-    2%, 64% { transform: translate(2px, 0) skew(0deg); }
-    4%, 60% { transform: translate(-2px, 0) skew(0deg); }
-    62% { transform: translate(0, 0) skew(5deg); }
-}
-
 
 html, body {
     height: 100%;
@@ -50,7 +36,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: var(--nm-abyss-blue);
+    background-color: var(--nm-deep-purple);
     font-family: 'Roboto Mono', monospace;
     color: var(--nm-text);
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -77,10 +63,7 @@ body {
 .screen {
     width: 100%;
     height: 100%;
-    background-color: var(--nm-abyss-blue);
-    /* ADDED: Subtle noise texture for a gritty feel */
-    background-image: linear-gradient(rgba(11, 18, 28, 0.9), rgba(11, 18, 28, 0.9)), url("data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    background-size: cover;
+    background-color: var(--nm-deep-purple);
     position: relative;
     overflow: hidden;
     display: flex;
@@ -94,27 +77,13 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background:
-        repeating-linear-gradient(0deg, rgba(38, 184, 242, 0.08), rgba(38, 184, 242, 0.08) 1px, transparent 1px, transparent 4px);
+    background: 
+        repeating-linear-gradient(0deg, rgba(164, 114, 232, 0.03), rgba(164, 114, 232, 0.03) 1px, transparent 1px, transparent 5px);
     pointer-events: none;
     z-index: 1;
-    /* ADDED: Scanline animation */
-    animation: scanline-scroll 20s linear infinite;
 }
 
-.screen::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 100%);
-    pointer-events: none;
-    z-index: 3;
-}
-
-body.light-theme .screen-overlay,
-body.light-theme .screen::before {
+body.light-theme .screen-overlay {
     display: none;
 }
 
@@ -170,26 +139,20 @@ body.light-theme .screen::before {
     width: 100%;
 }
 
-/* MODIFIED: .profile-pic now uses a background image */
 .profile-pic {
-    width: 105px;
-    height: 105px;
+    width: 90%;
+    max-width: 105px; /* 30% smaller: 150px * 0.7 */
+    height: auto;
+    border-radius: 0;
     border: 3px solid var(--nm-accent);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    object-fit: contain;
     flex-shrink: 0;
-    clip-path: var(--clip-path-shape);
-    background-image: url('https://i.imgur.com/815j34g.jpeg'); /* <-- REPLACE WITH YOUR IMAGE URL */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
-
 .profile-pic:hover {
-    box-shadow: 0 0 15px var(--glow-color), 0 0 40px var(--glow-color);
-    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--glow-color);
 }
-
 .profile-info {
     text-align: center;
     flex-grow: 1;
@@ -199,20 +162,12 @@ main.home-screen > h1 {
     margin: 0 0 20px 0;
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(1.8rem, 8vw, 2.5rem);
-    color: var(--nm-accent-hover);
-    text-shadow: 0 0 15px var(--glow-color),
-                 0 0 25px var(--glow-color),
-                 0 0 2px #fff;
+    color: var(--nm-text);
+    text-shadow: 0 0 8px var(--glow-color);
     transition: text-shadow 0.3s ease;
 }
-/* ADDED: Glitch effect on hover */
-main.home-screen > h1:hover {
-    animation: text-glitch 0.4s infinite;
-}
-
 body.light-theme main.home-screen > h1 {
     text-shadow: none;
-    animation: none;
 }
 
 .quote {
@@ -226,41 +181,42 @@ body.light-theme main.home-screen > h1 {
     margin-right: auto;
 }
 
+/* --- APP GRID IS NOW A SINGLE COLUMN LIST --- */
 .app-grid {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* This makes it a single column */
     gap: 15px;
     width: 100%;
-    max-width: 420px;
+    max-width: 420px; /* Can be wider now */
     margin: 0 auto 15px;
 }
 
+/* --- APP ICONS ARE NOW LONG RECTANGLES --- */
 .app-icon {
-    background: rgba(38, 184, 242, 0.05);
-    border: 1px solid var(--nm-accent);
-    color: var(--nm-accent-hover);
+    background: var(--nm-container);
+    border: 1px solid var(--nm-border);
+    border-radius: 0;
+    color: var(--nm-text);
     cursor: pointer;
     font-family: 'Roboto Mono', monospace;
     transition: all 0.2s ease;
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* Horizontal layout for icon and text */
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-start; /* Align content to the left */
     text-decoration: none;
     padding: 15px;
     box-sizing: border-box;
     position: relative;
     clip-path: var(--clip-path-shape);
     gap: 15px;
-    box-shadow: inset 0 0 10px rgba(38, 184, 242, 0.2);
 }
 
 .app-icon:hover {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    box-shadow: 0 0 15px var(--glow-color),
-                0 0 30px var(--glow-color);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
 .app-icon:hover::after {
@@ -277,16 +233,14 @@ body.light-theme main.home-screen > h1 {
 }
 
 .app-icon i {
-    color: var(--nm-accent-hover);
+    color: var(--nm-accent);
     transition: color 0.2s ease;
     font-size: 1.5rem;
     margin: 0;
-    text-shadow: 0 0 8px var(--glow-color);
 }
 
 .app-icon:hover i {
     color: var(--nm-darkest);
-    text-shadow: none;
 }
 
 body.light-theme .app-icon {
@@ -303,26 +257,26 @@ body.light-theme .app-icon:hover {
 }
 
 .app-icon span {
-    font-size: 0.8rem;
+    font-size: 0.8rem; /* Slightly larger text */
     font-weight: 700;
     line-height: 1.2;
     word-break: break-word;
 }
 
-/* MODIFIED: Styles for GitHub stats now apply within the modal context */
 .github-stats {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    width: 100%;
+    flex-grow: 1;
+    min-width: 0;
+    margin: 0;
 }
 .github-stats img {
     width: 100%;
     max-width: 100%;
     height: auto;
     border: 1px solid var(--nm-border);
-    /* The background color of the image is set in the URL, this is a fallback */
     background-color: var(--nm-container);
     clip-path: var(--clip-path-shape);
 }
@@ -330,9 +284,7 @@ body.light-theme .app-icon:hover {
 .dock {
     padding: 6px 8px;
     padding-bottom: var(--safe-area-inset-bottom);
-    background: rgba(11, 18, 28, 0.7);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+    background: rgba(35, 31, 46, 0.7);
     border-top: 1px solid var(--nm-border);
     display: flex;
     justify-content: center;
@@ -348,17 +300,17 @@ body.light-theme .dock {
     background: rgba(255, 255, 255, 0.7);
 }
 
+/* Dock Icon adjustment */
 .dock .app-icon {
     background: transparent;
     border: 1px solid transparent;
     height: auto;
-    clip-path: none;
-    border-radius: 10px;
-    flex-direction: column;
+    clip-path: none; /* Dock icons are simpler */
+    border-radius: 10px; /* Rounded corners for dock */
+    flex-direction: column; /* Return to vertical layout for dock */
     gap: 0;
     padding: 5px;
     width: auto;
-    box-shadow: none;
 }
 .dock .app-icon i {
     margin: 0 0 8px 0;
@@ -373,7 +325,7 @@ body.light-theme .dock {
     box-shadow: none;
 }
 .dock .app-icon:hover::after {
-    content: none;
+    content: none; /* No arrow on dock icons */
 }
 
 .main-footer {
@@ -389,7 +341,7 @@ body.light-theme .dock {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(1, 8, 17, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     display: flex;
@@ -416,14 +368,14 @@ body.light-theme .modal-overlay {
     max-width: 800px;
     height: 85%;
     max-height: 800px;
+    border-radius: 15px;
     border: 1px solid var(--nm-border);
-    box-shadow: 0 0 20px var(--glow-color), 0 0 60px var(--glow-color);
+    box-shadow: 0 0 40px var(--glow-color);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     transform: translateY(20px);
-    transition: all 0.3s ease;
-    clip-path: var(--clip-path-shape);
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 body.light-theme .modal-content {
@@ -438,18 +390,17 @@ body.light-theme .modal-content {
     justify-content: space-between;
     align-items: center;
     padding: 12px 20px;
-    background: rgba(11, 18, 28, 0.5);
+    background: var(--nm-container);
     border-bottom: 1px solid var(--nm-border);
     transition: background-color 0.3s ease;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Ensures header doesn't shrink */
 }
 .modal-header h2 {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.1rem;
     margin: 0;
-    color: var(--nm-accent-hover);
+    color: var(--nm-accent);
     text-transform: uppercase;
-    text-shadow: 0 0 8px var(--glow-color), 0 0 2px #fff;
 }
 .close-modal {
     background: none;
@@ -468,7 +419,7 @@ body.light-theme .modal-content {
     overflow-y: auto;
     flex-grow: 1;
     line-height: 1.7;
-    min-height: 0;
+    min-height: 0; /* Important for flex-grow to work correctly with overflow */
 }
 .modal-body h3 {
     color: var(--nm-accent-hover);
@@ -503,10 +454,10 @@ body.light-theme .modal-content {
     position: relative;
     background: var(--nm-darkest);
     border: 1px solid var(--nm-border);
+    border-radius: 5px;
     padding: 15px;
     margin: 1em 0;
     transition: background-color 0.3s ease;
-    clip-path: var(--clip-path-shape);
 }
 .code-container code {
     font-family: 'Roboto Mono', monospace;
@@ -524,6 +475,7 @@ body.light-theme .modal-content {
     border: 1px solid var(--nm-border);
     color: var(--nm-text);
     padding: 4px 8px;
+    border-radius: 0;
     cursor: pointer;
     white-space: nowrap;
     font-family: 'Orbitron', sans-serif;
@@ -548,33 +500,34 @@ body.light-theme .modal-content {
     flex-shrink: 0;
 }
 
+/* --- BUTTON REDESIGN (EXACT SHAPE, SITE COLORS) --- */
 .modal-footer button,
 .language-button {
-    background-color: transparent;
-    color: var(--nm-accent-hover);
-    border: 1px solid var(--nm-accent);
+    background-color: var(--nm-container);
+    color: var(--nm-text);
+    border: 1px solid var(--nm-border);
     font-family: 'Orbitron', sans-serif;
     text-transform: uppercase;
     font-weight: 700;
     padding: 12px 25px;
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
     clip-path: var(--clip-path-shape);
-    box-shadow: inset 0 0 10px rgba(38, 184, 242, 0.2);
 }
 
 .modal-footer button:hover,
-.language-button:hover,
+.language-button:hover, 
 .language-button.selected {
     color: var(--nm-darkest);
     background-color: var(--nm-accent);
     border-color: var(--nm-accent-hover);
-    box-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
 .modal-footer button:hover::after,
-.language-button:hover::after,
+.language-button:hover::after, 
 .language-button.selected::after {
     content: '';
     position: absolute;
@@ -591,7 +544,6 @@ body.light-theme .modal-content {
 .accept-btn {
     background-color: var(--nm-success) !important;
     border-color: var(--nm-success) !important;
-    color: var(--nm-darkest) !important;
 }
 .accept-btn:hover {
     opacity: 0.9;
@@ -600,11 +552,11 @@ body.light-theme .modal-content {
 .decline-btn {
     background-color: var(--nm-danger) !important;
     border-color: var(--nm-danger) !important;
-    color: var(--nm-darkest) !important;
 }
 .decline-btn:hover {
     opacity: 0.9;
 }
+/* --- End Button Redesign --- */
 
 .tip {
     background: var(--nm-dark);
@@ -627,12 +579,14 @@ body.light-theme .modal-content {
     max-width: 350px;
 }
 
+/* --- Certification Modal Styles --- */
 #certification-modal .modal-body {
     padding: 15px;
-    background-color: var(--nm-abyss-blue);
+    background-color: var(--nm-deep-purple);
 }
 #app-container {
     background-color: var(--nm-dark);
+    border-radius: 15px;
     padding: 20px;
     box-shadow: 0 0 20px var(--glow-color);
     height: 100%;
@@ -640,7 +594,6 @@ body.light-theme .modal-content {
     flex-direction: column;
     color: var(--nm-text);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    clip-path: var(--clip-path-shape);
 }
 .hidden { display: none !important; }
 
@@ -652,8 +605,8 @@ body.light-theme .modal-content {
     margin-bottom: 1rem;
 }
 
-body.light-theme #language-selection h1,
-body.light-theme #user-info h1,
+body.light-theme #language-selection h1, 
+body.light-theme #user-info h1, 
 body.light-theme #results-container h1 {
     text-shadow: none;
 }
@@ -670,53 +623,53 @@ body.light-theme #results-container h1 {
     align-items: center;
 }
 
+/* --- Certification Button Redesign (EXACT SHAPE, SITE COLORS) --- */
 #language-selection button, #user-info button, #navigation-container button, #results-container button {
-    background-color: transparent;
-    color: var(--nm-accent-hover);
-    border: 1px solid var(--nm-accent);
+    background-color: var(--nm-container);
+    color: var(--nm-text);
+    border: 1px solid var(--nm-border);
     font-family: 'Orbitron', sans-serif;
     font-weight: bold;
     text-transform: uppercase;
     padding: 12px 20px;
+    border-radius: 0;
     transition: all 0.3s ease;
     width: 100%;
     max-width: 250px;
     cursor: pointer;
     position: relative;
     clip-path: var(--clip-path-shape);
-    box-shadow: inset 0 0 10px rgba(38, 184, 242, 0.2);
 }
 #language-selection button:hover, #user-info button:hover, #navigation-container button:hover, #results-container button:hover {
     background-color: var(--nm-accent);
     color: var(--nm-darkest);
     border-color: var(--nm-accent-hover);
-    box-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 #navigation-container button#submit-btn {
-    background-color: var(--nm-success) !important;
-    border-color: var(--nm-success) !important;
-    color: var(--nm-darkest) !important;
+    background-color: var(--nm-success);
+    border-color: var(--nm-success);
 }
 #navigation-container button#submit-btn:hover {
     opacity: 0.9;
 }
 #results-container .text-red-600 { color: var(--nm-danger); }
+/* --- End Certification Button Redesign --- */
 
 #user-info input {
     background-color: var(--nm-darkest);
     border: 1px solid var(--nm-border);
     color: var(--nm-text);
+    border-radius: 8px;
     padding: 12px;
     width: 100%;
     box-sizing: border-box;
-    transition: all 0.3s ease;
-    clip-path: var(--clip-path-shape);
+    transition: background-color 0.3s ease;
 }
 #user-info input:focus {
     outline: none;
-    box-shadow: 0 0 15px var(--glow-color);
+    box-shadow: 0 0 0 2px var(--nm-accent);
     border-color: var(--nm-accent);
-    background-color: var(--nm-dark);
 }
 #quiz-container {
     flex-grow: 1;
@@ -729,12 +682,12 @@ body.light-theme #results-container h1 {
     align-items: center;
     padding: 10px 15px;
     background: var(--nm-darkest);
+    border-radius: 8px;
     margin-bottom: 1rem;
     font-family: 'Orbitron', sans-serif;
     font-size: 0.9rem;
     border: 1px solid var(--nm-border);
     transition: background-color 0.3s ease;
-    clip-path: var(--clip-path-shape);
 }
 .quiz-page { animation: fadeIn 0.5s ease-in-out; }
 @keyframes fadeIn {
@@ -743,22 +696,21 @@ body.light-theme #results-container h1 {
 }
 .quiz-page h2 { color: var(--nm-accent-hover); font-size: 1.1rem; margin-bottom: 0.5rem; }
 .quiz-page hr { border-color: var(--nm-border); margin: 1rem 0;}
-.quiz-page .question-box { background-color: var(--nm-darkest); padding: 1rem; margin-bottom: 1rem; transition: background-color 0.3s ease; clip-path: var(--clip-path-shape);}
+.quiz-page .question-box { background-color: var(--nm-darkest); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; transition: background-color 0.3s ease;}
 .quiz-page .options-container { display: flex; flex-direction: column; gap: 0.75rem; }
 .quiz-page label {
     display: flex;
     align-items: center;
     padding: 0.75rem;
     border: 1px solid var(--nm-border);
+    border-radius: 8px;
     background-color: var(--nm-container);
     cursor: pointer;
     transition: all 0.2s ease;
-    clip-path: var(--clip-path-shape);
 }
 .quiz-page label:hover {
     background-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    border-color: var(--nm-accent);
 }
 .quiz-page input[type="radio"] {
      accent-color: var(--nm-accent);
@@ -774,38 +726,40 @@ body.light-theme #results-container h1 {
     flex-shrink: 0;
 }
 #navigation-container button { width: auto; }
-#navigation-container button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+#navigation-container button:disabled { 
+    opacity: 0.4; 
+    cursor: not-allowed; 
     box-shadow: none !important;
     background-color: var(--nm-container) !important;
     color: var(--nm-text) !important;
     border-color: var(--nm-border) !important;
 }
 
+/* --- Professional Certificate Styles --- */
 .certificate-container {
     background: var(--nm-darkest);
     padding: 20px;
+    border-radius: 10px;
     box-shadow: 0 0 30px var(--glow-color);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    clip-path: var(--clip-path-shape);
 }
 .certificate {
-    background-image:
-        linear-gradient(rgba(38, 184, 242, 0.1), rgba(38, 184, 242, 0.1)),
-        radial-gradient(ellipse at center, rgba(21, 30, 42, 0.5) 0%, var(--nm-abyss-blue) 70%);
+    background-image: 
+        linear-gradient(rgba(164, 114, 232, 0.1), rgba(164, 114, 232, 0.1)),
+        radial-gradient(ellipse at center, rgba(35, 31, 46, 0.5) 0%, var(--nm-deep-purple) 70%);
     border: 2px solid var(--nm-accent);
     padding: 2rem;
     text-align: center;
     position: relative;
     font-family: 'Noto Serif', serif;
     color: var(--nm-text);
+    border-radius: 5px;
 }
 
 body.light-theme .certificate {
-     background-image:
-        linear-gradient(rgba(38, 184, 242, 0.1), rgba(38, 184, 242, 0.1)),
-        radial-gradient(ellipse at center, rgba(230, 230, 230, 0.5) 0%, var(--nm-abyss-blue) 70%);
+     background-image: 
+        linear-gradient(rgba(164, 114, 232, 0.1), rgba(164, 114, 232, 0.1)),
+        radial-gradient(ellipse at center, rgba(230, 230, 230, 0.5) 0%, var(--nm-deep-purple) 70%);
 }
 
 .certificate-header {
@@ -885,14 +839,15 @@ body.light-theme .certificate-header h1 {
     background: var(--nm-accent);
     color: var(--nm-darkest);
     padding: 5px 10px;
+    border-radius: 5px;
     font-family: 'Orbitron', sans-serif;
     font-weight: bold;
     font-size: 0.9rem;
-    clip-path: var(--clip-path-shape);
 }
 .serif { font-family: 'Noto Serif', serif; }
 .text-green-600 { color: var(--nm-success) !important; }
 
+/* --- Content Section Styles (for Modal) --- */
 .content-section-modal {
     text-align: center;
 }
@@ -914,13 +869,13 @@ body.light-theme .certificate-header h1 {
     text-decoration: none;
     border: 1px solid var(--nm-border);
     padding: 10px 15px;
+    border-radius: 8px;
     background-color: var(--nm-container);
     transition: all 0.2s ease;
     display: inline-block;
     max-width: 100%;
     box-sizing: border-box;
     line-height: 1.4;
-    clip-path: var(--clip-path-shape);
 }
 .store-link a:hover {
     background-color: var(--nm-accent-hover);
@@ -928,16 +883,18 @@ body.light-theme .certificate-header h1 {
     color: var(--nm-darkest);
 }
 
+
+/* Gym Clothing Carousel Styles */
 .gym-carousel {
     position: relative;
     width: 100%;
     max-width: 400px;
     margin: 0 auto;
     aspect-ratio: 3 / 4;
+    border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--nm-border);
     background-color: var(--nm-container);
-    clip-path: var(--clip-path-shape);
 }
 .gym-clothing-images {
     width: 100%;
@@ -967,6 +924,7 @@ body.light-theme .certificate-header h1 {
     cursor: pointer;
     font-size: 1.5rem;
     z-index: 10;
+    border-radius: 5px;
     margin: 0 10px;
 }
 .carousel-btn.prev {
