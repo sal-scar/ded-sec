@@ -1,43 +1,17 @@
-@keyframes flicker {
-  0%, 18%, 22%, 25%, 53%, 57%, 100% {
-    opacity: 1;
-    text-shadow: 0 0 4px rgba(255,255,255,0.7), 0 0 8px var(--glow-color), 0 0 16px var(--glow-color);
-  }
-  20%, 24%, 55% {
-    opacity: 0.7;
-    text-shadow: none;
-  }
-}
-
-@keyframes pulseWarning {
-    0% { box-shadow: 0 0 5px rgba(255, 138, 0, 0.2), inset 0 0 5px rgba(255, 138, 0, 0.1); }
-    50% { box-shadow: 0 0 20px rgba(255, 138, 0, 0.6), inset 0 0 10px rgba(255, 138, 0, 0.3); }
-    100% { box-shadow: 0 0 5px rgba(255, 138, 0, 0.2), inset 0 0 5px rgba(255, 138, 0, 0.1); }
-}
-
-@keyframes pulseCrimson {
-    0% { box-shadow: 0 0 5px rgba(212, 17, 17, 0.2), inset 0 0 5px rgba(212, 17, 17, 0.1); }
-    50% { box-shadow: 0 0 20px rgba(212, 17, 17, 0.7), inset 0 0 10px rgba(212, 17, 17, 0.4); }
-    100% { box-shadow: 0 0 5px rgba(212, 17, 17, 0.2), inset 0 0 5px rgba(212, 17, 17, 0.1); }
-}
-
-
 :root {
-    /* Dead Space 2 Palette - Curated from Analysis */
-    --nm-deep-purple: #0a0f14; /* Deep Indigo (Void of Space) */
-    --nm-darkest: #0e141a;     /* Darker panel */
-    --nm-dark: #1a2530;        /* Mid-tone panel */
-    --nm-container: #2A3B4F;   /* Gunmetal Blue (Darker) */
-    --nm-border: #4a6178;      /* Gunmetal Blue (Lighter) */
-    --nm-accent: #61f7ff;      /* RIG Cyan */
-    --nm-accent-hover: #ffffff; /* Brightest RIG Glow */
-    --nm-text: #dde8f5;        /* Off-white UI text */
-    --nm-text-muted: #88a0b9;  /* Muted UI text */
-    --nm-danger: #ff8a00;      /* Locator Amber */
-    --nm-emergency-crimson: #d41111; /* Emergency Crimson */
-    --nm-success: #43a047;     /* Standard Green (for clarity) */
-    --warning-bg: #ff8a00;     /* Locator Amber */
-    --glow-color: rgba(97, 247, 255, 0.7); /* Intense RIG Cyan Glow */
+    --nm-deep-purple: #000000;
+    --nm-darkest: #1a1721;
+    --nm-dark: #231F2E;
+    --nm-container: #3E3852;
+    --nm-border: #595273;
+    --nm-accent: #A472E8;
+    --nm-accent-hover: #BE93FD;
+    --nm-text: #F0F0F0;
+    --nm-text-muted: #9E9E9E;
+    --nm-danger: #e53935; /* Brighter Red */
+    --nm-success: #43a047; /* Brighter Green */
+    --warning-bg: #8A4FFF;
+    --glow-color: rgba(164, 114, 232, 0.4);
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
 
     /* Shape Definition */
@@ -46,15 +20,14 @@
 }
 
 body.light-theme {
-    /* "Medical Bay" Light Theme Variant */
-    --nm-deep-purple: #e8edf2;
-    --nm-darkest: #f2f5f8;
-    --nm-dark: #ffffff;
+    --nm-deep-purple: #ffffff;
+    --nm-darkest: #f0f0f0;
+    --nm-dark: #e9e9e9;
     --nm-container: #ffffff;
-    --nm-border: #c1d0e0;
-    --nm-text: #111820;
-    --nm-text-muted: #526173;
-    --glow-color: rgba(97, 247, 255, 0.4);
+    --nm-border: #cccccc;
+    --nm-text: #000000;
+    --nm-text-muted: #555555;
+    --glow-color: rgba(164, 114, 232, 0.2);
 }
 
 html, body {
@@ -105,8 +78,7 @@ body {
     width: 100%;
     height: 100%;
     background: 
-        repeating-linear-gradient(0deg, rgba(102, 251, 253, 0.04), rgba(102, 251, 253, 0.04) 1px, transparent 1px, transparent 5px),
-        repeating-linear-gradient(90deg, rgba(102, 251, 253, 0.02), rgba(102, 251, 253, 0.02) 1px, transparent 1px, transparent 5px);
+        repeating-linear-gradient(0deg, rgba(164, 114, 232, 0.03), rgba(164, 114, 232, 0.03) 1px, transparent 1px, transparent 5px);
     pointer-events: none;
     z-index: 1;
 }
@@ -140,7 +112,6 @@ body.light-theme .screen-overlay {
     background-color: var(--nm-accent);
     border-radius: 10px;
     border: 2px solid var(--nm-dark);
-    box-shadow: 0 0 10px var(--glow-color);
 }
 .modal-body::-webkit-scrollbar-thumb:hover,
  #quiz-container::-webkit-scrollbar-thumb:hover {
@@ -170,19 +141,17 @@ body.light-theme .screen-overlay {
 
 .profile-pic {
     width: 90%;
-    max-width: 105px;
+    max-width: 105px; /* 30% smaller: 150px * 0.7 */
     height: auto;
     border-radius: 0;
     border: 3px solid var(--nm-accent);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
     object-fit: contain;
     flex-shrink: 0;
-    box-shadow: 0 0 10px var(--glow-color);
 }
 .profile-pic:hover {
-    box-shadow: 0 0 25px var(--glow-color), 0 0 10px var(--nm-accent-hover);
-    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 .profile-info {
     text-align: center;
@@ -193,13 +162,12 @@ main.home-screen > h1 {
     margin: 0 0 20px 0;
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(1.8rem, 8vw, 2.5rem);
-    color: var(--nm-accent-hover);
-    animation: flicker 4s linear infinite;
+    color: var(--nm-text);
+    text-shadow: 0 0 8px var(--glow-color);
     transition: text-shadow 0.3s ease;
 }
 body.light-theme main.home-screen > h1 {
     text-shadow: none;
-    animation: none;
 }
 
 .quote {
@@ -213,17 +181,19 @@ body.light-theme main.home-screen > h1 {
     margin-right: auto;
 }
 
+/* --- APP GRID IS NOW A SINGLE COLUMN LIST --- */
 .app-grid {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* This makes it a single column */
     gap: 15px;
     width: 100%;
-    max-width: 420px;
+    max-width: 420px; /* Can be wider now */
     margin: 0 auto 15px;
 }
 
+/* --- APP ICONS ARE NOW LONG RECTANGLES --- */
 .app-icon {
-    background: linear-gradient(180deg, var(--nm-container), var(--nm-dark));
+    background: var(--nm-container);
     border: 1px solid var(--nm-border);
     border-radius: 0;
     color: var(--nm-text);
@@ -231,9 +201,9 @@ body.light-theme main.home-screen > h1 {
     font-family: 'Roboto Mono', monospace;
     transition: all 0.2s ease;
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* Horizontal layout for icon and text */
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-start; /* Align content to the left */
     text-decoration: none;
     padding: 15px;
     box-sizing: border-box;
@@ -246,8 +216,7 @@ body.light-theme main.home-screen > h1 {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    box-shadow: 0 0 20px var(--glow-color);
-    transform: translateY(-2px);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
 .app-icon:hover::after {
@@ -265,15 +234,13 @@ body.light-theme main.home-screen > h1 {
 
 .app-icon i {
     color: var(--nm-accent);
-    transition: color 0.2s ease, text-shadow 0.2s ease;
+    transition: color 0.2s ease;
     font-size: 1.5rem;
     margin: 0;
-    text-shadow: 0 0 8px var(--glow-color);
 }
 
 .app-icon:hover i {
     color: var(--nm-darkest);
-    text-shadow: none;
 }
 
 body.light-theme .app-icon {
@@ -290,7 +257,7 @@ body.light-theme .app-icon:hover {
 }
 
 .app-icon span {
-    font-size: 0.8rem;
+    font-size: 0.8rem; /* Slightly larger text */
     font-weight: 700;
     line-height: 1.2;
     word-break: break-word;
@@ -310,16 +277,14 @@ body.light-theme .app-icon:hover {
     max-width: 100%;
     height: auto;
     border: 1px solid var(--nm-border);
-    background-color: #0e141a; /* Match github theme */
+    background-color: var(--nm-container);
     clip-path: var(--clip-path-shape);
 }
 
 .dock {
     padding: 6px 8px;
     padding-bottom: var(--safe-area-inset-bottom);
-    background: rgba(14, 20, 26, 0.8);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
+    background: rgba(35, 31, 46, 0.7);
     border-top: 1px solid var(--nm-border);
     display: flex;
     justify-content: center;
@@ -335,13 +300,14 @@ body.light-theme .dock {
     background: rgba(255, 255, 255, 0.7);
 }
 
+/* Dock Icon adjustment */
 .dock .app-icon {
     background: transparent;
     border: 1px solid transparent;
     height: auto;
-    clip-path: none;
-    border-radius: 10px;
-    flex-direction: column;
+    clip-path: none; /* Dock icons are simpler */
+    border-radius: 10px; /* Rounded corners for dock */
+    flex-direction: column; /* Return to vertical layout for dock */
     gap: 0;
     padding: 5px;
     width: auto;
@@ -357,10 +323,9 @@ body.light-theme .dock {
     color: var(--nm-darkest);
     border-color: var(--nm-accent-hover);
     box-shadow: none;
-    transform: none;
 }
 .dock .app-icon:hover::after {
-    content: none;
+    content: none; /* No arrow on dock icons */
 }
 
 .main-footer {
@@ -405,7 +370,7 @@ body.light-theme .modal-overlay {
     max-height: 800px;
     border-radius: 15px;
     border: 1px solid var(--nm-border);
-    box-shadow: 0 0 40px var(--glow-color), inset 0 0 15px rgba(10,15,20,0.5);
+    box-shadow: 0 0 40px var(--glow-color);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -428,7 +393,7 @@ body.light-theme .modal-content {
     background: var(--nm-container);
     border-bottom: 1px solid var(--nm-border);
     transition: background-color 0.3s ease;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Ensures header doesn't shrink */
 }
 .modal-header h2 {
     font-family: 'Orbitron', sans-serif;
@@ -436,7 +401,6 @@ body.light-theme .modal-content {
     margin: 0;
     color: var(--nm-accent);
     text-transform: uppercase;
-    animation: flicker 6s linear infinite;
 }
 .close-modal {
     background: none;
@@ -447,15 +411,15 @@ body.light-theme .modal-content {
     transition: color 0.2s, text-shadow 0.2s;
 }
 .close-modal:hover {
-    color: var(--nm-emergency-crimson);
-    text-shadow: 0 0 10px var(--nm-emergency-crimson);
+    color: var(--nm-danger);
+    text-shadow: 0 0 10px var(--nm-danger);
 }
 .modal-body {
     padding: 25px;
     overflow-y: auto;
     flex-grow: 1;
     line-height: 1.7;
-    min-height: 0;
+    min-height: 0; /* Important for flex-grow to work correctly with overflow */
 }
 .modal-body h3 {
     color: var(--nm-accent-hover);
@@ -465,7 +429,6 @@ body.light-theme .modal-content {
     margin-bottom: 1rem;
     font-family: 'Orbitron', sans-serif;
     text-align: center;
-    text-shadow: 0 0 8px var(--glow-color);
 }
 .modal-body h4 {
     color: var(--nm-accent);
@@ -481,7 +444,6 @@ body.light-theme .modal-content {
     color: var(--nm-accent);
     text-decoration: none;
     font-weight: bold;
-    text-shadow: 0 0 5px var(--glow-color);
 }
 .modal-body a:hover {
     text-decoration: underline;
@@ -538,6 +500,7 @@ body.light-theme .modal-content {
     flex-shrink: 0;
 }
 
+/* --- BUTTON REDESIGN (EXACT SHAPE, SITE COLORS) --- */
 .modal-footer button,
 .language-button {
     background-color: var(--nm-container);
@@ -593,10 +556,11 @@ body.light-theme .modal-content {
 .decline-btn:hover {
     opacity: 0.9;
 }
+/* --- End Button Redesign --- */
 
 .tip {
     background: var(--nm-dark);
-    border-left: 4px solid var(--nm-accent);
+    border-left: 4px solid var(--nm-accent-hover);
     margin: 1em 0;
     padding: 0.8em 1em;
     border-radius: 4px;
@@ -615,6 +579,7 @@ body.light-theme .modal-content {
     max-width: 350px;
 }
 
+/* --- Certification Modal Styles --- */
 #certification-modal .modal-body {
     padding: 15px;
     background-color: var(--nm-deep-purple);
@@ -634,17 +599,16 @@ body.light-theme .modal-content {
 
 #language-selection h1, #user-info h1, #results-container h1 {
     color: var(--nm-text);
+    text-shadow: 0 0 8px var(--glow-color);
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 1rem;
-    animation: flicker 5s linear infinite;
 }
 
 body.light-theme #language-selection h1, 
 body.light-theme #user-info h1, 
 body.light-theme #results-container h1 {
     text-shadow: none;
-    animation: none;
 }
 
 #language-selection p, #user-info label {
@@ -659,6 +623,7 @@ body.light-theme #results-container h1 {
     align-items: center;
 }
 
+/* --- Certification Button Redesign (EXACT SHAPE, SITE COLORS) --- */
 #language-selection button, #user-info button, #navigation-container button, #results-container button {
     background-color: var(--nm-container);
     color: var(--nm-text);
@@ -688,10 +653,8 @@ body.light-theme #results-container h1 {
 #navigation-container button#submit-btn:hover {
     opacity: 0.9;
 }
-#results-container .text-red-600 { 
-    color: var(--nm-danger);
-    text-shadow: 0 0 10px var(--nm-danger);
-}
+#results-container .text-red-600 { color: var(--nm-danger); }
+/* --- End Certification Button Redesign --- */
 
 #user-info input {
     background-color: var(--nm-darkest);
@@ -701,11 +664,11 @@ body.light-theme #results-container h1 {
     padding: 12px;
     width: 100%;
     box-sizing: border-box;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 #user-info input:focus {
     outline: none;
-    box-shadow: 0 0 0 2px var(--nm-accent), 0 0 10px var(--glow-color);
+    box-shadow: 0 0 0 2px var(--nm-accent);
     border-color: var(--nm-accent);
 }
 #quiz-container {
@@ -731,7 +694,7 @@ body.light-theme #results-container h1 {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-.quiz-page h2 { color: var(--nm-accent); font-size: 1.1rem; margin-bottom: 0.5rem; text-shadow: 0 0 8px var(--glow-color); }
+.quiz-page h2 { color: var(--nm-accent-hover); font-size: 1.1rem; margin-bottom: 0.5rem; }
 .quiz-page hr { border-color: var(--nm-border); margin: 1rem 0;}
 .quiz-page .question-box { background-color: var(--nm-darkest); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; transition: background-color 0.3s ease;}
 .quiz-page .options-container { display: flex; flex-direction: column; gap: 0.75rem; }
@@ -745,15 +708,13 @@ body.light-theme #results-container h1 {
     cursor: pointer;
     transition: all 0.2s ease;
 }
-.quiz-page label:hover, .quiz-page input[type="radio"]:checked + span {
-    background-color: var(--nm-accent);
+.quiz-page label:hover {
+    background-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    box-shadow: 0 0 15px var(--glow-color);
 }
 .quiz-page input[type="radio"] {
-     -webkit-appearance: none;
-     appearance: none;
-     margin: 0;
+     accent-color: var(--nm-accent);
+     margin-right: 10px;
 }
 
 #navigation-container {
@@ -774,6 +735,7 @@ body.light-theme #results-container h1 {
     border-color: var(--nm-border) !important;
 }
 
+/* --- Professional Certificate Styles --- */
 .certificate-container {
     background: var(--nm-darkest);
     padding: 20px;
@@ -783,8 +745,8 @@ body.light-theme #results-container h1 {
 }
 .certificate {
     background-image: 
-        linear-gradient(rgba(97, 247, 255, 0.08), rgba(97, 247, 255, 0.08)),
-        radial-gradient(ellipse at center, rgba(26, 37, 48, 0.5) 0%, var(--nm-deep-purple) 70%);
+        linear-gradient(rgba(164, 114, 232, 0.1), rgba(164, 114, 232, 0.1)),
+        radial-gradient(ellipse at center, rgba(35, 31, 46, 0.5) 0%, var(--nm-deep-purple) 70%);
     border: 2px solid var(--nm-accent);
     padding: 2rem;
     text-align: center;
@@ -796,8 +758,8 @@ body.light-theme #results-container h1 {
 
 body.light-theme .certificate {
      background-image: 
-        linear-gradient(rgba(97, 247, 255, 0.1), rgba(97, 247, 255, 0.1)),
-        radial-gradient(ellipse at center, rgba(200, 210, 220, 0.5) 0%, var(--nm-deep-purple) 70%);
+        linear-gradient(rgba(164, 114, 232, 0.1), rgba(164, 114, 232, 0.1)),
+        radial-gradient(ellipse at center, rgba(230, 230, 230, 0.5) 0%, var(--nm-deep-purple) 70%);
 }
 
 .certificate-header {
@@ -807,7 +769,6 @@ body.light-theme .certificate {
     width: 80px;
     height: 80px;
     margin: 0 auto 1rem;
-    filter: drop-shadow(0 0 5px var(--glow-color));
 }
 .certificate-header .seal .seal-border {
     fill: none;
@@ -815,7 +776,7 @@ body.light-theme .certificate {
     stroke-width: 2;
 }
 .certificate-header .seal .seal-star {
-    fill: var(--nm-accent);
+    fill: var(--nm-accent-hover);
 }
 .certificate-header .seal .seal-text {
     font-family: 'Orbitron', sans-serif;
@@ -831,12 +792,11 @@ body.light-theme .certificate {
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 2px;
-    animation: flicker 5s linear infinite;
+    text-shadow: 0 0 10px var(--glow-color);
 }
 
 body.light-theme .certificate-header h1 {
     text-shadow: none;
-    animation: none;
 }
 
 .certificate-body p {
@@ -849,13 +809,12 @@ body.light-theme .certificate-header h1 {
     font-family: 'Noto Serif', serif;
     font-style: italic;
     font-size: 2.5rem;
-    color: var(--nm-accent);
+    color: var(--nm-accent-hover);
     margin: 1.5rem 0;
     font-weight: 700;
     border-bottom: 2px solid var(--nm-border);
     display: inline-block;
     padding-bottom: 0.5rem;
-    text-shadow: 0 0 15px var(--glow-color);
 }
 .certificate-footer {
     margin-top: 2.5rem;
@@ -888,6 +847,7 @@ body.light-theme .certificate-header h1 {
 .serif { font-family: 'Noto Serif', serif; }
 .text-green-600 { color: var(--nm-success) !important; }
 
+/* --- Content Section Styles (for Modal) --- */
 .content-section-modal {
     text-align: center;
 }
@@ -916,15 +876,15 @@ body.light-theme .certificate-header h1 {
     max-width: 100%;
     box-sizing: border-box;
     line-height: 1.4;
-    text-shadow: 0 0 8px var(--glow-color);
 }
 .store-link a:hover {
-    background-color: var(--nm-accent);
-    border-color: var(--nm-accent-hover);
+    background-color: var(--nm-accent-hover);
+    border-color: var(--nm-accent);
     color: var(--nm-darkest);
-    text-shadow: none;
 }
 
+
+/* Gym Clothing Carousel Styles */
 .gym-carousel {
     position: relative;
     width: 100%;
@@ -975,11 +935,4 @@ body.light-theme .certificate-header h1 {
 }
 .carousel-btn:hover {
     background-color: rgba(0, 0, 0, 0.8);
-}
-
-/* Specific rule for CRITICAL notice */
-#scripts-modal .note[style*="--nm-danger"] {
-    border-left-color: var(--nm-emergency-crimson) !important;
-    background: rgba(212, 17, 17, 0.1) !important;
-    animation: pulseCrimson 2s infinite;
 }
