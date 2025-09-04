@@ -87,7 +87,7 @@ body {
     overflow: hidden; /* Ensure pseudo-elements are contained */
 }
 
-/* ADDED: New blood spatter overlay */
+/* MODIFIED: New, more realistic blood effect */
 .blood-overlay {
     position: absolute;
     top: 0;
@@ -96,17 +96,20 @@ body {
     height: 100%;
     z-index: 2; /* Positioned between scanlines and vignette */
     pointer-events: none;
-    background-image:
-        /* Main splatters at the top */
-        radial-gradient(ellipse at 20% 15%, var(--nm-blood-red) 5%, transparent 30%),
-        radial-gradient(ellipse at 50% 12%, var(--nm-blood-red) 10%, transparent 40%),
-        radial-gradient(ellipse at 85% 18%, var(--nm-blood-red) 8%, transparent 35%),
-        /* Some smaller drips */
-        radial-gradient(ellipse at 15% 30%, var(--nm-blood-red) 1%, transparent 4%),
-        radial-gradient(ellipse at 40% 25%, var(--nm-blood-red) 2%, transparent 6%),
-        radial-gradient(ellipse at 70% 32%, var(--nm-blood-red) 1.5%, transparent 5%);
+    background:
+        /* Streaks and fine splatters */
+        radial-gradient(ellipse 1% 40% at 22% 20%, #ff000033 100%, transparent 100%),
+        radial-gradient(ellipse 1% 40% at 78% 30%, #ff000022 100%, transparent 100%),
+        /* Main Splatter Masses */
+        radial-gradient(ellipse at 80% 10%, var(--nm-blood-red) 10%, transparent 50%),
+        radial-gradient(circle at 30% 5%, var(--nm-blood-red) 15%, transparent 60%),
+        /* Smaller Droplets */
+        radial-gradient(circle at 55% 25%, #8B000099 2%, transparent 10%),
+        radial-gradient(circle at 60% 40%, #8B000088 1%, transparent 8%),
+        radial-gradient(circle at 90% 35%, #8B000099 1.5%, transparent 10%);
     background-repeat: no-repeat;
-    opacity: 0.85;
+    opacity: 0.07; /* MODIFIED: 3% less than background image */
+    filter: blur(1px) contrast(1.1); /* Adds texture and realism */
 }
 
 .screen {
@@ -179,6 +182,8 @@ body.light-theme .screen::before {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative; /* ADDED: Required for z-index */
+    z-index: 4; /* ADDED: Places UI above all overlays */
 }
 
 /* ADDED: Scrollbar styling for main screen */
