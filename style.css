@@ -15,21 +15,28 @@
     100% { box-shadow: 0 0 5px rgba(255, 138, 0, 0.2), inset 0 0 5px rgba(255, 138, 0, 0.1); }
 }
 
+@keyframes pulseCrimson {
+    0% { box-shadow: 0 0 5px rgba(212, 17, 17, 0.2), inset 0 0 5px rgba(212, 17, 17, 0.1); }
+    50% { box-shadow: 0 0 20px rgba(212, 17, 17, 0.7), inset 0 0 10px rgba(212, 17, 17, 0.4); }
+    100% { box-shadow: 0 0 5px rgba(212, 17, 17, 0.2), inset 0 0 5px rgba(212, 17, 17, 0.1); }
+}
+
 
 :root {
-    /* Dead Space 2 Inspired Palette - V2 (Intensified) */
-    --nm-deep-purple: #05080a; /* Even darker space */
+    /* Dead Space 2 Palette - Curated from Analysis */
+    --nm-deep-purple: #0a0f14; /* Deep Indigo (Void of Space) */
     --nm-darkest: #0e141a;     /* Darker panel */
     --nm-dark: #1a2530;        /* Mid-tone panel */
-    --nm-container: #263442;    /* Lighter panel with metallic feel */
-    --nm-border: #4a6178;       /* Structural border */
-    --nm-accent: #61f7ff;       /* Brighter RIG Cyan */
-    --nm-accent-hover: #ffffff;  /* Brightest RIG Glow */
-    --nm-text: #dde8f5;         /* Off-white text */
-    --nm-text-muted: #88a0b9;   /* Muted UI text */
-    --nm-danger: #ff8a00;       /* Objective/Warning Amber */
+    --nm-container: #2A3B4F;   /* Gunmetal Blue (Darker) */
+    --nm-border: #4a6178;      /* Gunmetal Blue (Lighter) */
+    --nm-accent: #61f7ff;      /* RIG Cyan */
+    --nm-accent-hover: #ffffff; /* Brightest RIG Glow */
+    --nm-text: #dde8f5;        /* Off-white UI text */
+    --nm-text-muted: #88a0b9;  /* Muted UI text */
+    --nm-danger: #ff8a00;      /* Locator Amber */
+    --nm-emergency-crimson: #d41111; /* Emergency Crimson */
     --nm-success: #43a047;     /* Standard Green (for clarity) */
-    --warning-bg: #ff8a00;      /* Amber for special warnings */
+    --warning-bg: #ff8a00;     /* Locator Amber */
     --glow-color: rgba(97, 247, 255, 0.7); /* Intense RIG Cyan Glow */
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
 
@@ -39,7 +46,7 @@
 }
 
 body.light-theme {
-    /* A "clean room" or "medical bay" light theme variant */
+    /* "Medical Bay" Light Theme Variant */
     --nm-deep-purple: #e8edf2;
     --nm-darkest: #f2f5f8;
     --nm-dark: #ffffff;
@@ -328,7 +335,6 @@ body.light-theme .dock {
     background: rgba(255, 255, 255, 0.7);
 }
 
-/* Dock Icon adjustment */
 .dock .app-icon {
     background: transparent;
     border: 1px solid transparent;
@@ -441,8 +447,8 @@ body.light-theme .modal-content {
     transition: color 0.2s, text-shadow 0.2s;
 }
 .close-modal:hover {
-    color: var(--nm-danger);
-    text-shadow: 0 0 10px var(--nm-danger);
+    color: var(--nm-emergency-crimson);
+    text-shadow: 0 0 10px var(--nm-emergency-crimson);
 }
 .modal-body {
     padding: 25px;
@@ -609,7 +615,6 @@ body.light-theme .modal-content {
     max-width: 350px;
 }
 
-/* --- Certification Modal Styles --- */
 #certification-modal .modal-body {
     padding: 15px;
     background-color: var(--nm-deep-purple);
@@ -972,8 +977,9 @@ body.light-theme .certificate-header h1 {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
+/* Specific rule for CRITICAL notice */
 #scripts-modal .note[style*="--nm-danger"] {
-    border-left-color: var(--nm-danger) !important;
-    background: rgba(255, 138, 0, 0.1) !important;
-    animation: pulseWarning 3s infinite;
+    border-left-color: var(--nm-emergency-crimson) !important;
+    background: rgba(212, 17, 17, 0.1) !important;
+    animation: pulseCrimson 2s infinite;
 }
