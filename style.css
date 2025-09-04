@@ -1,18 +1,36 @@
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 4px rgba(255,255,255,0.7), 0 0 8px var(--glow-color), 0 0 16px var(--glow-color);
+  }
+  20%, 24%, 55% {
+    opacity: 0.7;
+    text-shadow: none;
+  }
+}
+
+@keyframes pulseWarning {
+    0% { box-shadow: 0 0 5px rgba(255, 138, 0, 0.2), inset 0 0 5px rgba(255, 138, 0, 0.1); }
+    50% { box-shadow: 0 0 20px rgba(255, 138, 0, 0.6), inset 0 0 10px rgba(255, 138, 0, 0.3); }
+    100% { box-shadow: 0 0 5px rgba(255, 138, 0, 0.2), inset 0 0 5px rgba(255, 138, 0, 0.1); }
+}
+
+
 :root {
-    /* Dead Space 2 Inspired Palette */
-    --nm-deep-purple: #0a0f14; /* Deep space background */
-    --nm-darkest: #111820;     /* Darker panel */
-    --nm-dark: #1d2a38;        /* Mid-tone panel */
-    --nm-container: #2a3b4f;    /* Lighter panel / container */
-    --nm-border: #4f6a83;       /* Structural border */
-    --nm-accent: #66fbfd;       /* RIG Cyan */
+    /* Dead Space 2 Inspired Palette - V2 (Intensified) */
+    --nm-deep-purple: #05080a; /* Even darker space */
+    --nm-darkest: #0e141a;     /* Darker panel */
+    --nm-dark: #1a2530;        /* Mid-tone panel */
+    --nm-container: #263442;    /* Lighter panel with metallic feel */
+    --nm-border: #4a6178;       /* Structural border */
+    --nm-accent: #61f7ff;       /* Brighter RIG Cyan */
     --nm-accent-hover: #ffffff;  /* Brightest RIG Glow */
-    --nm-text: #e0e8f0;         /* Off-white text */
-    --nm-text-muted: #8fa6c1;   /* Muted UI text */
+    --nm-text: #dde8f5;         /* Off-white text */
+    --nm-text-muted: #88a0b9;   /* Muted UI text */
     --nm-danger: #ff8a00;       /* Objective/Warning Amber */
     --nm-success: #43a047;     /* Standard Green (for clarity) */
     --warning-bg: #ff8a00;      /* Amber for special warnings */
-    --glow-color: rgba(102, 251, 253, 0.5); /* RIG Cyan Glow */
+    --glow-color: rgba(97, 247, 255, 0.7); /* Intense RIG Cyan Glow */
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
 
     /* Shape Definition */
@@ -29,7 +47,7 @@ body.light-theme {
     --nm-border: #c1d0e0;
     --nm-text: #111820;
     --nm-text-muted: #526173;
-    --glow-color: rgba(102, 251, 253, 0.3);
+    --glow-color: rgba(97, 247, 255, 0.4);
 }
 
 html, body {
@@ -80,7 +98,8 @@ body {
     width: 100%;
     height: 100%;
     background: 
-        repeating-linear-gradient(0deg, rgba(102, 251, 253, 0.05), rgba(102, 251, 253, 0.05) 1px, transparent 1px, transparent 4px);
+        repeating-linear-gradient(0deg, rgba(102, 251, 253, 0.04), rgba(102, 251, 253, 0.04) 1px, transparent 1px, transparent 5px),
+        repeating-linear-gradient(90deg, rgba(102, 251, 253, 0.02), rgba(102, 251, 253, 0.02) 1px, transparent 1px, transparent 5px);
     pointer-events: none;
     z-index: 1;
 }
@@ -114,6 +133,7 @@ body.light-theme .screen-overlay {
     background-color: var(--nm-accent);
     border-radius: 10px;
     border: 2px solid var(--nm-dark);
+    box-shadow: 0 0 10px var(--glow-color);
 }
 .modal-body::-webkit-scrollbar-thumb:hover,
  #quiz-container::-webkit-scrollbar-thumb:hover {
@@ -143,17 +163,19 @@ body.light-theme .screen-overlay {
 
 .profile-pic {
     width: 90%;
-    max-width: 105px; /* 30% smaller: 150px * 0.7 */
+    max-width: 105px;
     height: auto;
     border-radius: 0;
     border: 3px solid var(--nm-accent);
     cursor: pointer;
-    transition: box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     object-fit: contain;
     flex-shrink: 0;
+    box-shadow: 0 0 10px var(--glow-color);
 }
 .profile-pic:hover {
-    box-shadow: 0 0 15px var(--glow-color);
+    box-shadow: 0 0 25px var(--glow-color), 0 0 10px var(--nm-accent-hover);
+    transform: scale(1.05);
 }
 .profile-info {
     text-align: center;
@@ -164,12 +186,13 @@ main.home-screen > h1 {
     margin: 0 0 20px 0;
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(1.8rem, 8vw, 2.5rem);
-    color: var(--nm-text);
-    text-shadow: 0 0 8px var(--glow-color);
+    color: var(--nm-accent-hover);
+    animation: flicker 4s linear infinite;
     transition: text-shadow 0.3s ease;
 }
 body.light-theme main.home-screen > h1 {
     text-shadow: none;
+    animation: none;
 }
 
 .quote {
@@ -183,19 +206,17 @@ body.light-theme main.home-screen > h1 {
     margin-right: auto;
 }
 
-/* --- APP GRID IS NOW A SINGLE COLUMN LIST --- */
 .app-grid {
     display: flex;
-    flex-direction: column; /* This makes it a single column */
+    flex-direction: column;
     gap: 15px;
     width: 100%;
-    max-width: 420px; /* Can be wider now */
+    max-width: 420px;
     margin: 0 auto 15px;
 }
 
-/* --- APP ICONS ARE NOW LONG RECTANGLES --- */
 .app-icon {
-    background: var(--nm-container);
+    background: linear-gradient(180deg, var(--nm-container), var(--nm-dark));
     border: 1px solid var(--nm-border);
     border-radius: 0;
     color: var(--nm-text);
@@ -203,9 +224,9 @@ body.light-theme main.home-screen > h1 {
     font-family: 'Roboto Mono', monospace;
     transition: all 0.2s ease;
     display: flex;
-    flex-direction: row; /* Horizontal layout for icon and text */
+    flex-direction: row;
     align-items: center;
-    justify-content: flex-start; /* Align content to the left */
+    justify-content: flex-start;
     text-decoration: none;
     padding: 15px;
     box-sizing: border-box;
@@ -218,7 +239,8 @@ body.light-theme main.home-screen > h1 {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    box-shadow: 0 0 15px var(--glow-color);
+    box-shadow: 0 0 20px var(--glow-color);
+    transform: translateY(-2px);
 }
 
 .app-icon:hover::after {
@@ -236,7 +258,7 @@ body.light-theme main.home-screen > h1 {
 
 .app-icon i {
     color: var(--nm-accent);
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
     font-size: 1.5rem;
     margin: 0;
     text-shadow: 0 0 8px var(--glow-color);
@@ -261,7 +283,7 @@ body.light-theme .app-icon:hover {
 }
 
 .app-icon span {
-    font-size: 0.8rem; /* Slightly larger text */
+    font-size: 0.8rem;
     font-weight: 700;
     line-height: 1.2;
     word-break: break-word;
@@ -281,14 +303,16 @@ body.light-theme .app-icon:hover {
     max-width: 100%;
     height: auto;
     border: 1px solid var(--nm-border);
-    background-color: var(--nm-container);
+    background-color: #0e141a; /* Match github theme */
     clip-path: var(--clip-path-shape);
 }
 
 .dock {
     padding: 6px 8px;
     padding-bottom: var(--safe-area-inset-bottom);
-    background: rgba(17, 24, 32, 0.7);
+    background: rgba(14, 20, 26, 0.8);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     border-top: 1px solid var(--nm-border);
     display: flex;
     justify-content: center;
@@ -309,9 +333,9 @@ body.light-theme .dock {
     background: transparent;
     border: 1px solid transparent;
     height: auto;
-    clip-path: none; /* Dock icons are simpler */
-    border-radius: 10px; /* Rounded corners for dock */
-    flex-direction: column; /* Return to vertical layout for dock */
+    clip-path: none;
+    border-radius: 10px;
+    flex-direction: column;
     gap: 0;
     padding: 5px;
     width: auto;
@@ -327,9 +351,10 @@ body.light-theme .dock {
     color: var(--nm-darkest);
     border-color: var(--nm-accent-hover);
     box-shadow: none;
+    transform: none;
 }
 .dock .app-icon:hover::after {
-    content: none; /* No arrow on dock icons */
+    content: none;
 }
 
 .main-footer {
@@ -374,7 +399,7 @@ body.light-theme .modal-overlay {
     max-height: 800px;
     border-radius: 15px;
     border: 1px solid var(--nm-border);
-    box-shadow: 0 0 40px var(--glow-color);
+    box-shadow: 0 0 40px var(--glow-color), inset 0 0 15px rgba(10,15,20,0.5);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -397,7 +422,7 @@ body.light-theme .modal-content {
     background: var(--nm-container);
     border-bottom: 1px solid var(--nm-border);
     transition: background-color 0.3s ease;
-    flex-shrink: 0; /* Ensures header doesn't shrink */
+    flex-shrink: 0;
 }
 .modal-header h2 {
     font-family: 'Orbitron', sans-serif;
@@ -405,7 +430,7 @@ body.light-theme .modal-content {
     margin: 0;
     color: var(--nm-accent);
     text-transform: uppercase;
-    text-shadow: 0 0 10px var(--glow-color);
+    animation: flicker 6s linear infinite;
 }
 .close-modal {
     background: none;
@@ -424,7 +449,7 @@ body.light-theme .modal-content {
     overflow-y: auto;
     flex-grow: 1;
     line-height: 1.7;
-    min-height: 0; /* Important for flex-grow to work correctly with overflow */
+    min-height: 0;
 }
 .modal-body h3 {
     color: var(--nm-accent-hover);
@@ -434,6 +459,7 @@ body.light-theme .modal-content {
     margin-bottom: 1rem;
     font-family: 'Orbitron', sans-serif;
     text-align: center;
+    text-shadow: 0 0 8px var(--glow-color);
 }
 .modal-body h4 {
     color: var(--nm-accent);
@@ -449,6 +475,7 @@ body.light-theme .modal-content {
     color: var(--nm-accent);
     text-decoration: none;
     font-weight: bold;
+    text-shadow: 0 0 5px var(--glow-color);
 }
 .modal-body a:hover {
     text-decoration: underline;
@@ -505,7 +532,6 @@ body.light-theme .modal-content {
     flex-shrink: 0;
 }
 
-/* --- BUTTON REDESIGN (EXACT SHAPE, SITE COLORS) --- */
 .modal-footer button,
 .language-button {
     background-color: var(--nm-container);
@@ -561,7 +587,6 @@ body.light-theme .modal-content {
 .decline-btn:hover {
     opacity: 0.9;
 }
-/* --- End Button Redesign --- */
 
 .tip {
     background: var(--nm-dark);
@@ -604,16 +629,17 @@ body.light-theme .modal-content {
 
 #language-selection h1, #user-info h1, #results-container h1 {
     color: var(--nm-text);
-    text-shadow: 0 0 8px var(--glow-color);
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 1rem;
+    animation: flicker 5s linear infinite;
 }
 
 body.light-theme #language-selection h1, 
 body.light-theme #user-info h1, 
 body.light-theme #results-container h1 {
     text-shadow: none;
+    animation: none;
 }
 
 #language-selection p, #user-info label {
@@ -628,7 +654,6 @@ body.light-theme #results-container h1 {
     align-items: center;
 }
 
-/* --- Certification Button Redesign (EXACT SHAPE, SITE COLORS) --- */
 #language-selection button, #user-info button, #navigation-container button, #results-container button {
     background-color: var(--nm-container);
     color: var(--nm-text);
@@ -658,8 +683,10 @@ body.light-theme #results-container h1 {
 #navigation-container button#submit-btn:hover {
     opacity: 0.9;
 }
-#results-container .text-red-600 { color: var(--nm-danger); }
-/* --- End Certification Button Redesign --- */
+#results-container .text-red-600 { 
+    color: var(--nm-danger);
+    text-shadow: 0 0 10px var(--nm-danger);
+}
 
 #user-info input {
     background-color: var(--nm-darkest);
@@ -669,11 +696,11 @@ body.light-theme #results-container h1 {
     padding: 12px;
     width: 100%;
     box-sizing: border-box;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 #user-info input:focus {
     outline: none;
-    box-shadow: 0 0 0 2px var(--nm-accent);
+    box-shadow: 0 0 0 2px var(--nm-accent), 0 0 10px var(--glow-color);
     border-color: var(--nm-accent);
 }
 #quiz-container {
@@ -699,7 +726,7 @@ body.light-theme #results-container h1 {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-.quiz-page h2 { color: var(--nm-accent); font-size: 1.1rem; margin-bottom: 0.5rem; }
+.quiz-page h2 { color: var(--nm-accent); font-size: 1.1rem; margin-bottom: 0.5rem; text-shadow: 0 0 8px var(--glow-color); }
 .quiz-page hr { border-color: var(--nm-border); margin: 1rem 0;}
 .quiz-page .question-box { background-color: var(--nm-darkest); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; transition: background-color 0.3s ease;}
 .quiz-page .options-container { display: flex; flex-direction: column; gap: 0.75rem; }
@@ -713,13 +740,15 @@ body.light-theme #results-container h1 {
     cursor: pointer;
     transition: all 0.2s ease;
 }
-.quiz-page label:hover {
+.quiz-page label:hover, .quiz-page input[type="radio"]:checked + span {
     background-color: var(--nm-accent);
     color: var(--nm-darkest);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 .quiz-page input[type="radio"] {
-     accent-color: var(--nm-accent);
-     margin-right: 10px;
+     -webkit-appearance: none;
+     appearance: none;
+     margin: 0;
 }
 
 #navigation-container {
@@ -740,7 +769,6 @@ body.light-theme #results-container h1 {
     border-color: var(--nm-border) !important;
 }
 
-/* --- Professional Certificate Styles --- */
 .certificate-container {
     background: var(--nm-darkest);
     padding: 20px;
@@ -750,8 +778,8 @@ body.light-theme #results-container h1 {
 }
 .certificate {
     background-image: 
-        linear-gradient(rgba(102, 251, 253, 0.08), rgba(102, 251, 253, 0.08)),
-        radial-gradient(ellipse at center, rgba(29, 42, 56, 0.5) 0%, var(--nm-deep-purple) 70%);
+        linear-gradient(rgba(97, 247, 255, 0.08), rgba(97, 247, 255, 0.08)),
+        radial-gradient(ellipse at center, rgba(26, 37, 48, 0.5) 0%, var(--nm-deep-purple) 70%);
     border: 2px solid var(--nm-accent);
     padding: 2rem;
     text-align: center;
@@ -763,7 +791,7 @@ body.light-theme #results-container h1 {
 
 body.light-theme .certificate {
      background-image: 
-        linear-gradient(rgba(102, 251, 253, 0.1), rgba(102, 251, 253, 0.1)),
+        linear-gradient(rgba(97, 247, 255, 0.1), rgba(97, 247, 255, 0.1)),
         radial-gradient(ellipse at center, rgba(200, 210, 220, 0.5) 0%, var(--nm-deep-purple) 70%);
 }
 
@@ -774,6 +802,7 @@ body.light-theme .certificate {
     width: 80px;
     height: 80px;
     margin: 0 auto 1rem;
+    filter: drop-shadow(0 0 5px var(--glow-color));
 }
 .certificate-header .seal .seal-border {
     fill: none;
@@ -797,11 +826,12 @@ body.light-theme .certificate {
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 10px var(--glow-color);
+    animation: flicker 5s linear infinite;
 }
 
 body.light-theme .certificate-header h1 {
     text-shadow: none;
+    animation: none;
 }
 
 .certificate-body p {
@@ -853,7 +883,6 @@ body.light-theme .certificate-header h1 {
 .serif { font-family: 'Noto Serif', serif; }
 .text-green-600 { color: var(--nm-success) !important; }
 
-/* --- Content Section Styles (for Modal) --- */
 .content-section-modal {
     text-align: center;
 }
@@ -882,15 +911,15 @@ body.light-theme .certificate-header h1 {
     max-width: 100%;
     box-sizing: border-box;
     line-height: 1.4;
+    text-shadow: 0 0 8px var(--glow-color);
 }
 .store-link a:hover {
     background-color: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
+    text-shadow: none;
 }
 
-
-/* Gym Clothing Carousel Styles */
 .gym-carousel {
     position: relative;
     width: 100%;
@@ -943,8 +972,8 @@ body.light-theme .certificate-header h1 {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* Hardcoded styles from HTML fix */
 #scripts-modal .note[style*="--nm-danger"] {
     border-left-color: var(--nm-danger) !important;
-    background: rgba(255, 138, 0, 0.15) !important;
+    background: rgba(255, 138, 0, 0.1) !important;
+    animation: pulseWarning 3s infinite;
 }
