@@ -32,7 +32,6 @@ body.light-theme {
     --glow-color: rgba(38, 184, 242, 0.3);
 }
 
-/* --- MODIFIED FOR PERFORMANCE --- */
 @keyframes scanline-scroll {
     0% {
         transform: translateY(0);
@@ -120,7 +119,6 @@ body {
     z-index: -1;
 }
 
-/* --- MODIFIED FOR PERFORMANCE --- */
 .screen-overlay {
     position: absolute;
     top: 0;
@@ -316,12 +314,14 @@ body.light-theme main.home-screen > h1 {
     border-left: 6px solid var(--nm-darkest);
 }
 
+/* --- MODIFIED FOR LAYOUT STABILITY --- */
 .app-icon i {
     color: var(--nm-accent-hover);
     transition: color 0.2s ease;
     font-size: 1.5rem;
     margin: 0;
     text-shadow: 0 0 8px var(--glow-color);
+    flex-shrink: 0; /* Prevents icon from shrinking */
 }
 
 .app-icon:hover i {
@@ -342,11 +342,13 @@ body.light-theme .app-icon:hover {
     color: var(--nm-darkest);
 }
 
+/* --- MODIFIED FOR LAYOUT STABILITY --- */
 .app-icon span {
     font-size: 0.8rem;
     font-weight: 700;
     line-height: 1.2;
     word-break: break-word;
+    text-align: left; /* Aligns wrapped text cleanly */
 }
 
 .github-stats {
@@ -401,9 +403,13 @@ body.light-theme .dock {
 .dock .app-icon i {
     margin: 0 0 8px 0;
 }
+
+/* --- MODIFIED FOR LAYOUT STABILITY --- */
 .dock .app-icon span {
     font-size: 0.6rem;
+    text-align: center; /* Ensures text is centered in the column layout */
 }
+
 .dock .app-icon:hover {
     background: var(--nm-accent);
     color: var(--nm-darkest);
