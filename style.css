@@ -265,8 +265,8 @@ body.light-theme main.home-screen > h1 {
 }
 
 .app-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 15px;
     width: 100%;
     max-width: 420px;
@@ -282,17 +282,15 @@ body.light-theme main.home-screen > h1 {
     transition: all 0.2s ease;
     display: flex;
     flex-direction: row;
-    align-items: flex-start; /* MODIFIED: Align content to the top */
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    padding: 12px 15px;
+    padding: 12px 15px; /* MODIFIED: Reduced vertical padding */
     box-sizing: border-box;
     position: relative;
     clip-path: var(--clip-path-shape);
     gap: 15px;
     box-shadow: inset 0 0 10px rgba(38, 184, 242, 0.2);
-    width: 100%;
-    min-height: 5.5rem; 
 }
 
 .app-icon:hover {
@@ -323,8 +321,6 @@ body.light-theme main.home-screen > h1 {
     margin: 0;
     text-shadow: 0 0 8px var(--glow-color);
     flex-shrink: 0; /* Prevents icon from shrinking */
-    width: 1.75rem; /* ADDED: Give icon a fixed width */
-    text-align: center; /* ADDED: Center icon glyph in its container */
 }
 
 .app-icon:hover i {
