@@ -264,7 +264,6 @@ body.light-theme main.home-screen > h1 {
     margin-right: auto;
 }
 
-/* MODIFIED: Changed to a 2-column grid layout */
 .app-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -274,7 +273,7 @@ body.light-theme main.home-screen > h1 {
     margin: 0 auto 15px;
 }
 
-/* MODIFIED: Changed to a vertical layout for the grid */
+/* MODIFIED: Reverted to horizontal layout with a smaller, fixed height */
 .app-icon {
     background: rgba(38, 184, 242, 0.05);
     border: 1px solid var(--nm-accent);
@@ -283,17 +282,17 @@ body.light-theme main.home-screen > h1 {
     font-family: 'Roboto Mono', monospace;
     transition: all 0.2s ease;
     display: flex;
-    flex-direction: column; /* Stack icon and text */
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-decoration: none;
-    padding: 15px 10px; /* Adjusted padding */
+    padding: 10px 15px;
     box-sizing: border-box;
     position: relative;
     clip-path: var(--clip-path-shape);
-    gap: 8px; /* Reduced gap */
+    gap: 12px;
     box-shadow: inset 0 0 10px rgba(38, 184, 242, 0.2);
-    min-height: 95px; /* Enforce same height for all buttons */
+    height: 55px;
 }
 
 .app-icon:hover {
@@ -304,28 +303,28 @@ body.light-theme main.home-screen > h1 {
                 0 0 30px var(--glow-color);
 }
 
-/* MODIFIED: Adjusted hover arrow for vertical layout */
+/* MODIFIED: Reverted hover arrow to side and adjusted size/position */
 .app-icon:hover::after {
     content: '';
     position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
     width: 0;
     height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid var(--nm-darkest);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid var(--nm-darkest);
 }
 
+/* MODIFIED: Adjusted icon size and removed fixed height */
 .app-icon i {
     color: var(--nm-accent-hover);
     transition: color 0.2s ease;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin: 0;
     text-shadow: 0 0 8px var(--glow-color);
-    flex-shrink: 0; /* Prevents icon from shrinking */
-    height: 24px; /* Give icon a fixed height to align text */
+    flex-shrink: 0;
     display: flex;
     align-items: center;
 }
@@ -348,13 +347,13 @@ body.light-theme .app-icon:hover {
     color: var(--nm-darkest);
 }
 
-/* MODIFIED: Reduced font size and centered text */
+/* MODIFIED: Reverted text to original size and alignment */
 .app-icon span {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 700;
     line-height: 1.2;
     word-break: break-word;
-    text-align: center;
+    text-align: left;
 }
 
 .github-stats {
@@ -405,16 +404,14 @@ body.light-theme .dock {
     padding: 5px;
     width: auto;
     box-shadow: none;
-    min-height: unset; /* Reset min-height for dock icons */
 }
 .dock .app-icon i {
     margin: 0 0 8px 0;
-    height: auto; /* Reset fixed height */
 }
 
 .dock .app-icon span {
     font-size: 0.6rem;
-    text-align: center; /* Ensures text is centered in the column layout */
+    text-align: center;
 }
 
 .dock .app-icon:hover {
@@ -682,6 +679,7 @@ body.light-theme .modal-content {
     transition: background-color 0.3s ease;
 }
 
+/* MODIFIED: Adjusted override for contact buttons */
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -692,17 +690,10 @@ body.light-theme .modal-content {
 .contact-grid .app-icon {
     width: 100%;
     max-width: 350px;
-    flex-direction: row; /* Keep contact icons as rows */
-    min-height: unset;
-    gap: 15px;
+    height: auto; /* Override fixed height */
     padding: 12px 15px;
-}
-.contact-grid .app-icon span {
-    font-size: 0.8rem;
-    text-align: left;
-}
-.contact-grid .app-icon i {
-    height: auto;
+    gap: 15px;
+    justify-content: center;
 }
 
 
