@@ -322,6 +322,8 @@ body.light-theme main.home-screen > h1 {
     margin: 0;
     text-shadow: 0 0 8px var(--glow-color);
     flex-shrink: 0; /* Prevents icon from shrinking */
+    width: 1.75rem; /* ADDED: Give icon a fixed width */
+    text-align: center; /* ADDED: Center icon glyph in its container */
 }
 
 .app-icon:hover i {
