@@ -283,14 +283,15 @@ body.light-theme main.home-screen > h1 {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* MODIFIED: Align content to the left */
     text-decoration: none;
-    padding: 12px 15px; /* MODIFIED: Reduced vertical padding */
+    padding: 12px 15px;
     box-sizing: border-box;
     position: relative;
     clip-path: var(--clip-path-shape);
     gap: 15px;
     box-shadow: inset 0 0 10px rgba(38, 184, 242, 0.2);
+    width: 100%; /* ADDED: Make buttons fill the grid column */
 }
 
 .app-icon:hover {
