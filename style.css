@@ -2,21 +2,20 @@
     =================================================================
     MODIFIED THEME: Dead Space 2 - RIG OS Interface
     AUTHOR: Gemini AI
-    DATE: 2025-09-11
+    REVISION DATE: 2025-09-11
     
-    CHANGELOG:
+    CHANGELOG (Revision 2):
+    - RESTORED: User's custom background image in .screen::after.
+    - ADDED: New --nm-warning (yellow) color to the palette for more versatility.
+    - UPDATED: .tip class to use the new warning color as an example.
     - Intensified color palette for a more vibrant holographic glow.
-    - Replaced custom logo with a subtle, thematic hex pattern.
     - Made UI shapes more aggressive and angular.
     - Enhanced text-shadows and box-shadows for a stronger "glow" effect.
-    - Added a decorative "RIG Spine" element to the main container.
-    - Modified the 'flicker' animation to be more erratic.
-    - Updated borders on modals and other elements to be more holographic.
     =================================================================
 */
 
 :root {
-    /* MODIFIED: Dead Space 2 "RIG" Palette - Enhanced Glow */
+    /* MODIFIED: Dead Space 2 "RIG" Palette - Enhanced Glow & New Colors */
     --nm-abyss-blue: #01040a; /* Even deeper space blue */
     --nm-darkest: #0B121C;    /* Industrial hull gray-blue */
     --nm-dark: #151E2A;       /* Darker UI panel */
@@ -28,12 +27,13 @@
     --nm-text-muted: #7A8899;  /* Muted gray text */
     --nm-danger: #F25419;      /* Rusty warning orange */
     --nm-success: #26B8F2;     /* Success is also RIG cyan */
-    --warning-bg: #8A4FFF;
-    --glow-color: rgba(38, 184, 242, 0.9); /* MODIFIED: Intense Cyan Glow */
-    --glow-color-danger: rgba(242, 84, 25, 0.8); /* ADDED: Glow for danger elements */
-    --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
+    --nm-warning: #FFD700;     /* ADDED: Stasis/Health warning yellow */
+    
+    --glow-color: rgba(38, 184, 242, 0.9);
+    --glow-color-danger: rgba(242, 84, 25, 0.8);
+    --glow-color-warning: rgba(255, 215, 0, 0.8); /* ADDED: Glow for warning */
 
-    /* MODIFIED: Shape Definition - More aggressive cut */
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
     --shape-cut: 20px;
     --clip-path-shape: polygon(0 0, calc(100% - var(--shape-cut)) 0, 100% var(--shape-cut), 100% 100%, var(--shape-cut) 100%, 0 calc(100% - var(--shape-cut)));
 }
@@ -47,16 +47,13 @@ body.light-theme {
     --nm-border: #cccccc;
     --nm-text: #000000;
     --nm-text-muted: #555555;
+    --nm-warning: #FDB813;
     --glow-color: rgba(38, 184, 242, 0.3);
 }
 
 @keyframes scanline-scroll {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-50%);
-    }
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
 }
 
 @keyframes text-glitch {
@@ -65,7 +62,6 @@ body.light-theme {
     62% { transform: translate(0, 0) skew(5deg); }
 }
 
-/* MODIFIED: More erratic flicker animation for horror aesthetic */
 @keyframes flicker {
   0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
     opacity: 1;
@@ -75,11 +71,8 @@ body.light-theme {
     opacity: 0.7;
     text-shadow: 0 0 10px #fff, 0 0 20px var(--glow-color), 0 0 35px var(--glow-color);
   }
-  22%, 53% {
-    opacity: 0.9;
-  }
+  22%, 53% { opacity: 0.9; }
 }
-
 
 html, body {
     height: 100%;
@@ -132,7 +125,7 @@ body {
     background-image:
         url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="46.188" viewBox="0 0 40 46.188"><path d="M20 0 L40 11.547 v23.094 L20 46.188 L0 34.641 V11.547 Z" fill="none" stroke="rgba(58, 74, 94, 0.1)" stroke-width="1"/></svg>'),
         linear-gradient(rgba(11, 18, 28, 0.9), rgba(11, 18, 28, 0.9)),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3E/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     background-size: auto, cover, cover;
     position: relative;
     overflow: hidden;
@@ -142,9 +135,20 @@ body {
     z-index: 0;
 }
 
-/* MODIFIED: Removed specific logo background image */
+/* RESTORED: User's custom background logo */
 .screen::after {
-    content: none;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://raw.githubusercontent.com/dedsec1121fk/dedsec1121fk.github.io/770cc51af162cbb3332d55dd0ff09ac8794378c8/Assets/Images/Custom%20Purple%20Fox%20Logo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.1;
+    z-index: -1;
 }
 
 .screen-overlay {
@@ -155,7 +159,7 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: 1;
-    overflow: hidden;
+    overflow: hidden; /* Add this */
 }
 
 .screen-overlay::after {
@@ -164,12 +168,11 @@ body {
     left: 0;
     top: 0;
     width: 100%;
-    height: 200%;
-    /* MODIFIED: Increased scanline opacity for more presence */
-    background:
+    height: 200%; /* Make it twice as tall */
+    background: 
         repeating-linear-gradient(0deg, rgba(38, 184, 242, 0.12), rgba(38, 184, 242, 0.12) 1px, transparent 1px, transparent 4px);
-    animation: scanline-scroll 15s linear infinite; /* MODIFIED: Faster scroll */
-    will-change: transform;
+    animation: scanline-scroll 15s linear infinite;
+    will-change: transform; /* Hint for the browser to optimize */
 }
 
 .screen::before {
@@ -715,11 +718,11 @@ body.light-theme .modal-content {
 }
 
 
+/* MODIFIED: Changed .tip to use the new warning color */
 .tip {
     background: var(--nm-dark);
-    /* MODIFIED: Glowing border effect */
-    border-left: 2px solid var(--nm-accent-hover);
-    box-shadow: -7px 0 15px -8px var(--glow-color);
+    border-left: 2px solid var(--nm-warning);
+    box-shadow: -7px 0 15px -8px var(--glow-color-warning);
     margin: 1em 0;
     padding: 0.8em 1em;
     border-radius: 0 4px 4px 0;
