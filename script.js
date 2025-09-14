@@ -6,6 +6,38 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- PORTFOLIO INITIALIZATION ---
     function initializePortfolio() {
+        // --- SCROLL INDICATOR LOGIC ---
+        const homeScreen = document.querySelector('.home-screen');
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+
+        if (homeScreen && scrollIndicator) {
+            const handleScroll = () => {
+                const scrollableHeight = homeScreen.scrollHeight - homeScreen.clientHeight;
+                
+                if (scrollableHeight <= 0) {
+                    scrollIndicator.style.opacity = '0';
+                    return;
+                }
+
+                scrollIndicator.style.opacity = '1';
+                const scrollTop = homeScreen.scrollTop;
+                const scrollPercentage = scrollTop / scrollableHeight;
+                
+                const indicatorTravelDistance = homeScreen.clientHeight - scrollIndicator.offsetHeight;
+                
+                const newTopPosition = scrollPercentage * indicatorTravelDistance;
+
+                scrollIndicator.style.top = `${homeScreen.offsetTop + newTopPosition}px`;
+            };
+
+            homeScreen.addEventListener('scroll', handleScroll);
+
+            const resizeObserver = new ResizeObserver(() => handleScroll());
+            resizeObserver.observe(homeScreen);
+            
+            handleScroll(); // Initial check
+        }
+
         // --- LANGUAGE AND MODAL LOGIC ---
         const languageModal = document.getElementById('language-selection-modal');
         const languageModalCloseBtn = languageModal.querySelector('.close-modal');
