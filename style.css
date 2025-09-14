@@ -1,10 +1,5 @@
 /*
     =================================================================
-    CHANGELOG (Revision 3):
-    - ADDED: Red "boot-up" animation sequence on page load.
-    - UPDATED: The "RIG Spine" on the right now glows red before settling on cyan.
-    - UPDATED: All main buttons now have a red border/glow animation on load.
-    =================================================================
     CHANGELOG (Revision 2):
     - RESTORED: User's custom background image in .screen::after.
     - ADDED: New --nm-warning (yellow) color to the palette for more versatility.
@@ -75,31 +70,6 @@ body.light-theme {
   22%, 53% { opacity: 0.9; }
 }
 
-/* ADDED: Boot-up animation sequence */
-@keyframes spine-boot-up {
-    0%, 50% {
-        background: linear-gradient(to bottom, var(--nm-danger), #ff8c69, var(--nm-danger));
-        box-shadow: 0 0 15px var(--glow-color-danger), 0 0 30px var(--glow-color-danger);
-    }
-    100% {
-        background: linear-gradient(to bottom, var(--nm-accent), var(--nm-accent-hover), var(--nm-accent));
-        box-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color);
-    }
-}
-
-@keyframes button-boot-up {
-    0%, 50% {
-        border-color: var(--nm-danger);
-        box-shadow: inset 0 0 15px rgba(242, 84, 25, 0.5);
-        color: var(--nm-danger);
-    }
-    100% {
-        border-color: var(--nm-accent);
-        box-shadow: inset 0 0 15px rgba(38, 184, 242, 0.3);
-        color: var(--nm-accent-hover);
-    }
-}
-
 html, body {
     height: 100%;
     width: 100%;
@@ -141,7 +111,6 @@ body {
     background: linear-gradient(to bottom, var(--nm-accent), var(--nm-accent-hover), var(--nm-accent));
     box-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color);
     z-index: 10;
-    animation: spine-boot-up 2.5s ease-out; /* MODIFIED */
 }
 
 .screen {
@@ -811,7 +780,6 @@ body.light-theme .modal-content {
     position: relative;
     clip-path: var(--clip-path-shape);
     box-shadow: inset 0 0 15px rgba(38, 184, 242, 0.3);
-    animation: button-boot-up 2.5s ease-out; /* ADDED */
 }
 
 .modal-footer button:hover,
@@ -825,7 +793,6 @@ body.light-theme .modal-content {
     background-color: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     box-shadow: 0 0 20px var(--glow-color), 0 0 40px var(--glow-color);
-    animation: none; /* MODIFIED: Stop boot-up animation on hover */
 }
 
 .modal-footer button:hover::after,
@@ -1076,7 +1043,6 @@ body.light-theme #results-container h1 {
     background-color: var(--nm-container) !important;
     color: var(--nm-text) !important;
     border-color: var(--nm-border) !important;
-    animation: none !important; /* ADDED */
 }
 
 .certificate-container {
