@@ -21,6 +21,7 @@
 </head>
 <body>
     <div class="phone-container">
+        <div id="scroll-indicator-thumb"></div>
         <div class="screen">
             <div class="screen-overlay"></div>
             
@@ -41,6 +42,7 @@
                     <div class="app-icon" data-modal="legal"><i class="fas fa-gavel"></i><span data-en="Legal & Ethical Notice" data-gr="Νομική & Ηθική Δήλωση">Legal & Ethical Notice</span></div>
                     <div class="app-icon" data-modal="installation"><i class="fas fa-download"></i><span data-en="Installation & Setup" data-gr="Εγκατάσταση & Ρύθμιση">Installation & Setup</span></div>
                     <div class="app-icon" data-modal="scripts"><i class="fas fa-shield-alt"></i><span data-en="Digital Self-Defense Toolkit" data-gr="Εργαλειοθήκη Ψηφιακής Αυτοάμυνας">Digital Self-Defense Toolkit</span></div>
+                    <div class="app-icon" data-modal="life-tips"><i class="fas fa-lightbulb"></i><span data-en="Life Tips" data-gr="Συμβουλές Ζωής">Life Tips</span></div>
                     <a href="https://dedsec1121fk.gumroad.com" target="_blank" class="app-icon"><i class="fas fa-graduation-cap"></i><span data-en="DedSec Store" data-gr="DedSec Store">DedSec Store</span></a>
                     <div class="app-icon" data-modal="certification"><i class="fas fa-certificate"></i><span data-en="Get Certified" data-gr="Πιστοποίηση">Get Certified</span></div>
                     <div class="app-icon" data-modal="credits"><i class="fas fa-users"></i><span data-en="Credits" data-gr="Συντελεστές">Credits</span></div>
@@ -470,6 +472,22 @@
             
                 <h4>6. Επικοινωνήστε μαζί μας</h4>
                 <p>Εάν έχετε οποιεσδήποτε ερωτήσεις ή προτάσεις σχετικά με την Πολιτική Απορρήτου μας, μη διστάσετε να επικοινωνήσετε μαζί μας μέσω των μεθόδων που παρέχονται στη σελίδα «Επικοινωνία».</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="life-tips-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-en="Life Tips" data-gr="Συμβουλές Ζωής">Life Tips</h2>
+                <button class="close-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="life-tips-nav" class="app-grid" style="grid-template-columns: 1fr; max-width: 100%;"></div>
+                <hr style="margin: 20px 0; border-color: var(--nm-border);">
+                <div id="life-tips-content">
+                    <p data-en="Please select a tip to view its content." data-gr="Παρακαλώ επιλέξτε μια συμβουλή για να δείτε το περιεχόμενό της."></p>
+                </div>
             </div>
         </div>
     </div>

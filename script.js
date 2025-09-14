@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLanguage = 'en';
     let initialSetupDone = false;
     let searchIndex = [];
+    let tipsLoaded = false; // <-- NEW: Flag for Life Tips content
     
     // --- PORTFOLIO INITIALIZATION ---
     function initializePortfolio() {
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const text = el.getAttribute(`data-${lang}`) || el.getAttribute('data-en');
                 // This logic is simplified to handle various elements correctly
                 const isSpanInAppIcon = el.matches('.app-icon span');
-                const isSimpleTextElement = el.matches('h1, h2, h3, p, label, .main-footer p, button, .store-link a') && !isSpanInAppIcon;
+                const isSimpleTextElement = el.matches('h1, h2, h3, p, label, .main-footer p, button, .store-link a, #life-tips-content p') && !isSpanInAppIcon;
 
                 if (isSimpleTextElement) {
                      el.textContent = text;
@@ -57,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         document.getElementById('lang-switcher-btn').addEventListener('click', () => {
-            // **MODIFIED**: Ensure the close button is visible when opened manually
             if (languageModalCloseBtn) languageModalCloseBtn.style.display = '';
             languageModal.classList.add('visible');
         });
@@ -79,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 themeSpan.setAttribute('data-en', 'Dark Theme');
                 themeSpan.setAttribute('data-gr', 'Σκοτεινό Θέμα');
             }
-            // Re-apply current language to the new text
             changeLanguage(currentLanguage);
         };
 
@@ -111,6 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
                          modal.classList.add('visible');
                          if (modalId === 'certification-modal' && window.resetQuiz) {
                              window.resetQuiz();
+                         }
+                         // --- NEW: Trigger Life Tips fetch ---
+                         if (modalId === 'life-tips-modal' && !tipsLoaded) {
+                            fetchLifeTips();
                          }
                     }
                 });
@@ -195,21 +198,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // --- SEARCH FUNCTIONALITY ---
+        // --- SEARCH FUNCTIONALITY (ADVANCED) ---
         function buildSearchIndex() {
             searchIndex = [];
             
-            // Define weights for different element types
             const weights = {
                 MODAL_BUTTON: 10,
                 H2: 8,
-                H3: 6,
-                B: 4,
+                H3: 7,
+                B: 5,
+                LI: 4,
                 CODE: 3,
+                TIP: 2,
                 DEFAULT: 1
             };
 
-            // Index App Icons (High weight)
             document.querySelectorAll('.app-icon[data-modal]').forEach(el => {
                 const span = el.querySelector('span');
                 if (span && el.dataset.modal) {
@@ -219,16 +222,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         type: 'modal_button',
                         target: el.dataset.modal,
                         weight: weights.MODAL_BUTTON,
-                        element: el // Store the element itself
+                        element: el
                     });
                 }
             });
 
-            // Index Modal Content
             document.querySelectorAll('.modal-content').forEach(modal => {
                 const modalId = modal.parentElement.id.replace('-modal', '');
                 
-                // Index modal title (H2)
                 const title = modal.querySelector('.modal-header h2');
                 if (title) {
                      searchIndex.push({
@@ -241,10 +242,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
                 
-                // MODIFIED: Expanded selector to include more elements like code and tips
-                const selector = '.modal-body[data-lang-section] p, .modal-body[data-lang-section] li, .modal-body[data-lang-section] h3, .modal-body[data-lang-section] b, .modal-body[data-lang-section] code, .modal-body[data-lang-section] .tip p';
+                const selector = '.modal-body p, .modal-body li, .modal-body h3, .modal-body b, .modal-body code';
                 modal.querySelectorAll(selector).forEach(el => {
                     const section = el.closest('[data-lang-section]');
+                    if (!section) return; // Skip if not in a language section
+                    
                     const lang = section.dataset.langSection;
                     const text = el.textContent.trim();
                     
@@ -252,9 +254,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         const existingEntry = searchIndex.find(item => item.element === el);
                         if (!existingEntry) {
                             let weight = weights.DEFAULT;
-                            if (el.tagName === 'H3') weight = weights.H3;
-                            if (el.tagName === 'B' || el.tagName === 'STRONG') weight = weights.B;
+                            if (el.closest('.tip')) weight = weights.TIP;
                             if (el.tagName === 'CODE') weight = weights.CODE;
+                            if (el.tagName === 'LI') weight = weights.LI;
+                            if (el.tagName === 'B' || el.tagName === 'STRONG') weight = weights.B;
+                            if (el.tagName === 'H3') weight = weights.H3;
 
                             let entry = { type: 'content', target: modalId, element: el, en: '', gr: '', weight: weight };
                             entry[lang] = text;
@@ -272,12 +276,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const resultsContainer = document.getElementById('search-results-container');
             const searchContainer = document.querySelector('.search-container');
 
-            // MODIFIED: Replaced the simple filter with a scoring and ranking system
             searchInput.addEventListener('input', () => {
                 const query = searchInput.value.toLowerCase().trim();
                 resultsContainer.innerHTML = '';
 
-                if (query.length < 2) { // Require at least 2 characters to search
+                if (query.length < 2) {
                     resultsContainer.classList.add('hidden');
                     return;
                 }
@@ -292,29 +295,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     queryWords.forEach(word => {
                         if (text.includes(word)) {
-                            score += item.weight; // Add item's base weight for each word match
+                            score += item.weight;
                             matchedWords.push(word);
                         }
                     });
 
                     if (score > 0) {
-                        // Bonus points if all words are found
-                        if (matchedWords.length === queryWords.length) {
-                            score += 10;
-                        }
-                        // Bonus for exact phrase match
-                        if(text.includes(query)) {
-                            score += 15;
-                        }
+                        if (matchedWords.length === queryWords.length) score += 10;
+                        if(text.includes(query)) score += 15;
                         results.push({ ...item, score });
                     }
                 });
                 
-                // Sort results by score in descending order
                 results.sort((a, b) => b.score - a.score);
 
                 if (results.length > 0) {
-                    results.slice(0, 7).forEach(result => { // Limit to 7 best results
+                    results.slice(0, 7).forEach(result => {
                         const itemEl = document.createElement('div');
                         itemEl.classList.add('search-result-item');
                         
@@ -324,13 +320,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             gr: `Σε: ${result.target.replace(/-/g, ' ')}`
                         };
 
-                        // NEW: Generate context snippet and highlight matches
                         let snippet = '';
                         const textLower = mainText.toLowerCase();
                         const firstMatchIndex = textLower.indexOf(queryWords[0]);
                         
                         if (result.type === 'modal_button' || mainText.length < 90) {
-                           snippet = mainText; // If it's a button or short text, show all of it
+                           snippet = mainText;
                         } else if (firstMatchIndex !== -1) {
                             const start = Math.max(0, firstMatchIndex - 30);
                             const end = Math.min(mainText.length, firstMatchIndex + 60);
@@ -339,25 +334,19 @@ document.addEventListener('DOMContentLoaded', () => {
                             snippet = mainText.substring(0, 90) + (mainText.length > 90 ? '...' : '');
                         }
 
-                        // Highlight all query words in the snippet
                         let highlightedSnippet = snippet;
                         queryWords.forEach(word => {
                              const regex = new RegExp(`(${word})`, 'gi');
                              highlightedSnippet = highlightedSnippet.replace(regex, '<strong>$1</strong>');
                         });
 
-
                         itemEl.innerHTML = `${highlightedSnippet} <small>${locationText[currentLanguage]}</small>`;
                         
                         itemEl.addEventListener('click', () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
-
                             const targetElement = result.type === 'modal_button' ? result.element : document.querySelector(`.app-icon[data-modal="${result.target}"]`);
-
-                            if(targetElement){
-                                targetElement.click();
-                            }
+                            if(targetElement){ targetElement.click(); }
 
                             if (result.type === 'content') {
                                 setTimeout(() => {
@@ -365,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     result.element.classList.add('content-highlight');
                                     setTimeout(() => {
                                         result.element.classList.remove('content-highlight');
-                                    }, 2000); // Increased highlight time
+                                    }, 2000);
                                 }, 300);
                             }
                         });
@@ -381,16 +370,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Hide results when clicking outside
             document.addEventListener('click', (e) => {
                 if (!searchContainer.contains(e.target)) {
                     resultsContainer.classList.add('hidden');
                 }
             });
         }
-        // --- END SEARCH FUNCTIONALITY ---
+        
+        // --- NEW: SCROLL INDICATOR LOGIC ---
+        function initializeScrollIndicator() {
+            const scrollContainer = document.querySelector('.home-screen');
+            const scrollIndicatorThumb = document.getElementById('scroll-indicator-thumb');
 
-        // **MODIFIED**: Hide close button on initial language selection
+            const handleScroll = () => {
+                if (!scrollContainer || !scrollIndicatorThumb) return;
+
+                const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
+                
+                if (scrollHeight <= clientHeight) {
+                    scrollIndicatorThumb.style.opacity = '0';
+                    return;
+                }
+
+                scrollIndicatorThumb.style.opacity = '1';
+                const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
+                const thumbHeight = scrollIndicatorThumb.clientHeight;
+                const trackHeight = clientHeight;
+                const thumbPosition = scrollPercentage * (trackHeight - thumbHeight);
+                
+                scrollIndicatorThumb.style.top = `${thumbPosition}px`;
+            };
+
+            scrollContainer.addEventListener('scroll', handleScroll);
+            window.addEventListener('resize', handleScroll);
+            // Initial check
+            setTimeout(handleScroll, 100);
+        }
+
+        // Final setup steps
         if (languageModalCloseBtn) languageModalCloseBtn.style.display = 'none';
         languageModal.classList.add('visible');
         changeLanguage('en'); 
@@ -398,6 +415,78 @@ document.addEventListener('DOMContentLoaded', () => {
         
         buildSearchIndex();
         initializeSearch();
+        initializeScrollIndicator(); // <-- Initialize new feature
+    }
+
+    // --- NEW: LIFE TIPS MODAL LOGIC ---
+    async function fetchLifeTips() {
+        const navContainer = document.getElementById('life-tips-nav');
+        const contentContainer = document.getElementById('life-tips-content');
+        const GITHUB_API_URL = 'https://api.github.com/repos/dedsec1121fk/dedsec1121fk.github.io/contents/Life_Tips';
+        
+        navContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
+        
+        try {
+            const response = await fetch(GITHUB_API_URL);
+            if (!response.ok) {
+                throw new Error(`GitHub API error: ${response.status}`);
+            }
+            const files = await response.json();
+            
+            navContainer.innerHTML = ''; // Clear loading message
+            
+            const htmlFiles = files.filter(file => file.type === 'file' && file.name.endsWith('.html'));
+            
+            if (htmlFiles.length === 0) {
+                 navContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Δεν βρέθηκαν συμβουλές.' : 'No tips found.'}</p>`;
+                 return;
+            }
+
+            htmlFiles.forEach(file => {
+                const button = document.createElement('div');
+                button.className = 'app-icon';
+                
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-book-open';
+                
+                const span = document.createElement('span');
+                // Create a clean name from the filename, e.g., "Healthy_Habits_1.html" -> "Healthy Habits"
+                span.textContent = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
+                
+                button.appendChild(icon);
+                button.appendChild(span);
+                
+                button.addEventListener('click', () => loadTipContent(file.download_url));
+                navContainer.appendChild(button);
+            });
+            
+            tipsLoaded = true;
+
+        } catch (error) {
+            console.error('Failed to fetch life tips:', error);
+            navContainer.innerHTML = `<p style="color: var(--nm-danger);">${currentLanguage === 'gr' ? 'Αποτυχία φόρτωσης περιεχομένου.' : 'Failed to load content.'}</p>`;
+        }
+    }
+
+    async function loadTipContent(url) {
+        const contentContainer = document.getElementById('life-tips-content');
+        contentContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch content: ${response.status}`);
+            }
+            const htmlContent = await response.text();
+            contentContainer.innerHTML = htmlContent;
+            
+            // Re-apply language to new dynamic content
+            changeLanguage(currentLanguage);
+
+        } catch (error) {
+            console.error('Failed to load tip content:', error);
+            contentContainer.innerHTML = `<p style="color: var(--nm-danger);">${currentLanguage === 'gr' ? 'Αποτυχία φόρτωσης περιεχομένου.' : 'Failed to load content.'}</p>`;
+        }
     }
     
     // --- CERTIFICATION QUIZ LOGIC ---
@@ -814,6 +903,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.addEventListener('click', showResults);
     }
 
+    // --- INITIALIZE ALL FEATURES ---
     initializePortfolio();
     initializeCertificationQuiz();
 });

@@ -113,6 +113,23 @@ body {
     z-index: 10;
 }
 
+/* --- NEW: Scroll Indicator Thumb --- */
+#scroll-indicator-thumb {
+    position: absolute;
+    right: 1px;
+    top: 0; /* Positioned by JavaScript */
+    width: 6px;
+    height: 40px;
+    background: var(--nm-accent-hover);
+    box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+    z-index: 11;
+    border-radius: 3px;
+    transition: opacity 0.3s ease;
+    opacity: 0; /* Hidden by default */
+    pointer-events: none;
+}
+/* --- END NEW --- */
+
 .screen {
     width: 100%;
     height: 100%;
@@ -184,7 +201,8 @@ body {
 
 body.light-theme .screen-overlay,
 body.light-theme .screen::before,
-body.light-theme .phone-container::after { /* ADDED */
+body.light-theme .phone-container::after,
+body.light-theme #scroll-indicator-thumb { /* ADDED */
     display: none;
 }
 
@@ -1241,6 +1259,26 @@ body.light-theme .certificate-header h1 {
 .carousel-btn:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
+
+/* --- NEW: Life Tips Modal Styles --- */
+#life-tips-content h3 {
+    text-align: left;
+    color: var(--nm-accent-hover);
+    border-bottom: 1px solid var(--nm-border);
+    padding-bottom: 8px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', sans-serif;
+}
+#life-tips-content p { margin-bottom: 1rem; }
+#life-tips-content ul, #life-tips-content ol {
+    padding-left: 25px;
+    margin-bottom: 1rem;
+}
+#life-tips-content li { margin-bottom: 0.5rem; }
+#life-tips-content a { color: var(--nm-accent); }
+#life-tips-content a:hover { color: var(--nm-accent-hover); text-decoration: underline; }
+/* --- END NEW --- */
 
 /* =================================================================
    DESKTOP & WIDE SCREEN STYLES
