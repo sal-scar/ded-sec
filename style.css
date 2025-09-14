@@ -687,6 +687,17 @@ body.light-theme .modal-content {
     word-break: break-word;
 }
 
+.privacy-policy-embed {
+    max-height: 120px;
+    overflow-y: auto;
+    border: 1px solid var(--nm-border);
+    padding: 15px;
+    margin: 1rem 0;
+    background: var(--nm-darkest);
+    font-size: 0.85em;
+    color: var(--nm-text-muted);
+}
+
 .code-container {
     position: relative;
     background: var(--nm-darkest);
