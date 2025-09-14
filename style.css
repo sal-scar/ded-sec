@@ -1,17 +1,15 @@
 /*
     =================================================================
     MODIFIED THEME: Dead Space 2 - RIG OS Interface
-    AUTHOR: Gemini AI
-    REVISION DATE: 2025-09-11
     
-    CHANGELOG (Revision 2):
+    CHANGELOG:
     - RESTORED: User's custom background image in .screen::after.
     - ADDED: New --nm-warning (yellow) color to the palette for more versatility.
     - UPDATED: .tip class to use the new warning color as an example.
     - Intensified color palette for a more vibrant holographic glow.
     - Made UI shapes more aggressive and angular.
     - Enhanced text-shadows and box-shadows for a stronger "glow" effect.
-    =================================================================
+=================================================================
 */
 
 :root {
@@ -265,7 +263,7 @@ body.light-theme .phone-container::after { /* ADDED */
     flex-grow: 1;
 }
 
-/* --- ADDED/MODIFIED FOR SEARCH BAR --- */
+/* --- MODIFIED FOR RED SEARCH BAR --- */
 .main-header-container {
     display: flex;
     justify-content: space-between;
@@ -300,11 +298,17 @@ body.light-theme .phone-container::after { /* ADDED */
     box-sizing: border-box;
 }
 
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 15px var(--glow-color-danger), inset 0 0 10px rgba(242, 84, 25, 0.2); }
+    50% { box-shadow: 0 0 25px var(--glow-color-danger), inset 0 0 14px rgba(242, 84, 25, 0.3); }
+    100% { box-shadow: 0 0 15px var(--glow-color-danger), inset 0 0 10px rgba(242, 84, 25, 0.2); }
+}
+
 #main-search-input:focus {
     outline: none;
-    box-shadow: 0 0 15px var(--glow-color), inset 0 0 10px rgba(38, 184, 242, 0.2);
-    border-color: var(--nm-accent);
+    border-color: var(--nm-danger);
     background-color: var(--nm-dark);
+    animation: pulse-red 2s infinite;
 }
 
 #search-results-container {
@@ -313,8 +317,8 @@ body.light-theme .phone-container::after { /* ADDED */
     left: 0;
     width: 100%;
     background-color: var(--nm-dark);
-    border: 1px solid var(--nm-accent);
-    box-shadow: 0 10px 30px var(--glow-color);
+    border: 1px solid var(--nm-danger);
+    box-shadow: 0 10px 30px var(--glow-color-danger);
     max-height: 300px;
     overflow-y: auto;
     z-index: 100;
@@ -333,8 +337,8 @@ body.light-theme .phone-container::after { /* ADDED */
 }
 
 #search-results-container .search-result-item:hover {
-    background-color: var(--nm-accent);
-    color: var(--nm-darkest);
+    background-color: var(--nm-danger);
+    color: #ffffff; /* Brighter text for better contrast on red */
 }
 #search-results-container .search-result-item small {
     display: block;
@@ -343,7 +347,7 @@ body.light-theme .phone-container::after { /* ADDED */
     margin-top: 4px;
 }
 #search-results-container .search-result-item:hover small {
-    color: var(--nm-darkest);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .content-highlight {
