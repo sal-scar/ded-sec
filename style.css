@@ -1,9 +1,5 @@
 /*
     =================================================================
-    MODIFIED THEME: Dead Space 2 - RIG OS Interface
-    AUTHOR: Gemini AI
-    REVISION DATE: 2025-09-11
-    
     CHANGELOG (Revision 2):
     - RESTORED: User's custom background image in .screen::after.
     - ADDED: New --nm-warning (yellow) color to the palette for more versatility.
@@ -394,12 +390,13 @@ body.light-theme .main-header-container > h1 {
     margin-right: auto;
 }
 
+/* MODIFIED: Changed app grid to a single-column flex list on mobile */
 .app-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 15px;
     width: 100%;
-    max-width: 420px;
+    max-width: 500px; /* A reasonable max-width for the list */
     margin: 0 auto 15px;
 }
 
@@ -1234,6 +1231,7 @@ body.light-theme .certificate-header h1 {
     }
 
     .app-grid {
+        display: grid; /* Revert back to a grid on larger screens */
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive grid */
         max-width: none; /* Allow grid to fill the container */
     }
