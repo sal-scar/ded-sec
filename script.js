@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializePortfolio() {
         // --- LANGUAGE AND MODAL LOGIC ---
         const languageModal = document.getElementById('language-selection-modal');
+        const languageModalCloseBtn = languageModal.querySelector('.close-modal');
         const disclaimerModal = document.getElementById('disclaimer-modal');
 
         window.changeLanguage = (lang) => {
@@ -55,7 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         
-        document.getElementById('lang-switcher-btn').addEventListener('click', () => languageModal.classList.add('visible'));
+        document.getElementById('lang-switcher-btn').addEventListener('click', () => {
+            // **MODIFIED**: Ensure the close button is visible when opened manually
+            if (languageModalCloseBtn) languageModalCloseBtn.style.display = '';
+            languageModal.classList.add('visible');
+        });
 
         // --- THEME SWITCHER LOGIC ---
         const themeSwitcherBtn = document.getElementById('theme-switcher-btn');
@@ -220,8 +225,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         element: title
                     });
                 }
-                // Index all relevant text elements inside modals
-                modal.querySelectorAll('.modal-body [data-lang-section] p, .modal-body [data-lang-section] li, .modal-body [data-lang-section] h3, .modal-body [data-lang-section] b').forEach(el => {
+                // **MODIFIED**: Corrected the selector to properly find text elements within modals.
+                // The space between '.modal-body' and '[data-lang-section]' was removed.
+                const selector = '.modal-body[data-lang-section] p, .modal-body[data-lang-section] li, .modal-body[data-lang-section] h3, .modal-body[data-lang-section] b';
+                modal.querySelectorAll(selector).forEach(el => {
                     const section = el.closest('[data-lang-section]');
                     const lang = section.dataset.langSection;
                     const text = el.textContent.trim();
@@ -314,6 +321,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // --- END SEARCH FUNCTIONALITY ---
 
+        // **MODIFIED**: Hide close button on initial language selection
+        if (languageModalCloseBtn) languageModalCloseBtn.style.display = 'none';
         languageModal.classList.add('visible');
         changeLanguage('en'); 
         document.querySelector('#language-selection-modal .modal-header h2').textContent = 'Choose Language / Επιλογή Γλώσσας';
