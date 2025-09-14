@@ -1,8 +1,10 @@
 /*
     =================================================================
     MODIFIED THEME: Dead Space 2 - RIG OS Interface
+    AUTHOR: Gemini AI
+    REVISION DATE: 2025-09-11
     
-    CHANGELOG:
+    CHANGELOG (Revision 2):
     - RESTORED: User's custom background image in .screen::after.
     - ADDED: New --nm-warning (yellow) color to the palette for more versatility.
     - UPDATED: .tip class to use the new warning color as an example.
@@ -289,7 +291,9 @@ body.light-theme .phone-container::after { /* ADDED */
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 1px solid var(--nm-border);
+    /* MODIFIED: Red border and static glow are now default */
+    border: 1px solid var(--nm-danger);
+    box-shadow: 0 0 10px rgba(242, 84, 25, 0.5);
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
@@ -306,8 +310,8 @@ body.light-theme .phone-container::after { /* ADDED */
 
 #main-search-input:focus {
     outline: none;
-    border-color: var(--nm-danger);
     background-color: var(--nm-dark);
+    /* MODIFIED: The animation now enhances the default glow */
     animation: pulse-red 2s infinite;
 }
 
