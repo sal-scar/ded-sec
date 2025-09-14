@@ -687,6 +687,16 @@ body.light-theme .modal-content {
     word-break: break-word;
 }
 
+.modal-disclaimer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--nm-border);
+    font-size: 0.8em;
+    color: var(--nm-text-muted);
+    text-align: center;
+    font-style: italic;
+}
+
 .privacy-policy-embed {
     max-height: 120px;
     overflow-y: auto;
