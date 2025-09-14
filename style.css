@@ -70,19 +70,19 @@ body.light-theme {
   22%, 53% { opacity: 0.9; }
 }
 
-/* NEW animation for the scroll indicator */
+/* MODIFIED: More intense animation for the scroll indicator */
 @keyframes pulse-indicator {
     0%, 100% {
-        box-shadow: 0 0 15px var(--glow-color-danger), 0 0 30px var(--glow-color-danger);
+        box-shadow: 0 0 20px var(--glow-color-danger), 0 0 40px var(--glow-color-danger);
         transform: scale(1);
     }
     50% {
-        box-shadow: 0 0 20px var(--glow-color-danger), 0 0 40px var(--glow-color-danger), 0 0 50px var(--glow-color-danger);
+        box-shadow: 0 0 30px var(--glow-color-danger), 0 0 60px var(--glow-color-danger), 0 0 80px var(--glow-color-danger);
         transform: scale(1.05);
     }
 }
 
-/* NEW animation for the hover arrow */
+/* animation for the hover arrow */
 @keyframes fadeInRight {
   from {
     opacity: 0;
@@ -206,21 +206,22 @@ body {
     z-index: 3;
 }
 
-/* MODIFIED: Scroll indicator spot made more visible */
+/* MODIFIED: Scroll indicator made MUCH more visible */
 .scroll-indicator {
     position: absolute;
-    top: 0; /* Will be set by JS */
-    right: 0; /* Cover the full bar width */
-    width: 8px; /* Match the bar width */
-    height: 35px; /* Increased height */
-    background-color: var(--nm-danger);
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 50px; /* Increased height */
+    background: radial-gradient(ellipse at center, #ffc9b5 0%, var(--nm-danger) 80%); /* "white-hot" core */
+    border: 1px solid rgba(0,0,0,0.3);
     border-radius: 4px;
-    box-shadow: 0 0 15px var(--glow-color-danger), 0 0 30px var(--glow-color-danger); /* Intensified glow */
+    box-shadow: 0 0 20px var(--glow-color-danger), 0 0 40px var(--glow-color-danger); /* Intensified glow */
     z-index: 12;
     transition: top 0.05s linear, opacity 0.3s ease;
-    opacity: 0; /* Hidden by default, shown via JS */
-    pointer-events: none; /* Make sure it doesn't interfere with anything */
-    animation: pulse-indicator 2s ease-in-out infinite; /* Add pulsing animation */
+    opacity: 0;
+    pointer-events: none;
+    animation: pulse-indicator 1.5s ease-in-out infinite; /* Faster, more intense pulse */
 }
 
 
@@ -449,7 +450,7 @@ body.light-theme .main-header-container > h1 {
     color: var(--nm-accent-hover);
     cursor: pointer;
     font-family: 'Roboto Mono', monospace;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* MODIFIED for smoother pop out */
+    transition: all 0.2s ease; /* Reverted to simple transition */
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -465,34 +466,27 @@ body.light-theme .main-header-container > h1 {
     height: 56px; /* 20% thinner than 70px */
 }
 
-/* MODIFIED: Greatly enhanced hover effect to make it stand out */
+/* REVERTED: Original hover effect */
 .app-icon:hover {
-    background: var(--nm-accent-hover); /* Use brightest cyan for max visibility */
+    background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    box-shadow: 0 0 25px var(--glow-color),
-                0 0 50px var(--glow-color),
+    box-shadow: 0 0 20px var(--glow-color),
+                0 0 40px var(--glow-color),
                 inset 0 0 10px rgba(11, 18, 28, 0.5);
-    transform: translateX(10px) scale(1.02); /* Pop out effect */
-    z-index: 5; /* Ensure it renders above adjacent buttons */
 }
 
-/* MODIFIED: Changed arrow to a larger, more stylish chevron that animates */
 .app-icon:hover::after {
-    content: '›';
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2rem;
-    font-weight: bold;
-    line-height: 1;
+    content: '';
     position: absolute;
     top: 50%;
     right: 15px;
     transform: translateY(-50%);
-    color: var(--nm-darkest);
-    width: auto;
-    height: auto;
-    border: none;
-    animation: fadeInRight 0.3s ease;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid var(--nm-darkest);
 }
 
 .app-icon i {
@@ -522,7 +516,6 @@ body.light-theme .app-icon:hover {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    transform: none; /* Disable pop-out for light theme */
 }
 
 .app-icon span {
