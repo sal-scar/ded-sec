@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- GLOBAL PORTFOLIO STATE ---
     let currentLanguage = 'en';
     let initialSetupDone = false;
+    let searchIndex = [];
     
     // --- PORTFOLIO INITIALIZATION ---
     function initializePortfolio() {
@@ -15,13 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
             
             document.querySelectorAll('[data-en]').forEach(el => {
                 const text = el.getAttribute(`data-${lang}`) || el.getAttribute('data-en');
-                const textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0);
-                
-                if (el.matches('h1, h2, h3, p, label') || (el.matches('span') && !el.parentElement.classList.contains('app-icon'))) {
-                    el.textContent = text;
-                } else if (textNode) {
-                    textNode.textContent = text;
-                } else if (el.matches('span')) {
+                // This logic is simplified to handle various elements correctly
+                const isSpanInAppIcon = el.matches('.app-icon span');
+                const isSimpleTextElement = el.matches('h1, h2, h3, p, label, .main-footer p, button, .store-link a') && !isSpanInAppIcon;
+
+                if (isSimpleTextElement) {
+                     el.textContent = text;
+                } else if (isSpanInAppIcon) {
                      el.textContent = text;
                 }
             });
@@ -36,6 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const pageTitleEl = document.querySelector('title');
             if (pageTitleEl) document.title = "DedSec Project";
+
+            // Update search placeholder text
+            const searchInput = document.getElementById('main-search-input');
+            if (searchInput) {
+                searchInput.placeholder = lang === 'gr' ? 'Αναζήτηση...' : 'Search...';
+            }
         };
         
         languageModal.querySelectorAll('.language-button').forEach(button => {
@@ -78,13 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
             updateThemeButton(isLight);
         });
         
-        // On page load, check for saved theme
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
             document.body.classList.add('light-theme');
         }
         updateThemeButton(document.body.classList.contains('light-theme'));
-
 
         document.getElementById('accept-disclaimer').addEventListener('click', () => {
             disclaimerModal.classList.remove('visible');
@@ -126,12 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (profilePic) {
             profilePic.addEventListener('click', () => {
-                // --- THIS IS THE MODIFIED SECTION ---
-                // Get the URL from the CSS 'background-image' property instead of an <img> 'src'
                 const style = window.getComputedStyle(profilePic);
                 const bgImage = style.backgroundImage;
-                const imageUrl = bgImage.slice(5, -2); // Extracts URL from 'url("...")'
-                
+                const imageUrl = bgImage.slice(5, -2);
                 imageViewer.querySelector('#expanded-img').src = imageUrl;
                 imageViewer.classList.add('visible');
             });
@@ -144,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.copyToClipboard = (button, targetId) => {
             const codeElement = document.getElementById(targetId);
             if (!codeElement) return;
-            // Use document.execCommand for broader compatibility in iFrames
             const textarea = document.createElement('textarea');
             textarea.value = codeElement.innerText;
             document.body.appendChild(textarea);
@@ -160,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.removeChild(textarea);
         };
         
-        // --- GYM CLOTHING CAROUSEL LOGIC ---
         const carousel = document.querySelector('.gym-carousel');
         if (carousel) {
             const images = carousel.querySelectorAll('.gym-clothing-images img');
@@ -178,29 +178,152 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                 };
-
                 prevBtn.addEventListener('click', () => {
                     currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalImages - 1;
                     showImage(currentIndex);
                 });
-
                 nextBtn.addEventListener('click', () => {
                     currentIndex = (currentIndex < totalImages - 1) ? currentIndex + 1 : 0;
                     showImage(currentIndex);
                 });
-                
                 showImage(currentIndex);
             }
         }
+        
+        // --- SEARCH FUNCTIONALITY ---
+        function buildSearchIndex() {
+            searchIndex = [];
+            // Index App Icons
+            document.querySelectorAll('.app-icon[data-modal]').forEach(el => {
+                const span = el.querySelector('span');
+                if (span && el.dataset.modal) {
+                    searchIndex.push({
+                        en: span.getAttribute('data-en') || '',
+                        gr: span.getAttribute('data-gr') || '',
+                        type: 'modal_button',
+                        target: el.dataset.modal
+                    });
+                }
+            });
+
+            // Index Modal Content
+            document.querySelectorAll('.modal-content').forEach(modal => {
+                const modalId = modal.parentElement.id.replace('-modal', '');
+                // Index modal title
+                const title = modal.querySelector('.modal-header h2');
+                if (title) {
+                     searchIndex.push({
+                        en: title.getAttribute('data-en') || '',
+                        gr: title.getAttribute('data-gr') || '',
+                        type: 'content',
+                        target: modalId,
+                        element: title
+                    });
+                }
+                // Index all relevant text elements inside modals
+                modal.querySelectorAll('.modal-body [data-lang-section] p, .modal-body [data-lang-section] li, .modal-body [data-lang-section] h3, .modal-body [data-lang-section] b').forEach(el => {
+                    const section = el.closest('[data-lang-section]');
+                    const lang = section.dataset.langSection;
+                    const text = el.textContent.trim();
+                    if (text.length > 3) { // Only index meaningful text
+                        const existingEntry = searchIndex.find(item => item.element === el);
+                        if (!existingEntry) {
+                            let entry = { type: 'content', target: modalId, element: el, en: '', gr: '' };
+                            entry[lang] = text;
+                            searchIndex.push(entry);
+                        } else {
+                            existingEntry[lang] = text;
+                        }
+                    }
+                });
+            });
+        }
+        
+        function initializeSearch() {
+            const searchInput = document.getElementById('main-search-input');
+            const resultsContainer = document.getElementById('search-results-container');
+            const searchContainer = document.querySelector('.search-container');
+
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase().trim();
+                resultsContainer.innerHTML = '';
+
+                if (query.length === 0) {
+                    resultsContainer.classList.add('hidden');
+                    return;
+                }
+
+                const results = searchIndex.filter(item => {
+                    const text = (item[currentLanguage] || item['en']).toLowerCase();
+                    return text.includes(query);
+                });
+
+                if (results.length > 0) {
+                    results.slice(0, 10).forEach(result => { // Limit to 10 results
+                        const itemEl = document.createElement('div');
+                        itemEl.classList.add('search-result-item');
+                        const mainText = result[currentLanguage] || result['en'];
+                        const locationText = {
+                            en: `In: ${result.target.replace(/-/g, ' ')}`,
+                            gr: `Σε: ${result.target.replace(/-/g, ' ')}`
+                        };
+                        itemEl.innerHTML = `${mainText.substring(0, 60)}${mainText.length > 60 ? '...' : ''} <small>${locationText[currentLanguage]}</small>`;
+                        
+                        itemEl.addEventListener('click', () => {
+                            // Hide search results and clear input
+                            searchInput.value = '';
+                            resultsContainer.classList.add('hidden');
+
+                            if (result.type === 'modal_button') {
+                                const button = document.querySelector(`.app-icon[data-modal="${result.target}"]`);
+                                if (button) button.click();
+                            } else if (result.type === 'content') {
+                                const modal = document.getElementById(`${result.target}-modal`);
+                                if (modal) {
+                                    modal.classList.add('visible');
+                                    // Highlight and scroll
+                                    setTimeout(() => {
+                                        const body = modal.querySelector('.modal-body');
+                                        result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        result.element.classList.add('content-highlight');
+                                        setTimeout(() => {
+                                            result.element.classList.remove('content-highlight');
+                                        }, 1500);
+                                    }, 300); // Wait for modal animation
+                                }
+                            }
+                        });
+                        resultsContainer.appendChild(itemEl);
+                    });
+                    resultsContainer.classList.remove('hidden');
+                } else {
+                    const noResultEl = document.createElement('div');
+                    noResultEl.classList.add('search-result-item');
+                    noResultEl.textContent = currentLanguage === 'gr' ? 'Δεν βρέθηκαν αποτελέσματα' : 'No results found';
+                    resultsContainer.appendChild(noResultEl);
+                    resultsContainer.classList.remove('hidden');
+                }
+            });
+
+            // Hide results when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!searchContainer.contains(e.target)) {
+                    resultsContainer.classList.add('hidden');
+                }
+            });
+        }
+        // --- END SEARCH FUNCTIONALITY ---
 
         languageModal.classList.add('visible');
         changeLanguage('en'); 
         document.querySelector('#language-selection-modal .modal-header h2').textContent = 'Choose Language / Επιλογή Γλώσσας';
+        
+        buildSearchIndex();
+        initializeSearch();
     }
     
     // --- CERTIFICATION QUIZ LOGIC ---
     function initializeCertificationQuiz() {
-        // Expanded question bank based on the Termux Mastery Series
         const fullQuizData = [
             // Book 1: First Contact & Navigation
             { id: 1, book: 1, question_en: "Which command is used to find out your current location in the filesystem?", question_gr: "Ποια εντολή χρησιμοποιείται για να μάθετε την τρέχουσα τοποθεσία σας στο σύστημα αρχείων;", options_en: ["whoami", "ls", "pwd", "cd"], options_gr: ["whoami", "ls", "pwd", "cd"], correct_answer: 2 },
@@ -296,13 +419,12 @@ document.addEventListener('DOMContentLoaded', () => {
             gr: { userInfoTitle: "Εισάγετε τα Στοιχεία σας", firstNameLabel: "Όνομα", lastNameLabel: "Επώνυμο", startBtn: "Έναρξη Εξέτασης", page: "Σελίδα", of: "από", prevBtn: "Προηγούμενο", nextBtn: "Επόμενο", submitBtn: "Υποβολή Εξέτασης", resultsTitle: "Η Εξέταση Ολοκληρώθηκε!", certTitle: "Πιστοποιητικό Ολοκλήρωσης", certAwardedTo: "Αυτό το πιστοποιητικό απονέμεται στον/στην", certAchievement: "για την επιτυχή ολοκλήρωση του σεμιναρίου Termux Mastery Series με εξαιρετική γνώση και δεξιότητα.", certDate: "Ημερομηνία Ολοκλήρωσης", failureTitle: "Συνεχίστε τη Μελέτη!", failureText1: "Ολοκληρώσατε την εξέταση, αλλά κάνατε", failureText2: "λάθη. Χρειάζεστε λιγότερα από 20 λάθη για να περάσετε. Παρακαλώ μελετήστε ξανά την ύλη και προσπαθήστε ξανά!", restartBtn: "Προσπαθήστε Ξανά", gradeLabel: "Βαθμός", gradeExcellent: "Άριστα", gradeVeryGood: "Πολύ Καλά", gradeGood: "Καλά", pdfError: "Παρουσιάστηκε σφάλμα κατά τη δημιουργία του PDF.", mistakesLabel: "Λάθη", timeLeftLabel: "Χρόνος Που Απομένει" }
         };
 
-        // Quiz state variables
         let currentPage, userLang, userName, userAnswers, activeQuestions;
         let mistakes = 0;
         const maxMistakes = 20;
         const totalQuestionsInTest = 60;
         let timerInterval;
-        let timeLeft = 600; // 10 minutes for 60 questions
+        let timeLeft = 600; 
 
         const certModal = document.getElementById('certification-modal');
         const languageSelectionDiv = certModal.querySelector('#language-selection');
@@ -359,7 +481,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const lastName = lastNameInput.value.trim();
             if (firstName && lastName) {
                 userName = `${firstName} ${lastName}`;
-                // Shuffle the full data and take the first 60 questions
                 activeQuestions = [...fullQuizData].sort(() => Math.random() - 0.5).slice(0, totalQuestionsInTest);
                 userAnswers = new Array(activeQuestions.length).fill(null);
                 
@@ -415,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateStatsDisplay();
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    showResults(); // End the quiz when time runs out
+                    showResults(); 
                 }
             }, 1000);
         };
@@ -448,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(radioButtons[savedAnswer]) radioButtons[savedAnswer].checked = true;
             }
             updateNavigation();
-            if (currentPage === 1) { // Start timer only on the first page
+            if (currentPage === 1) { 
                 startTimer();
             }
             updateStatsDisplay();
@@ -523,11 +644,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const container = document.createElement('div');
                 container.style.position = 'absolute';
                 container.style.left = '-9999px';
-                container.style.width = '900px'; // A fixed width for consistent rendering
+                container.style.width = '900px'; 
                 document.body.appendChild(container);
                 container.innerHTML = html;
-
-                // Wait for images/fonts if any
+                
                 await new Promise(resolve => setTimeout(resolve, 100)); 
 
                 const canvas = await html2canvas(container.querySelector('.certificate-container'), { 
@@ -569,7 +689,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsContainerDiv.classList.remove('hidden');
             const t = translations[userLang];
             
-            if (finalMistakes <= maxMistakes) { // Passing score
+            if (finalMistakes <= maxMistakes) {
                 const getGrade = (m) => {
                     if (m <= 5) return 'Excellent';
                     if (m <= 12) return 'VeryGood';
