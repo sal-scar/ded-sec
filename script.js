@@ -6,38 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- PORTFOLIO INITIALIZATION ---
     function initializePortfolio() {
-        // --- SCROLL INDICATOR LOGIC ---
-        const homeScreen = document.querySelector('.home-screen');
-        const scrollIndicator = document.querySelector('.scroll-indicator');
-
-        if (homeScreen && scrollIndicator) {
-            const handleScroll = () => {
-                const scrollableHeight = homeScreen.scrollHeight - homeScreen.clientHeight;
-                
-                if (scrollableHeight <= 0) {
-                    scrollIndicator.style.opacity = '0';
-                    return;
-                }
-
-                scrollIndicator.style.opacity = '1';
-                const scrollTop = homeScreen.scrollTop;
-                const scrollPercentage = scrollTop / scrollableHeight;
-                
-                const indicatorTravelDistance = homeScreen.clientHeight - scrollIndicator.offsetHeight;
-                
-                const newTopPosition = scrollPercentage * indicatorTravelDistance;
-
-                scrollIndicator.style.top = `${homeScreen.offsetTop + newTopPosition}px`;
-            };
-
-            homeScreen.addEventListener('scroll', handleScroll);
-
-            const resizeObserver = new ResizeObserver(() => handleScroll());
-            resizeObserver.observe(homeScreen);
-            
-            handleScroll(); // Initial check
-        }
-
         // --- LANGUAGE AND MODAL LOGIC ---
         const languageModal = document.getElementById('language-selection-modal');
         const languageModalCloseBtn = languageModal.querySelector('.close-modal');
@@ -495,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 53, book: 3, question_en: "What does the `kill -9 [PID]` command do?", question_gr: "Τι κάνει η εντολή `kill -9 [PID]`;", options_en: ["Pauses a process", "Sends a gentle stop signal", "Forcefully terminates a process", "Restarts a process"], options_gr: ["Παγώνει μια διεργασία", "Στέλνει ένα ήπιο σήμα διακοπής", "Τερματίζει βίαια μια διεργασία", "Επανεκκινεί μια διεργασία"], correct_answer: 2 },
             { id: 54, book: 4, question_en: "In Vim, what does `dd` do in Normal Mode?", question_gr: "Στο Vim, τι κάνει το `dd` στην Κανονική Λειτουργία;", options_en: ["Duplicates the line", "Deletes the current character", "Deletes the entire current line", "Moves down two lines"], options_gr: ["Διπλασιάζει τη γραμμή", "Διαγράφει τον τρέχοντα χαρακτήρα", "Διαγράφει ολόκληρη την τρέχουσα γραμμή", "Κατεβαίνει δύο γραμμές"], correct_answer: 2 },
             { id: 55, book: 5, question_en: "In bash arithmetic `$(())`, what does `%` operator do?", question_gr: "Στην αριθμητική του bash `$(())`, τι κάνει ο τελεστής `%`;", options_en: ["Percentage", "Multiplication", "Division", "Modulo (remainder)"], options_gr: ["Ποσοστό", "Πολλαπλασιασμός", "Διαίρεση", "Υπόλοιπο διαίρεσης (Modulo)"], correct_answer: 3 },
-            { id: 56, book: 6, question_en: "What keyword ends an `if` statement block in bash?", question_gr: "Ποια λέξη-κλειδί τερματίζει ένα μπλοק δήλωσης `if` στο bash;", options_en: ["end", "endif", "fi", "stop"], options_gr: ["end", "endif", "fi", "stop"], correct_answer: 2 },
+            { id: 56, book: 6, question_en: "What keyword ends an `if` statement block in bash?", question_gr: "Ποια λέξη-κλειδί τερματίζει ένα μπλοκ δήλωσης `if` στο bash;", options_en: ["end", "endif", "fi", "stop"], options_gr: ["end", "endif", "fi", "stop"], correct_answer: 2 },
             { id: 57, book: 7, question_en: "In a bash function, what does `$#` represent?", question_gr: "Σε μια συνάρτηση bash, τι αντιπροσωπεύει το `$#`;", options_en: ["The first argument", "All arguments", "The name of the script", "The number of arguments"], options_gr: ["Το πρώτο όρισμα", "Όλα τα ορίσματα", "Το όνομα του σεναρίου", "Ο αριθμός των ορισμάτων"], correct_answer: 3 },
             { id: 58, book: 8, question_en: "Which Regex pattern matches a 4-digit number?", question_gr: "Ποιο μοτίβο Regex αντιστοιχεί σε έναν 4-ψήφιο αριθμό;", options_en: ["\\d{4}", "\\n{4}", "[0-9]+", "\\d*"], options_gr: ["\\d{4}", "\\n{4}", "[0-9]+", "\\d*"], correct_answer: 0 },
             { id: 59, book: 9, question_en: "Which `find` option is used to execute a command on found files?", question_gr: "Ποια επιλογή της `find` χρησιμοποιείται για την εκτέλεση μιας εντολής στα αρχεία που βρέθηκαν;", options_en: ["-do", "-run", "-exec", "-cmd"], options_gr: ["-do", "-run", "-exec", "-cmd"], correct_answer: 2 },

@@ -70,30 +70,6 @@ body.light-theme {
   22%, 53% { opacity: 0.9; }
 }
 
-/* MODIFIED: More intense animation for the scroll indicator */
-@keyframes pulse-indicator {
-    0%, 100% {
-        box-shadow: 0 0 20px var(--glow-color-danger), 0 0 40px var(--glow-color-danger);
-        transform: scale(1);
-    }
-    50% {
-        box-shadow: 0 0 30px var(--glow-color-danger), 0 0 60px var(--glow-color-danger), 0 0 80px var(--glow-color-danger);
-        transform: scale(1.05);
-    }
-}
-
-/* animation for the hover arrow */
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translate(10px, -50%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(0, -50%);
-  }
-}
-
 html, body {
     height: 100%;
     width: 100%;
@@ -206,29 +182,9 @@ body {
     z-index: 3;
 }
 
-/* MODIFIED: Scroll indicator made MUCH more visible */
-.scroll-indicator {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 8px;
-    height: 50px; /* Increased height */
-    background: radial-gradient(ellipse at center, #ffc9b5 0%, var(--nm-danger) 80%); /* "white-hot" core */
-    border: 1px solid rgba(0,0,0,0.3);
-    border-radius: 4px;
-    box-shadow: 0 0 20px var(--glow-color-danger), 0 0 40px var(--glow-color-danger); /* Intensified glow */
-    z-index: 12;
-    transition: top 0.05s linear, opacity 0.3s ease;
-    opacity: 0;
-    pointer-events: none;
-    animation: pulse-indicator 1.5s ease-in-out infinite; /* Faster, more intense pulse */
-}
-
-
 body.light-theme .screen-overlay,
 body.light-theme .screen::before,
-body.light-theme .phone-container::after,
-body.light-theme .scroll-indicator { /* Hide indicator on light theme */
+body.light-theme .phone-container::after { /* ADDED */
     display: none;
 }
 
@@ -450,7 +406,7 @@ body.light-theme .main-header-container > h1 {
     color: var(--nm-accent-hover);
     cursor: pointer;
     font-family: 'Roboto Mono', monospace;
-    transition: all 0.2s ease; /* Reverted to simple transition */
+    transition: all 0.2s ease;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -466,11 +422,11 @@ body.light-theme .main-header-container > h1 {
     height: 56px; /* 20% thinner than 70px */
 }
 
-/* REVERTED: Original hover effect */
 .app-icon:hover {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
+    /* MODIFIED: Intensified glow effect */
     box-shadow: 0 0 20px var(--glow-color),
                 0 0 40px var(--glow-color),
                 inset 0 0 10px rgba(11, 18, 28, 0.5);
