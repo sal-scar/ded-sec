@@ -289,20 +289,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 let results = [];
 
                 searchIndex.forEach(item => {
-                    const text = (item[currentLanguage] || item['en']).toLowerCase();
+                    const text = (item[currentLanguage] || item['en'] || '').toLowerCase();
+                    if (!text) return;
                     let score = 0;
-                    let matchedWords = [];
+                    let phraseMatch = false;
 
+                    // Highest score for exact phrase match
+                    if (text.includes(query)) {
+                        score += 50;
+                        phraseMatch = true;
+                    }
+
+                    const foundWords = new Set();
+                    const wordPositions = [];
                     queryWords.forEach(word => {
-                        if (text.includes(word)) {
-                            score += item.weight;
-                            matchedWords.push(word);
+                        let lastIndex = -1;
+                        // Find all occurrences of the word to calculate proximity
+                        while ((lastIndex = text.indexOf(word, lastIndex + 1)) !== -1) {
+                            if (!phraseMatch) { // Only add individual word score if phrase didn't match
+                                score += 5;
+                            }
+                            foundWords.add(word);
+                            wordPositions.push(lastIndex);
                         }
                     });
-
+                    
+                    // Bonus if all unique words from the query are found
+                    if (foundWords.size === queryWords.length) {
+                        score += 20;
+                        
+                        // Proximity bonus for how close the words are
+                        if (wordPositions.length > 1) {
+                            const minPos = Math.min(...wordPositions);
+                            const maxPos = Math.max(...wordPositions);
+                            const span = maxPos - minPos;
+                            if (span < 250 && span > 0) { // Apply bonus for reasonably close words
+                                score += (250 - span) / 10; // Closer words get a higher score
+                            }
+                        }
+                    }
+                    
                     if (score > 0) {
-                        if (matchedWords.length === queryWords.length) score += 10;
-                        if(text.includes(query)) score += 15;
+                        // Apply original weight from the element type at the end
+                        score *= item.weight;
                         results.push({ ...item, score });
                     }
                 });
@@ -322,20 +351,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         let snippet = '';
                         const textLower = mainText.toLowerCase();
-                        const firstMatchIndex = textLower.indexOf(queryWords[0]);
+                        let firstMatchIndex = textLower.indexOf(query);
+                        if (firstMatchIndex === -1) {
+                            firstMatchIndex = textLower.indexOf(queryWords[0]);
+                        }
                         
-                        if (result.type === 'modal_button' || mainText.length < 90) {
+                        if (result.type === 'modal_button' || mainText.length < 100) {
                            snippet = mainText;
                         } else if (firstMatchIndex !== -1) {
-                            const start = Math.max(0, firstMatchIndex - 30);
-                            const end = Math.min(mainText.length, firstMatchIndex + 60);
+                            const start = Math.max(0, firstMatchIndex - 40);
+                            const end = Math.min(mainText.length, firstMatchIndex + query.length + 60);
                             snippet = (start > 0 ? '...' : '') + mainText.substring(start, end) + (end < mainText.length ? '...' : '');
                         } else {
-                            snippet = mainText.substring(0, 90) + (mainText.length > 90 ? '...' : '');
+                            snippet = mainText.substring(0, 100) + (mainText.length > 100 ? '...' : '');
                         }
 
                         let highlightedSnippet = snippet;
-                        queryWords.forEach(word => {
+                        const uniqueWords = [...new Set(queryWords)]; // Highlight each word only once
+                        uniqueWords.forEach(word => {
                              const regex = new RegExp(`(${word})`, 'gi');
                              highlightedSnippet = highlightedSnippet.replace(regex, '<strong>$1</strong>');
                         });

@@ -116,14 +116,13 @@ body {
 /* --- NEW: Scroll Indicator Thumb --- */
 #scroll-indicator-thumb {
     position: absolute;
-    right: 1px;
+    right: 0;
     top: 0; /* Positioned by JavaScript */
-    width: 6px;
+    width: 8px;
     height: 40px;
-    background: var(--nm-accent-hover);
-    box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+    background: linear-gradient(to bottom, var(--nm-accent), var(--nm-accent-hover), var(--nm-accent));
+    box-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color);
     z-index: 11;
-    border-radius: 3px;
     transition: opacity 0.3s ease;
     opacity: 0; /* Hidden by default */
     pointer-events: none;
@@ -657,7 +656,7 @@ body.light-theme .modal-content {
 }
 .close-modal:hover {
     color: var(--nm-danger);
-    text-shadow: 0 0 10px var(--glow-color-danger); /* MODIFIED */
+    text-shadow: 0 0 10px var(--glow-color-danger);
 }
 .modal-body {
     padding: 25px;
