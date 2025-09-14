@@ -82,6 +82,18 @@ body.light-theme {
     }
 }
 
+/* NEW animation for the hover arrow */
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate(10px, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
 html, body {
     height: 100%;
     width: 100%;
@@ -437,7 +449,7 @@ body.light-theme .main-header-container > h1 {
     color: var(--nm-accent-hover);
     cursor: pointer;
     font-family: 'Roboto Mono', monospace;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* MODIFIED for smoother pop out */
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -453,27 +465,34 @@ body.light-theme .main-header-container > h1 {
     height: 56px; /* 20% thinner than 70px */
 }
 
+/* MODIFIED: Greatly enhanced hover effect to make it stand out */
 .app-icon:hover {
-    background: var(--nm-accent);
+    background: var(--nm-accent-hover); /* Use brightest cyan for max visibility */
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    /* MODIFIED: Intensified glow effect */
-    box-shadow: 0 0 20px var(--glow-color),
-                0 0 40px var(--glow-color),
+    box-shadow: 0 0 25px var(--glow-color),
+                0 0 50px var(--glow-color),
                 inset 0 0 10px rgba(11, 18, 28, 0.5);
+    transform: translateX(10px) scale(1.02); /* Pop out effect */
+    z-index: 5; /* Ensure it renders above adjacent buttons */
 }
 
+/* MODIFIED: Changed arrow to a larger, more stylish chevron that animates */
 .app-icon:hover::after {
-    content: '';
+    content: '›';
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1;
     position: absolute;
     top: 50%;
     right: 15px;
     transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 5px solid var(--nm-darkest);
+    color: var(--nm-darkest);
+    width: auto;
+    height: auto;
+    border: none;
+    animation: fadeInRight 0.3s ease;
 }
 
 .app-icon i {
@@ -503,6 +522,7 @@ body.light-theme .app-icon:hover {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
+    transform: none; /* Disable pop-out for light theme */
 }
 
 .app-icon span {
