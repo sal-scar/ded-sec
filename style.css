@@ -70,6 +70,18 @@ body.light-theme {
   22%, 53% { opacity: 0.9; }
 }
 
+/* NEW animation for the scroll indicator */
+@keyframes pulse-indicator {
+    0%, 100% {
+        box-shadow: 0 0 15px var(--glow-color-danger), 0 0 30px var(--glow-color-danger);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--glow-color-danger), 0 0 40px var(--glow-color-danger), 0 0 50px var(--glow-color-danger);
+        transform: scale(1.05);
+    }
+}
+
 html, body {
     height: 100%;
     width: 100%;
@@ -182,26 +194,28 @@ body {
     z-index: 3;
 }
 
-/* NEW: Scroll indicator spot */
+/* MODIFIED: Scroll indicator spot made more visible */
 .scroll-indicator {
     position: absolute;
     top: 0; /* Will be set by JS */
-    right: 1px; /* Center on the 8px bar */
-    width: 6px;
-    height: 25px;
+    right: 0; /* Cover the full bar width */
+    width: 8px; /* Match the bar width */
+    height: 35px; /* Increased height */
     background-color: var(--nm-danger);
-    border-radius: 3px;
-    box-shadow: 0 0 10px var(--glow-color-danger), 0 0 20px var(--glow-color-danger);
+    border-radius: 4px;
+    box-shadow: 0 0 15px var(--glow-color-danger), 0 0 30px var(--glow-color-danger); /* Intensified glow */
     z-index: 12;
     transition: top 0.05s linear, opacity 0.3s ease;
     opacity: 0; /* Hidden by default, shown via JS */
     pointer-events: none; /* Make sure it doesn't interfere with anything */
+    animation: pulse-indicator 2s ease-in-out infinite; /* Add pulsing animation */
 }
 
 
 body.light-theme .screen-overlay,
 body.light-theme .screen::before,
-body.light-theme .phone-container::after { /* ADDED */
+body.light-theme .phone-container::after,
+body.light-theme .scroll-indicator { /* Hide indicator on light theme */
     display: none;
 }
 
