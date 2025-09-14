@@ -265,54 +265,50 @@ body.light-theme .phone-container::after { /* ADDED */
     flex-grow: 1;
 }
 
-/* --- MODIFIED FOR RED SEARCH BAR --- */
+/* --- MODIFIED: Center Title & Persistent Red Search Bar --- */
 .main-header-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column; /* Stack title over search bar */
+    align-items: center; /* Center them horizontally */
     width: 100%;
     gap: 15px;
     margin-bottom: 20px;
-    flex-wrap: wrap; /* Allows search to wrap on small screens */
 }
 
 .main-header-container h1 {
     margin: 0;
-    flex-shrink: 0; /* Prevents title from shrinking */
+    text-align: center;
 }
 
 .search-container {
     position: relative;
-    flex-grow: 1; /* Allows search bar to take available space */
-    max-width: 400px;
+    width: 100%;
+    max-width: 500px; /* Limit width on larger screens */
+}
+
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(242, 84, 25, 0.4); }
+    50% { box-shadow: 0 0 30px var(--glow-color-danger), inset 0 0 20px rgba(242, 84, 25, 0.5); }
+    100% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(242, 84, 25, 0.4); }
 }
 
 #main-search-input {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    /* MODIFIED: Red border and static glow are now default */
-    border: 1px solid var(--nm-danger);
-    box-shadow: 0 0 10px rgba(242, 84, 25, 0.5);
+    border: 2px solid var(--nm-danger); /* Thicker border */
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
     clip-path: var(--clip-path-shape);
     box-sizing: border-box;
-}
-
-@keyframes pulse-red {
-    0% { box-shadow: 0 0 15px var(--glow-color-danger), inset 0 0 10px rgba(242, 84, 25, 0.2); }
-    50% { box-shadow: 0 0 25px var(--glow-color-danger), inset 0 0 14px rgba(242, 84, 25, 0.3); }
-    100% { box-shadow: 0 0 15px var(--glow-color-danger), inset 0 0 10px rgba(242, 84, 25, 0.2); }
+    animation: pulse-red 2s infinite; /* Persistent glow */
 }
 
 #main-search-input:focus {
     outline: none;
     background-color: var(--nm-dark);
-    /* MODIFIED: The animation now enhances the default glow */
-    animation: pulse-red 2s infinite;
 }
 
 #search-results-container {
@@ -359,7 +355,7 @@ body.light-theme .phone-container::after { /* ADDED */
     box-shadow: 0 0 15px var(--glow-color-warning);
     transition: background-color 1s ease;
 }
-/* --- END SEARCH BAR STYLES --- */
+/* --- END OF MODIFICATIONS --- */
 
 
 main.home-screen > h1, .main-header-container > h1 {
@@ -1226,4 +1222,27 @@ body.light-theme .certificate-header h1 {
 }
 .carousel-btn:hover {
     background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* =================================================================
+   DESKTOP & WIDE SCREEN STYLES
+   ================================================================= */
+@media (min-width: 768px) {
+    .home-screen {
+        max-width: 1200px; /* Prevent content from stretching too wide */
+        margin: 0 auto;
+    }
+
+    .app-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive grid */
+        max-width: none; /* Allow grid to fill the container */
+    }
+
+    .app-icon {
+        height: 80px;
+    }
+    
+    .app-icon span {
+        font-size: 0.85rem;
+    }
 }
