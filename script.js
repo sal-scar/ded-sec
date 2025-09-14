@@ -198,7 +198,18 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- SEARCH FUNCTIONALITY ---
         function buildSearchIndex() {
             searchIndex = [];
-            // Index App Icons
+            
+            // Define weights for different element types
+            const weights = {
+                MODAL_BUTTON: 10,
+                H2: 8,
+                H3: 6,
+                B: 4,
+                CODE: 3,
+                DEFAULT: 1
+            };
+
+            // Index App Icons (High weight)
             document.querySelectorAll('.app-icon[data-modal]').forEach(el => {
                 const span = el.querySelector('span');
                 if (span && el.dataset.modal) {
@@ -206,7 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         en: span.getAttribute('data-en') || '',
                         gr: span.getAttribute('data-gr') || '',
                         type: 'modal_button',
-                        target: el.dataset.modal
+                        target: el.dataset.modal,
+                        weight: weights.MODAL_BUTTON,
+                        element: el // Store the element itself
                     });
                 }
             });
@@ -214,7 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Index Modal Content
             document.querySelectorAll('.modal-content').forEach(modal => {
                 const modalId = modal.parentElement.id.replace('-modal', '');
-                // Index modal title
+                
+                // Index modal title (H2)
                 const title = modal.querySelector('.modal-header h2');
                 if (title) {
                      searchIndex.push({
@@ -222,20 +236,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         gr: title.getAttribute('data-gr') || '',
                         type: 'content',
                         target: modalId,
-                        element: title
+                        element: title,
+                        weight: weights.H2
                     });
                 }
-                // **MODIFIED**: Corrected the selector to properly find text elements within modals.
-                // The space between '.modal-body' and '[data-lang-section]' was removed.
-                const selector = '.modal-body[data-lang-section] p, .modal-body[data-lang-section] li, .modal-body[data-lang-section] h3, .modal-body[data-lang-section] b';
+                
+                // MODIFIED: Expanded selector to include more elements like code and tips
+                const selector = '.modal-body[data-lang-section] p, .modal-body[data-lang-section] li, .modal-body[data-lang-section] h3, .modal-body[data-lang-section] b, .modal-body[data-lang-section] code, .modal-body[data-lang-section] .tip p';
                 modal.querySelectorAll(selector).forEach(el => {
                     const section = el.closest('[data-lang-section]');
                     const lang = section.dataset.langSection;
                     const text = el.textContent.trim();
-                    if (text.length > 3) { // Only index meaningful text
+                    
+                    if (text.length > 3) {
                         const existingEntry = searchIndex.find(item => item.element === el);
                         if (!existingEntry) {
-                            let entry = { type: 'content', target: modalId, element: el, en: '', gr: '' };
+                            let weight = weights.DEFAULT;
+                            if (el.tagName === 'H3') weight = weights.H3;
+                            if (el.tagName === 'B' || el.tagName === 'STRONG') weight = weights.B;
+                            if (el.tagName === 'CODE') weight = weights.CODE;
+
+                            let entry = { type: 'content', target: modalId, element: el, en: '', gr: '', weight: weight };
                             entry[lang] = text;
                             searchIndex.push(entry);
                         } else {
@@ -251,53 +272,101 @@ document.addEventListener('DOMContentLoaded', () => {
             const resultsContainer = document.getElementById('search-results-container');
             const searchContainer = document.querySelector('.search-container');
 
+            // MODIFIED: Replaced the simple filter with a scoring and ranking system
             searchInput.addEventListener('input', () => {
                 const query = searchInput.value.toLowerCase().trim();
                 resultsContainer.innerHTML = '';
 
-                if (query.length === 0) {
+                if (query.length < 2) { // Require at least 2 characters to search
                     resultsContainer.classList.add('hidden');
                     return;
                 }
+                
+                const queryWords = query.split(/\s+/).filter(w => w.length > 0);
+                let results = [];
 
-                const results = searchIndex.filter(item => {
+                searchIndex.forEach(item => {
                     const text = (item[currentLanguage] || item['en']).toLowerCase();
-                    return text.includes(query);
+                    let score = 0;
+                    let matchedWords = [];
+
+                    queryWords.forEach(word => {
+                        if (text.includes(word)) {
+                            score += item.weight; // Add item's base weight for each word match
+                            matchedWords.push(word);
+                        }
+                    });
+
+                    if (score > 0) {
+                        // Bonus points if all words are found
+                        if (matchedWords.length === queryWords.length) {
+                            score += 10;
+                        }
+                        // Bonus for exact phrase match
+                        if(text.includes(query)) {
+                            score += 15;
+                        }
+                        results.push({ ...item, score });
+                    }
                 });
+                
+                // Sort results by score in descending order
+                results.sort((a, b) => b.score - a.score);
 
                 if (results.length > 0) {
-                    results.slice(0, 10).forEach(result => { // Limit to 10 results
+                    results.slice(0, 7).forEach(result => { // Limit to 7 best results
                         const itemEl = document.createElement('div');
                         itemEl.classList.add('search-result-item');
+                        
                         const mainText = result[currentLanguage] || result['en'];
                         const locationText = {
                             en: `In: ${result.target.replace(/-/g, ' ')}`,
                             gr: `Σε: ${result.target.replace(/-/g, ' ')}`
                         };
-                        itemEl.innerHTML = `${mainText.substring(0, 60)}${mainText.length > 60 ? '...' : ''} <small>${locationText[currentLanguage]}</small>`;
+
+                        // NEW: Generate context snippet and highlight matches
+                        let snippet = '';
+                        const textLower = mainText.toLowerCase();
+                        const firstMatchIndex = textLower.indexOf(queryWords[0]);
+                        
+                        if (result.type === 'modal_button' || mainText.length < 90) {
+                           snippet = mainText; // If it's a button or short text, show all of it
+                        } else if (firstMatchIndex !== -1) {
+                            const start = Math.max(0, firstMatchIndex - 30);
+                            const end = Math.min(mainText.length, firstMatchIndex + 60);
+                            snippet = (start > 0 ? '...' : '') + mainText.substring(start, end) + (end < mainText.length ? '...' : '');
+                        } else {
+                            snippet = mainText.substring(0, 90) + (mainText.length > 90 ? '...' : '');
+                        }
+
+                        // Highlight all query words in the snippet
+                        let highlightedSnippet = snippet;
+                        queryWords.forEach(word => {
+                             const regex = new RegExp(`(${word})`, 'gi');
+                             highlightedSnippet = highlightedSnippet.replace(regex, '<strong>$1</strong>');
+                        });
+
+
+                        itemEl.innerHTML = `${highlightedSnippet} <small>${locationText[currentLanguage]}</small>`;
                         
                         itemEl.addEventListener('click', () => {
-                            // Hide search results and clear input
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
 
-                            if (result.type === 'modal_button') {
-                                const button = document.querySelector(`.app-icon[data-modal="${result.target}"]`);
-                                if (button) button.click();
-                            } else if (result.type === 'content') {
-                                const modal = document.getElementById(`${result.target}-modal`);
-                                if (modal) {
-                                    modal.classList.add('visible');
-                                    // Highlight and scroll
+                            const targetElement = result.type === 'modal_button' ? result.element : document.querySelector(`.app-icon[data-modal="${result.target}"]`);
+
+                            if(targetElement){
+                                targetElement.click();
+                            }
+
+                            if (result.type === 'content') {
+                                setTimeout(() => {
+                                    result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    result.element.classList.add('content-highlight');
                                     setTimeout(() => {
-                                        const body = modal.querySelector('.modal-body');
-                                        result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                        result.element.classList.add('content-highlight');
-                                        setTimeout(() => {
-                                            result.element.classList.remove('content-highlight');
-                                        }, 1500);
-                                    }, 300); // Wait for modal animation
-                                }
+                                        result.element.classList.remove('content-highlight');
+                                    }, 2000); // Increased highlight time
+                                }, 300);
                             }
                         });
                         resultsContainer.appendChild(itemEl);
@@ -373,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 32, book: 13, question_en: "What is the primary purpose of a virtual environment?", question_gr: "Ποιος είναι ο κύριος σκοπός ενός εικονικού περιβάλλοντος;", options_en: ["To run programs faster", "To isolate project dependencies and avoid conflicts", "To connect to the internet", "To compile code"], options_gr: ["Για την ταχύτερη εκτέλεση προγραμμάτων", "Για την απομόνωση των εξαρτήσεων του έργου και την αποφυγή συγκρούσεων", "Για τη σύνδεση στο διαδίκτυο", "Για τη μεταγλώττιση κώδικα"], correct_answer: 1 },
             { id: 33, book: 14, question_en: "Which file is conventionally used to list a Python project's dependencies?", question_gr: "Ποιο αρχείο χρησιμοποιείται συμβατικά για την καταγραφή των εξαρτήσεων ενός έργου Python;", options_en: ["packages.txt", "dependencies.json", "pip.conf", "requirements.txt"], options_gr: ["packages.txt", "dependencies.json", "pip.conf", "requirements.txt"], correct_answer: 3 },
             { id: 34, book: 15, question_en: "What is the standard package manager for Node.js?", question_gr: "Ποιος είναι ο τυπικός διαχειριστής πακέτων για το Node.js;", options_en: ["pip", "pkg", "npm", "node-get"], options_gr: ["pip", "pkg", "npm", "node-get"], correct_answer: 2 },
-            { id: 35, book: 15, question_en: "Which tool is used to keep a Node.js application running 24/7?", question_gr: "Ποιο εργαλείο χρησιμοποιείται για να διατηρείται μια εφαρμογή Node.js σε λειτουργία 24/7;", options_en: ["forever", "nodemon", "pm2", "supervisor"], options_gr: ["forever", "nodemon", "pm2", "supervisor"], correct_answer: 2 },
+            { id: 35, book: 15, question_en: "Which tool is used to keep a Node.js application running 24/7?", question_gr: "Ποιο εργαλεία χρησιμοποιείται για να διατηρείται μια εφαρμογή Node.js σε λειτουργία 24/7;", options_en: ["forever", "nodemon", "pm2", "supervisor"], options_gr: ["forever", "nodemon", "pm2", "supervisor"], correct_answer: 2 },
             { id: 36, book: 16, question_en: "Which tool is the world's most famous port scanner?", question_gr: "Ποιο εργαλείο είναι ο πιο διάσημος σαρωτής θυρών στον κόσμο;", options_en: ["whois", "netstat", "nmap", "wireshark"], options_gr: ["whois", "netstat", "nmap", "wireshark"], correct_answer: 2 },
             { id: 37, book: 16, question_en: "In an `nmap` scan, what does a 'filtered' port state usually indicate?", question_gr: "Σε μια σάρωση `nmap`, τι υποδεικνύει συνήθως η κατάσταση 'filtered' μιας θύρας;", options_en: ["The port is open", "The port is closed", "A firewall is blocking access", "The service has crashed"], options_gr: ["Η θύρα είναι ανοιχτή", "Η θύρα είναι κλειστή", "Ένα τείχος προστασίας εμποδίζει την πρόσβαση", "Η υπηρεσία έχει καταρρεύσει"], correct_answer: 2 },
             { id: 38, book: 17, question_en: "What is the file extension for shared libraries in Linux?", question_gr: "Ποια είναι η επέκταση αρχείου για τις κοινόχρηστες βιβλιοθήκες στο Linux;", options_en: [".dll", ".lib", ".a", ".so"], options_gr: [".dll", ".lib", ".a", ".so"], correct_answer: 3 },
