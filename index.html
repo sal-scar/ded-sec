@@ -18,7 +18,59 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-</head>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "DedSec Project",
+      "url": "https://ded-sec.space/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://ded-sec.space/#search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "SiteNavigationElement",
+            "position": 1,
+            "name": "About The DedSec Project",
+            "url": "https://ded-sec.space/#about"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 2,
+            "name": "Installation & Setup",
+            "url": "https://ded-sec.space/#installation"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 3,
+            "name": "Digital Self-Defense Toolkit",
+            "url": "https://ded-sec.space/#scripts"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 4,
+            "name": "Get Certified",
+            "url": "https://ded-sec.space/#certification"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 5,
+            "name": "Contact Us",
+            "url": "https://ded-sec.space/#contact"
+          }
+        ]
+      }
+    }
+    </script>
+    </head>
 <body>
     <div class="phone-container">
         <div id="scroll-indicator-thumb"></div>
@@ -39,14 +91,22 @@
                     <div id="theme-switcher-btn" class="app-icon"><i class="fas fa-moon"></i><span data-en="Dark Theme" data-gr="Σκοτεινό Θέμα">Theme</span></div>
                     
                     <div class="app-icon" data-modal="about"><i class="fas fa-info-circle"></i><span data-en="About The DedSec Project" data-gr="Σχετικά με το DedSec Project">About The DedSec Project</span></div>
+                    
                     <div class="app-icon" data-modal="legal"><i class="fas fa-gavel"></i><span data-en="Legal & Ethical Notice" data-gr="Νομική & Ηθική Δήλωση">Legal & Ethical Notice</span></div>
+                    
                     <div class="app-icon" data-modal="installation"><i class="fas fa-download"></i><span data-en="Installation & Setup" data-gr="Εγκατάσταση & Ρύθμιση">Installation & Setup</span></div>
+                    
                     <div class="app-icon" data-modal="scripts"><i class="fas fa-shield-alt"></i><span data-en="Digital Self-Defense Toolkit" data-gr="Εργαλειοθήκη Ψηφιακής Αυτοάμυνας">Digital Self-Defense Toolkit</span></div>
+                    
                     <div class="app-icon" data-modal="life-tips"><i class="fas fa-lightbulb"></i><span data-en="Life Tips" data-gr="Συμβουλές Ζωής">Life Tips</span></div>
                     <a href="https://dedsec1121fk.gumroad.com" target="_blank" class="app-icon"><i class="fas fa-graduation-cap"></i><span data-en="DedSec Store" data-gr="DedSec Store">DedSec Store</span></a>
+                    
                     <div class="app-icon" data-modal="certification"><i class="fas fa-certificate"></i><span data-en="Get Certified" data-gr="Πιστοποίηση">Get Certified</span></div>
+                    
                     <div class="app-icon" data-modal="credits"><i class="fas fa-users"></i><span data-en="Credits" data-gr="Συντελεστές">Credits</span></div>
+                    
                     <div class="app-icon" data-modal="contact"><i class="fas fa-address-book"></i><span data-en="Contact Us" data-gr="Επικοινωνία">Contact Us</span></div>
+                    
                     <div class="app-icon" data-modal="github-stats"><i class="fab fa-github"></i><span data-en="GitHub Stats" data-gr="Στατιστικά GitHub">GitHub Stats</span></div>
                     <div class="app-icon" data-modal="github-repos"><i class="fab fa-github"></i><span data-en="GitHub Repos" data-gr="GitHub Repos">GitHub Repos</span></div>
                     <div class="app-icon" data-modal="gym-clothing"><i class="fas fa-tshirt"></i><span data-en="Python Gym Clothing (Coupon)" data-gr="Python Gym Clothing (Κουπόνι)">Python Gym Clothing (Coupon)</span></div>
