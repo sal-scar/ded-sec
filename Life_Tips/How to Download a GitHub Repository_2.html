@@ -158,21 +158,12 @@
         function setLanguage(lang) {
             const elements = document.querySelectorAll('[data-en], [data-gr]');
             elements.forEach(el => {
-                if (el.dataset[lang]) {
+                const translation = el.dataset[lang];
+                if (translation) {
                     if (el.tagName === 'TITLE') {
-                        document.title = el.dataset[lang];
-                    } else if (el.innerHTML.includes('Code') || el.innerHTML.includes('ZIP')) {
-                        // Special handling for elements containing <code> tags
-                        // to preserve the inner HTML structure
-                        const enText = el.dataset['en'];
-                        const grText = el.dataset['gr'];
-                        if (lang === 'en') {
-                            el.innerHTML = enText;
-                        } else {
-                            el.innerHTML = grText;
-                        }
+                        document.title = translation;
                     } else {
-                        el.textContent = el.dataset[lang];
+                        el.innerHTML = translation;
                     }
                 }
             });
