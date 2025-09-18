@@ -1,126 +1,140 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>How to download a GitHub repository — Android & PC</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg: #0b1020;
-      --card: #0f1724;
-      --text: #e6eef8;
-      --muted: #9fb0d9;
-      --accent: #4fd1c5;
-      --glass: rgba(255,255,255,0.03);
-    }
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%, #081427 100%);font-family:Inter,system-ui,Arial,Helvetica,sans-serif;color:var(--text)}
-    .wrap{max-width:980px;margin:4rem auto;padding:2rem;background:var(--glass);border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.7)}
-    h1{font-family:Orbitron, sans-serif;margin:0 0 0.5rem;color:var(--accent);font-size:1.6rem;text-align:center}
-    p.lead{color:var(--muted);text-align:center;margin-top:0;margin-bottom:1.5rem}
-    .columns{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-    .card{background:var(--card);padding:1.25rem;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
-    h2{margin-top:0;color:#dff7f0}
-    ol{margin:0 0 1rem 1.2rem;padding:0;color:var(--muted)}
-    pre{background:#051227;padding:0.75rem;border-radius:6px;overflow:auto;font-family:monospace;color:#dff7f0}
-    code{font-family:monospace}
-    .note{font-size:0.9rem;color:#bcd6ff}
-    footer{text-align:center;margin-top:1.5rem;color:var(--muted);font-size:0.85rem}
-    @media(max-width:820px){.columns{grid-template-columns:1fr}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="How to Download a GitHub Repository" data-gr="Πώς να Κατεβάσετε ένα GitHub Repository">How to Download a GitHub Repository</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nm-accent-hover: #4a90e2;
+            --nm-warning: #f5a623;
+            --glow-color: rgba(74, 144, 226, 0.5);
+            --glow-color-warning: rgba(245, 166, 35, 0.5);
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            padding: 2rem;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--nm-accent-hover);
+            text-shadow: 0 0 8px var(--glow-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        h4 {
+            color: var(--nm-warning);
+            text-shadow: 0 0 5px var(--glow-color-warning);
+            margin-top: 1.5rem;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .steps {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .steps li {
+            margin-bottom: 1.5rem;
+            background-color: #2a2a2a;
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid var(--nm-accent-hover);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .steps li:last-child {
+            margin-bottom: 0;
+        }
+        .code {
+            background-color: #333;
+            color: #e0e0e0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .note {
+            font-style: italic;
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>How to download a GitHub repository — Android & PC</h1>
-    <p class="lead">Step-by-step, simple instructions to get a copy of any GitHub repo on your Android device or on a computer.</p>
+    <div class="container">
+        <h3 data-en="How to Download a GitHub Repository" data-gr="Πώς να Κατεβάσετε ένα GitHub Repository">How to Download a GitHub Repository</h3>
+        <p data-en="Whether you're on a PC or an Android device, you can easily download a GitHub repository to get all the project files. Here's a quick guide on how to do it." 
+           data-gr="Είτε είστε σε υπολογιστή είτε σε συσκευή Android, μπορείτε εύκολα να κατεβάσετε ένα GitHub repository για να αποκτήσετε όλα τα αρχεία του έργου. Ακολουθεί ένας σύντομος οδηγός για το πώς να το κάνετε.">
+           Whether you're on a PC or an Android device, you can easily download a GitHub repository to get all the project files. Here's a quick guide on how to do it.
+        </p>
 
-    <div class="columns">
-      <div class="card">
-        <h2>On Android (English)</h2>
-        <ol>
-          <li><strong>Using a web browser (Download ZIP):</strong>
-            <ol>
-              <li>Open the repository page on <em>github.com</em> in your browser (Chrome, Firefox, etc.).</li>
-              <li>Tap the green <strong>Code</strong> button near the top-right of the file list.</li>
-              <li>Choose <strong>Download ZIP</strong>. The repository will download as a ZIP file to your device's Downloads folder.</li>
-              <li>Open your Files app to extract the ZIP.</li>
-            </ol>
-          </li>
-          <li><strong>Using the official GitHub app:</strong>
-            <ol>
-              <li>Install the GitHub app from the Play Store.</li>
-              <li>Open the repo inside the app. Use "Open in browser" and follow the browser steps above.</li>
-            </ol>
-          </li>
-          <li><strong>Using a Git client on Android:</strong>
-            <ol>
-              <li>Install Termux or MGit.</li>
-              <li>With Termux: run <code>pkg update && pkg install git</code>, then <code>git clone https://github.com/USERNAME/REPOSITORY.git</code>.</li>
-              <li>With MGit: use the Clone option and paste the repo URL.</li>
-            </ol>
-          </li>
-        </ol>
-        <p class="note">If a repo is private you'll need to sign in or set up SSH keys.</p>
-      </div>
+        <h4 data-en="For PC (Windows, macOS, Linux)" data-gr="Για Υπολογιστή (Windows, macOS, Linux)">For PC (Windows, macOS, Linux)</h4>
+        <p data-en="The simplest way to download a repository is through the web interface, which works for any operating system." 
+           data-gr="Ο πιο απλός τρόπος για να κατεβάσετε ένα repository είναι μέσω της ιστοσελίδας, η οποία λειτουργεί σε οποιοδήποτε λειτουργικό σύστημα.">
+           The simplest way to download a repository is through the web interface, which works for any operating system.
+        </p>
+        <ul class="steps">
+            <li data-en="<strong>Navigate to the Repository:</strong> Open your web browser and go to the GitHub repository you want to download."
+                data-gr="<strong>Πλοηγηθείτε στο Repository:</strong> Ανοίξτε τον φυλλομετρητή σας και πηγαίνετε στο GitHub repository που θέλετε να κατεβάσετε.">
+                <strong>Navigate to the Repository:</strong> Open your web browser and go to the GitHub repository you want to download.
+            </li>
+            <li data-en="<strong>Find the 'Code' Button:</strong> Look for a green button that says <span class='code'>Code</span> on the main page of the repository, usually located on the right side."
+                data-gr="<strong>Βρείτε το Κουμπί 'Code':</strong> Αναζητήστε ένα πράσινο κουμπί που λέει <span class='code'>Code</span> στην κεντρική σελίδα του repository, συνήθως βρίσκεται στη δεξιά πλευρά.">
+                <strong>Find the "Code" Button:</strong> Look for a green button that says <span class="code">Code</span> on the main page of the repository, usually located on the right side.
+            </li>
+            <li data-en="<strong>Download ZIP:</strong> Click the <span class='code'>Code</span> button. A dropdown menu will appear. Select the <span class='code'>Download ZIP</span> option. This will download a compressed file containing all the repository's contents."
+                data-gr="<strong>Κατεβάστε το ZIP:</strong> Κάντε κλικ στο κουμπί <span class='code'>Code</span>. Θα εμφανιστεί ένα αναπτυσσόμενο μενού. Επιλέξτε την επιλογή <span class='code'>Download ZIP</span>. Αυτό θα κατεβάσει ένα συμπιεσμένο αρχείο που περιέχει όλα τα περιεχόμενα του repository.">
+                <strong>Download ZIP:</strong> Click the <span class="code">Code</span> button. A dropdown menu will appear. Select the <span class="code">Download ZIP</span> option. This will download a compressed file containing all the repository's contents.
+            </li>
+            <li data-en="<strong>Extract the Files:</strong> Once the download is complete, find the ZIP file and extract its contents to a folder on your computer. You now have all the project files!"
+                data-gr="<strong>Εξαγωγή των Αρχείων:</strong> Μόλις ολοκληρωθεί η λήψη, βρείτε το αρχείο ZIP και εξάγετε τα περιεχόμενά του σε ένα φάκελο στον υπολογιστή σας. Τώρα έχετε όλα τα αρχεία του έργου!">
+                <strong>Extract the Files:</strong> Once the download is complete, find the ZIP file and extract its contents to a folder on your computer. You now have all the project files!
+            </li>
+        </ul>
 
-      <div class="card">
-        <h2>Σε Android (Ελληνικά)</h2>
-        <ol>
-          <li><strong>Μέσω προγράμματος περιήγησης (Λήψη ZIP):</strong>
-            <ol>
-              <li>Άνοιξε τη σελίδα του αποθετηρίου στο <em>github.com</em> με τον browser σου.</li>
-              <li>Πάτησε το πράσινο κουμπί <strong>Code</strong> πάνω δεξιά.</li>
-              <li>Επίλεξε <strong>Download ZIP</strong>. Θα κατέβει στον φάκελο “Λήψεις”.</li>
-              <li>Χρησιμοποίησε την εφαρμογή “Αρχεία” για να αποσυμπιέσεις το ZIP.</li>
-            </ol>
-          </li>
-          <li><strong>Με την εφαρμογή GitHub:</strong>
-            <ol>
-              <li>Κατέβασε το GitHub app από το Play Store.</li>
-              <li>Άνοιξε το repo στην εφαρμογή. Χρησιμοποίησε το "Άνοιγμα σε browser" και ακολούθησε τα βήματα για browser.</li>
-            </ol>
-          </li>
-          <li><strong>Με Git client σε Android:</strong>
-            <ol>
-              <li>Εγκατάστησε το Termux ή το MGit.</li>
-              <li>Με Termux: εκτέλεσε <code>pkg update && pkg install git</code>, μετά <code>git clone https://github.com/USERNAME/REPOSITORY.git</code>.</li>
-              <li>Με MGit: επίλεξε Clone και επικόλλησε το URL του repo.</li>
-            </ol>
-          </li>
-        </ol>
-        <p class="note">Για ιδιωτικά repos χρειάζεται σύνδεση ή SSH keys.</p>
-      </div>
+        <h4 data-en="For Android" data-gr="Για Android">For Android</h4>
+        <p data-en="Downloading on Android is very similar, using your device's web browser."
+           data-gr="Η λήψη σε Android είναι πολύ παρόμοια, χρησιμοποιώντας τον φυλλομετρητή της συσκευής σας.">
+           Downloading on Android is very similar, using your device's web browser.
+        </p>
+        <ul class="steps">
+            <li data-en="<strong>Open the Repository in a Browser:</strong> Use a browser like Chrome or Firefox on your Android device to go to the GitHub repository page."
+                data-gr="<strong>Ανοίξτε το Repository σε έναν Φυλλομετρητή:</strong> Χρησιμοποιήστε έναν φυλλομετρητή όπως το Chrome ή το Firefox στη συσκευή σας Android για να πάτε στη σελίδα του GitHub repository.">
+                <strong>Open the Repository in a Browser:</strong> Use a browser like Chrome or Firefox on your Android device to go to the GitHub repository page.
+            </li>
+            <li data-en="<strong>Tap the 'Code' Button:</strong> Find and tap the green <span class='code'>Code</span> button. You may need to zoom in to see it clearly."
+                data-gr="<strong>Πατήστε το Κουμπί 'Code':</strong> Βρείτε και πατήστε το πράσινο κουμπί <span class='code'>Code</span>. Ίσως χρειαστεί να κάνετε ζουμ για να το δείτε καθαρά.">
+                <strong>Tap the "Code" Button:</strong> Find and tap the green <span class="code">Code</span> button. You may need to zoom in to see it clearly.
+            </li>
+            <li data-en="<strong>Select 'Download ZIP':</strong> From the menu that appears, tap on <span class='code'>Download ZIP</span>. Your phone's browser will start downloading the file."
+                data-gr="<strong>Επιλέξτε 'Download ZIP':</strong> Από το μενού που θα εμφανιστεί, πατήστε στο <span class='code'>Download ZIP</span>. Ο φυλλομετρητής του τηλεφώνου σας θα ξεκινήσει τη λήψη του αρχείου.">
+                <strong>Select "Download ZIP":</strong> From the menu that appears, tap on <span class="code">Download ZIP</span>. Your phone's browser will start downloading the file.
+            </li>
+            <li data-en="<strong>Access the Downloaded Files:</strong> Once the download is finished, you can find the ZIP file in your device's 'Downloads' folder. Use a file manager app to open and extract the contents to access the project files."
+                data-gr="<strong>Πρόσβαση στα Κατεβασμένα Αρχεία:</strong> Μόλις ολοκληρωθεί η λήψη, μπορείτε να βρείτε το αρχείο ZIP στο φάκελο 'Downloads' της συσκευής σας. Χρησιμοποιήστε μια εφαρμογή διαχείρισης αρχείων για να ανοίξετε και να εξαγάγετε τα περιεχόμενα για να αποκτήσετε πρόσβαση στα αρχεία του έργου.">
+                <strong>Access the Downloaded Files:</strong> Once the download is finished, you can find the ZIP file in your device's "Downloads" folder. Use a file manager app to open and extract the contents to access the project files.
+            </li>
+        </ul>
+        
+        <p class="note" data-en="For advanced users, downloading via Git command line is a more flexible option for cloning and managing repositories. However, the ZIP download method is perfect for getting a quick snapshot of the project."
+           data-gr="Για προχωρημένους χρήστες, η λήψη μέσω της γραμμής εντολών Git είναι μια πιο ευέλικτη επιλογή για την κλωνοποίηση και διαχείριση repositories. Ωστόσο, η μέθοδος λήψης ZIP είναι ιδανική για να αποκτήσετε ένα γρήγορο αντίγραφο του έργου.">
+            For advanced users, downloading via Git command line is a more flexible option for cloning and managing repositories. However, the ZIP download method is perfect for getting a quick snapshot of the project.
+        </p>
     </div>
-
-    <div class="columns" style="margin-top:1.5rem">
-      <div class="card">
-        <h2>On PC (English)</h2>
-        <ol>
-          <li><strong>Download ZIP:</strong>
-            <ol>
-              <li>Open the repository page on <em>github.com</em>.</li>
-              <li>Click <strong>Code → Download ZIP</strong>.</li>
-              <li>Extract the ZIP file on your computer.</li>
-            </ol>
-          </li>
-          <li><strong>Using Git:</strong>
-            <ol>
-              <li>Install Git on your system.</li>
-              <li>Open terminal and run:
-                <pre><code>git clone https://github.com/USERNAME/REPOSITORY.git</code></pre>
-              </li>
-              <li>Use <code>git pull</code> to update later.</li>
-            </ol>
-          </li>
-        </ol>
-      </div>
-
-      <div class="card">
-        <h2>Σε Υπολογιστή (Ελληνικά)</h2>
-        <ol>
-          <li><strong>Λήψη ZIP:</strong>
-            <ol>
-              <li>Άνοιξε το repo στο <em>github.com</em>.</li>
-              <li>Κάνε κλικ στο <strong>Code → Download ZIP</strong>.</li>
-              <li>Αποσυμπίεσε το ZIP στον υπολογιστή σου.</li>
+</body>
+</html>
