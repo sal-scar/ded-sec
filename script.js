@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLanguage = 'en';
     let initialSetupDone = false;
     let searchIndex = [];
-    let tipsLoaded = false;
-    let lifeTipsCache = {}; // <-- NEW: Caches fetched HTML for Life Tips to be indexed
-
+    let tipsLoaded = false; // <-- NEW: Flag for Life Tips content
+    
     // --- PORTFOLIO INITIALIZATION ---
     function initializePortfolio() {
         // --- LANGUAGE AND MODAL LOGIC ---
@@ -112,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
                          if (modalId === 'certification-modal' && window.resetQuiz) {
                              window.resetQuiz();
                          }
-                         // --- Trigger Life Tips fetch ---
+                         // --- NEW: Trigger Life Tips fetch ---
                          if (modalId === 'life-tips-modal' && !tipsLoaded) {
                             fetchLifeTips();
                          }
@@ -199,21 +198,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // --- SEARCH FUNCTIONALITY (SHARED & INITIALIZATION) ---
-        const searchWeights = {
-            MODAL_BUTTON: 10,
-            H2: 8,
-            H3: 7,
-            B: 5,
-            LI: 4,
-            CODE: 3,
-            TIP: 2,
-            DEFAULT: 1
-        };
-        
+        // --- SEARCH FUNCTIONALITY (ADVANCED) ---
         function buildSearchIndex() {
             searchIndex = [];
-            const weights = searchWeights;
+            
+            const weights = {
+                MODAL_BUTTON: 10,
+                H2: 8,
+                H3: 7,
+                B: 5,
+                LI: 4,
+                CODE: 3,
+                TIP: 2,
+                DEFAULT: 1
+            };
 
             document.querySelectorAll('.app-icon[data-modal]').forEach(el => {
                 const span = el.querySelector('span');
@@ -253,71 +251,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     const text = el.textContent.trim();
                     
                     if (text.length > 3) {
-                        // This logic creates separate entries for each language block, which is simple and effective.
-                        let weight = weights.DEFAULT;
-                        if (el.tagName === 'CODE') weight = weights.CODE;
-                        if (el.tagName === 'LI') weight = weights.LI;
-                        if (el.tagName === 'B' || el.tagName === 'STRONG') weight = weights.B;
-                        if (el.tagName === 'H3') weight = weights.H3;
+                        const existingEntry = searchIndex.find(item => item.element === el);
+                        if (!existingEntry) {
+                            let weight = weights.DEFAULT;
+                            if (el.closest('.tip')) weight = weights.TIP;
+                            if (el.tagName === 'CODE') weight = weights.CODE;
+                            if (el.tagName === 'LI') weight = weights.LI;
+                            if (el.tagName === 'B' || el.tagName === 'STRONG') weight = weights.B;
+                            if (el.tagName === 'H3') weight = weights.H3;
 
-                        let entry = { type: 'content', target: modalId, element: el, en: '', gr: '', weight: weight };
-                        entry[lang] = text;
-                        searchIndex.push(entry);
+                            let entry = { type: 'content', target: modalId, element: el, en: '', gr: '', weight: weight };
+                            entry[lang] = text;
+                            searchIndex.push(entry);
+                        } else {
+                            existingEntry[lang] = text;
+                        }
                     }
                 });
             });
-        }
-        
-        // --- NEW: Function to index dynamically loaded Life Tips content ---
-        function addLifeTipsToSearchIndex() {
-            const weights = searchWeights;
-            const newIndexItems = [];
-            let uniqueFileCounter = 0;
-
-            for (const url in lifeTipsCache) {
-                const html = lifeTipsCache[url];
-                if (!html) continue;
-
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-
-                // Assign a unique, stable ID to each potential element to generate a selector
-                doc.querySelectorAll('p, li, h3, b, strong, code').forEach((el, index) => {
-                    el.setAttribute('data-search-id', `tip-${uniqueFileCounter}-${index}`);
-                });
-
-                // Now iterate again to build the index from the parsed document
-                doc.querySelectorAll('p, li, h3, b, strong, code').forEach(el => {
-                    const section = el.closest('[data-lang-section]');
-                    if (!section) return;
-
-                    const lang = section.dataset.langSection;
-                    const text = el.textContent.trim();
-
-                    if (text.length > 3) {
-                        let weight = weights.DEFAULT;
-                        if (el.tagName === 'CODE') weight = weights.CODE;
-                        if (el.tagName === 'LI') weight = weights.LI;
-                        if (el.tagName === 'B' || el.tagName === 'STRONG') weight = weights.B;
-                        if (el.tagName === 'H3') weight = weights.H3;
-
-                        let entry = {
-                            type: 'tip_content',
-                            target: 'life-tips',
-                            tip_url: url,
-                            element_selector: `[data-search-id="${el.getAttribute('data-search-id')}"]`,
-                            en: '',
-                            gr: '',
-                            weight: weight * weights.TIP // Multiply by base tip weight for relevance
-                        };
-                        entry[lang] = text;
-                        newIndexItems.push(entry);
-                    }
-                });
-                uniqueFileCounter++;
-            }
-            
-            searchIndex.push(...newIndexItems);
         }
         
         function initializeSearch() {
@@ -343,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     let score = 0;
                     let phraseMatch = false;
 
+                    // Highest score for exact phrase match
                     if (text.includes(query)) {
                         score += 50;
                         phraseMatch = true;
@@ -352,8 +304,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const wordPositions = [];
                     queryWords.forEach(word => {
                         let lastIndex = -1;
+                        // Find all occurrences of the word to calculate proximity
                         while ((lastIndex = text.indexOf(word, lastIndex + 1)) !== -1) {
-                            if (!phraseMatch) {
+                            if (!phraseMatch) { // Only add individual word score if phrase didn't match
                                 score += 5;
                             }
                             foundWords.add(word);
@@ -361,19 +314,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                     
+                    // Bonus if all unique words from the query are found
                     if (foundWords.size === queryWords.length) {
                         score += 20;
+                        
+                        // Proximity bonus for how close the words are
                         if (wordPositions.length > 1) {
                             const minPos = Math.min(...wordPositions);
                             const maxPos = Math.max(...wordPositions);
                             const span = maxPos - minPos;
-                            if (span < 250 && span > 0) {
-                                score += (250 - span) / 10;
+                            if (span < 250 && span > 0) { // Apply bonus for reasonably close words
+                                score += (250 - span) / 10; // Closer words get a higher score
                             }
                         }
                     }
                     
                     if (score > 0) {
+                        // Apply original weight from the element type at the end
                         score *= item.weight;
                         results.push({ ...item, score });
                     }
@@ -387,11 +344,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         itemEl.classList.add('search-result-item');
                         
                         const mainText = result[currentLanguage] || result['en'];
-                        // MODIFIED: Custom text for life tips location
-                        const locationTextKey = result.target === 'life-tips' ? 'Life Tips' : result.target.replace(/-/g, ' ');
                         const locationText = {
-                            en: `In: ${locationTextKey}`,
-                            gr: `Σε: ${locationTextKey}`
+                            en: `In: ${result.target.replace(/-/g, ' ')}`,
+                            gr: `Σε: ${result.target.replace(/-/g, ' ')}`
                         };
 
                         let snippet = '';
@@ -412,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         let highlightedSnippet = snippet;
-                        const uniqueWords = [...new Set(queryWords)];
+                        const uniqueWords = [...new Set(queryWords)]; // Highlight each word only once
                         uniqueWords.forEach(word => {
                              const regex = new RegExp(`(${word})`, 'gi');
                              highlightedSnippet = highlightedSnippet.replace(regex, '<strong>$1</strong>');
@@ -420,44 +375,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         itemEl.innerHTML = `${highlightedSnippet} <small>${locationText[currentLanguage]}</small>`;
                         
-                        // --- NEW: Unified click handler for all search result types ---
-                        itemEl.addEventListener('click', async () => {
+                        itemEl.addEventListener('click', () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
+                            const targetElement = result.type === 'modal_button' ? result.element : document.querySelector(`.app-icon[data-modal="${result.target}"]`);
+                            if(targetElement){ targetElement.click(); }
 
-                            // Handle Life Tips content
-                            if (result.type === 'tip_content') {
-                                const tipsModal = document.getElementById('life-tips-modal');
-                                if (!tipsModal.classList.contains('visible')) {
-                                    document.querySelector('.app-icon[data-modal="life-tips"]').click();
-                                }
-                                await loadTipContent(result.tip_url);
-                                setTimeout(() => { // Delay to allow content to render
-                                    const contentContainer = document.getElementById('life-tips-content');
-                                    const targetElement = contentContainer.querySelector(result.element_selector);
-                                    if (targetElement) {
-                                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                        targetElement.classList.add('content-highlight');
-                                        setTimeout(() => targetElement.classList.remove('content-highlight'), 2000);
-                                    }
-                                }, 100);
-                                return;
-                            }
-
-                            // Handle all other modal content
-                            const targetModalIcon = result.type === 'modal_button' 
-                                ? result.element 
-                                : document.querySelector(`.app-icon[data-modal="${result.target}"]`);
-                            
-                            if (targetModalIcon) {
-                                targetModalIcon.click();
-                            }
-
-                            if (result.type === 'content' && result.element) {
+                            if (result.type === 'content') {
                                 setTimeout(() => {
                                     result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                     result.element.classList.add('content-highlight');
-                                    setTimeout(() => result.element.classList.remove('content-highlight'), 2000);
+                                    setTimeout(() => {
+                                        result.element.classList.remove('content-highlight');
+                                    }, 2000);
                                 }, 300);
                             }
                         });
@@ -480,28 +410,33 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
-        // --- SCROLL INDICATOR LOGIC ---
+        // --- NEW: SCROLL INDICATOR LOGIC ---
         function initializeScrollIndicator() {
             const scrollContainer = document.querySelector('.home-screen');
             const scrollIndicatorThumb = document.getElementById('scroll-indicator-thumb');
 
             const handleScroll = () => {
                 if (!scrollContainer || !scrollIndicatorThumb) return;
+
                 const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
+                
                 if (scrollHeight <= clientHeight) {
                     scrollIndicatorThumb.style.opacity = '0';
                     return;
                 }
+
                 scrollIndicatorThumb.style.opacity = '1';
                 const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
                 const thumbHeight = scrollIndicatorThumb.clientHeight;
                 const trackHeight = clientHeight;
                 const thumbPosition = scrollPercentage * (trackHeight - thumbHeight);
+                
                 scrollIndicatorThumb.style.top = `${thumbPosition}px`;
             };
 
             scrollContainer.addEventListener('scroll', handleScroll);
             window.addEventListener('resize', handleScroll);
+            // Initial check
             setTimeout(handleScroll, 100);
         }
 
@@ -513,22 +448,26 @@ document.addEventListener('DOMContentLoaded', () => {
         
         buildSearchIndex();
         initializeSearch();
-        initializeScrollIndicator();
+        initializeScrollIndicator(); // <-- Initialize new feature
     }
 
-    // --- LIFE TIPS MODAL LOGIC (MODIFIED for search indexing) ---
+    // --- NEW: LIFE TIPS MODAL LOGIC ---
     async function fetchLifeTips() {
         const navContainer = document.getElementById('life-tips-nav');
+        const contentContainer = document.getElementById('life-tips-content');
         const GITHUB_API_URL = 'https://api.github.com/repos/dedsec1121fk/dedsec1121fk.github.io/contents/Life_Tips';
         
         navContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
         
         try {
             const response = await fetch(GITHUB_API_URL);
-            if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`GitHub API error: ${response.status}`);
+            }
             const files = await response.json();
             
-            navContainer.innerHTML = '';
+            navContainer.innerHTML = ''; // Clear loading message
+            
             const htmlFiles = files.filter(file => file.type === 'file' && file.name.endsWith('.html'));
             
             if (htmlFiles.length === 0) {
@@ -536,31 +475,20 @@ document.addEventListener('DOMContentLoaded', () => {
                  return;
             }
 
-            // --- NEW: Fetch all tip content in parallel for indexing ---
-            const fetchPromises = htmlFiles.map(file => 
-                fetch(file.download_url)
-                    .then(res => {
-                        if (!res.ok) throw new Error(`Failed to fetch ${file.name}`);
-                        return res.text();
-                    })
-                    .then(html => {
-                        lifeTipsCache[file.download_url] = html; // Cache the content
-                    })
-                    .catch(err => console.error(err))
-            );
-            await Promise.all(fetchPromises);
-            addLifeTipsToSearchIndex(); // Index the fetched content
-
-            // Build the navigation buttons after fetching
             htmlFiles.forEach(file => {
                 const button = document.createElement('div');
                 button.className = 'app-icon';
+                
                 const icon = document.createElement('i');
                 icon.className = 'fas fa-book-open';
+                
                 const span = document.createElement('span');
+                // Create a clean name from the filename, e.g., "Healthy_Habits_1.html" -> "Healthy Habits"
                 span.textContent = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
+                
                 button.appendChild(icon);
                 button.appendChild(span);
+                
                 button.addEventListener('click', () => loadTipContent(file.download_url));
                 navContainer.appendChild(button);
             });
@@ -578,14 +506,14 @@ document.addEventListener('DOMContentLoaded', () => {
         contentContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
 
         try {
-            // Use cached content if available, otherwise fetch
-            const htmlContent = lifeTipsCache[url] || await (async () => {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error(`Failed to fetch content: ${response.status}`);
-                return await response.text();
-            })();
-            
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch content: ${response.status}`);
+            }
+            const htmlContent = await response.text();
             contentContainer.innerHTML = htmlContent;
+            
+            // Re-apply language to new dynamic content
             changeLanguage(currentLanguage);
 
         } catch (error) {
@@ -600,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Book 1: First Contact & Navigation
             { id: 1, book: 1, question_en: "Which command is used to find out your current location in the filesystem?", question_gr: "Ποια εντολή χρησιμοποιείται για να μάθετε την τρέχουσα τοποθεσία σας στο σύστημα αρχείων;", options_en: ["whoami", "ls", "pwd", "cd"], options_gr: ["whoami", "ls", "pwd", "cd"], correct_answer: 2 },
             { id: 2, book: 1, question_en: "What does the `~` (tilde) character represent in the command prompt?", question_gr: "Τι αντιπροσωπεύει ο χαρακτήρας `~` (περισπωμένη) στη γραμμή εντολών;", options_en: ["The root directory", "The previous directory", "The user's home directory", "A temporary directory"], options_gr: ["Τον ριζικό κατάλογο", "Τον προηγούμενο κατάλογο", "Τον κατάλογο χρήστη", "Έναν προσωρινό κατάλογο"], correct_answer: 2 },
-            { id: 3, book: 1, question_en: "How do you list all files, including hidden ones, in a long format?", question_gr: "Πώς εμφανίζετε όλα τα αρχεα, συμπεριλαμβανομένων των κρυφών, σε αναλυτική μορφή;", options_en: ["ls -l", "ls -a", "ls -h", "ls -la"], options_gr: ["ls -l", "ls -a", "ls -h", "ls -la"], correct_answer: 3 },
+            { id: 3, book: 1, question_en: "How do you list all files, including hidden ones, in a long format?", question_gr: "Πώς εμφανίζετε όλα τα αρχεία, συμπεριλαμβανομένων των κρυφών, σε αναλυτική μορφή;", options_en: ["ls -l", "ls -a", "ls -h", "ls -la"], options_gr: ["ls -l", "ls -a", "ls -h", "ls -la"], correct_answer: 3 },
             { id: 4, book: 1, question_en: "Which command takes you to the parent directory (one level up)?", question_gr: "Ποια εντολή σας μεταφέρει στον γονικό κατάλογο (ένα επίπεδο πάνω);", options_en: ["cd /", "cd ~", "cd ..", "cd ."], options_gr: ["cd /", "cd ~", "cd ..", "cd ."], correct_answer: 2 },
             // Book 2: File Management & Permissions
             { id: 5, book: 2, question_en: "Which command creates an empty file named 'report.txt'?", question_gr: "Ποια εντολή δημιουργεί ένα κενό αρχείο με το όνομα 'report.txt';", options_en: ["mkdir report.txt", "create report.txt", "touch report.txt", "new report.txt"], options_gr: ["mkdir report.txt", "create report.txt", "touch report.txt", "new report.txt"], correct_answer: 2 },
