@@ -1260,8 +1260,8 @@ body.light-theme .certificate-header h1 {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* --- NEW: Life Tips Modal Styles --- */
-#life-tips-content h3 {
+/* --- NEW: Useful Information Modal Styles --- */
+#useful-information-content h3 {
     text-align: left;
     color: var(--nm-accent-hover);
     border-bottom: 1px solid var(--nm-border);
@@ -1270,14 +1270,14 @@ body.light-theme .certificate-header h1 {
     margin-bottom: 1rem;
     font-family: 'Orbitron', sans-serif;
 }
-#life-tips-content p { margin-bottom: 1rem; }
-#life-tips-content ul, #life-tips-content ol {
+#useful-information-content p { margin-bottom: 1rem; }
+#useful-information-content ul, #useful-information-content ol {
     padding-left: 25px;
     margin-bottom: 1rem;
 }
-#life-tips-content li { margin-bottom: 0.5rem; }
-#life-tips-content a { color: var(--nm-accent); }
-#life-tips-content a:hover { color: var(--nm-accent-hover); text-decoration: underline; }
+#useful-information-content li { margin-bottom: 0.5rem; }
+#useful-information-content a { color: var(--nm-accent); }
+#useful-information-content a:hover { color: var(--nm-accent-hover); text-decoration: underline; }
 /* --- END NEW --- */
 
 /* =================================================================

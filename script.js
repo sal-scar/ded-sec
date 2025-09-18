@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLanguage = 'en';
     let initialSetupDone = false;
     let searchIndex = [];
-    let tipsLoaded = false;
+    let usefulInformationLoaded = false;
     
     // --- PORTFOLIO INITIALIZATION ---
     function initializePortfolio() {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('[data-en]').forEach(el => {
                 const text = el.getAttribute(`data-${lang}`) || el.getAttribute('data-en');
                 const isSpanInAppIcon = el.matches('.app-icon span');
-                const isSimpleTextElement = el.matches('h1, h2, h3, p, label, .main-footer p, button, .store-link a, #life-tips-content p') && !isSpanInAppIcon;
+                const isSimpleTextElement = el.matches('h1, h2, h3, p, label, .main-footer p, button, .store-link a, #useful-information-content p') && !isSpanInAppIcon;
 
                 if (isSimpleTextElement) {
                      el.textContent = text;
@@ -109,8 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
                          if (modalId === 'certification-modal' && window.resetQuiz) {
                              window.resetQuiz();
                          }
-                         if (modalId === 'life-tips-modal' && !tipsLoaded) {
-                            fetchLifeTips();
+                         if (modalId === 'useful-information-modal' && !usefulInformationLoaded) {
+                            fetchUsefulInformation();
                          }
                     }
                 });
@@ -375,11 +375,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
 
-                            if (result.type === 'life_tip') {
-                                // Handle clicks for 'life_tip' results
-                                const lifeTipsIcon = document.querySelector('.app-icon[data-modal="life-tips"]');
-                                if (lifeTipsIcon) lifeTipsIcon.click();
-                                loadTipContent(result.url);
+                            if (result.type === 'useful_information') {
+                                // Handle clicks for 'useful_information' results
+                                const usefulInformationIcon = document.querySelector('.app-icon[data-modal="useful-information"]');
+                                if (usefulInformationIcon) usefulInformationIcon.click();
+                                loadInformationContent(result.url);
                             } else {
                                 // Original logic for other modals
                                 const targetModalId = result.type === 'modal_button' ? result.target : result.target;
@@ -452,13 +452,13 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeScrollIndicator();
     }
 
-    // --- REPLACED LIFE TIPS MODAL LOGIC ---
-    async function fetchLifeTips() {
-        const navContainer = document.getElementById('life-tips-nav');
-        const contentContainer = document.getElementById('life-tips-content');
-        const GITHUB_API_URL = 'https://api.github.com/repos/dedsec1121fk/dedsec1121fk.github.io/contents/Life_Tips';
+    // --- REPLACED USEFUL INFORMATION MODAL LOGIC ---
+    async function fetchUsefulInformation() {
+        const navContainer = document.getElementById('useful-information-nav');
+        const contentContainer = document.getElementById('useful-information-content');
+        const GITHUB_API_URL = 'https://api.github.com/repos/dedsec1121fk/dedsec1121fk.github.io/contents/Useful_Information';
         
-        if (tipsLoaded) return;
+        if (usefulInformationLoaded) return;
 
         navContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
         
@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const htmlFiles = files.filter(file => file.type === 'file' && file.name.endsWith('.html'));
             
             if (htmlFiles.length === 0) {
-                 navContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Δεν βρέθηκαν συμβουλές.' : 'No tips found.'}</p>`;
+                 navContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Δεν βρέθηκαν πληροφορίες.' : 'No information found.'}</p>`;
                  return;
             }
 
@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = htmlContent;
                     
-                    const tipName = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
+                    const infoName = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
                     const weights = { H3: 7, B: 5, LI: 4, TIP: 2, DEFAULT: 1 };
 
                     tempDiv.querySelectorAll('[data-lang-section]').forEach(section => {
@@ -500,8 +500,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if (el.tagName === 'H3') weight = weights.H3;
 
                                 const entry = {
-                                    type: 'life_tip',
-                                    target: `Life Tips > ${tipName}`,
+                                    type: 'useful_information',
+                                    target: `Useful Information > ${infoName}`,
                                     element: el,
                                     url: file.download_url,
                                     en: '',
@@ -514,12 +514,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     });
                 } catch (e) {
-                    console.error(`Failed to index tip: ${file.name}`, e);
+                    console.error(`Failed to index information: ${file.name}`, e);
                 }
             });
             
             await Promise.all(indexPromises);
-            console.log('Life Tips indexed successfully!');
+            console.log('Useful Information indexed successfully!');
 
             htmlFiles.forEach(file => {
                 const button = document.createElement('div');
@@ -530,20 +530,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 span.textContent = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
                 button.appendChild(icon);
                 button.appendChild(span);
-                button.addEventListener('click', () => loadTipContent(file.download_url));
+                button.addEventListener('click', () => loadInformationContent(file.download_url));
                 navContainer.appendChild(button);
             });
             
-            tipsLoaded = true;
+            usefulInformationLoaded = true;
 
         } catch (error) {
-            console.error('Failed to fetch life tips:', error);
+            console.error('Failed to fetch useful information:', error);
             navContainer.innerHTML = `<p style="color: var(--nm-danger);">${currentLanguage === 'gr' ? 'Αποτυχία φόρτωσης περιεχομένου.' : 'Failed to load content.'}</p>`;
         }
     }
 
-    async function loadTipContent(url) {
-        const contentContainer = document.getElementById('life-tips-content');
+    async function loadInformationContent(url) {
+        const contentContainer = document.getElementById('useful-information-content');
         contentContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
 
         try {
@@ -553,7 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
             contentContainer.innerHTML = htmlContent;
             changeLanguage(currentLanguage);
         } catch (error) {
-            console.error('Failed to load tip content:', error);
+            console.error('Failed to load content:', error);
             contentContainer.innerHTML = `<p style="color: var(--nm-danger);">${currentLanguage === 'gr' ? 'Αποτυχία φόρτωσης περιεχομένου.' : 'Failed to load content.'}</p>`;
         }
     }
