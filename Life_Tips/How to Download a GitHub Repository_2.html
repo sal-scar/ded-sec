@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>How to download a GitHub repository — Android & PC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1020;
+      --card: #0f1724;
+      --text: #e6eef8;
+      --muted: #9fb0d9;
+      --accent: #4fd1c5;
+      --glass: rgba(255,255,255,0.03);
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071028 0%, #081427 100%);font-family:Inter,system-ui,Arial,Helvetica,sans-serif;color:var(--text)}
+    .wrap{max-width:980px;margin:4rem auto;padding:2rem;background:var(--glass);border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.7)}
+    h1{font-family:Orbitron, sans-serif;margin:0 0 0.5rem;color:var(--accent);font-size:1.6rem;text-align:center}
+    p.lead{color:var(--muted);text-align:center;margin-top:0;margin-bottom:1.5rem}
+    .columns{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    .card{background:var(--card);padding:1.25rem;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+    h2{margin-top:0;color:#dff7f0}
+    ol{margin:0 0 1rem 1.2rem;padding:0;color:var(--muted)}
+    pre{background:#051227;padding:0.75rem;border-radius:6px;overflow:auto;font-family:monospace;color:#dff7f0}
+    code{font-family:monospace}
+    .note{font-size:0.9rem;color:#bcd6ff}
+    footer{text-align:center;margin-top:1.5rem;color:var(--muted);font-size:0.85rem}
+    @media(max-width:820px){.columns{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>How to download a GitHub repository — Android & PC</h1>
+    <p class="lead">Step-by-step, simple instructions to get a copy of any GitHub repo on your Android device or on a computer.</p>
+
+    <div class="columns">
+      <div class="card">
+        <h2>On Android (English)</h2>
+        <ol>
+          <li><strong>Using a web browser (Download ZIP):</strong>
+            <ol>
+              <li>Open the repository page on <em>github.com</em> in your browser (Chrome, Firefox, etc.).</li>
+              <li>Tap the green <strong>Code</strong> button near the top-right of the file list.</li>
+              <li>Choose <strong>Download ZIP</strong>. The repository will download as a ZIP file to your device's Downloads folder.</li>
+              <li>Open your Files app to extract the ZIP.</li>
+            </ol>
+          </li>
+          <li><strong>Using the official GitHub app:</strong>
+            <ol>
+              <li>Install the GitHub app from the Play Store.</li>
+              <li>Open the repo inside the app. Use "Open in browser" and follow the browser steps above.</li>
+            </ol>
+          </li>
+          <li><strong>Using a Git client on Android:</strong>
+            <ol>
+              <li>Install Termux or MGit.</li>
+              <li>With Termux: run <code>pkg update && pkg install git</code>, then <code>git clone https://github.com/USERNAME/REPOSITORY.git</code>.</li>
+              <li>With MGit: use the Clone option and paste the repo URL.</li>
+            </ol>
+          </li>
+        </ol>
+        <p class="note">If a repo is private you'll need to sign in or set up SSH keys.</p>
+      </div>
+
+      <div class="card">
+        <h2>Σε Android (Ελληνικά)</h2>
+        <ol>
+          <li><strong>Μέσω προγράμματος περιήγησης (Λήψη ZIP):</strong>
+            <ol>
+              <li>Άνοιξε τη σελίδα του αποθετηρίου στο <em>github.com</em> με τον browser σου.</li>
+              <li>Πάτησε το πράσινο κουμπί <strong>Code</strong> πάνω δεξιά.</li>
+              <li>Επίλεξε <strong>Download ZIP</strong>. Θα κατέβει στον φάκελο “Λήψεις”.</li>
+              <li>Χρησιμοποίησε την εφαρμογή “Αρχεία” για να αποσυμπιέσεις το ZIP.</li>
+            </ol>
+          </li>
+          <li><strong>Με την εφαρμογή GitHub:</strong>
+            <ol>
+              <li>Κατέβασε το GitHub app από το Play Store.</li>
+              <li>Άνοιξε το repo στην εφαρμογή. Χρησιμοποίησε το "Άνοιγμα σε browser" και ακολούθησε τα βήματα για browser.</li>
+            </ol>
+          </li>
+          <li><strong>Με Git client σε Android:</strong>
+            <ol>
+              <li>Εγκατάστησε το Termux ή το MGit.</li>
+              <li>Με Termux: εκτέλεσε <code>pkg update && pkg install git</code>, μετά <code>git clone https://github.com/USERNAME/REPOSITORY.git</code>.</li>
+              <li>Με MGit: επίλεξε Clone και επικόλλησε το URL του repo.</li>
+            </ol>
+          </li>
+        </ol>
+        <p class="note">Για ιδιωτικά repos χρειάζεται σύνδεση ή SSH keys.</p>
+      </div>
+    </div>
+
+    <div class="columns" style="margin-top:1.5rem">
+      <div class="card">
+        <h2>On PC (English)</h2>
+        <ol>
+          <li><strong>Download ZIP:</strong>
+            <ol>
+              <li>Open the repository page on <em>github.com</em>.</li>
+              <li>Click <strong>Code → Download ZIP</strong>.</li>
+              <li>Extract the ZIP file on your computer.</li>
+            </ol>
+          </li>
+          <li><strong>Using Git:</strong>
+            <ol>
+              <li>Install Git on your system.</li>
+              <li>Open terminal and run:
+                <pre><code>git clone https://github.com/USERNAME/REPOSITORY.git</code></pre>
+              </li>
+              <li>Use <code>git pull</code> to update later.</li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2>Σε Υπολογιστή (Ελληνικά)</h2>
+        <ol>
+          <li><strong>Λήψη ZIP:</strong>
+            <ol>
+              <li>Άνοιξε το repo στο <em>github.com</em>.</li>
+              <li>Κάνε κλικ στο <strong>Code → Download ZIP</strong>.</li>
+              <li>Αποσυμπίεσε το ZIP στον υπολογιστή σου.</li>
