@@ -22,6 +22,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            flex-direction: column;
         }
         .container {
             max-width: 800px;
@@ -73,9 +74,25 @@
             font-size: 0.9em;
             margin-top: 1rem;
         }
+        .language-switcher {
+            margin-bottom: 1rem;
+        }
+        .language-switcher button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+        }
     </style>
 </head>
 <body>
+    <div class="language-switcher">
+        <button onclick="setLanguage('en')">English</button>
+        <button onclick="setLanguage('gr')">Ελληνικά</button>
+    </div>
     <div class="container">
         <h3 data-en="How to Download a GitHub Repository" data-gr="Πώς να Κατεβάσετε ένα GitHub Repository">How to Download a GitHub Repository</h3>
         <p data-en="Whether you're on a PC or an Android device, you can easily download a GitHub repository to get all the project files. Here's a quick guide on how to do it." 
@@ -136,5 +153,33 @@
             For advanced users, downloading via Git command line is a more flexible option for cloning and managing repositories. However, the ZIP download method is perfect for getting a quick snapshot of the project.
         </p>
     </div>
+    
+    <script>
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-en], [data-gr]');
+            elements.forEach(el => {
+                if (el.dataset[lang]) {
+                    if (el.tagName === 'TITLE') {
+                        document.title = el.dataset[lang];
+                    } else if (el.innerHTML.includes('Code') || el.innerHTML.includes('ZIP')) {
+                        // Special handling for elements containing <code> tags
+                        // to preserve the inner HTML structure
+                        const enText = el.dataset['en'];
+                        const grText = el.dataset['gr'];
+                        if (lang === 'en') {
+                            el.innerHTML = enText;
+                        } else {
+                            el.innerHTML = grText;
+                        }
+                    } else {
+                        el.textContent = el.dataset[lang];
+                    }
+                }
+            });
+        }
+        
+        // Set default language on page load
+        setLanguage('en');
+    </script>
 </body>
 </html>
