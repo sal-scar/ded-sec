@@ -1,185 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Download a GitHub Repository (Revised)</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-    <style>
-        /* Define the color variables */
-        :root {
-            --nm-warning: #ffc107;
-            --glow-color-warning: rgba(255, 193, 7, 0.5);
-            --nm-accent-hover: #00e5ff;
-            --glow-color: rgba(0, 229, 255, 0.7);
-            --text-color: #e0e0e0;
-            --bg-color: #121212;
-        }
+<div id="tip-github-download" class="tip-content" style="display: none; text-align: left;">
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: sans-serif;
-            line-height: 1.6;
-        }
+    <h3 data-en="How to Download a GitHub Repository" 
+        data-gr="Πώς να Κατεβάσετε ένα Αποθετήριο GitHub" 
+        style="text-align: center;">
+        How to Download a GitHub Repository
+    </h3>
 
-        /* Styles for the main container and content */
-        .container {
-            text-align: center; 
-            padding: 2rem; 
-            max-width: 800px;
-            margin: 2rem auto;
-            border: 1px solid var(--nm-accent-hover);
-            border-radius: 10px;
-            box-shadow: 0 0 20px var(--glow-color);
-        }
+    <p data-en="A detailed guide for beginners on how to download all the files from a project on GitHub to your computer or Android device." 
+       data-gr="Ένας αναλυτικός οδηγός για αρχάριους για το πώς να κατεβάσετε όλα τα αρχεία ενός project από το GitHub στον υπολογιστή ή τη συσκευή σας Android.">
+       A detailed guide for beginners on how to download all the files from a project on GitHub to your computer or Android device.
+    </p>
 
-        .container > i {
-            font-size: 3rem; 
-            color: var(--nm-accent-hover); 
-            text-shadow: 0 0 15px var(--glow-color); 
-            margin-bottom: 1.5rem;
-        }
+    <h4 data-en="On Desktop (Windows, Mac, Linux)" 
+        data-gr="Σε Υπολογιστή (Windows, Mac, Linux)">
+        On Desktop (Windows, Mac, Linux)
+    </h4>
+    <ol>
+        <li data-en="Go to the GitHub project page. Above the file list, click the green <> Code button."
+            data-gr="Πηγαίνετε στη σελίδα του project στο GitHub. Πάνω από τη λίστα αρχείων, κάντε κλικ στο πράσινο κουμπί <> Code.">
+            Go to the GitHub project page. Above the file list, click the green <strong>&lt;&gt; Code</strong> button.
+        </li>
+        <li data-en="From the dropdown menu, click on Download ZIP. The download will begin."
+            data-gr="Από το αναπτυσσόμενο μενού, κάντε κλικ στο Download ZIP. Η λήψη θα ξεκινήσει.">
+            From the dropdown menu, click on <strong>Download ZIP</strong>. The download will begin.
+        </li>
+        <li data-en="Find the downloaded file. It's almost always in your 'Downloads' folder."
+            data-gr="Βρείτε το αρχείο που κατεβάσατε. Είναι σχεδόν πάντα στον φάκελό σας 'Λήψεις'.">
+            Find the downloaded file. It's almost always in your <strong>'Downloads'</strong> folder.
+            <div class="location-info">
+                <p data-en="<strong>On Windows:</strong> Open File Explorer (the yellow folder icon on your taskbar) and click 'Downloads' on the left side."
+                   data-gr="<strong>Σε Windows:</strong> Ανοίξτε την 'Εξερεύνηση αρχείων' (το κίτρινο εικονίδιο φακέλου στη γραμμή εργασιών) και κάντε κλικ στις 'Λήψεις' στην αριστερή πλευρά.">
+                   <strong>On Windows:</strong> Open File Explorer (the yellow folder icon on your taskbar) and click 'Downloads' on the left side.
+                </p>
+                <p data-en="<strong>On Mac:</strong> Open Finder (the smiling face icon in your Dock) and click 'Downloads' in the sidebar."
+                   data-gr="<strong>Σε Mac:</strong> Ανοίξτε το 'Finder' (το εικονίδιο με το χαμογελαστό πρόσωπο στο Dock) και κάντε κλικ στις 'Λήψεις' στην πλαϊνή μπάρα.">
+                   <strong>On Mac:</strong> Open Finder (the smiling face icon in your Dock) and click 'Downloads' in the sidebar.
+                </p>
+            </div>
+        </li>
+        <li data-en="The file will be a .zip file. Right-click it and choose 'Extract All...' or 'Unzip' to create a normal folder with all the project files."
+            data-gr="Το αρχείο θα είναι ένα αρχείο .zip. Κάντε δεξί κλικ πάνω του και επιλέξτε 'Εξαγωγή όλων...' ή 'Αποσυμπίεση' για να δημιουργήσετε έναν κανονικό φάκελο με όλα τα αρχεία του project.">
+            The file will be a <strong>.zip</strong> file. Right-click it and choose <strong>'Extract All...'</strong> or <strong>'Unzip'</strong> to create a normal folder with all the project files.
+        </li>
+    </ol>
 
-        h3 {
-            font-family: 'Orbitron', sans-serif; 
-            color: var(--nm-accent-hover); 
-            text-shadow: 0 0 8px var(--glow-color); 
-            margin-top: 0;
-            font-size: 1.75rem;
-        }
-
-        h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--nm-warning);
-            text-shadow: 0 0 8px var(--glow-color-warning);
-            margin-top: 2.5rem;
-            border-bottom: 1px solid var(--nm-warning);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-        }
-
-        p, li {
-            text-align: left;
-            margin-bottom: 0.75rem;
-        }
-
-        ol {
-            padding-left: 2rem;
-        }
-        
-        strong {
-            color: var(--nm-accent-hover);
-            font-weight: bold;
-        }
-        
-        .location-info {
-            background-color: rgba(255, 193, 7, 0.05);
-            border-left: 3px solid var(--nm-warning);
-            padding: 10px 15px;
-            margin: 15px 0;
-            text-align: left;
-            border-radius: 4px;
-        }
-        
-        .location-info strong {
-            color: var(--nm-warning);
-        }
-
-    </style>
-</head>
-<body>
-
-    <div class="container">
-    
-        <i class="fab fa-github"></i>
-
-        <h3 data-en="How to Download a GitHub Repository" 
-            data-gr="Πώς να Κατεβάσετε ένα Αποθετήριο GitHub">
-            How to Download a GitHub Repository
-        </h3>
-
-        <p data-en="A detailed guide for beginners on how to download all the files from a project on GitHub to your computer or Android device." 
-           data-gr="Ένας αναλυτικός οδηγός για αρχάριους για το πώς να κατεβάσετε όλα τα αρχεία ενός project από το GitHub στον υπολογιστή ή τη συσκευή σας Android.">
-           A detailed guide for beginners on how to download all the files from a project on GitHub to your computer or Android device.
-        </p>
-
-        <h4 data-en="On Desktop (Windows, Mac, Linux)" 
-            data-gr="Σε Υπολογιστή (Windows, Mac, Linux)">
-            On Desktop (Windows, Mac, Linux)
-        </h4>
-        <ol>
-            <li data-en="Go to the GitHub project page. Above the file list, click the green <> Code button."
-                data-gr="Πηγαίνετε στη σελίδα του project στο GitHub. Πάνω από τη λίστα αρχείων, κάντε κλικ στο πράσινο κουμπί <> Code.">
-                Go to the GitHub project page. Above the file list, click the green <strong>&lt;&gt; Code</strong> button.
-            </li>
-            <li data-en="From the dropdown menu, click on Download ZIP. The download will begin."
-                data-gr="Από το αναπτυσσόμενο μενού, κάντε κλικ στο Download ZIP. Η λήψη θα ξεκινήσει.">
-                From the dropdown menu, click on <strong>Download ZIP</strong>. The download will begin.
-            </li>
-            <li data-en="Find the downloaded file. It's almost always in your 'Downloads' folder."
-                data-gr="Βρείτε το αρχείο που κατεβάσατε. Είναι σχεδόν πάντα στον φάκελό σας 'Λήψεις'.">
-                Find the downloaded file. It's almost always in your <strong>'Downloads'</strong> folder.
-                <div class="location-info">
-                    <p data-en="<strong>On Windows:</strong> Open File Explorer (the yellow folder icon on your taskbar) and click 'Downloads' on the left side."
-                       data-gr="<strong>Σε Windows:</strong> Ανοίξτε την 'Εξερεύνηση αρχείων' (το κίτρινο εικονίδιο φακέλου στη γραμμή εργασιών) και κάντε κλικ στις 'Λήψεις' στην αριστερή πλευρά.">
-                       <strong>On Windows:</strong> Open File Explorer (the yellow folder icon on your taskbar) and click 'Downloads' on the left side.
-                    </p>
-                    <p data-en="<strong>On Mac:</strong> Open Finder (the smiling face icon in your Dock) and click 'Downloads' in the sidebar."
-                       data-gr="<strong>Σε Mac:</strong> Ανοίξτε το 'Finder' (το εικονίδιο με το χαμογελαστό πρόσωπο στο Dock) και κάντε κλικ στις 'Λήψεις' στην πλαϊνή μπάρα.">
-                       <strong>On Mac:</strong> Open Finder (the smiling face icon in your Dock) and click 'Downloads' in the sidebar.
-                    </p>
-                </div>
-            </li>
-            <li data-en="The file will be a .zip file. Right-click it and choose 'Extract All...' or 'Unzip' to create a normal folder with all the project files."
-                data-gr="Το αρχείο θα είναι ένα αρχείο .zip. Κάντε δεξί κλικ πάνω του και επιλέξτε 'Εξαγωγή όλων...' ή 'Αποσυμπίεση' για να δημιουργήσετε έναν κανονικό φάκελο με όλα τα αρχεία του project.">
-                The file will be a <strong>.zip</strong> file. Right-click it and choose <strong>'Extract All...'</strong> or <strong>'Unzip'</strong> to create a normal folder with all the project files.
-            </li>
-        </ol>
-
-        <h4 data-en="On an Android Device (The Easy Way)" 
-            data-gr="Σε Συσκευή Android (Ο Εύκολος Τρόπος)">
-            On an Android Device (The Easy Way)
-        </h4>
-        <ol>
-            <li data-en="In your browser, go to the GitHub project page. No special tricks needed!"
-                data-gr="Στο πρόγραμμα περιήγησής σας, πηγαίνετε στη σελίδα του project στο GitHub. Δεν χρειάζονται ειδικά κόλπα!">
-                In your browser, go to the GitHub project page. No special tricks needed!
-            </li>
-            <li data-en="Just like on desktop, look above the file list and tap the green <> Code button."
-                data-gr="Ακριβώς όπως και στον υπολογιστή, κοιτάξτε πάνω από τη λίστα αρχείων και πατήστε το πράσινο κουμπί <> Code.">
-                Just like on desktop, look above the file list and tap the green <strong>&lt;&gt; Code</strong> button.
-            </li>
-             <li data-en="A menu will appear. At the bottom of this menu, tap the 'Download ZIP' link. The download will start."
-                data-gr="Θα εμφανιστεί ένα μενού. Στο κάτω μέρος αυτού του μενού, πατήστε τον σύνδεσμο 'Download ZIP'. Η λήψη θα ξεκινήσει.">
-                A menu will appear. At the bottom of this menu, tap the <strong>'Download ZIP'</strong> link. The download will start.
-            </li>
-            <li data-en="Find the downloaded file. Where is it?"
-                data-gr="Βρείτε το αρχείο που κατεβάσατε. Πού βρίσκεται;">
-                Find the downloaded file. Where is it?
-                 <div class="location-info">
-                    <p data-en="<strong>Easiest way:</strong> Pull down your notification bar from the top of the screen. Tap on the 'Download complete' notification."
-                       data-gr="<strong>Ο ευκολότερος τρόπος:</strong> Τραβήξτε προς τα κάτω τη γραμμή ειδοποιήσεων από την κορυφή της οθόνης. Πατήστε στην ειδοποίηση 'Η λήψη ολοκληρώθηκε'.">
-                       <strong>Easiest way:</strong> Pull down your notification bar from the top of the screen. Tap on the 'Download complete' notification.
-                    </p>
-                    <p data-en="<strong>Sure way:</strong> Open your phone's 'Files' or 'My Files' app (look for a folder icon). Inside, go to the 'Downloads' folder."
-                       data-gr="<strong>Ο σίγουρος τρόπος:</strong> Ανοίξτε την εφαρμογή 'Αρχεία' ή 'Τα αρχεία μου' του τηλεφώνου σας (ψάξτε για ένα εικονίδιο φακέλου). Μέσα, πηγαίνετε στον φάκελο 'Λήψεις'.">
-                       <strong>Sure way:</strong> Open your phone's 'Files' or 'My Files' app (look for a folder icon). Inside, go to the 'Downloads' folder.
-                    </p>
-                </div>
-            </li>
-            <li data-en="Tap on the .zip file. Your phone will ask you to 'Extract' it. Tap 'Extract', and it will create a new folder with all the project files."
-                data-gr="Πατήστε στο αρχείο .zip. Το τηλέφωνό σας θα σας ζητήσει να το 'Εξάγετε'. Πατήστε 'Εξαγωγή' και θα δημιουργηθεί ένας νέος φάκελος με όλα τα αρχεία του project.">
-                Tap on the <strong>.zip</strong> file. Your phone will ask you to <strong>'Extract'</strong> it. Tap 'Extract', and it will create a new folder with all the project files.
-            </li>
-        </ol>
-    </div>
-
-</body>
-</html>
+    <h4 data-en="On an Android Device (The Easy Way)" 
+        data-gr="Σε Συσκευή Android (Ο Εύκολος Τρόπος)">
+        On an Android Device (The Easy Way)
+    </h4>
+    <ol>
+        <li data-en="In your browser, go to the GitHub project page. No special tricks needed!"
+            data-gr="Στο πρόγραμμα περιήγησής σας, πηγαίνετε στη σελίδα του project στο GitHub. Δεν χρειάζονται ειδικά κόλπα!">
+            In your browser, go to the GitHub project page. No special tricks needed!
+        </li>
+        <li data-en="Just like on desktop, look above the file list and tap the green <> Code button."
+            data-gr="Ακριβώς όπως και στον υπολογιστή, κοιτάξτε πάνω από τη λίστα αρχείων και πατήστε το πράσινο κουμπί <> Code.">
+            Just like on desktop, look above the file list and tap the green <strong>&lt;&gt; Code</strong> button.
+        </li>
+         <li data-en="A menu will appear. At the bottom of this menu, tap the 'Download ZIP' link. The download will start."
+            data-gr="Θα εμφανιστεί ένα μενού. Στο κάτω μέρος αυτού του μενού, πατήστε τον σύνδεσμο 'Download ZIP'. Η λήψη θα ξεκινήσει.">
+            A menu will appear. At the bottom of this menu, tap the <strong>'Download ZIP'</strong> link. The download will start.
+        </li>
+        <li data-en="Find the downloaded file. Where is it?"
+            data-gr="Βρείτε το αρχείο που κατεβάσατε. Πού βρίσκεται;">
+            Find the downloaded file. Where is it?
+             <div class="location-info">
+                <p data-en="<strong>Easiest way:</strong> Pull down your notification bar from the top of the screen. Tap on the 'Download complete' notification."
+                   data-gr="<strong>Ο ευκολότερος τρόπος:</strong> Τραβήξτε προς τα κάτω τη γραμμή ειδοποιήσεων από την κορυφή της οθόνης. Πατήστε στην ειδοποίηση 'Η λήψη ολοκληρώθηκε'.">
+                   <strong>Easiest way:</strong> Pull down your notification bar from the top of the screen. Tap on the 'Download complete' notification.
+                </p>
+                <p data-en="<strong>Sure way:</strong> Open your phone's 'Files' or 'My Files' app (look for a folder icon). Inside, go to the 'Downloads' folder."
+                   data-gr="<strong>Ο σίγουρος τρόπος:</strong> Ανοίξτε την εφαρμογή 'Αρχεία' ή 'Τα αρχεία μου' του τηλεφώνου σας (ψάξτε για ένα εικονίδιο φακέλου). Μέσα, πηγαίνετε στον φάκελο 'Λήψεις'.">
+                   <strong>Sure way:</strong> Open your phone's 'Files' or 'My Files' app (look for a folder icon). Inside, go to the 'Downloads' folder.
+                </p>
+            </div>
+        </li>
+        <li data-en="Tap on the .zip file. Your phone will ask you to 'Extract' it. Tap 'Extract', and it will create a new folder with all the project files."
+            data-gr="Πατήστε στο αρχείο .zip. Το τηλέφωνό σας θα σας ζητήσει να το 'Εξάγετε'. Πατήστε 'Εξαγωγή' και θα δημιουργηθεί ένας νέος φάκελος με όλα τα αρχεία του project.">
+            Tap on the <strong>.zip</strong> file. Your phone will ask you to <strong>'Extract'</strong> it. Tap 'Extract', and it will create a new folder with all the project files.
+        </li>
+    </ol>
+</div>
