@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLanguage = 'en';
     let initialSetupDone = false;
     let searchIndex = [];
-    let tipsLoaded = false; // <-- NEW: Flag for Life Tips content
+    let tipsLoaded = false;
     
     // --- PORTFOLIO INITIALIZATION ---
     function initializePortfolio() {
@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             document.querySelectorAll('[data-en]').forEach(el => {
                 const text = el.getAttribute(`data-${lang}`) || el.getAttribute('data-en');
-                // This logic is simplified to handle various elements correctly
                 const isSpanInAppIcon = el.matches('.app-icon span');
                 const isSimpleTextElement = el.matches('h1, h2, h3, p, label, .main-footer p, button, .store-link a, #life-tips-content p') && !isSpanInAppIcon;
 
@@ -40,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const pageTitleEl = document.querySelector('title');
             if (pageTitleEl) document.title = "DedSec Project";
 
-            // Update search placeholder text
             const searchInput = document.getElementById('main-search-input');
             if (searchInput) {
                 searchInput.placeholder = lang === 'gr' ? 'Αναζήτηση...' : 'Search...';
@@ -111,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
                          if (modalId === 'certification-modal' && window.resetQuiz) {
                              window.resetQuiz();
                          }
-                         // --- NEW: Trigger Life Tips fetch ---
                          if (modalId === 'life-tips-modal' && !tipsLoaded) {
                             fetchLifeTips();
                          }
@@ -200,8 +197,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // --- SEARCH FUNCTIONALITY (ADVANCED) ---
         function buildSearchIndex() {
-            searchIndex = [];
-            
+            if (!searchIndex) searchIndex = []; // MODIFIED: Initialize only if it doesn't exist
+
             const weights = {
                 MODAL_BUTTON: 10,
                 H2: 8,
@@ -245,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const selector = '.modal-body p, .modal-body li, .modal-body h3, .modal-body b, .modal-body code';
                 modal.querySelectorAll(selector).forEach(el => {
                     const section = el.closest('[data-lang-section]');
-                    if (!section) return; // Skip if not in a language section
+                    if (!section) return;
                     
                     const lang = section.dataset.langSection;
                     const text = el.textContent.trim();
@@ -294,7 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     let score = 0;
                     let phraseMatch = false;
 
-                    // Highest score for exact phrase match
                     if (text.includes(query)) {
                         score += 50;
                         phraseMatch = true;
@@ -304,9 +300,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const wordPositions = [];
                     queryWords.forEach(word => {
                         let lastIndex = -1;
-                        // Find all occurrences of the word to calculate proximity
                         while ((lastIndex = text.indexOf(word, lastIndex + 1)) !== -1) {
-                            if (!phraseMatch) { // Only add individual word score if phrase didn't match
+                            if (!phraseMatch) {
                                 score += 5;
                             }
                             foundWords.add(word);
@@ -314,23 +309,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                     
-                    // Bonus if all unique words from the query are found
                     if (foundWords.size === queryWords.length) {
                         score += 20;
                         
-                        // Proximity bonus for how close the words are
                         if (wordPositions.length > 1) {
                             const minPos = Math.min(...wordPositions);
                             const maxPos = Math.max(...wordPositions);
                             const span = maxPos - minPos;
-                            if (span < 250 && span > 0) { // Apply bonus for reasonably close words
-                                score += (250 - span) / 10; // Closer words get a higher score
+                            if (span < 250 && span > 0) {
+                                score += (250 - span) / 10;
                             }
                         }
                     }
                     
                     if (score > 0) {
-                        // Apply original weight from the element type at the end
                         score *= item.weight;
                         results.push({ ...item, score });
                     }
@@ -344,9 +336,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         itemEl.classList.add('search-result-item');
                         
                         const mainText = result[currentLanguage] || result['en'];
+                        
+                        // MODIFIED: Use the more descriptive target from the index item
+                        const targetText = result.target.replace(/-/g, ' ');
                         const locationText = {
-                            en: `In: ${result.target.replace(/-/g, ' ')}`,
-                            gr: `Σε: ${result.target.replace(/-/g, ' ')}`
+                            en: `In: ${targetText}`,
+                            gr: `Σε: ${targetText}`
                         };
 
                         let snippet = '';
@@ -367,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         let highlightedSnippet = snippet;
-                        const uniqueWords = [...new Set(queryWords)]; // Highlight each word only once
+                        const uniqueWords = [...new Set(queryWords)];
                         uniqueWords.forEach(word => {
                              const regex = new RegExp(`(${word})`, 'gi');
                              highlightedSnippet = highlightedSnippet.replace(regex, '<strong>$1</strong>');
@@ -375,22 +370,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         itemEl.innerHTML = `${highlightedSnippet} <small>${locationText[currentLanguage]}</small>`;
                         
+                        // --- REPLACED CLICK HANDLER ---
                         itemEl.addEventListener('click', () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
-                            const targetElement = result.type === 'modal_button' ? result.element : document.querySelector(`.app-icon[data-modal="${result.target}"]`);
-                            if(targetElement){ targetElement.click(); }
 
-                            if (result.type === 'content') {
-                                setTimeout(() => {
-                                    result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                    result.element.classList.add('content-highlight');
+                            if (result.type === 'life_tip') {
+                                // Handle clicks for 'life_tip' results
+                                const lifeTipsIcon = document.querySelector('.app-icon[data-modal="life-tips"]');
+                                if (lifeTipsIcon) lifeTipsIcon.click();
+                                loadTipContent(result.url);
+                            } else {
+                                // Original logic for other modals
+                                const targetModalId = result.type === 'modal_button' ? result.target : result.target;
+                                const targetElement = document.querySelector(`.app-icon[data-modal="${targetModalId}"]`);
+                                if (targetElement) { targetElement.click(); }
+
+                                if (result.type === 'content') {
                                     setTimeout(() => {
-                                        result.element.classList.remove('content-highlight');
-                                    }, 2000);
-                                }, 300);
+                                        result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        result.element.classList.add('content-highlight');
+                                        setTimeout(() => {
+                                            result.element.classList.remove('content-highlight');
+                                        }, 2000);
+                                    }, 300);
+                                }
                             }
                         });
+                        // --- END REPLACED BLOCK ---
+
                         resultsContainer.appendChild(itemEl);
                     });
                     resultsContainer.classList.remove('hidden');
@@ -410,37 +418,30 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
-        // --- NEW: SCROLL INDICATOR LOGIC ---
         function initializeScrollIndicator() {
             const scrollContainer = document.querySelector('.home-screen');
             const scrollIndicatorThumb = document.getElementById('scroll-indicator-thumb');
 
             const handleScroll = () => {
                 if (!scrollContainer || !scrollIndicatorThumb) return;
-
                 const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
-                
                 if (scrollHeight <= clientHeight) {
                     scrollIndicatorThumb.style.opacity = '0';
                     return;
                 }
-
                 scrollIndicatorThumb.style.opacity = '1';
                 const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
                 const thumbHeight = scrollIndicatorThumb.clientHeight;
                 const trackHeight = clientHeight;
                 const thumbPosition = scrollPercentage * (trackHeight - thumbHeight);
-                
                 scrollIndicatorThumb.style.top = `${thumbPosition}px`;
             };
 
             scrollContainer.addEventListener('scroll', handleScroll);
             window.addEventListener('resize', handleScroll);
-            // Initial check
             setTimeout(handleScroll, 100);
         }
 
-        // Final setup steps
         if (languageModalCloseBtn) languageModalCloseBtn.style.display = 'none';
         languageModal.classList.add('visible');
         changeLanguage('en'); 
@@ -448,25 +449,25 @@ document.addEventListener('DOMContentLoaded', () => {
         
         buildSearchIndex();
         initializeSearch();
-        initializeScrollIndicator(); // <-- Initialize new feature
+        initializeScrollIndicator();
     }
 
-    // --- NEW: LIFE TIPS MODAL LOGIC ---
+    // --- REPLACED LIFE TIPS MODAL LOGIC ---
     async function fetchLifeTips() {
         const navContainer = document.getElementById('life-tips-nav');
         const contentContainer = document.getElementById('life-tips-content');
         const GITHUB_API_URL = 'https://api.github.com/repos/dedsec1121fk/dedsec1121fk.github.io/contents/Life_Tips';
         
+        if (tipsLoaded) return;
+
         navContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
         
         try {
             const response = await fetch(GITHUB_API_URL);
-            if (!response.ok) {
-                throw new Error(`GitHub API error: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
             const files = await response.json();
             
-            navContainer.innerHTML = ''; // Clear loading message
+            navContainer.innerHTML = '';
             
             const htmlFiles = files.filter(file => file.type === 'file' && file.name.endsWith('.html'));
             
@@ -475,20 +476,60 @@ document.addEventListener('DOMContentLoaded', () => {
                  return;
             }
 
+            const indexPromises = htmlFiles.map(async (file) => {
+                try {
+                    const tipContentResponse = await fetch(file.download_url);
+                    if (!tipContentResponse.ok) return;
+                    const htmlContent = await tipContentResponse.text();
+
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = htmlContent;
+                    
+                    const tipName = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
+                    const weights = { H3: 7, B: 5, LI: 4, TIP: 2, DEFAULT: 1 };
+
+                    tempDiv.querySelectorAll('[data-lang-section]').forEach(section => {
+                        const lang = section.dataset.langSection;
+                        section.querySelectorAll('p, li, h3, b').forEach(el => {
+                            const text = el.textContent.trim();
+                            if (text.length > 3) {
+                                let weight = weights.DEFAULT;
+                                if (el.closest('.tip')) weight = weights.TIP;
+                                if (el.tagName === 'LI') weight = weights.LI;
+                                if (el.tagName === 'B' || el.tagName === 'STRONG') weight = weights.B;
+                                if (el.tagName === 'H3') weight = weights.H3;
+
+                                const entry = {
+                                    type: 'life_tip',
+                                    target: `Life Tips > ${tipName}`,
+                                    element: el,
+                                    url: file.download_url,
+                                    en: '',
+                                    gr: '',
+                                    weight: weight
+                                };
+                                entry[lang] = text;
+                                searchIndex.push(entry);
+                            }
+                        });
+                    });
+                } catch (e) {
+                    console.error(`Failed to index tip: ${file.name}`, e);
+                }
+            });
+            
+            await Promise.all(indexPromises);
+            console.log('Life Tips indexed successfully!');
+
             htmlFiles.forEach(file => {
                 const button = document.createElement('div');
                 button.className = 'app-icon';
-                
                 const icon = document.createElement('i');
                 icon.className = 'fas fa-book-open';
-                
                 const span = document.createElement('span');
-                // Create a clean name from the filename, e.g., "Healthy_Habits_1.html" -> "Healthy Habits"
                 span.textContent = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
-                
                 button.appendChild(icon);
                 button.appendChild(span);
-                
                 button.addEventListener('click', () => loadTipContent(file.download_url));
                 navContainer.appendChild(button);
             });
@@ -507,44 +548,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`Failed to fetch content: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`Failed to fetch content: ${response.status}`);
             const htmlContent = await response.text();
             contentContainer.innerHTML = htmlContent;
-            
-            // Re-apply language to new dynamic content
             changeLanguage(currentLanguage);
-
         } catch (error) {
             console.error('Failed to load tip content:', error);
             contentContainer.innerHTML = `<p style="color: var(--nm-danger);">${currentLanguage === 'gr' ? 'Αποτυχία φόρτωσης περιεχομένου.' : 'Failed to load content.'}</p>`;
         }
     }
     
-    // --- CERTIFICATION QUIZ LOGIC ---
+    // --- CERTIFICATION QUIZ LOGIC (UNCHANGED) ---
     function initializeCertificationQuiz() {
         const fullQuizData = [
-            // Book 1: First Contact & Navigation
             { id: 1, book: 1, question_en: "Which command is used to find out your current location in the filesystem?", question_gr: "Ποια εντολή χρησιμοποιείται για να μάθετε την τρέχουσα τοποθεσία σας στο σύστημα αρχείων;", options_en: ["whoami", "ls", "pwd", "cd"], options_gr: ["whoami", "ls", "pwd", "cd"], correct_answer: 2 },
             { id: 2, book: 1, question_en: "What does the `~` (tilde) character represent in the command prompt?", question_gr: "Τι αντιπροσωπεύει ο χαρακτήρας `~` (περισπωμένη) στη γραμμή εντολών;", options_en: ["The root directory", "The previous directory", "The user's home directory", "A temporary directory"], options_gr: ["Τον ριζικό κατάλογο", "Τον προηγούμενο κατάλογο", "Τον κατάλογο χρήστη", "Έναν προσωρινό κατάλογο"], correct_answer: 2 },
             { id: 3, book: 1, question_en: "How do you list all files, including hidden ones, in a long format?", question_gr: "Πώς εμφανίζετε όλα τα αρχεία, συμπεριλαμβανομένων των κρυφών, σε αναλυτική μορφή;", options_en: ["ls -l", "ls -a", "ls -h", "ls -la"], options_gr: ["ls -l", "ls -a", "ls -h", "ls -la"], correct_answer: 3 },
             { id: 4, book: 1, question_en: "Which command takes you to the parent directory (one level up)?", question_gr: "Ποια εντολή σας μεταφέρει στον γονικό κατάλογο (ένα επίπεδο πάνω);", options_en: ["cd /", "cd ~", "cd ..", "cd ."], options_gr: ["cd /", "cd ~", "cd ..", "cd ."], correct_answer: 2 },
-            // Book 2: File Management & Permissions
             { id: 5, book: 2, question_en: "Which command creates an empty file named 'report.txt'?", question_gr: "Ποια εντολή δημιουργεί ένα κενό αρχείο με το όνομα 'report.txt';", options_en: ["mkdir report.txt", "create report.txt", "touch report.txt", "new report.txt"], options_gr: ["mkdir report.txt", "create report.txt", "touch report.txt", "new report.txt"], correct_answer: 2 },
             { id: 6, book: 2, question_en: "To copy a directory and all its contents, which option must be used with `cp`?", question_gr: "Για να αντιγράψετε έναν κατάλογο και όλα τα περιεχόμενά του, ποια επιλογή πρέπει να χρησιμοποιηθεί με την `cp`;", options_en: ["-c", "-a", "-d", "-r"], options_gr: ["-c", "-a", "-d", "-r"], correct_answer: 3 },
             { id: 7, book: 2, question_en: "What does the permission string `r-x` mean?", question_gr: "Τι σημαίνει η συμβολοσειρά δικαιωμάτων `r-x`;", options_en: ["Read and write", "Read and execute", "Write and execute", "Only read"], options_gr: ["Ανάγνωση και εγγραφή", "Ανάγνωση και εκτέλεση", "Εγγραφή και εκτέλεση", "Μόνο ανάγνωση"], correct_answer: 1 },
             { id: 8, book: 2, question_en: "Which octal (numeric) permission is equivalent to `rwxr-xr-x`?", question_gr: "Ποιο οκταδικό (αριθμητικό) δικαίωμα είναι ισοδύναμο με το `rwxr-xr-x`;", options_en: ["644", "777", "755", "700"], options_gr: ["644", "777", "755", "700"], correct_answer: 2 },
-            // Book 3: Composing Commands
             { id: 9, book: 3, question_en: "What is the file descriptor number for Standard Error (stderr)?", question_gr: "Ποιος είναι ο αριθμός περιγραφέα αρχείου για το Τυπικό Σφάλμα (stderr);", options_en: ["0", "1", "2", "3"], options_gr: ["0", "1", "2", "3"], correct_answer: 2 },
             { id: 10, book: 3, question_en: "Which command chain counts the number of lines containing the word 'error' in 'log.txt'?", question_gr: "Ποια αλυσίδα εντολών μετρά τον αριθμό των γραμμών που περιέχουν τη λέξη 'error' στο 'log.txt';", options_en: ["cat log.txt | wc -l 'error'", "grep 'error' log.txt | wc -l", "wc -l log.txt | grep 'error'", "find 'error' log.txt | count"], options_gr: ["cat log.txt | wc -l 'error'", "grep 'error' log.txt | wc -l", "wc -l log.txt | grep 'error'", "find 'error' log.txt | count"], correct_answer: 1 },
             { id: 11, book: 3, question_en: "What does the `&` symbol do when placed at the end of a command?", question_gr: "Τι κάνει το σύμβολο `&` όταν τοποθετείται στο τέλος μιας εντολής;", options_en: ["Combines two commands", "Runs the command in the background", "Redirects output", "Stops the command"], options_gr: ["Συνδυάζει δύο εντολές", "Εκτελεί την εντολή στο παρασκήνιο", "Ανακατευθύνει την έξοδο", "Σταματά την εντολή"], correct_answer: 1 },
-            // Book 4: Software & Text Editing
             { id: 12, book: 4, question_en: "What is the correct command to update package lists and upgrade installed packages in Termux?", question_gr: "Ποια είναι η σωστή εντολή για την ενημέρωση των λιστών πακέτων και την αναβάθμιση των εγκατεστημένων πακέτων στο Termux;", options_en: ["pkg update && pkg upgrade", "pkg install --all", "termux-update", "apt update-all"], options_gr: ["pkg update && pkg upgrade", "pkg install --all", "termux-update", "apt update-all"], correct_answer: 0 },
             { id: 13, book: 4, question_en: "In the `nano` editor, how do you save a file (Write Out)?", question_gr: "Στον επεξεργαστή `nano`, πώς αποθηκεύετε ένα αρχείο (Write Out);", options_en: ["Ctrl+S", "Ctrl+X", "Ctrl+W", "Ctrl+O"], options_gr: ["Ctrl+S", "Ctrl+X", "Ctrl+W", "Ctrl+O"], correct_answer: 3 },
             { id: 14, book: 4, question_en: "In Vim, which key is pressed to return to Normal Mode from any other mode?", question_gr: "Στο Vim, ποιο πλήκτρο πατιέται για να επιστρέψετε στην Κανονική Λειτουργία από οποιαδήποτε άλλη λειτουργία;", options_en: ["Enter", "Shift", "Tab", "Esc"], options_gr: ["Enter", "Shift", "Tab", "Esc"], correct_answer: 3 },
             { id: 15, book: 4, question_en: "What is the Vim command (in Normal Mode) to save the file and quit?", question_gr: "Ποια είναι η εντολή του Vim (σε Κανονική Λειτουργία) για αποθήκευση του αρχείου και έξοδο;", options_en: [":q!", ":w", ":wq", ":q"], options_gr: [":q!", ":w", ":wq", ":q"], correct_answer: 2 },
-            // ... (Adding many more questions)
             { id: 16, book: 5, question_en: "How do you assign the output of the `date` command to a variable named `TODAY`?", question_gr: "Πώς αναθέτετε την έξοδο της εντολής `date` σε μια μεταβλητή με το όνομα `TODAY`;", options_en: ["TODAY=date", "let TODAY=date", "TODAY=$(date)", "TODAY=[date]"], options_gr: ["TODAY=date", "let TODAY=date", "TODAY=$(date)", "TODAY=[date]"], correct_answer: 2 },
             { id: 17, book: 5, question_en: "Which command reads user input silently (for passwords)?", question_gr: "Ποια εντολή διαβάζει την είσοδο του χρήστη αθόρυβα (για κωδικούς πρόσβασης);", options_en: ["read -p", "read -s", "input", "get-input -s"], options_gr: ["read -p", "read -s", "input", "get-input -s"], correct_answer: 1 },
             { id: 18, book: 6, question_en: "Which operator is used for integer equality testing inside `[ ]`?", question_gr: "Ποιος τελεστής χρησιμοποιείται για τον έλεγχο ισότητας ακεραίων μέσα στο `[ ]`;", options_en: ["=", "==", "-eq", "-equals"], options_gr: ["=", "==", "-eq", "-equals"], correct_answer: 2 },
@@ -585,7 +616,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 53, book: 3, question_en: "What does the `kill -9 [PID]` command do?", question_gr: "Τι κάνει η εντολή `kill -9 [PID]`;", options_en: ["Pauses a process", "Sends a gentle stop signal", "Forcefully terminates a process", "Restarts a process"], options_gr: ["Παγώνει μια διεργασία", "Στέλνει ένα ήπιο σήμα διακοπής", "Τερματίζει βίαια μια διεργασία", "Επανεκκινεί μια διεργασία"], correct_answer: 2 },
             { id: 54, book: 4, question_en: "In Vim, what does `dd` do in Normal Mode?", question_gr: "Στο Vim, τι κάνει το `dd` στην Κανονική Λειτουργία;", options_en: ["Duplicates the line", "Deletes the current character", "Deletes the entire current line", "Moves down two lines"], options_gr: ["Διπλασιάζει τη γραμμή", "Διαγράφει τον τρέχοντα χαρακτήρα", "Διαγράφει ολόκληρη την τρέχουσα γραμμή", "Κατεβαίνει δύο γραμμές"], correct_answer: 2 },
             { id: 55, book: 5, question_en: "In bash arithmetic `$(())`, what does `%` operator do?", question_gr: "Στην αριθμητική του bash `$(())`, τι κάνει ο τελεστής `%`;", options_en: ["Percentage", "Multiplication", "Division", "Modulo (remainder)"], options_gr: ["Ποσοστό", "Πολλαπλασιασμός", "Διαίρεση", "Υπόλοιπο διαίρεσης (Modulo)"], correct_answer: 3 },
-            { id: 56, book: 6, question_en: "What keyword ends an `if` statement block in bash?", question_gr: "Ποια λέξη-κλειδί τερματίζει ένα μπλοκ δήλωσης `if` στο bash;", options_en: ["end", "endif", "fi", "stop"], options_gr: ["end", "endif", "fi", "stop"], correct_answer: 2 },
+            { id: 56, book: 6, question_en: "What keyword ends an `if` statement block in bash?", question_gr: "Ποια λέξη-κλειδί τερματίζει ένα μπλοק δήλωσης `if` στο bash;", options_en: ["end", "endif", "fi", "stop"], options_gr: ["end", "endif", "fi", "stop"], correct_answer: 2 },
             { id: 57, book: 7, question_en: "In a bash function, what does `$#` represent?", question_gr: "Σε μια συνάρτηση bash, τι αντιπροσωπεύει το `$#`;", options_en: ["The first argument", "All arguments", "The name of the script", "The number of arguments"], options_gr: ["Το πρώτο όρισμα", "Όλα τα ορίσματα", "Το όνομα του σεναρίου", "Ο αριθμός των ορισμάτων"], correct_answer: 3 },
             { id: 58, book: 8, question_en: "Which Regex pattern matches a 4-digit number?", question_gr: "Ποιο μοτίβο Regex αντιστοιχεί σε έναν 4-ψήφιο αριθμό;", options_en: ["\\d{4}", "\\n{4}", "[0-9]+", "\\d*"], options_gr: ["\\d{4}", "\\n{4}", "[0-9]+", "\\d*"], correct_answer: 0 },
             { id: 59, book: 9, question_en: "Which `find` option is used to execute a command on found files?", question_gr: "Ποια επιλογή της `find` χρησιμοποιείται για την εκτέλεση μιας εντολής στα αρχεία που βρέθηκαν;", options_en: ["-do", "-run", "-exec", "-cmd"], options_gr: ["-do", "-run", "-exec", "-cmd"], correct_answer: 2 },
