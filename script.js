@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLanguage = 'en';
     let initialSetupDone = false;
     let searchIndex = [];
-    let tipsLoaded = false;
+    let tipsLoaded = false; // <-- NEW: Flag for Life Tips content
     
     // --- PORTFOLIO INITIALIZATION ---
     function initializePortfolio() {
@@ -18,10 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
             
             document.querySelectorAll('[data-en]').forEach(el => {
                 const text = el.getAttribute(`data-${lang}`) || el.getAttribute('data-en');
+                // This logic is simplified to handle various elements correctly
                 const isSpanInAppIcon = el.matches('.app-icon span');
-                const isSimpleTextElement = el.matches('h1, h2, h3, p, label, .main-footer p, button, .store-link a, #life-tips-content p, #life-tips-content h3') && !isSpanInAppIcon;
+                const isSimpleTextElement = el.matches('h1, h2, h3, p, label, .main-footer p, button, .store-link a, #life-tips-content p') && !isSpanInAppIcon;
 
-                if (isSimpleTextElement || isSpanInAppIcon) {
+                if (isSimpleTextElement) {
+                     el.textContent = text;
+                } else if (isSpanInAppIcon) {
                      el.textContent = text;
                 }
             });
@@ -34,16 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.classList.toggle('selected', button.dataset.lang === lang);
             });
 
-            // NEW: Translate the main page title
             const pageTitleEl = document.querySelector('title');
-            if (pageTitleEl) {
-                const titles = {
-                    en: "DedSec Project",
-                    gr: "Έργο DedSec"
-                };
-                document.title = titles[lang];
-            }
+            if (pageTitleEl) document.title = "DedSec Project";
 
+            // Update search placeholder text
             const searchInput = document.getElementById('main-search-input');
             if (searchInput) {
                 searchInput.placeholder = lang === 'gr' ? 'Αναζήτηση...' : 'Search...';
@@ -82,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 themeSpan.setAttribute('data-en', 'Dark Theme');
                 themeSpan.setAttribute('data-gr', 'Σκοτεινό Θέμα');
             }
-            // Re-apply language to update the button text
             changeLanguage(currentLanguage);
         };
 
@@ -115,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
                          if (modalId === 'certification-modal' && window.resetQuiz) {
                              window.resetQuiz();
                          }
+                         // --- NEW: Trigger Life Tips fetch ---
                          if (modalId === 'life-tips-modal' && !tipsLoaded) {
                             fetchLifeTips();
                          }
@@ -150,26 +147,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        if(imageViewer) {
-            imageViewer.addEventListener('click', () => {
-                imageViewer.classList.remove('visible');
-            });
-        }
+        imageViewer.addEventListener('click', () => {
+            imageViewer.classList.remove('visible');
+        });
         
-        // --- MODERNIZED & SECURE COPY TO CLIPBOARD ---
-        window.copyToClipboard = async (button, targetId) => {
+        window.copyToClipboard = (button, targetId) => {
             const codeElement = document.getElementById(targetId);
-            if (!codeElement || !navigator.clipboard) return;
-
+            if (!codeElement) return;
+            const textarea = document.createElement('textarea');
+            textarea.value = codeElement.innerText;
+            document.body.appendChild(textarea);
+            textarea.select();
             try {
-                await navigator.clipboard.writeText(codeElement.innerText);
+                document.execCommand('copy');
                 const originalText = button.textContent;
                 button.textContent = (currentLanguage === 'gr') ? 'Αντιγράφηκε!' : 'Copied!';
                 setTimeout(() => { button.textContent = originalText; }, 1500);
             } catch (err) {
-                console.error('Failed to copy text: ', err);
-                // You could add a user-facing error message here if desired
+                console.error('Fallback: Oops, unable to copy', err);
             }
+            document.body.removeChild(textarea);
         };
         
         const carousel = document.querySelector('.gym-carousel');
@@ -183,7 +180,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (totalImages > 0) {
                 const showImage = (index) => {
                     images.forEach((img, i) => {
-                        img.style.display = i === index ? 'block' : 'none';
+                        img.classList.remove('active');
+                        if (i === index) {
+                            img.classList.add('active');
+                        }
                     });
                 };
                 prevBtn.addEventListener('click', () => {
@@ -201,51 +201,71 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- SEARCH FUNCTIONALITY (ADVANCED) ---
         function buildSearchIndex() {
             searchIndex = [];
-            const weights = { MODAL_BUTTON: 10, H2: 8, H3: 7, B: 5, LI: 4, CODE: 3, TIP: 2, DEFAULT: 1 };
+            
+            const weights = {
+                MODAL_BUTTON: 10,
+                H2: 8,
+                H3: 7,
+                B: 5,
+                LI: 4,
+                CODE: 3,
+                TIP: 2,
+                DEFAULT: 1
+            };
 
             document.querySelectorAll('.app-icon[data-modal]').forEach(el => {
                 const span = el.querySelector('span');
                 if (span && el.dataset.modal) {
                     searchIndex.push({
-                        en: span.getAttribute('data-en') || '', gr: span.getAttribute('data-gr') || '',
-                        type: 'modal_button', target: el.dataset.modal, weight: weights.MODAL_BUTTON, element: el
+                        en: span.getAttribute('data-en') || '',
+                        gr: span.getAttribute('data-gr') || '',
+                        type: 'modal_button',
+                        target: el.dataset.modal,
+                        weight: weights.MODAL_BUTTON,
+                        element: el
                     });
                 }
             });
 
             document.querySelectorAll('.modal-content').forEach(modal => {
                 const modalId = modal.parentElement.id.replace('-modal', '');
+                
                 const title = modal.querySelector('.modal-header h2');
                 if (title) {
                      searchIndex.push({
-                        en: title.getAttribute('data-en') || '', gr: title.getAttribute('data-gr') || '',
-                        type: 'content', target: modalId, element: title, weight: weights.H2
+                        en: title.getAttribute('data-en') || '',
+                        gr: title.getAttribute('data-gr') || '',
+                        type: 'content',
+                        target: modalId,
+                        element: title,
+                        weight: weights.H2
                     });
                 }
                 
                 const selector = '.modal-body p, .modal-body li, .modal-body h3, .modal-body b, .modal-body code';
                 modal.querySelectorAll(selector).forEach(el => {
                     const section = el.closest('[data-lang-section]');
-                    if (!section) return;
+                    if (!section) return; // Skip if not in a language section
                     
                     const lang = section.dataset.langSection;
                     const text = el.textContent.trim();
-                    if (text.length < 4) return;
+                    
+                    if (text.length > 3) {
+                        const existingEntry = searchIndex.find(item => item.element === el);
+                        if (!existingEntry) {
+                            let weight = weights.DEFAULT;
+                            if (el.closest('.tip')) weight = weights.TIP;
+                            if (el.tagName === 'CODE') weight = weights.CODE;
+                            if (el.tagName === 'LI') weight = weights.LI;
+                            if (el.tagName === 'B' || el.tagName === 'STRONG') weight = weights.B;
+                            if (el.tagName === 'H3') weight = weights.H3;
 
-                    const existingEntry = searchIndex.find(item => item.element === el);
-                    if (!existingEntry) {
-                        let weight = weights.DEFAULT;
-                        if (el.closest('.tip')) weight = weights.TIP;
-                        if (el.tagName === 'CODE') weight = weights.CODE;
-                        if (el.tagName === 'LI') weight = weights.LI;
-                        if (el.tagName === 'B' || el.tagName === 'STRONG') weight = weights.B;
-                        if (el.tagName === 'H3') weight = weights.H3;
-
-                        let entry = { type: 'content', target: modalId, element: el, en: '', gr: '', weight: weight };
-                        entry[lang] = text;
-                        searchIndex.push(entry);
-                    } else {
-                        existingEntry[lang] = text;
+                            let entry = { type: 'content', target: modalId, element: el, en: '', gr: '', weight: weight };
+                            entry[lang] = text;
+                            searchIndex.push(entry);
+                        } else {
+                            existingEntry[lang] = text;
+                        }
                     }
                 });
             });
@@ -255,9 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const searchInput = document.getElementById('main-search-input');
             const resultsContainer = document.getElementById('search-results-container');
             const searchContainer = document.querySelector('.search-container');
-
-            // Function to escape special characters for use in a RegExp
-            const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
             searchInput.addEventListener('input', () => {
                 const query = searchInput.value.toLowerCase().trim();
@@ -275,19 +292,45 @@ document.addEventListener('DOMContentLoaded', () => {
                     const text = (item[currentLanguage] || item['en'] || '').toLowerCase();
                     if (!text) return;
                     let score = 0;
-                    if (text.includes(query)) score += 50;
+                    let phraseMatch = false;
+
+                    // Highest score for exact phrase match
+                    if (text.includes(query)) {
+                        score += 50;
+                        phraseMatch = true;
+                    }
 
                     const foundWords = new Set();
+                    const wordPositions = [];
                     queryWords.forEach(word => {
-                        if (text.includes(word)) {
-                            score += 5;
+                        let lastIndex = -1;
+                        // Find all occurrences of the word to calculate proximity
+                        while ((lastIndex = text.indexOf(word, lastIndex + 1)) !== -1) {
+                            if (!phraseMatch) { // Only add individual word score if phrase didn't match
+                                score += 5;
+                            }
                             foundWords.add(word);
+                            wordPositions.push(lastIndex);
                         }
                     });
                     
-                    if (foundWords.size === queryWords.length) score += 20;
+                    // Bonus if all unique words from the query are found
+                    if (foundWords.size === queryWords.length) {
+                        score += 20;
+                        
+                        // Proximity bonus for how close the words are
+                        if (wordPositions.length > 1) {
+                            const minPos = Math.min(...wordPositions);
+                            const maxPos = Math.max(...wordPositions);
+                            const span = maxPos - minPos;
+                            if (span < 250 && span > 0) { // Apply bonus for reasonably close words
+                                score += (250 - span) / 10; // Closer words get a higher score
+                            }
+                        }
+                    }
                     
                     if (score > 0) {
+                        // Apply original weight from the element type at the end
                         score *= item.weight;
                         results.push({ ...item, score });
                     }
@@ -305,16 +348,32 @@ document.addEventListener('DOMContentLoaded', () => {
                             en: `In: ${result.target.replace(/-/g, ' ')}`,
                             gr: `Σε: ${result.target.replace(/-/g, ' ')}`
                         };
-                        
-                        let snippet = (mainText.length > 100) ? mainText.substring(0, 100) + '...' : mainText;
 
-                        // BUG FIX: Escape search words before creating RegExp
-                        queryWords.forEach(word => {
-                             const regex = new RegExp(`(${escapeRegExp(word)})`, 'gi');
-                             snippet = snippet.replace(regex, '<strong>$1</strong>');
+                        let snippet = '';
+                        const textLower = mainText.toLowerCase();
+                        let firstMatchIndex = textLower.indexOf(query);
+                        if (firstMatchIndex === -1) {
+                            firstMatchIndex = textLower.indexOf(queryWords[0]);
+                        }
+                        
+                        if (result.type === 'modal_button' || mainText.length < 100) {
+                           snippet = mainText;
+                        } else if (firstMatchIndex !== -1) {
+                            const start = Math.max(0, firstMatchIndex - 40);
+                            const end = Math.min(mainText.length, firstMatchIndex + query.length + 60);
+                            snippet = (start > 0 ? '...' : '') + mainText.substring(start, end) + (end < mainText.length ? '...' : '');
+                        } else {
+                            snippet = mainText.substring(0, 100) + (mainText.length > 100 ? '...' : '');
+                        }
+
+                        let highlightedSnippet = snippet;
+                        const uniqueWords = [...new Set(queryWords)]; // Highlight each word only once
+                        uniqueWords.forEach(word => {
+                             const regex = new RegExp(`(${word})`, 'gi');
+                             highlightedSnippet = highlightedSnippet.replace(regex, '<strong>$1</strong>');
                         });
 
-                        itemEl.innerHTML = `${snippet} <small>${locationText[currentLanguage]}</small>`;
+                        itemEl.innerHTML = `${highlightedSnippet} <small>${locationText[currentLanguage]}</small>`;
                         
                         itemEl.addEventListener('click', () => {
                             searchInput.value = '';
@@ -326,7 +385,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                 setTimeout(() => {
                                     result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                     result.element.classList.add('content-highlight');
-                                    setTimeout(() => result.element.classList.remove('content-highlight'), 2000);
+                                    setTimeout(() => {
+                                        result.element.classList.remove('content-highlight');
+                                    }, 2000);
                                 }, 300);
                             }
                         });
@@ -335,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     resultsContainer.classList.remove('hidden');
                 } else {
                     const noResultEl = document.createElement('div');
-                    noResultEl.classList.add('search-result-item', 'no-results');
+                    noResultEl.classList.add('search-result-item');
                     noResultEl.textContent = currentLanguage === 'gr' ? 'Δεν βρέθηκαν αποτελέσματα' : 'No results found';
                     resultsContainer.appendChild(noResultEl);
                     resultsContainer.classList.remove('hidden');
@@ -343,29 +404,39 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             document.addEventListener('click', (e) => {
-                if (searchContainer && !searchContainer.contains(e.target)) {
+                if (!searchContainer.contains(e.target)) {
                     resultsContainer.classList.add('hidden');
                 }
             });
         }
         
+        // --- NEW: SCROLL INDICATOR LOGIC ---
         function initializeScrollIndicator() {
             const scrollContainer = document.querySelector('.home-screen');
             const scrollIndicatorThumb = document.getElementById('scroll-indicator-thumb');
-            if (!scrollContainer || !scrollIndicatorThumb) return;
 
             const handleScroll = () => {
+                if (!scrollContainer || !scrollIndicatorThumb) return;
+
                 const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
+                
                 if (scrollHeight <= clientHeight) {
                     scrollIndicatorThumb.style.opacity = '0';
                     return;
                 }
+
                 scrollIndicatorThumb.style.opacity = '1';
                 const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
-                scrollIndicatorThumb.style.transform = `translateY(${scrollPercentage * (clientHeight - scrollIndicatorThumb.clientHeight)}px)`;
+                const thumbHeight = scrollIndicatorThumb.clientHeight;
+                const trackHeight = clientHeight;
+                const thumbPosition = scrollPercentage * (trackHeight - thumbHeight);
+                
+                scrollIndicatorThumb.style.top = `${thumbPosition}px`;
             };
+
             scrollContainer.addEventListener('scroll', handleScroll);
             window.addEventListener('resize', handleScroll);
+            // Initial check
             setTimeout(handleScroll, 100);
         }
 
@@ -373,52 +444,38 @@ document.addEventListener('DOMContentLoaded', () => {
         if (languageModalCloseBtn) languageModalCloseBtn.style.display = 'none';
         languageModal.classList.add('visible');
         changeLanguage('en'); 
-        document.querySelector('#language-selection-modal .modal-header h2').textContent = 'Choose Language / Επιλογή Γλώσσas';
+        document.querySelector('#language-selection-modal .modal-header h2').textContent = 'Choose Language / Επιλογή Γλώσσας';
         
         buildSearchIndex();
         initializeSearch();
-        initializeScrollIndicator();
+        initializeScrollIndicator(); // <-- Initialize new feature
     }
 
-    // --- FIXED & IMPROVED: LIFE TIPS MODAL LOGIC ---
+    // --- NEW: LIFE TIPS MODAL LOGIC ---
     async function fetchLifeTips() {
         const navContainer = document.getElementById('life-tips-nav');
         const contentContainer = document.getElementById('life-tips-content');
         const GITHUB_API_URL = 'https://api.github.com/repos/dedsec1121fk/dedsec1121fk.github.io/contents/Life_Tips';
         
-        navContainer.innerHTML = `<p data-en="Loading..." data-gr="Φόρτωση..."></p>`;
-        changeLanguage(currentLanguage);
+        navContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
         
-        // MAIN FIX: A map to hold translations for the filenames.
-        // This makes the dynamically generated buttons translatable.
-        const titleMap = {
-            "How_to_Download_a_GitHub_Repository_1.html": {
-                en: "How to Download a GitHub Repository",
-                gr: "Πώς να Κατεβάσετε ένα Αποθετήριο GitHub"
-            },
-            "Coming_Soon_1.html": {
-                en: "Coming Soon",
-                gr: "Σύντομα Διαθέσιμο"
-            }
-            // Add new mappings here as you add more .html files to your repo
-        };
-
         try {
             const response = await fetch(GITHUB_API_URL);
-            if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
-            
+            if (!response.ok) {
+                throw new Error(`GitHub API error: ${response.status}`);
+            }
             const files = await response.json();
-            navContainer.innerHTML = '';
+            
+            navContainer.innerHTML = ''; // Clear loading message
             
             const htmlFiles = files.filter(file => file.type === 'file' && file.name.endsWith('.html'));
             
             if (htmlFiles.length === 0) {
-                 navContainer.innerHTML = `<p data-en="No tips found." data-gr="Δεν βρέθηκαν συμβουλές."></p>`;
-                 changeLanguage(currentLanguage);
+                 navContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Δεν βρέθηκαν συμβουλές.' : 'No tips found.'}</p>`;
                  return;
             }
 
-            htmlFiles.forEach((file, index) => {
+            htmlFiles.forEach(file => {
                 const button = document.createElement('div');
                 button.className = 'app-icon';
                 
@@ -426,64 +483,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon.className = 'fas fa-book-open';
                 
                 const span = document.createElement('span');
-                const titles = titleMap[file.name];
-
-                if (titles) {
-                    span.setAttribute('data-en', titles.en);
-                    span.setAttribute('data-gr', titles.gr);
-                } else {
-                    // Fallback for any file not in our titleMap
-                    const fallbackTitle = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
-                    span.setAttribute('data-en', fallbackTitle);
-                    span.setAttribute('data-gr', fallbackTitle);
-                }
+                // Create a clean name from the filename, e.g., "Healthy_Habits_1.html" -> "Healthy Habits"
+                span.textContent = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
                 
                 button.appendChild(icon);
                 button.appendChild(span);
                 
-                button.addEventListener('click', () => {
-                    loadTipContent(file.download_url);
-                    // UX IMPROVEMENT: Highlight the currently active tip button
-                    navContainer.querySelectorAll('.app-icon').forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                });
+                button.addEventListener('click', () => loadTipContent(file.download_url));
                 navContainer.appendChild(button);
-
-                // Automatically load and display the first tip
-                if (index === 0) {
-                    button.click();
-                }
             });
             
-            // Apply the current language to all newly created buttons
-            changeLanguage(currentLanguage);
             tipsLoaded = true;
 
         } catch (error) {
             console.error('Failed to fetch life tips:', error);
-            navContainer.innerHTML = `<p style="color: var(--nm-danger);" data-en="Failed to load content." data-gr="Αποτυχία φόρτωσης περιεχομένου."></p>`;
-            changeLanguage(currentLanguage);
+            navContainer.innerHTML = `<p style="color: var(--nm-danger);">${currentLanguage === 'gr' ? 'Αποτυχία φόρτωσης περιεχομένου.' : 'Failed to load content.'}</p>`;
         }
     }
 
     async function loadTipContent(url) {
         const contentContainer = document.getElementById('life-tips-content');
-        contentContainer.innerHTML = `<p data-en="Loading..." data-gr="Φόρτωση..."></p>`;
-        changeLanguage(currentLanguage);
+        contentContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
 
         try {
             const response = await fetch(url);
-            if (!response.ok) throw new Error(`Failed to fetch content: ${response.status}`);
-            
+            if (!response.ok) {
+                throw new Error(`Failed to fetch content: ${response.status}`);
+            }
             const htmlContent = await response.text();
             contentContainer.innerHTML = htmlContent;
             
             // Re-apply language to new dynamic content
             changeLanguage(currentLanguage);
+
         } catch (error) {
             console.error('Failed to load tip content:', error);
-            contentContainer.innerHTML = `<p style="color: var(--nm-danger);" data-en="Failed to load content." data-gr="Αποτυχία φόρτωσης περιεχομένου."></p>`;
-            changeLanguage(currentLanguage);
+            contentContainer.innerHTML = `<p style="color: var(--nm-danger);">${currentLanguage === 'gr' ? 'Αποτυχία φόρτωσης περιεχομένου.' : 'Failed to load content.'}</p>`;
         }
     }
     
@@ -584,41 +619,49 @@ document.addEventListener('DOMContentLoaded', () => {
             gr: { userInfoTitle: "Εισάγετε τα Στοιχεία σας", firstNameLabel: "Όνομα", lastNameLabel: "Επώνυμο", startBtn: "Έναρξη Εξέτασης", page: "Σελίδα", of: "από", prevBtn: "Προηγούμενο", nextBtn: "Επόμενο", submitBtn: "Υποβολή Εξέτασης", resultsTitle: "Η Εξέταση Ολοκληρώθηκε!", certTitle: "Πιστοποιητικό Ολοκλήρωσης", certAwardedTo: "Αυτό το πιστοποιητικό απονέμεται στον/στην", certAchievement: "για την επιτυχή ολοκλήρωση του σεμιναρίου Termux Mastery Series με εξαιρετική γνώση και δεξιότητα.", certDate: "Ημερομηνία Ολοκλήρωσης", failureTitle: "Συνεχίστε τη Μελέτη!", failureText1: "Ολοκληρώσατε την εξέταση, αλλά κάνατε", failureText2: "λάθη. Χρειάζεστε λιγότερα από 20 λάθη για να περάσετε. Παρακαλώ μελετήστε ξανά την ύλη και προσπαθήστε ξανά!", restartBtn: "Προσπαθήστε Ξανά", gradeLabel: "Βαθμός", gradeExcellent: "Άριστα", gradeVeryGood: "Πολύ Καλά", gradeGood: "Καλά", pdfError: "Παρουσιάστηκε σφάλμα κατά τη δημιουργία του PDF.", mistakesLabel: "Λάθη", timeLeftLabel: "Χρόνος Που Απομένει" }
         };
 
-        let currentPage, userLang, userName, userAnswers, activeQuestions, mistakes, timerInterval, timeLeft;
+        let currentPage, userLang, userName, userAnswers, activeQuestions;
+        let mistakes = 0;
         const maxMistakes = 20;
         const totalQuestionsInTest = 60;
-        
-        const certModal = document.getElementById('certification-modal');
-        const elements = {
-            languageSelection: certModal.querySelector('#language-selection'),
-            userInfo: certModal.querySelector('#user-info'),
-            quizStats: certModal.querySelector('#quiz-stats'),
-            quizContainer: certModal.querySelector('#quiz-container'),
-            resultsContainer: certModal.querySelector('#results-container'),
-            navigationContainer: certModal.querySelector('#navigation-container'),
-            prevBtn: certModal.querySelector('#prev-btn'),
-            nextBtn: certModal.querySelector('#next-btn'),
-            submitBtn: certModal.querySelector('#submit-btn'),
-            pageIndicator: certModal.querySelector('#page-indicator'),
-            nameForm: certModal.querySelector('#name-form'),
-            firstNameInput: certModal.querySelector('#first-name'),
-            lastNameInput: certModal.querySelector('#last-name'),
-            mistakeCounter: certModal.querySelector('#mistake-counter'),
-            timerDisplay: certModal.querySelector('#timer-display'),
-        };
+        let timerInterval;
+        let timeLeft = 600; 
 
-        const setVisibility = (el, isVisible) => el.classList.toggle('hidden', !isVisible);
+        const certModal = document.getElementById('certification-modal');
+        const languageSelectionDiv = certModal.querySelector('#language-selection');
+        const userInfoDiv = certModal.querySelector('#user-info');
+        const quizStatsDiv = certModal.querySelector('#quiz-stats');
+        const quizContainerDiv = certModal.querySelector('#quiz-container');
+        const resultsContainerDiv = certModal.querySelector('#results-container');
+        const navigationContainerDiv = certModal.querySelector('#navigation-container');
+        const prevBtn = certModal.querySelector('#prev-btn');
+        const nextBtn = certModal.querySelector('#next-btn');
+        const submitBtn = certModal.querySelector('#submit-btn');
+        const pageIndicator = certModal.querySelector('#page-indicator');
+        const nameForm = certModal.querySelector('#name-form');
+        const firstNameInput = certModal.querySelector('#first-name');
+        const lastNameInput = certModal.querySelector('#last-name');
+        const mistakeCounterEl = certModal.querySelector('#mistake-counter');
+        const timerDisplayEl = certModal.querySelector('#timer-display');
+
 
         window.resetQuiz = () => {
-            currentPage = 1; userLang = 'en'; userName = ''; mistakes = 0;
+            currentPage = 1;
+            userLang = 'en';
+            userName = '';
+            mistakes = 0;
             clearInterval(timerInterval);
             
-            elements.firstNameInput.value = ''; elements.lastNameInput.value = '';
-            elements.quizContainer.innerHTML = ''; elements.resultsContainer.innerHTML = '';
+            firstNameInput.value = '';
+            lastNameInput.value = '';
+            quizContainerDiv.innerHTML = '';
+            resultsContainerDiv.innerHTML = '';
 
-            setVisibility(elements.userInfo, false); setVisibility(elements.quizContainer, false);
-            setVisibility(elements.quizStats, false); setVisibility(elements.resultsContainer, false);
-            setVisibility(elements.navigationContainer, false); setVisibility(elements.languageSelection, true);
+            userInfoDiv.classList.add('hidden');
+            quizContainerDiv.classList.add('hidden');
+            quizStatsDiv.classList.add('hidden');
+            resultsContainerDiv.classList.add('hidden');
+            navigationContainerDiv.classList.add('hidden');
+            languageSelectionDiv.classList.remove('hidden');
         };
 
         const selectLanguage = (lang) => {
@@ -628,115 +671,130 @@ document.addEventListener('DOMContentLoaded', () => {
             certModal.querySelector('#first-name-label').innerText = t.firstNameLabel;
             certModal.querySelector('#last-name-label').innerText = t.lastNameLabel;
             certModal.querySelector('#start-btn').innerText = t.startBtn;
-            setVisibility(elements.languageSelection, false); setVisibility(elements.userInfo, true);
+            languageSelectionDiv.classList.add('hidden');
+            userInfoDiv.classList.remove('hidden');
         };
 
         const startQuiz = (event) => {
             event.preventDefault();
-            const firstName = elements.firstNameInput.value.trim();
-            const lastName = elements.lastNameInput.value.trim();
+            const firstName = firstNameInput.value.trim();
+            const lastName = lastNameInput.value.trim();
             if (firstName && lastName) {
                 userName = `${firstName} ${lastName}`;
-                activeQuestions = [...fullQuizData].sort(() => 0.5 - Math.random()).slice(0, totalQuestionsInTest);
+                activeQuestions = [...fullQuizData].sort(() => Math.random() - 0.5).slice(0, totalQuestionsInTest);
                 userAnswers = new Array(activeQuestions.length).fill(null);
                 
-                setVisibility(elements.userInfo, false); setVisibility(elements.quizContainer, true);
-                setVisibility(elements.navigationContainer, true); setVisibility(elements.quizStats, true);
+                userInfoDiv.classList.add('hidden');
+                quizContainerDiv.classList.remove('hidden');
+                navigationContainerDiv.classList.remove('hidden');
+                quizStatsDiv.classList.remove('hidden');
                 
                 buildPages();
-                renderPage(1);
-                startTimer();
+                renderPage();
             }
         };
         
         const buildPages = () => {
-            elements.quizContainer.innerHTML = '';
+            quizContainerDiv.innerHTML = '';
             activeQuestions.forEach((q, index) => {
+                const t = translations[userLang];
                 const pageDiv = document.createElement('div');
                 pageDiv.id = `page-${index + 1}`;
-                pageDiv.className = 'quiz-page hidden';
+                pageDiv.classList.add('quiz-page', 'hidden');
+
                 const optionsHTML = q[`options_${userLang}`].map((opt, optIndex) => `
-                    <label><input type="radio" name="question-${index}" value="${optIndex}"><span>${opt}</span></label>
+                    <label>
+                        <input type="radio" name="question-${index}" value="${optIndex}">
+                        <span>${opt}</span>
+                    </label>
                 `).join('');
-                pageDiv.innerHTML = `<h2>...</h2><hr><div class="question-box"><p>${q[`question_${userLang}`]}</p></div><div class="options-container">${optionsHTML}</div>`;
+
+                pageDiv.innerHTML = `
+                    <h2>${t.page} ${index + 1} ${t.of} ${activeQuestions.length}</h2>
+                    <hr>
+                    <div class="question-box"><p>${q[`question_${userLang}`]}</p></div>
+                    <div class="options-container">${optionsHTML}</div>
+                `;
                 pageDiv.querySelectorAll(`input[name="question-${index}"]`).forEach(radio => {
                     radio.addEventListener('change', () => saveAnswer(index, parseInt(radio.value)));
                 });
-                elements.quizContainer.appendChild(pageDiv);
+                quizContainerDiv.appendChild(pageDiv);
             });
         };
 
         const saveAnswer = (questionIndex, answerIndex) => {
             userAnswers[questionIndex] = answerIndex;
-            // PERFORMANCE OPTIMIZATION: Only update mistake counter when an answer changes.
-            updateMistakeDisplay();
         };
 
         const startTimer = () => {
             clearInterval(timerInterval);
             timeLeft = 600;
-            updateTimerDisplay();
+            updateStatsDisplay();
+
             timerInterval = setInterval(() => {
                 timeLeft--;
-                updateTimerDisplay();
+                updateStatsDisplay();
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
                     showResults(); 
                 }
             }, 1000);
         };
-        
-        const updateMistakeDisplay = () => {
-             let currentMistakes = 0;
+
+        const updateStatsDisplay = () => {
+            const t = translations[userLang];
+            let currentMistakes = 0;
             userAnswers.forEach((answer, index) => {
                 if (answer !== null && answer !== activeQuestions[index].correct_answer) {
                     currentMistakes++;
                 }
             });
-            elements.mistakeCounter.innerText = `${translations[userLang].mistakesLabel}: ${currentMistakes}`;
-        };
-
-        const updateTimerDisplay = () => {
+            mistakeCounterEl.innerText = `${t.mistakesLabel}: ${currentMistakes}`;
+            
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
-            elements.timerDisplay.innerText = `${translations[userLang].timeLeftLabel}: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            timerDisplayEl.innerText = `${t.timeLeftLabel}: ${minutes}:${seconds.toString().padStart(2, '0')}`;
         };
 
-        const renderPage = (pageNumber) => {
-            currentPage = pageNumber;
-            certModal.querySelectorAll('.quiz-page').forEach(p => setVisibility(p, false));
+        const renderPage = () => {
+            certModal.querySelectorAll('.quiz-page').forEach(p => p.classList.add('hidden'));
             const currentPageElement = certModal.querySelector(`#page-${currentPage}`);
-            if (currentPageElement) setVisibility(currentPageElement, true);
+            if (currentPageElement) {
+                currentPageElement.classList.remove('hidden');
+            }
 
             const savedAnswer = userAnswers[currentPage - 1];
             if (savedAnswer !== null) {
-                const radio = certModal.querySelector(`#page-${currentPage} input[value="${savedAnswer}"]`);
-                if(radio) radio.checked = true;
+                const radioButtons = certModal.querySelectorAll(`#page-${currentPage} input[type="radio"]`);
+                if(radioButtons[savedAnswer]) radioButtons[savedAnswer].checked = true;
             }
             updateNavigation();
-            updateMistakeDisplay(); // Initial display for the page
+            if (currentPage === 1) { 
+                startTimer();
+            }
+            updateStatsDisplay();
         };
 
         const updateNavigation = () => {
             const t = translations[userLang];
-            elements.prevBtn.disabled = currentPage === 1;
-            elements.prevBtn.innerText = t.prevBtn;
-            elements.nextBtn.innerText = t.nextBtn;
-            elements.submitBtn.innerText = t.submitBtn;
-            setVisibility(elements.nextBtn, currentPage !== activeQuestions.length);
-            setVisibility(elements.submitBtn, currentPage === activeQuestions.length);
-            elements.pageIndicator.innerText = `${t.page} ${currentPage} ${t.of} ${activeQuestions.length}`;
-            // Update page header title
-            const header = certModal.querySelector(`#page-${currentPage} h2`);
-            if (header) header.innerText = `${t.page} ${currentPage} ${t.of} ${activeQuestions.length}`;
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.innerText = t.prevBtn;
+            nextBtn.innerText = t.nextBtn;
+            submitBtn.innerText = t.submitBtn;
+            nextBtn.classList.toggle('hidden', currentPage === activeQuestions.length);
+            submitBtn.classList.toggle('hidden', currentPage !== activeQuestions.length);
+            pageIndicator.innerText = `${t.page} ${currentPage} ${t.of} ${activeQuestions.length}`;
         };
 
         const navigatePage = (direction) => {
             const newPage = currentPage + direction;
-            if (newPage > 0 && newPage <= activeQuestions.length) renderPage(newPage);
+            if (newPage > 0 && newPage <= activeQuestions.length) {
+                currentPage = newPage;
+                renderPage();
+            }
         };
 
-        const generateCertificateHTML = (lang, name, grade) => {
+        const generateCertificateHTML = (lang, name, grade, finalMistakes) => {
             const t = translations[lang];
             const today = new Date();
             const dateString = lang === 'gr' 
@@ -775,14 +833,14 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         };
 
-        const downloadCertificates = async (name, gradeEn, gradeGr) => {
+        const downloadCertificates = async (name, gradeEn, gradeGr, finalMistakes) => {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: 'a4' });
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = pdf.internal.pageSize.getHeight();
 
             const captureCertificate = async (lang, grade) => {
-                const html = generateCertificateHTML(lang, name, grade);
+                const html = generateCertificateHTML(lang, name, grade, finalMistakes);
                 const container = document.createElement('div');
                 container.style.position = 'absolute';
                 container.style.left = '-9999px';
@@ -817,30 +875,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const showResults = async () => {
             clearInterval(timerInterval);
-            let finalMistakes = userAnswers.reduce((acc, answer, index) => 
-                (answer === null || answer !== activeQuestions[index].correct_answer) ? acc + 1 : acc, 0);
+            
+            let finalMistakes = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === null || answer !== activeQuestions[index].correct_answer) {
+                    finalMistakes++;
+                }
+            });
 
-            setVisibility(elements.quizContainer, false); setVisibility(elements.navigationContainer, false);
-            setVisibility(elements.quizStats, false); setVisibility(elements.resultsContainer, true);
+            quizContainerDiv.classList.add('hidden');
+            navigationContainerDiv.classList.add('hidden');
+            quizStatsDiv.classList.add('hidden');
+            resultsContainerDiv.classList.remove('hidden');
             const t = translations[userLang];
             
             if (finalMistakes <= maxMistakes) {
-                const getGrade = (m) => (m <= 5) ? 'Excellent' : (m <= 12) ? 'VeryGood' : 'Good';
+                const getGrade = (m) => {
+                    if (m <= 5) return 'Excellent';
+                    if (m <= 12) return 'VeryGood';
+                    return 'Good';
+                };
                 const gradeKey = getGrade(finalMistakes);
-                const userVisibleGrade = translations[userLang][`grade${gradeKey}`];
-                elements.resultsContainer.innerHTML = generateCertificateHTML(userLang, userName, userVisibleGrade);
+                const gradeEn = translations.en[`grade${gradeKey}`];
+                const gradeGr = translations.gr[`grade${gradeKey}`];
+                const userVisibleGrade = userLang === 'en' ? gradeEn : gradeGr;
+
+                resultsContainerDiv.innerHTML = generateCertificateHTML(userLang, userName, userVisibleGrade, finalMistakes);
                 
                 const downloadMessage = document.createElement('p');
-                downloadMessage.innerText = translations[userLang].downloadMessage || 'Your certificate PDF is downloading automatically...';
-                downloadMessage.className = 'download-message';
-                elements.resultsContainer.appendChild(downloadMessage);
+                const messageText = {
+                    en: 'Your certificate PDF is downloading automatically...',
+                    gr: 'Το πιστοποιητικό σας σε PDF κατεβαίνει αυτόματα...'
+                };
+                downloadMessage.innerText = messageText[userLang];
+                downloadMessage.style.marginTop = '1rem';
+                downloadMessage.style.color = 'var(--nm-accent)';
+                downloadMessage.style.fontFamily = "'Roboto Mono', monospace";
+                resultsContainerDiv.appendChild(downloadMessage);
 
                 setTimeout(() => {
-                    downloadCertificates(userName, translations.en[`grade${gradeKey}`], translations.gr[`grade${gradeKey}`]);
+                    downloadCertificates(userName, gradeEn, gradeGr, finalMistakes);
                 }, 500);
 
             } else {
-                elements.resultsContainer.innerHTML = `
+                resultsContainerDiv.innerHTML = `
                     <h1 class="text-red-600">${t.failureTitle}</h1>
                     <p>${t.failureText1} <strong>${finalMistakes}</strong> ${t.failureText2}</p>
                     <button id="restart-quiz-btn">${t.restartBtn}</button>
@@ -849,13 +927,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        elements.languageSelection.querySelectorAll('button').forEach(btn => {
+        languageSelectionDiv.querySelectorAll('button').forEach(btn => {
             btn.addEventListener('click', () => selectLanguage(btn.dataset.lang));
         });
-        elements.nameForm.addEventListener('submit', startQuiz);
-        elements.prevBtn.addEventListener('click', () => navigatePage(-1));
-        elements.nextBtn.addEventListener('click', () => navigatePage(1));
-        elements.submitBtn.addEventListener('click', showResults);
+        nameForm.addEventListener('submit', startQuiz);
+        prevBtn.addEventListener('click', () => navigatePage(-1));
+        nextBtn.addEventListener('click', () => navigatePage(1));
+        submitBtn.addEventListener('click', showResults);
     }
 
     // --- INITIALIZE ALL FEATURES ---
