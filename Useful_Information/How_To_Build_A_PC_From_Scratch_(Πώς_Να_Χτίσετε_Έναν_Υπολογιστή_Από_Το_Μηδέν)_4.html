@@ -75,6 +75,29 @@
         }
         hr { border: 0; height: 1px; background-color: #ddd; margin-top: 3rem; }
 
+        /* Language Switcher Button Styles */
+        .language-switcher {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+        }
+        .language-switcher button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+        }
+        .language-switcher button:hover {
+            background-color: #0056b3;
+        }
+
         @media (prefers-color-scheme: dark) {
             body { background-color: #0d1117; color: #c9d1d9; }
             h3, h4, h5, b { color: #f0f6fc; }
@@ -95,6 +118,13 @@
             }
             .section-intro { color: #8b949e; border-left-color: #30363d; }
             hr { background-color: #21262d; }
+            .language-switcher button {
+                background-color: #58a6ff;
+                color: #0d1117;
+            }
+            .language-switcher button:hover {
+                background-color: #388bfd;
+            }
         }
     </style>
 </head>
@@ -421,6 +451,54 @@
 
 <div data-lang-section="gr" style="display:none;">
     </div>
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const elementsToTranslate = document.querySelectorAll('[data-en]');
+        const switcherContainer = document.createElement('div');
+        switcherContainer.className = 'language-switcher';
+        const switcherButton = document.createElement('button');
+
+        const setLanguage = (lang) => {
+            if (lang !== 'en' && lang !== 'gr') {
+                lang = 'en'; // Default to English
+            }
+
+            elementsToTranslate.forEach(el => {
+                // Use innerHTML to preserve child elements like <ul> or <b>
+                const text = el.dataset[lang];
+                if (text) {
+                    el.innerHTML = text;
+                }
+            });
+
+            document.documentElement.lang = lang;
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // Update button text
+            if (lang === 'en') {
+                switcherButton.textContent = 'ΕΛ';
+                switcherButton.setAttribute('data-current-lang', 'en');
+            } else {
+                switcherButton.textContent = 'EN';
+                switcherButton.setAttribute('data-current-lang', 'gr');
+            }
+        };
+
+        switcherButton.addEventListener('click', () => {
+            const currentLang = switcherButton.getAttribute('data-current-lang') || 'en';
+            const newLang = currentLang === 'en' ? 'gr' : 'en';
+            setLanguage(newLang);
+        });
+
+        switcherContainer.appendChild(switcherButton);
+        document.body.appendChild(switcherContainer);
+
+        // Initialize language on page load
+        const preferredLanguage = localStorage.getItem('preferredLanguage');
+        setLanguage(preferredLanguage || 'en'); // Default to English if no preference is stored
+    });
+</script>
 
 </body>
 </html>
