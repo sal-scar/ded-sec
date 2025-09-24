@@ -207,6 +207,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
+        // --- ADDED: Project Intro Toggle ---
+        document.querySelectorAll('.project-intro-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const introContainer = header.closest('.project-intro');
+                if (introContainer) {
+                    introContainer.classList.toggle('collapsed');
+                }
+            });
+        });
+
         // --- SEARCH FUNCTIONALITY (ADVANCED) ---
         function buildSearchIndex() {
             if (!searchIndex) searchIndex = []; // MODIFIED: Initialize only if it doesn't exist
