@@ -1,8 +1,9 @@
 /*
     =================================================================
-    CHANGELOG (Revision 5):
+    CHANGELOG (Revision 6):
+    - UPDATED: Changed --nm-danger from black to cyan blue (#00FFFF).
+    - UPDATED: Renamed and updated the search bar animation to pulse cyan.
     - FIXED: Title font-size clamp to prevent wrapping on smaller screens.
-    - UPDATED: Changed --nm-danger and related variables to black (#000000).
     - UPDATED: Primary accent color changed to Digital Lavender for a lighter feel.
     - ADDED: New --glow-rgb variable for consistent color application.
     - RESTORED: User's custom background image in .screen::after.
@@ -25,14 +26,14 @@
     --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender for intense glow */
     --nm-text: #D0D8E0;        
     --nm-text-muted: #7A8899;  
-    --nm-danger: #000000;      /* CHANGED to Black */
-    --nm-danger-hover: #000000; /* CHANGED to Black */
+    --nm-danger: #00FFFF;      /* CHANGED to Cyan Blue */
+    --nm-danger-hover: #00FFFF; /* CHANGED to Cyan Blue */
     --nm-success: #9966FF;     /* Success is also Digital Lavender */
     --nm-warning: #FFD700;     
     
     --glow-rgb: 153, 102, 255; /* ADDED: RGB components for the accent color */
     --glow-color: rgba(var(--glow-rgb), 0.9);
-    --glow-color-danger: rgba(0, 0, 0, 0.8); /* CHANGED to Black */
+    --glow-color-danger: rgba(0, 255, 255, 0.8); /* CHANGED to Cyan Blue */
     --glow-color-warning: rgba(255, 215, 0, 0.8); 
 
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
@@ -296,10 +297,10 @@ body.light-theme #scroll-indicator-thumb {
     max-width: 500px; 
 }
 
-@keyframes pulse-red {
-    0% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(0, 0, 0, 0.4); }
-    50% { box-shadow: 0 0 30px var(--glow-color-danger), inset 0 0 20px rgba(0, 0, 0, 0.5); }
-    100% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(0, 0, 0, 0.4); }
+@keyframes pulse-cyan {
+    0% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(0, 255, 255, 0.4); }
+    50% { box-shadow: 0 0 30px var(--glow-color-danger), inset 0 0 20px rgba(0, 255, 255, 0.5); }
+    100% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(0, 255, 255, 0.4); }
 }
 
 
@@ -314,7 +315,7 @@ body.light-theme #scroll-indicator-thumb {
     transition: background-color 0.3s ease;
     clip-path: var(--clip-path-shape);
     box-sizing: border-box;
-    animation: pulse-red 2s infinite; 
+    animation: pulse-cyan 2s infinite; 
 }
 
 #main-search-input:focus {
@@ -349,7 +350,7 @@ body.light-theme #scroll-indicator-thumb {
 
 #search-results-container .search-result-item:hover {
     background-color: var(--nm-danger);
-    color: #ffffff; 
+    color: #000; 
 }
 #search-results-container .search-result-item small {
     display: block;
@@ -358,7 +359,7 @@ body.light-theme #scroll-indicator-thumb {
     margin-top: 4px;
 }
 #search-results-container .search-result-item:hover small {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .content-highlight {
@@ -371,7 +372,7 @@ main.home-screen > h1, .main-header-container > h1 {
     text-align: center;
     margin: 0; 
     font-family: 'Orbitron', sans-serif;
-    font-size: clamp(2.5rem, 8vw, 3.0rem); /* FIXED font size */
+    font-size: clamp(2.5rem, 8vw, 3.0rem);
     color: var(--nm-accent-hover);
     text-shadow: 0 0 5px rgba(255,255,255,0.8),
                  0 0 15px var(--glow-color),
@@ -827,6 +828,7 @@ body.light-theme .modal-content {
 .decline-btn {
     background-color: var(--nm-danger) !important;
     border-color: var(--nm-danger) !important;
+    color: #000 !important;
 }
 .accept-btn:hover {
     box-shadow: 0 0 20px var(--glow-color), 0 0 40px var(--glow-color) !important;
