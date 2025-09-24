@@ -1267,6 +1267,17 @@ body.light-theme .certificate-header h1 {
     clip-path: var(--clip-path-shape);
     box-sizing: border-box;
     box-shadow: inset 0 0 15px rgba(var(--glow-rgb), 0.15);
+    transition: margin-bottom 0.4s ease-in-out;
+}
+
+.project-intro-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: margin-bottom 0.4s ease-in-out;
+    margin-bottom: 30px;
+    position: relative;
 }
 
 .project-intro h2 {
@@ -1275,8 +1286,35 @@ body.light-theme .certificate-header h1 {
     color: var(--nm-accent-hover);
     text-shadow: 0 0 8px var(--glow-color);
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     font-size: 1.3rem;
+}
+
+.project-intro .toggle-arrow {
+    color: var(--nm-accent-hover);
+    transition: transform 0.3s ease-in-out;
+    position: absolute;
+    left: 50%;
+    bottom: -15px;
+    transform: translateX(-50%);
+}
+
+.project-intro-content {
+    max-height: 500px; /* MODIFIED: Increased height to prevent text cutoff */
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+}
+
+.project-intro.collapsed .project-intro-content {
+    max-height: 0;
+}
+
+.project-intro.collapsed .project-intro-header {
+    margin-bottom: 0;
+}
+
+.project-intro.collapsed .toggle-arrow {
+    transform: translateX(-50%) rotate(-90deg);
 }
 
 .project-intro h3 {
