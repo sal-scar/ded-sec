@@ -1,6 +1,8 @@
 /*
     =================================================================
-    CHANGELOG (Revision 4):
+    CHANGELOG (Revision 5):
+    - FIXED: Title font-size clamp to prevent wrapping on smaller screens.
+    - UPDATED: Changed --nm-danger and related variables to black (#000000).
     - UPDATED: Primary accent color changed to Digital Lavender for a lighter feel.
     - ADDED: New --glow-rgb variable for consistent color application.
     - RESTORED: User's custom background image in .screen::after.
@@ -23,14 +25,14 @@
     --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender for intense glow */
     --nm-text: #D0D8E0;        
     --nm-text-muted: #7A8899;  
-    --nm-danger: #F25419;      
-    --nm-danger-hover: #FF7A4D; 
+    --nm-danger: #000000;      /* CHANGED to Black */
+    --nm-danger-hover: #000000; /* CHANGED to Black */
     --nm-success: #9966FF;     /* Success is also Digital Lavender */
     --nm-warning: #FFD700;     
     
     --glow-rgb: 153, 102, 255; /* ADDED: RGB components for the accent color */
     --glow-color: rgba(var(--glow-rgb), 0.9);
-    --glow-color-danger: rgba(242, 84, 25, 0.8);
+    --glow-color-danger: rgba(0, 0, 0, 0.8); /* CHANGED to Black */
     --glow-color-warning: rgba(255, 215, 0, 0.8); 
 
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
@@ -295,10 +297,11 @@ body.light-theme #scroll-indicator-thumb {
 }
 
 @keyframes pulse-red {
-    0% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(242, 84, 25, 0.4); }
-    50% { box-shadow: 0 0 30px var(--glow-color-danger), inset 0 0 20px rgba(242, 84, 25, 0.5); }
-    100% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(242, 84, 25, 0.4); }
+    0% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(0, 0, 0, 0.4); }
+    50% { box-shadow: 0 0 30px var(--glow-color-danger), inset 0 0 20px rgba(0, 0, 0, 0.5); }
+    100% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(0, 0, 0, 0.4); }
 }
+
 
 #main-search-input {
     width: 100%;
@@ -368,7 +371,7 @@ main.home-screen > h1, .main-header-container > h1 {
     text-align: center;
     margin: 0; 
     font-family: 'Orbitron', sans-serif;
-    font-size: clamp(2.16rem, 9.6vw, 3.0rem); 
+    font-size: clamp(2.5rem, 8vw, 3.0rem); /* FIXED font size */
     color: var(--nm-accent-hover);
     text-shadow: 0 0 5px rgba(255,255,255,0.8),
                  0 0 15px var(--glow-color),
