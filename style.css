@@ -1298,7 +1298,8 @@ body.light-theme .certificate-header h1 {
     left: 50%;
     bottom: 15px;
     transform: translateX(-50%);
-    font-size: 1.3rem;
+    font-size: 1.8rem;
+    font-weight: bold;
 }
 
 .project-intro-content {
@@ -1374,4 +1375,5 @@ body.light-theme .project-intro h2 {
     .app-icon span {
         font-size: 0.85rem;
     }
+}
 }
