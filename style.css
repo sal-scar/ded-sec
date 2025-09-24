@@ -1,7 +1,7 @@
 /*
     =================================================================
-    CHANGELOG (Revision 3):
-    - UPDATED: Primary accent color changed from Cyan to Electric Purple.
+    CHANGELOG (Revision 4):
+    - UPDATED: Primary accent color changed to Digital Lavender for a lighter feel.
     - ADDED: New --glow-rgb variable for consistent color application.
     - RESTORED: User's custom background image in .screen::after.
     - ADDED: New --nm-warning (yellow) color to the palette for more versatility.
@@ -13,22 +13,22 @@
 */
 
 :root {
-    /* MODIFIED: Electric Purple Palette */
+    /* MODIFIED: Digital Lavender Palette */
     --nm-abyss-blue: #01040a; 
     --nm-darkest: #0B121C;    
     --nm-dark: #151E2A;       
     --nm-container: #1F2A38;  
     --nm-border: #3A4A5E;      
-    --nm-accent: #9D00FF;      /* Electric Purple */
-    --nm-accent-hover: #E6BFFF; /* Brighter, almost white Lavender for intense glow */
+    --nm-accent: #9966FF;      /* Digital Lavender */
+    --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender for intense glow */
     --nm-text: #D0D8E0;        
     --nm-text-muted: #7A8899;  
     --nm-danger: #F25419;      
     --nm-danger-hover: #FF7A4D; 
-    --nm-success: #9D00FF;     /* Success is also Electric Purple */
+    --nm-success: #9966FF;     /* Success is also Digital Lavender */
     --nm-warning: #FFD700;     
     
-    --glow-rgb: 157, 0, 255; /* ADDED: RGB components for the accent color */
+    --glow-rgb: 153, 102, 255; /* ADDED: RGB components for the accent color */
     --glow-color: rgba(var(--glow-rgb), 0.9);
     --glow-color-danger: rgba(242, 84, 25, 0.8);
     --glow-color-warning: rgba(255, 215, 0, 0.8); 
