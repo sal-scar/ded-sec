@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- GLOBAL PORTFOLIO STATE ---
     let currentLanguage = 'en';
-    let initialSetupDone = false;
+    // REMOVED: initialSetupDone variable is no longer needed for the disclaimer flow.
     let searchIndex = [];
     let usefulInformationLoaded = false;
     
@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const languageModal = document.getElementById('language-selection-modal');
         const languageModalCloseBtn = languageModal.querySelector('.close-modal');
         const disclaimerModal = document.getElementById('disclaimer-modal');
+        const installationModal = document.getElementById('installation-modal');
 
         window.changeLanguage = (lang) => {
             currentLanguage = lang;
@@ -18,12 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
             
             document.querySelectorAll('[data-en]').forEach(el => {
                 const text = el.getAttribute(`data-${lang}`) || el.getAttribute('data-en');
-                const isSpanInAppIcon = el.matches('.app-icon span');
-                const isSimpleTextElement = el.matches('h1, h2, h3, p, label, .main-footer p, button, .store-link a, #useful-information-content p') && !isSpanInAppIcon;
+                // MODIFIED: Simplified selector to be more inclusive for new elements
+                const isSimpleTextElement = el.matches('h1, h2, h3, p, label, button, span, a');
 
                 if (isSimpleTextElement) {
-                     el.textContent = text;
-                } else if (isSpanInAppIcon) {
                      el.textContent = text;
                 }
             });
@@ -49,9 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             button.addEventListener('click', () => {
                 changeLanguage(button.dataset.lang);
                 languageModal.classList.remove('visible');
-                if (!initialSetupDone) {
-                    disclaimerModal.classList.add('visible');
-                }
+                // REMOVED: The disclaimer no longer shows up after language selection.
             });
         });
         
@@ -93,14 +90,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         updateThemeButton(document.body.classList.contains('light-theme'));
 
+        // MODIFIED: Disclaimer flow is now tied to the Installation button
         document.getElementById('accept-disclaimer').addEventListener('click', () => {
             disclaimerModal.classList.remove('visible');
-            initialSetupDone = true;
+            // ADDED: Open the installation modal after accepting the disclaimer.
+            if (installationModal) {
+                installationModal.classList.add('visible');
+            }
         });
         document.getElementById('decline-disclaimer').addEventListener('click', () => window.location.href = 'https://www.google.com');
 
+        // MODIFIED: Reworked the modal click listeners to handle the special case for installation.
         document.querySelectorAll('.app-icon[data-modal], a.app-icon[target="_blank"]').forEach(icon => {
-            if (icon.dataset.modal) {
+            // Special handling for the installation button to show the disclaimer first.
+            if (icon.dataset.modal === 'installation') {
+                icon.addEventListener('click', () => {
+                    if (disclaimerModal) {
+                        disclaimerModal.classList.add('visible');
+                    }
+                });
+            } 
+            // Standard behavior for all other modal buttons.
+            else if (icon.dataset.modal) {
                 icon.addEventListener('click', () => {
                     const modalId = `${icon.dataset.modal}-modal`;
                     const modal = document.getElementById(modalId);
@@ -116,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
+
 
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             modal.addEventListener('click', e => {
@@ -209,6 +221,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 TIP: 2,
                 DEFAULT: 1
             };
+
+            // ADDED: Index the new intro text on the main page
+            document.querySelectorAll('.project-intro p, .project-intro h2, .project-intro h3').forEach(el => {
+                const section = el.closest('[data-lang-section]');
+                if (!section) return;
+
+                const lang = section.dataset.langSection;
+                const text = el.textContent.trim();
+                const weight = el.tagName === 'H2' ? weights.H2 : weights.DEFAULT;
+
+                const existingEntry = searchIndex.find(item => item.element === el);
+                if (!existingEntry) {
+                    let entry = { type: 'content', target: 'Introduction', element: el, en: '', gr: '', weight: weight };
+                    entry[lang] = text;
+                    searchIndex.push(entry);
+                } else {
+                    existingEntry[lang] = text;
+                }
+            });
+
 
             document.querySelectorAll('.app-icon[data-modal]').forEach(el => {
                 const span = el.querySelector('span');
@@ -370,17 +402,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         itemEl.innerHTML = `${highlightedSnippet} <small>${locationText[currentLanguage]}</small>`;
                         
-                        // --- REPLACED CLICK HANDLER ---
+                        // --- MODIFIED CLICK HANDLER TO HANDLE NEW 'Introduction' TARGET ---
                         itemEl.addEventListener('click', () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
 
                             if (result.type === 'useful_information') {
-                                // Handle clicks for 'useful_information' results
                                 const usefulInformationIcon = document.querySelector('.app-icon[data-modal="useful-information"]');
                                 if (usefulInformationIcon) usefulInformationIcon.click();
                                 loadInformationContent(result.url);
-                            } else {
+                            } else if (result.target === 'Introduction') {
+                                // For intro text, just scroll to it
+                                result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                result.element.classList.add('content-highlight');
+                                setTimeout(() => {
+                                    result.element.classList.remove('content-highlight');
+                                }, 2000);
+                            }
+                            else {
                                 // Original logic for other modals
                                 const targetModalId = result.type === 'modal_button' ? result.target : result.target;
                                 const targetElement = document.querySelector(`.app-icon[data-modal="${targetModalId}"]`);
@@ -397,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
                             }
                         });
-                        // --- END REPLACED BLOCK ---
+                        // --- END MODIFIED BLOCK ---
 
                         resultsContainer.appendChild(itemEl);
                     });
@@ -452,7 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeScrollIndicator();
     }
 
-    // --- REPLACED USEFUL INFORMATION MODAL LOGIC ---
+    // --- REPLACED USEFUL INFORMATION MODAL LOGIC (UNCHANGED FROM ORIGINAL) ---
     async function fetchUsefulInformation() {
         const navContainer = document.getElementById('useful-information-nav');
         const contentContainer = document.getElementById('useful-information-content');
