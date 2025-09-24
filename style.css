@@ -1,6 +1,8 @@
 /*
     =================================================================
-    CHANGELOG (Revision 2):
+    CHANGELOG (Revision 3):
+    - UPDATED: Primary accent color changed from Cyan to Electric Purple.
+    - ADDED: New --glow-rgb variable for consistent color application.
     - RESTORED: User's custom background image in .screen::after.
     - ADDED: New --nm-warning (yellow) color to the palette for more versatility.
     - UPDATED: .tip class to use the new warning color as an example.
@@ -11,24 +13,25 @@
 */
 
 :root {
-    /* MODIFIED: Dead Space 2 "RIG" Palette - Enhanced Glow & New Colors */
-    --nm-abyss-blue: #01040a; /* Even deeper space blue */
-    --nm-darkest: #0B121C;    /* Industrial hull gray-blue */
-    --nm-dark: #151E2A;       /* Darker UI panel */
-    --nm-container: #1F2A38;  /* UI panel background */
-    --nm-border: #3A4A5E;      /* Panel border */
-    --nm-accent: #26B8F2;      /* RIG Cyan */
-    --nm-accent-hover: #9AFEFE; /* Brighter, almost white Cyan for intense glow */
-    --nm-text: #D0D8E0;        /* Cool off-white text */
-    --nm-text-muted: #7A8899;  /* Muted gray text */
-    --nm-danger: #F25419;      /* Rusty warning orange */
-    --nm-danger-hover: #FF7A4D; /* Brighter warning orange for glow */
-    --nm-success: #26B8F2;     /* Success is also RIG cyan */
-    --nm-warning: #FFD700;     /* ADDED: Stasis/Health warning yellow */
+    /* MODIFIED: Electric Purple Palette */
+    --nm-abyss-blue: #01040a; 
+    --nm-darkest: #0B121C;    
+    --nm-dark: #151E2A;       
+    --nm-container: #1F2A38;  
+    --nm-border: #3A4A5E;      
+    --nm-accent: #9D00FF;      /* Electric Purple */
+    --nm-accent-hover: #E6BFFF; /* Brighter, almost white Lavender for intense glow */
+    --nm-text: #D0D8E0;        
+    --nm-text-muted: #7A8899;  
+    --nm-danger: #F25419;      
+    --nm-danger-hover: #FF7A4D; 
+    --nm-success: #9D00FF;     /* Success is also Electric Purple */
+    --nm-warning: #FFD700;     
     
-    --glow-color: rgba(38, 184, 242, 0.9);
+    --glow-rgb: 157, 0, 255; /* ADDED: RGB components for the accent color */
+    --glow-color: rgba(var(--glow-rgb), 0.9);
     --glow-color-danger: rgba(242, 84, 25, 0.8);
-    --glow-color-warning: rgba(255, 215, 0, 0.8); /* ADDED: Glow for warning */
+    --glow-color-warning: rgba(255, 215, 0, 0.8); 
 
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
     --shape-cut: 20px;
@@ -36,7 +39,6 @@
 }
 
 body.light-theme {
-    /* Light theme is less of a focus for this aesthetic, but updated for consistency */
     --nm-abyss-blue: #ffffff;
     --nm-darkest: #f0f0f0;
     --nm-dark: #e9e9e9;
@@ -45,7 +47,7 @@ body.light-theme {
     --nm-text: #000000;
     --nm-text-muted: #555555;
     --nm-warning: #FDB813;
-    --glow-color: rgba(38, 184, 242, 0.3);
+    --glow-color: rgba(var(--glow-rgb), 0.3);
 }
 
 @keyframes scanline-scroll {
@@ -101,7 +103,6 @@ body {
     transition: background-color 0.3s ease;
 }
 
-/* ADDED: "RIG Spine" decorative element */
 .phone-container::after {
     content: '';
     position: absolute;
@@ -114,27 +115,24 @@ body {
     z-index: 10;
 }
 
-/* --- NEW: Scroll Indicator Thumb --- */
 #scroll-indicator-thumb {
     position: absolute;
     right: 0;
-    top: 0; /* Positioned by JavaScript */
+    top: 0; 
     width: 8px;
     height: 40px;
     background: linear-gradient(to bottom, var(--nm-accent), var(--nm-accent-hover), var(--nm-accent));
     box-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color);
     z-index: 11;
     transition: opacity 0.3s ease;
-    opacity: 0; /* Hidden by default */
+    opacity: 0; 
     pointer-events: none;
 }
-/* --- END NEW --- */
 
 .screen {
     width: 100%;
     height: 100%;
     background-color: var(--nm-abyss-blue);
-    /* MODIFIED: Added subtle hex pattern to background image stack */
     background-image:
         url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="46.188" viewBox="0 0 40 46.188"><path d="M20 0 L40 11.547 v23.094 L20 46.188 L0 34.641 V11.547 Z" fill="none" stroke="rgba(58, 74, 94, 0.1)" stroke-width="1"/></svg>'),
         linear-gradient(rgba(11, 18, 28, 0.9), rgba(11, 18, 28, 0.9)),
@@ -148,7 +146,6 @@ body {
     z-index: 0;
 }
 
-/* RESTORED: User's custom background logo */
 .screen::after {
     content: '';
     position: absolute;
@@ -172,7 +169,7 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: 1;
-    overflow: hidden; /* Add this */
+    overflow: hidden; 
 }
 
 .screen-overlay::after {
@@ -181,11 +178,11 @@ body {
     left: 0;
     top: 0;
     width: 100%;
-    height: 200%; /* Make it twice as tall */
+    height: 200%; 
     background: 
-        repeating-linear-gradient(0deg, rgba(38, 184, 242, 0.12), rgba(38, 184, 242, 0.12) 1px, transparent 1px, transparent 4px);
+        repeating-linear-gradient(0deg, rgba(var(--glow-rgb), 0.12), rgba(var(--glow-rgb), 0.12) 1px, transparent 1px, transparent 4px);
     animation: scanline-scroll 15s linear infinite;
-    will-change: transform; /* Hint for the browser to optimize */
+    will-change: transform; 
 }
 
 .screen::before {
@@ -202,7 +199,7 @@ body {
 body.light-theme .screen-overlay,
 body.light-theme .screen::before,
 body.light-theme .phone-container::after,
-body.light-theme #scroll-indicator-thumb { /* ADDED */
+body.light-theme #scroll-indicator-thumb { 
     display: none;
 }
 
@@ -210,14 +207,13 @@ body.light-theme #scroll-indicator-thumb { /* ADDED */
     flex-grow: 1;
     overflow-y: auto;
     min-height: 0;
-    padding: 0 15px 15px; /* MODIFIED */
+    padding: 0 15px 15px; 
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* ADDED: Scrollbar styling for main screen */
 .home-screen::-webkit-scrollbar,
 .modal-body::-webkit-scrollbar,
 #quiz-container::-webkit-scrollbar {
@@ -261,10 +257,9 @@ body.light-theme #scroll-indicator-thumb { /* ADDED */
     align-items: center;
     gap: 15px;
     width: 100%;
-    min-height: 105px; /* Reserve space to prevent layout shift */
+    min-height: 105px; 
 }
 
-/* MODIFIED: Hides the profile picture element */
 .profile-pic {
     display: none;
 }
@@ -279,11 +274,10 @@ body.light-theme #scroll-indicator-thumb { /* ADDED */
     flex-grow: 1;
 }
 
-/* --- MODIFIED: Center Title & Persistent Red Search Bar --- */
 .main-header-container {
     display: flex;
-    flex-direction: column; /* Stack title over search bar */
-    align-items: center; /* Center them horizontally */
+    flex-direction: column; 
+    align-items: center; 
     width: 100%;
     gap: 15px;
     margin-bottom: 20px;
@@ -297,7 +291,7 @@ body.light-theme #scroll-indicator-thumb { /* ADDED */
 .search-container {
     position: relative;
     width: 100%;
-    max-width: 500px; /* Limit width on larger screens */
+    max-width: 500px; 
 }
 
 @keyframes pulse-red {
@@ -310,14 +304,14 @@ body.light-theme #scroll-indicator-thumb { /* ADDED */
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 2px solid var(--nm-danger); /* Thicker border */
+    border: 2px solid var(--nm-danger); 
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
     clip-path: var(--clip-path-shape);
     box-sizing: border-box;
-    animation: pulse-red 2s infinite; /* Persistent glow */
+    animation: pulse-red 2s infinite; 
 }
 
 #main-search-input:focus {
@@ -352,7 +346,7 @@ body.light-theme #scroll-indicator-thumb { /* ADDED */
 
 #search-results-container .search-result-item:hover {
     background-color: var(--nm-danger);
-    color: #ffffff; /* Brighter text for better contrast on red */
+    color: #ffffff; 
 }
 #search-results-container .search-result-item small {
     display: block;
@@ -369,22 +363,19 @@ body.light-theme #scroll-indicator-thumb { /* ADDED */
     box-shadow: 0 0 15px var(--glow-color-warning);
     transition: background-color 1s ease;
 }
-/* --- END OF MODIFICATIONS --- */
-
 
 main.home-screen > h1, .main-header-container > h1 {
     text-align: center;
-    margin: 0; /* Reset margin */
+    margin: 0; 
     font-family: 'Orbitron', sans-serif;
-    font-size: clamp(2.16rem, 9.6vw, 3.0rem); /* <-- This line is 20% larger */
+    font-size: clamp(2.16rem, 9.6vw, 3.0rem); 
     color: var(--nm-accent-hover);
-    /* MODIFIED: More intense, layered text-shadow for holographic effect */
     text-shadow: 0 0 5px rgba(255,255,255,0.8),
                  0 0 15px var(--glow-color),
                  0 0 30px var(--glow-color),
                  0 0 50px var(--glow-color);
     transition: text-shadow 0.3s ease, color 0.3s ease;
-    animation: flicker 6s linear infinite; /* ADDED Animation */
+    animation: flicker 6s linear infinite; 
 }
 
 main.home-screen > h1:hover, .main-header-container > h1:hover {
@@ -408,18 +399,17 @@ body.light-theme .main-header-container > h1 {
     margin-right: auto;
 }
 
-/* MODIFIED: Changed app grid to a single-column flex list on mobile */
 .app-grid {
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 100%;
-    max-width: 500px; /* A reasonable max-width for the list */
+    max-width: 500px; 
     margin: 0 auto 15px;
 }
 
 .app-icon {
-    background: rgba(38, 184, 242, 0.05);
+    background: rgba(var(--glow-rgb), 0.05);
     border: 1px solid var(--nm-accent);
     color: var(--nm-accent-hover);
     cursor: pointer;
@@ -435,16 +425,14 @@ body.light-theme .main-header-container > h1 {
     position: relative;
     clip-path: var(--clip-path-shape);
     gap: 12px;
-    /* MODIFIED: Added inner glow */
-    box-shadow: inset 0 0 15px rgba(38, 184, 242, 0.25);
-    height: 56px; /* 20% thinner than 70px */
+    box-shadow: inset 0 0 15px rgba(var(--glow-rgb), 0.25);
+    height: 56px; 
 }
 
 .app-icon:hover {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    /* MODIFIED: Intensified glow effect */
     box-shadow: 0 0 20px var(--glow-color),
                 0 0 40px var(--glow-color),
                 inset 0 0 10px rgba(11, 18, 28, 0.5);
@@ -520,8 +508,8 @@ body.light-theme .app-icon:hover {
     padding: 6px 8px;
     padding-bottom: var(--safe-area-inset-bottom);
     background: rgba(11, 18, 28, 0.7);
-    -webkit-backdrop-filter: blur(10px); /* MODIFIED */
-    backdrop-filter: blur(10px); /* MODIFIED */
+    -webkit-backdrop-filter: blur(10px); 
+    backdrop-filter: blur(10px); 
     border-top: 1px solid var(--nm-border);
     display: flex;
     justify-content: center;
@@ -531,7 +519,7 @@ body.light-theme .app-icon:hover {
     box-sizing: border-box;
     flex-shrink: 0;
     z-index: 2;
-    box-shadow: 0 -5px 20px rgba(1, 4, 10, 0.5); /* ADDED */
+    box-shadow: 0 -5px 20px rgba(1, 4, 10, 0.5); 
 }
 
 body.light-theme .dock {
@@ -584,8 +572,8 @@ body.light-theme .dock {
     width: 100%;
     height: 100%;
     background: rgba(1, 8, 17, 0.8);
-    -webkit-backdrop-filter: blur(10px); /* MODIFIED */
-    backdrop-filter: blur(10px); /* MODIFIED */
+    -webkit-backdrop-filter: blur(10px); 
+    backdrop-filter: blur(10px); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -610,9 +598,8 @@ body.light-theme .modal-overlay {
     max-width: 800px;
     height: 85%;
     max-height: 800px;
-    border: 1px solid var(--nm-accent); /* MODIFIED */
-    /* MODIFIED: Holographic border effect */
-    box-shadow: 0 0 30px var(--glow-color), 0 0 70px var(--glow-color), inset 0 0 15px rgba(38, 184, 242, 0.25);
+    border: 1px solid var(--nm-accent); 
+    box-shadow: 0 0 30px var(--glow-color), 0 0 70px var(--glow-color), inset 0 0 15px rgba(var(--glow-rgb), 0.25);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -734,7 +721,7 @@ body.light-theme .modal-content {
     margin: 1em 0;
     transition: background-color 0.3s ease;
     clip-path: var(--clip-path-shape);
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5); /* ADDED */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
 }
 .code-container code {
     font-family: 'Roboto Mono', monospace;
@@ -779,7 +766,6 @@ body.light-theme .modal-content {
     flex-shrink: 0;
 }
 
-/* MODIFIED: Consolidated button styles for consistency */
 .modal-footer button,
 .language-button,
 #language-selection button,
@@ -797,7 +783,7 @@ body.light-theme .modal-content {
     transition: all 0.2s ease;
     position: relative;
     clip-path: var(--clip-path-shape);
-    box-shadow: inset 0 0 15px rgba(38, 184, 242, 0.3);
+    box-shadow: inset 0 0 15px rgba(var(--glow-rgb), 0.3);
 }
 
 .modal-footer button:hover,
@@ -849,7 +835,6 @@ body.light-theme .modal-content {
 }
 
 
-/* MODIFIED: Changed .tip to use the new warning color */
 .tip {
     background: var(--nm-dark);
     border-left: 2px solid var(--nm-warning);
@@ -895,8 +880,8 @@ body.light-theme .modal-content {
 .hidden { display: none !important; }
 
 #language-selection h1, #user-info h1, #results-container h1 {
-    color: var(--nm-accent-hover); /* MODIFIED */
-    text-shadow: 0 0 8px var(--glow-color), 0 0 2px #fff; /* MODIFIED */
+    color: var(--nm-accent-hover); 
+    text-shadow: 0 0 8px var(--glow-color), 0 0 2px #fff; 
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 1rem;
@@ -948,7 +933,7 @@ body.light-theme #results-container h1 {
 }
 #user-info input:focus {
     outline: none;
-    box-shadow: 0 0 15px var(--glow-color), inset 0 0 10px rgba(38, 184, 242, 0.2);
+    box-shadow: 0 0 15px var(--glow-color), inset 0 0 10px rgba(var(--glow-rgb), 0.2);
     border-color: var(--nm-accent);
     background-color: var(--nm-dark);
 }
@@ -969,7 +954,7 @@ body.light-theme #results-container h1 {
     border: 1px solid var(--nm-border);
     transition: background-color 0.3s ease;
     clip-path: var(--clip-path-shape);
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5); /* ADDED */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
 }
 .quiz-page { animation: fadeIn 0.5s ease-in-out; }
 @keyframes fadeIn {
@@ -994,17 +979,16 @@ body.light-theme #results-container h1 {
     background-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
     border-color: var(--nm-accent);
-    box-shadow: 0 0 10px var(--glow-color); /* ADDED */
+    box-shadow: 0 0 10px var(--glow-color); 
 }
 
-/* Hiding default radio button */
 .quiz-page input[type="radio"] {
     opacity: 0;
     width: 0;
     height: 0;
     position: absolute;
 }
-/* Creating custom radio button */
+
 .quiz-page label span {
     display: inline-block;
     padding-left: 30px;
@@ -1072,7 +1056,7 @@ body.light-theme #results-container h1 {
 }
 .certificate {
     background-image:
-        linear-gradient(rgba(38, 184, 242, 0.1), rgba(38, 184, 242, 0.1)),
+        linear-gradient(rgba(var(--glow-rgb), 0.1), rgba(var(--glow-rgb), 0.1)),
         radial-gradient(ellipse at center, rgba(21, 30, 42, 0.5) 0%, var(--nm-abyss-blue) 70%);
     border: 2px solid var(--nm-accent);
     padding: 2rem;
@@ -1084,7 +1068,7 @@ body.light-theme #results-container h1 {
 
 body.light-theme .certificate {
      background-image:
-        linear-gradient(rgba(38, 184, 242, 0.1), rgba(38, 184, 242, 0.1)),
+        linear-gradient(rgba(var(--glow-rgb), 0.1), rgba(var(--glow-rgb), 0.1)),
         radial-gradient(ellipse at center, rgba(230, 230, 230, 0.5) 0%, var(--nm-abyss-blue) 70%);
 }
 
@@ -1114,11 +1098,11 @@ body.light-theme .certificate {
 .certificate-header h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
-    color: var(--nm-accent-hover); /* MODIFIED */
+    color: var(--nm-accent-hover); 
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 15px var(--glow-color); /* MODIFIED */
+    text-shadow: 0 0 15px var(--glow-color); 
 }
 
 body.light-theme .certificate-header h1 {
@@ -1260,7 +1244,6 @@ body.light-theme .certificate-header h1 {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* --- NEW: Useful Information Modal Styles --- */
 #useful-information-content h3 {
     text-align: left;
     color: var(--nm-accent-hover);
@@ -1278,25 +1261,24 @@ body.light-theme .certificate-header h1 {
 #useful-information-content li { margin-bottom: 0.5rem; }
 #useful-information-content a { color: var(--nm-accent); }
 #useful-information-content a:hover { color: var(--nm-accent-hover); text-decoration: underline; }
-/* --- END NEW --- */
 
 /* =================================================================
    DESKTOP & WIDE SCREEN STYLES
    ================================================================= */
 @media (min-width: 768px) {
     .home-screen {
-        max-width: 1200px; /* Prevent content from stretching too wide */
+        max-width: 1200px; 
         margin: 0 auto;
     }
 
     .app-grid {
-        display: grid; /* Revert back to a grid on larger screens */
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive grid */
-        max-width: none; /* Allow grid to fill the container */
+        display: grid; 
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+        max-width: none; 
     }
 
     .app-icon {
-        height: 64px; /* 20% thinner than 80px */
+        height: 64px; 
     }
     
     .app-icon span {
