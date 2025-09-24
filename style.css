@@ -1,17 +1,6 @@
 /*
     =================================================================
-    CHANGELOG (Revision 6):
-    - UPDATED: Changed --nm-danger from black to cyan blue (#00FFFF).
-    - UPDATED: Renamed and updated the search bar animation to pulse cyan.
-    - FIXED: Title font-size clamp to prevent wrapping on smaller screens.
-    - UPDATED: Primary accent color changed to Digital Lavender for a lighter feel.
-    - ADDED: New --glow-rgb variable for consistent color application.
-    - RESTORED: User's custom background image in .screen::after.
-    - ADDED: New --nm-warning (yellow) color to the palette for more versatility.
-    - UPDATED: .tip class to use the new warning color as an example.
-    - Intensified color palette for a more vibrant holographic glow.
-    - Made UI shapes more aggressive and angular.
-    - Enhanced text-shadows and box-shadows for a stronger "glow" effect.
+    
 =================================================================
 */
 
@@ -372,7 +361,7 @@ main.home-screen > h1, .main-header-container > h1 {
     text-align: center;
     margin: 0; 
     font-family: 'Orbitron', sans-serif;
-    font-size: clamp(2.5rem, 8vw, 3.0rem);
+    font-size: clamp(6.5vw, 8vw, 3.0rem);
     color: var(--nm-accent-hover);
     text-shadow: 0 0 5px rgba(255,255,255,0.8),
                  0 0 15px var(--glow-color),
