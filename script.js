@@ -206,6 +206,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 showImage(currentIndex);
             }
         }
+
+        // --- ADDED: Project Intro Toggle ---
+        document.querySelectorAll('.project-intro-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const introContainer = header.closest('.project-intro');
+                if (introContainer) {
+                    introContainer.classList.toggle('collapsed');
+                }
+            });
+        });
         
         // --- SEARCH FUNCTIONALITY (ADVANCED) ---
         function buildSearchIndex() {
