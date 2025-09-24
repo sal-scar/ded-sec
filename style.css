@@ -1278,6 +1278,7 @@ body.light-theme .certificate-header h1 {
     cursor: pointer;
     transition: margin-bottom 0.4s ease-in-out;
     margin-bottom: 1rem;
+    -webkit-tap-highlight-color: transparent; /* ADDED: Removes tap highlight on mobile */
 }
 
 .project-intro h2 {
