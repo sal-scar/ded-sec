@@ -308,6 +308,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             });
+
+            // ADDED: Index icon links inside modals (like Contact and Portfolio)
+            document.querySelectorAll('.modal-body a.app-icon').forEach(el => {
+                const span = el.querySelector('span');
+                const modal = el.closest('.modal-overlay');
+                if (!span || !modal) return;
+
+                const modalId = modal.id.replace('-modal', '');
+                const enText = span.getAttribute('data-en') || span.textContent;
+                const grText = span.getAttribute('data-gr') || span.textContent;
+
+                if (enText.length > 2) {
+                    searchIndex.push({
+                        en: enText,
+                        gr: grText,
+                        type: 'content',
+                        target: modalId,
+                        weight: weights.B,
+                        element: el
+                    });
+                }
+            });
         }
         
         function initializeSearch() {
