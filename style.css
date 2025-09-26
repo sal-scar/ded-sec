@@ -105,7 +105,14 @@ body {
     background: linear-gradient(to bottom, var(--nm-danger), var(--nm-danger-hover), var(--nm-danger));
     box-shadow: 0 0 15px var(--glow-color-danger), 0 0 30px var(--glow-color-danger);
     z-index: 10;
+    display: none; /* MODIFIED: Hidden by default */
 }
+
+/* MODIFIED: Rule to show the bar only when a modal is open */
+body.modal-is-open .phone-container::after {
+    display: block;
+}
+
 
 #scroll-indicator-thumb {
     position: absolute;
