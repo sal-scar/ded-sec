@@ -39,7 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             document.querySelectorAll('[data-lang-section]').forEach(el => {
-                el.style.display = el.dataset.langSection === lang ? '' : 'none';
+                // --- THIS IS THE CORRECTED LINE ---
+                // It now sets display to 'block' instead of an empty string ('')
+                // to correctly override the '.hidden-by-default' CSS class.
+                el.style.display = el.dataset.langSection === lang ? 'block' : 'none';
             });
             
             document.querySelectorAll('.language-button').forEach(button => {
