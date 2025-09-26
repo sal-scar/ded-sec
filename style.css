@@ -197,7 +197,7 @@ body.light-theme #scroll-indicator-thumb {
 
 .home-screen {
     flex-grow: 1;
-    overflow-y: auto;
+    overflow-y: hidden;
     min-height: 0;
     padding: 0 15px 15px; 
     box-sizing: border-box;
@@ -394,7 +394,7 @@ body.light-theme .main-header-container > h1 {
 
 .app-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     width: 100%;
     max-width: 500px;
@@ -1270,6 +1270,36 @@ body.light-theme .certificate-header h1 {
 #useful-information-content li { margin-bottom: 0.5rem; }
 #useful-information-content a { color: var(--nm-accent); }
 #useful-information-content a:hover { color: var(--nm-accent-hover); text-decoration: underline; }
+
+/* MODIFIED: Styles for modal search bar to match main search bar */
+.modal-search-container {
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal-search-container input {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: var(--nm-darkest);
+    border: 2px solid var(--nm-danger);
+    color: var(--nm-text);
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+    clip-path: var(--clip-path-shape);
+    box-sizing: border-box;
+    animation: pulse-cyan 2s infinite;
+}
+
+.modal-search-container input:focus {
+    outline: none;
+    background-color: var(--nm-dark);
+}
+
 
 /* =================================================================
    DESKTOP & WIDE SCREEN STYLES
