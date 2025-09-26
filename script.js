@@ -42,6 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (searchInput) {
                 searchInput.placeholder = lang === 'gr' ? 'Αναζήτηση...' : 'Search...';
             }
+            const usefulInfoSearchInput = document.getElementById('useful-info-search-input');
+            if (usefulInfoSearchInput) {
+                usefulInfoSearchInput.placeholder = lang === 'gr' ? 'Αναζήτηση άρθρων...' : 'Search articles...';
+            }
         };
         
         languageModal.querySelectorAll('.language-button').forEach(button => {
@@ -487,6 +491,26 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(handleScroll, 100);
         }
 
+        function initializeUsefulInfoSearch() {
+            const searchInput = document.getElementById('useful-info-search-input');
+            if (!searchInput) return;
+
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase().trim();
+                const navContainer = document.getElementById('useful-information-nav');
+                const articles = navContainer.querySelectorAll('.app-icon');
+
+                articles.forEach(article => {
+                    const articleText = article.querySelector('span').textContent.toLowerCase();
+                    if (articleText.includes(query)) {
+                        article.style.display = 'flex';
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+            });
+        }
+
         if (languageModalCloseBtn) languageModalCloseBtn.style.display = 'none';
         languageModal.classList.add('visible');
         changeLanguage('en'); 
@@ -495,6 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
         buildSearchIndex();
         initializeSearch();
         initializeScrollIndicator();
+        initializeUsefulInfoSearch();
     }
 
     // --- REPLACED USEFUL INFORMATION MODAL LOGIC (UNCHANGED FROM ORIGINAL) ---
@@ -640,7 +665,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 32, book: 13, question_en: "What is the primary purpose of a virtual environment?", question_gr: "Ποιος είναι ο κύριος σκοπός ενός εικονικού περιβάλλοντος;", options_en: ["To run programs faster", "To isolate project dependencies and avoid conflicts", "To connect to the internet", "To compile code"], options_gr: ["Για την ταχύτερη εκτέλεση προγραμμάτων", "Για την απομόνωση των εξαρτήσεων του έργου και την αποφυγή συγκρούσεων", "Για τη σύνδεση στο διαδίκτυο", "Για τη μεταγλώττιση κώδικα"], correct_answer: 1 },
             { id: 33, book: 14, question_en: "Which file is conventionally used to list a Python project's dependencies?", question_gr: "Ποιο αρχείο χρησιμοποιείται συμβατικά για την καταγραφή των εξαρτήσεων ενός έργου Python;", options_en: ["packages.txt", "dependencies.json", "pip.conf", "requirements.txt"], options_gr: ["packages.txt", "dependencies.json", "pip.conf", "requirements.txt"], correct_answer: 3 },
             { id: 34, book: 15, question_en: "What is the standard package manager for Node.js?", question_gr: "Ποιος είναι ο τυπικός διαχειριστής πακέτων για το Node.js;", options_en: ["pip", "pkg", "npm", "node-get"], options_gr: ["pip", "pkg", "npm", "node-get"], correct_answer: 2 },
-            { id: 35, book: 15, question_en: "Which tool is used to keep a Node.js application running 24/7?", question_gr: "Ποιο εργαλείο χρησιμοποιείται για να διατηρείται μια εφαρμογή Node.js σε λειτουργία 24/7;", options_en: ["forever", "nodemon", "pm2", "supervisor"], options_gr: ["forever", "nodemon", "pm2", "supervisor"], correct_answer: 2 },
+            { id: 35, book: 15, question_en: "Which tool is used to keep a Node.js application running 24/7?", question_gr: "Ποιο εργαλεία χρησιμοποιείται για να διατηρείται μια εφαρμογή Node.js σε λειτουργία 24/7;", options_en: ["forever", "nodemon", "pm2", "supervisor"], options_gr: ["forever", "nodemon", "pm2", "supervisor"], correct_answer: 2 },
             { id: 36, book: 16, question_en: "Which tool is the world's most famous port scanner?", question_gr: "Ποιο εργαλείο είναι ο πιο διάσημος σαρωτής θυρών στον κόσμο;", options_en: ["whois", "netstat", "nmap", "wireshark"], options_gr: ["whois", "netstat", "nmap", "wireshark"], correct_answer: 2 },
             { id: 37, book: 16, question_en: "In an `nmap` scan, what does a 'filtered' port state usually indicate?", question_gr: "Σε μια σάρωση `nmap`, τι υποδεικνύει συνήθως η κατάσταση 'filtered' μιας θύρας;", options_en: ["The port is open", "The port is closed", "A firewall is blocking access", "The service has crashed"], options_gr: ["Η θύρα είναι ανοιχτή", "Η θύρα είναι κλειστή", "Ένα τείχος προστασίας εμποδίζει την πρόσβαση", "Η υπηρεσία έχει καταρρεύσει"], correct_answer: 2 },
             { id: 38, book: 17, question_en: "What is the file extension for shared libraries in Linux?", question_gr: "Ποια είναι η επέκταση αρχείου για τις κοινόχρηστες βιβλιοθήκες στο Linux;", options_en: [".dll", ".lib", ".a", ".so"], options_gr: [".dll", ".lib", ".a", ".so"], correct_answer: 3 },
