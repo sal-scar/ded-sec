@@ -198,7 +198,7 @@ body.light-theme #scroll-indicator-thumb {
 
 .home-screen {
     flex-grow: 1;
-    overflow-y: hidden;
+    overflow-y: auto; /* CORRECTED */
     min-height: 0;
     padding: 0 15px 15px; 
     box-sizing: border-box;
@@ -594,8 +594,6 @@ body.light-theme .dock {
     width: 100%;
     height: 100%;
     background: rgba(1, 8, 17, 0.8);
-    -webkit-backdrop-filter: blur(10px); 
-    backdrop-filter: blur(10px); 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1314,3 +1312,4 @@ body.light-theme .certificate-header h1 {
         grid-template-columns: repeat(6, 1fr);
         max-width: none; 
     }
+}
