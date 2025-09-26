@@ -155,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (prompt) prompt.style.display = 'block';
                     document.getElementById('useful-information-content').innerHTML = '';
                     document.getElementById('useful-info-search-input').value = '';
-                    document.getElementById('useful-info-results-container').classList.add('hidden');
                     // Reset search filter
                     document.getElementById('useful-information-nav').querySelectorAll('.app-icon').forEach(article => {
                         article.style.display = 'flex';
@@ -415,17 +414,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         itemEl.addEventListener('click', () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
-                            
-                            const targetElement = result.element;
-                            if (targetElement) { targetElement.click(); }
-                            if (result.type === 'content') {
-                                setTimeout(() => {
-                                    result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                    result.element.classList.add('content-highlight');
+                            if (result.type === 'useful_information') {
+                                document.querySelector(`.app-wrapper[data-modal="useful-information"]`).click();
+                                loadInformationContent(result.url);
+                            } 
+                            else {
+                                const targetElement = result.element;
+                                if (targetElement) { targetElement.click(); }
+                                if (result.type === 'content') {
                                     setTimeout(() => {
-                                        result.element.classList.remove('content-highlight');
-                                    }, 2000);
-                                }, 300);
+                                        result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        result.element.classList.add('content-highlight');
+                                        setTimeout(() => {
+                                            result.element.classList.remove('content-highlight');
+                                        }, 2000);
+                                    }, 300);
+                                }
                             }
                         });
                         resultsContainer.appendChild(itemEl);
@@ -528,19 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             await loadInformationContent(result.url);
                             
                             setTimeout(() => {
-                                const contentContainer = document.getElementById('useful-information-content');
-                                if (!contentContainer) return;
-
-                                const allElements = contentContainer.querySelectorAll('p, li, h3, b, code');
-                                let targetElement = null;
-
-                                for (const el of allElements) {
-                                    if (el.textContent.trim() === result.text) {
-                                        targetElement = el;
-                                        break;
-                                    }
-                                }
-
+                                const targetElement = document.getElementById(result.elementId);
                                 if (targetElement) {
                                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                     targetElement.classList.add('content-highlight');
@@ -601,9 +593,9 @@ document.addEventListener('DOMContentLoaded', () => {
                  return;
             }
             
-            usefulInfoSearchIndex = [];
+            usefulInfoSearchIndex = []; // Clear previous index
 
-            const indexPromises = htmlFiles.map(async (file) => {
+            const indexPromises = htmlFiles.map(async (file, fileIndex) => {
                 try {
                     const tipContentResponse = await fetch(file.download_url);
                     if (!tipContentResponse.ok) return;
@@ -612,17 +604,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     tempDiv.innerHTML = htmlContent;
                     
                     const infoName = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
+                    let contentCounter = 0;
 
                     tempDiv.querySelectorAll('[data-lang-section]').forEach(section => {
                         const lang = section.dataset.langSection;
                         section.querySelectorAll('p, li, h3, b, code').forEach(el => {
                             const text = el.textContent.trim();
                             if (text.length > 5) {
+                                const contentId = `useful-content-${fileIndex}-${contentCounter++}`;
+                                
                                 usefulInfoSearchIndex.push({
                                     lang: lang,
                                     title: infoName,
                                     text: text,
                                     url: file.download_url,
+                                    elementId: contentId,
                                     weight: (el.tagName === 'H3' ? 5 : 1)
                                 });
                             }
@@ -665,6 +661,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error(`Failed to fetch content: ${response.status}`);
             const htmlContent = await response.text();
             contentContainer.innerHTML = htmlContent;
+            
+            // Re-apply unique IDs to the loaded content
+            const fileIndex = usefulInfoSearchIndex.findIndex(item => item.url === url);
+            if (fileIndex !== -1) {
+                let contentCounter = 0;
+                contentContainer.querySelectorAll('p, li, h3, b, code').forEach(el => {
+                     const text = el.textContent.trim();
+                     if (text.length > 5) {
+                         el.id = `useful-content-${fileIndex}-${contentCounter++}`;
+                     }
+                });
+            }
+
             changeLanguage(currentLanguage);
         } catch (error) {
             console.error('Failed to load content:', error);
