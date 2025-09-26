@@ -92,28 +92,13 @@
                     </div>
                 </div>
 
-                <div class="project-intro">
-                    <div data-lang-section="en">
-                        <div class="project-intro-header">
-                            <h2>Welcome to the DedSec Project!</h2>
-                            <i class="fas fa-chevron-down toggle-arrow"></i>
-                        </div>
-                        <div class="project-intro-content">
-                            <p>Your free guide to digital self-defense! Our mission is to empower you by revealing how real-world threats operate. This toolkit is packed with educational scripts, showing you how phishing attacks steal camera images and location data, or how to chat securely with an encrypted client. Everything here is completely free and designed to turn you from a target into a defender. Let's get started.</p>
-                        </div>
-                    </div>
-                    <div data-lang-section="gr" style="display:none;">
-                        <div class="project-intro-header">
-                            <h2>Καλώς ήρθατε στο DedSec Project!</h2>
-                             <i class="fas fa-chevron-down toggle-arrow"></i>
-                        </div>
-                         <div class="project-intro-content">
-                            <p>Ο δωρεάν οδηγός σας για ψηφιακή αυτοάμυνα! Η αποστολή μας είναι να σας ενδυναμώσουμε, αποκαλύπτοντας πώς λειτουργούν οι πραγματικές απειλές. Αυτή η εργαλειοθήκη περιέχει εκπαιδευτικά σενάρια, που δείχνουν πώς οι επιθέσεις phishing κλέβουν εικόνες κάμερας και δεδομένα τοποθεσίας, ή πώς να συνομιλείτε με ασφάλεια μέσω κρυπτογραφημένης εφαρμογής. Όλα εδώ είναι εντελώς δωρεάν και σχεδιασμένα να σας μετατρέψουν από στόχο σε αμυνόμενο. Ας ξεκινήσουμε.</p>
-                        </div>
-                    </div>
-                </div>
                 <div class="app-grid">
                     
+                    <div class="app-wrapper" data-modal="welcome" tabindex="0">
+                        <div class="app-icon"><i class="fas fa-info-circle"></i></div>
+                        <span class="app-label" data-en="Welcome" data-gr="Καλώς ήρθατε">Welcome</span>
+                    </div>
+
                     <div class="app-wrapper" data-modal="installation" tabindex="0">
                         <div class="app-icon"><i class="fas fa-download"></i></div>
                         <span class="app-label" data-en="Installation & Setup" data-gr="Εγκατάσταση & Ρύθμιση">Installation & Setup</span>
@@ -170,6 +155,23 @@
     </div>
 
     <div id="image-viewer-modal" class="modal-overlay"><img id="expanded-img" src="" alt="Expanded Profile Picture" style="max-width: 90vw; max-height: 90vh; border: 3px solid var(--nm-accent); box-shadow: 0 0 25px var(--glow-color);"></div>
+
+    <div id="welcome-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-en="Welcome to the DedSec Project!" data-gr="Καλώς ήρθατε στο DedSec Project!">Welcome to the DedSec Project!</h2>
+                <button class="close-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div data-lang-section="en">
+                    <p>Your free guide to digital self-defense! Our mission is to empower you by revealing how real-world threats operate. This toolkit is packed with educational scripts, showing you how phishing attacks steal camera images and location data, or how to chat securely with an encrypted client. Everything here is completely free and designed to turn you from a target into a defender. Let's get started.</p>
+                </div>
+                <div data-lang-section="gr" style="display:none;">
+                    <p>Ο δωρεάν οδηγός σας για ψηφιακή αυτοάμυνα! Η αποστολή μας είναι να σας ενδυναμώσουμε, αποκαλύπτοντας πώς λειτουργούν οι πραγματικές απειλές. Αυτή η εργαλειοθήκη περιέχει εκπαιδευτικά σενάρια, που δείχνουν πώς οι επιθέσεις phishing κλέβουν εικόνες κάμερας και δεδομένα τοποθεσίας, ή πώς να συνομιλείτε με ασφάλεια μέσω κρυπτογραφημένης εφαρμογής. Όλα εδώ είναι εντελώς δωρεάν και σχεδιασμένα να σας μετατρέψουν από στόχο σε αμυνόμενο. Ας ξεκινήσουμε.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="language-selection-modal" class="modal-overlay">
       <div class="modal-content" style="height: auto;">
