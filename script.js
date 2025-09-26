@@ -10,13 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
         function showModal(modal) {
             if (!modal) return;
             modal.classList.add('visible');
-            document.body.classList.add('modal-is-open');
         }
 
         function hideModal(modal) {
             if (!modal) return;
             modal.classList.remove('visible');
-            document.body.classList.remove('modal-is-open');
         }
 
         // --- LANGUAGE AND MODAL LOGIC ---
@@ -602,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // --- CERTIFICATION QUIZ LOGIC (UNCHANGED) ---
+    // --- CERTIFICATION QUIZ LOGIC ---
     function initializeCertificationQuiz() {
         const fullQuizData = [
             { id: 1, book: 1, question_en: "Which command is used to find out your current location in the filesystem?", question_gr: "Ποια εντολή χρησιμοποιείται για να μάθετε την τρέχουσα τοποθεσία σας στο σύστημα αρχείων;", options_en: ["whoami", "ls", "pwd", "cd"], options_gr: ["whoami", "ls", "pwd", "cd"], correct_answer: 2 },

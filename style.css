@@ -105,14 +105,8 @@ body {
     background: linear-gradient(to bottom, var(--nm-danger), var(--nm-danger-hover), var(--nm-danger));
     box-shadow: 0 0 15px var(--glow-color-danger), 0 0 30px var(--glow-color-danger);
     z-index: 10;
-    display: none; /* MODIFIED: Hidden by default */
+    display: none; /* MODIFIED: Permanently hidden */
 }
-
-/* MODIFIED: Rule to show the bar only when a modal is open */
-body.modal-is-open .phone-container::after {
-    display: block;
-}
-
 
 #scroll-indicator-thumb {
     position: absolute;
@@ -213,27 +207,20 @@ body.light-theme #scroll-indicator-thumb {
     align-items: center;
 }
 
-.home-screen::-webkit-scrollbar,
-.modal-body::-webkit-scrollbar,
-#quiz-container::-webkit-scrollbar {
+/* MODIFIED: Universal Custom Scrollbar */
+::-webkit-scrollbar {
     width: 10px;
 }
-.home-screen::-webkit-scrollbar-track,
-.modal-body::-webkit-scrollbar-track,
- #quiz-container::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: var(--nm-dark);
 }
-.home-screen::-webkit-scrollbar-thumb,
-.modal-body::-webkit-scrollbar-thumb,
- #quiz-container::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background-color: var(--nm-accent);
     border-radius: 10px;
     border: 2px solid var(--nm-dark);
     box-shadow: 0 0 10px var(--glow-color);
 }
-.home-screen::-webkit-scrollbar-thumb:hover,
-.modal-body::-webkit-scrollbar-thumb:hover,
- #quiz-container::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background-color: var(--nm-accent-hover);
 }
 
