@@ -402,11 +402,11 @@ body.light-theme .main-header-container > h1 {
 }
 
 .app-grid {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 15px;
     width: 100%;
-    max-width: 500px; 
+    max-width: 500px;
     margin: 0 auto 15px;
 }
 
@@ -418,17 +418,17 @@ body.light-theme .main-header-container > h1 {
     font-family: 'Roboto Mono', monospace;
     transition: all 0.2s ease;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     text-decoration: none;
-    padding: 10px 15px;
+    padding: 10px;
     box-sizing: border-box;
     position: relative;
     clip-path: var(--clip-path-shape);
-    gap: 12px;
+    gap: 8px;
     box-shadow: inset 0 0 15px rgba(var(--glow-rgb), 0.25);
-    height: 56px; 
+    aspect-ratio: 1 / 1;
 }
 
 .app-icon:hover {
@@ -474,6 +474,8 @@ body.light-theme .main-header-container > h1 {
     height: auto;
     padding: 8px 15px;
     gap: 10px;
+    aspect-ratio: unset; /* MODIFIED: Reset aspect ratio for top controls */
+    flex-direction: row; /* MODIFIED: Set back to row for top controls */
 }
 .top-controls-container .app-icon:hover::after {
     content: none;
@@ -483,6 +485,7 @@ body.light-theme .main-header-container > h1 {
 }
 .top-controls-container .app-icon span {
     font-size: 0.7rem;
+    text-align: left; /* MODIFIED: Align text left for top controls */
 }
 
 body.light-theme .app-icon {
@@ -499,11 +502,11 @@ body.light-theme .app-icon:hover {
 }
 
 .app-icon span {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 700;
     line-height: 1.2;
     word-break: break-word;
-    text-align: left;
+    text-align: center;
 }
 
 .github-stats {
@@ -556,6 +559,7 @@ body.light-theme .dock {
     padding: 5px;
     width: auto;
     box-shadow: none;
+    aspect-ratio: unset; /* MODIFIED: Reset aspect ratio for dock */
 }
 .dock .app-icon i {
     margin: 0 0 8px 0;
@@ -878,6 +882,8 @@ body.light-theme .modal-content {
     padding: 12px 15px;
     gap: 15px;
     justify-content: center;
+    flex-direction: row; /* MODIFIED: Set contact grid icons back to row */
+    aspect-ratio: unset; /* MODIFIED: Unset aspect ratio for contact grid icons */
 }
 
 
@@ -1388,16 +1394,15 @@ body.light-theme .project-intro h2 {
     }
 
     .app-grid {
-        display: grid; 
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+        grid-template-columns: repeat(6, 1fr);
         max-width: none; 
     }
 
     .app-icon {
-        height: 64px; 
+        /* height: 64px; REMOVED FOR ASPECT RATIO */
     }
     
     .app-icon span {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
     }
 }
