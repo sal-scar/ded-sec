@@ -198,15 +198,14 @@ body.light-theme #scroll-indicator-thumb {
 
 .home-screen {
     flex-grow: 1;
+    overflow-y: hidden;
+    min-height: 0;
     padding: 0 15px 15px; 
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Added to better manage layout */
-    justify-content: space-between; 
 }
-
 
 /* MODIFIED: Universal Custom Scrollbar */
 ::-webkit-scrollbar {
@@ -268,7 +267,6 @@ body.light-theme #scroll-indicator-thumb {
     width: 100%;
     gap: 15px;
     margin-bottom: 20px;
-    flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .main-header-container h1 {
@@ -394,71 +392,14 @@ body.light-theme .main-header-container > h1 {
     margin-right: auto;
 }
 
-/* --- WHEEL CONTAINER STYLES --- */
 .app-grid {
-    position: relative;
-    width: clamp(320px, min(80vw, 80vh), 450px);
-    aspect-ratio: 1 / 1;
-    margin: auto;
-    border: 2px solid var(--nm-border);
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    box-shadow: 0 0 25px rgba(var(--glow-rgb), 0.1), inset 0 0 25px rgba(var(--glow-rgb), 0.1);
-}
-
-body.light-theme .app-grid {
-    border-style: solid;
-    box-shadow: none;
-}
-
-/* --- CENTRAL INFO DISPLAY STYLES --- */
-#wheel-info-display {
-    text-align: center;
-    color: var(--nm-text-muted);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    transition: opacity 0.3s ease;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-#wheel-info-icon {
-    font-size: 2.5rem;
-    color: var(--nm-accent);
-    text-shadow: 0 0 15px var(--glow-color);
-    margin-bottom: 10px;
-    transition: all 0.3s ease;
-}
-
-#wheel-info-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.1rem;
-    color: var(--nm-accent-hover);
-    margin: 0;
-    text-shadow: 0 0 8px var(--glow-color);
-}
-
-#wheel-info-description {
-    font-size: 0.8rem;
-    margin: 0;
-}
-
-/* --- WHEEL ITEM (APP) STYLES --- */
-.app-grid > .app-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -32px 0 0 -32px; /* Half of width/height to center origin */
-    width: 64px;
-    height: 64px;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 25px auto 15px;
+    align-items: start;
 }
 
 .app-wrapper {
@@ -479,31 +420,34 @@ body.light-theme .app-grid {
     font-family: 'Roboto Mono', monospace;
     transition: all 0.2s ease;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    position: relative;
-    clip-path: var(--clip-path-shape);
-    box-shadow: inset 0 0 15px rgba(var(--glow-rgb), 0.25);
-    width: 64px;
-    height: 64px;
-}
-
-/* Specific to modal app icons to override wheel styles */
-.modal-body .app-icon {
     flex-direction: row;
+    align-items: center;
     justify-content: flex-start;
+    text-decoration: none;
     padding: 10px 15px;
     box-sizing: border-box;
+    position: relative;
+    clip-path: var(--clip-path-shape);
     gap: 12px;
+    box-shadow: inset 0 0 15px rgba(var(--glow-rgb), 0.25);
     height: 56px;
-    width: auto;
 }
 
+.app-wrapper .app-icon {
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    gap: 0;
+}
 
 .app-label {
-    /* Labels are hidden on the wheel itself */
-   display: none;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--nm-text);
+    text-align: center;
+    word-break: break-word;
+    line-height: 1.2;
 }
 
 .app-icon:hover {
@@ -515,24 +459,20 @@ body.light-theme .app-grid {
                 inset 0 0 10px rgba(11, 18, 28, 0.5);
 }
 
-/* Active state for hovered item on the wheel */
-.app-wrapper.active {
-    z-index: 10;
-}
-.app-wrapper.active .app-icon {
-    transform: scale(1.2);
+.app-wrapper:hover .app-icon,
+.app-wrapper:focus-visible .app-icon {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     box-shadow: 0 0 20px var(--glow-color),
                 0 0 40px var(--glow-color),
                 inset 0 0 10px rgba(11, 18, 28, 0.5);
+    outline: none;
 }
 
-.app-wrapper.active .app-icon i {
-    color: var(--nm-darkest);
-    text-shadow: none;
+.app-wrapper:hover .app-label,
+.app-wrapper:focus-visible .app-label {
+    color: var(--nm-accent-hover);
 }
-
 
 .app-icon i {
     color: var(--nm-accent-hover);
@@ -545,11 +485,12 @@ body.light-theme .app-grid {
     align-items: center;
 }
 
-.app-icon:hover i {
+.app-icon:hover i,
+.app-wrapper:hover .app-icon i,
+.app-wrapper:focus-visible .app-icon i {
     color: var(--nm-darkest);
     text-shadow: none;
 }
-
 
 body.light-theme .app-icon {
     background: var(--nm-container);
@@ -644,7 +585,6 @@ body.light-theme .dock {
     padding: 1rem;
     font-size: 0.7rem;
     color: var(--nm-text-muted);
-    flex-shrink: 0; /* Prevent footer from shrinking */
 }
 
 .modal-overlay {
@@ -1370,16 +1310,8 @@ body.light-theme .certificate-header h1 {
         margin: 0 auto;
     }
 
-    /* Modal app grid needs to be reset to grid from wheel styles */
-    #useful-information-nav.app-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        max-width: 100%;
-        border: none;
-        border-radius: 0;
-        width: auto;
-        height: auto;
-        aspect-ratio: auto;
-        box-shadow: none;
+    .app-grid {
+        grid-template-columns: repeat(6, 1fr);
+        max-width: none; 
     }
 }
