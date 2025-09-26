@@ -267,6 +267,9 @@ body.light-theme #scroll-indicator-thumb {
     width: 100%;
     gap: 15px;
     margin-bottom: 20px;
+    z-index: 10; /* GHOST TAP FIX: Ensure header is above the grid. */
+    position: relative; /* GHOST TAP FIX: Create a stacking context. */
+    overflow: hidden; /* GHOST TAP FIX: Clip the oversized title */
 }
 
 .main-header-container h1 {
@@ -400,6 +403,8 @@ body.light-theme .main-header-container > h1 {
     max-width: 500px;
     margin: 20px auto; /* Reduced vertical margin */
     align-items: start;
+    z-index: 5; /* GHOST TAP FIX: Ensure grid is below the header. */
+    position: relative; /* GHOST TAP FIX: Create a stacking context. */
 }
 
 .app-wrapper {
