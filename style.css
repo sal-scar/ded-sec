@@ -404,23 +404,25 @@ body.light-theme .main-header-container > h1 {
 .app-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 20px; /* Increased gap for new layout */
     width: 100%;
     max-width: 500px;
-    margin: 25px auto 15px;
+    margin: 0 auto 15px;
     align-items: start;
 }
 
+/* NEW: Wrapper for each icon+text group in the main grid */
 .app-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 8px; /* Space between icon and text */
     text-decoration: none;
     color: var(--nm-text);
     cursor: pointer;
 }
 
+/* MODIFIED: .app-icon now styles BOTH the new icon box AND the old list-style buttons */
 .app-icon {
     background: rgba(var(--glow-rgb), 0.05);
     border: 1px solid var(--nm-accent);
@@ -442,14 +444,16 @@ body.light-theme .main-header-container > h1 {
     height: 56px;
 }
 
+/* OVERRIDE: Styles for the new icon-only box inside an app-wrapper */
 .app-wrapper .app-icon {
-    justify-content: center;
-    width: 64px;
-    height: 64px;
+    justify-content: center; /* Center the font-awesome icon */
+    width: 64px;   /* Fixed size for the icon box */
+    height: 64px;  /* Fixed size for the icon box */
     padding: 0;
     gap: 0;
 }
 
+/* NEW: Style for the text label below the icon */
 .app-label {
     font-size: 0.75rem;
     font-weight: 400;
@@ -459,6 +463,7 @@ body.light-theme .main-header-container > h1 {
     line-height: 1.2;
 }
 
+/* General hover for non-wrapper icons */
 .app-icon:hover {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
@@ -468,6 +473,7 @@ body.light-theme .main-header-container > h1 {
                 inset 0 0 10px rgba(11, 18, 28, 0.5);
 }
 
+/* NEW: Hover/focus effects for the new wrapper structure */
 .app-wrapper:hover .app-icon,
 .app-wrapper:focus-visible .app-icon {
     background: var(--nm-accent);
@@ -483,6 +489,7 @@ body.light-theme .main-header-container > h1 {
     color: var(--nm-accent-hover);
 }
 
+
 .app-icon i {
     color: var(--nm-accent-hover);
     transition: color 0.2s ease;
@@ -494,12 +501,14 @@ body.light-theme .main-header-container > h1 {
     align-items: center;
 }
 
+/* Changes icon color on hover for BOTH layouts */
 .app-icon:hover i,
 .app-wrapper:hover .app-icon i,
 .app-wrapper:focus-visible .app-icon i {
     color: var(--nm-darkest);
     text-shadow: none;
 }
+
 
 .top-controls-container .app-icon {
     width: auto;
@@ -508,10 +517,12 @@ body.light-theme .main-header-container > h1 {
     gap: 10px;
 }
 
+.top-controls-container .app-icon:hover::after {
+    content: none;
+}
 .top-controls-container .app-icon i {
     font-size: 1.1rem;
 }
-
 .top-controls-container .app-icon span {
     font-size: 0.7rem;
     text-align: left;
@@ -604,6 +615,7 @@ body.light-theme .dock {
     border-color: var(--nm-accent-hover);
     box-shadow: none;
 }
+
 
 .main-footer {
     text-align: center;
@@ -1295,6 +1307,103 @@ body.light-theme .certificate-header h1 {
 #useful-information-content li { margin-bottom: 0.5rem; }
 #useful-information-content a { color: var(--nm-accent); }
 #useful-information-content a:hover { color: var(--nm-accent-hover); text-decoration: underline; }
+
+/* === ADDED STYLES FOR PROJECT INTRO SECTION === */
+.project-intro {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 25px auto;
+    padding: 20px 20px 45px;
+    background: rgba(var(--glow-rgb), 0.05);
+    border: 1px solid var(--nm-border);
+    clip-path: var(--clip-path-shape);
+    box-sizing: border-box;
+    box-shadow: inset 0 0 15px rgba(var(--glow-rgb), 0.15);
+    transition: margin-bottom 0.4s ease-in-out;
+    position: relative;
+}
+
+.project-intro-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: margin-bottom 0.4s ease-in-out;
+    margin-bottom: 1rem;
+    -webkit-tap-highlight-color: transparent; /* ADDED: Removes tap highlight on mobile */
+}
+
+.project-intro h2 {
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    color: var(--nm-accent-hover);
+    text-shadow: 0 0 8px var(--glow-color);
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.3rem;
+}
+
+.project-intro .toggle-arrow {
+    color: var(--nm-accent-hover);
+    transition: transform 0.3s ease-in-out;
+    position: absolute;
+    left: 50%;
+    bottom: 15px;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.project-intro-content {
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+}
+
+.project-intro.collapsed .project-intro-content {
+    max-height: 0;
+}
+
+.project-intro.collapsed .project-intro-header {
+    margin-bottom: 0;
+}
+
+.project-intro.collapsed .toggle-arrow {
+    transform: translateX(-50%) rotate(-90deg);
+}
+
+.project-intro h3 {
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    color: var(--nm-text-muted);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    border-top: 1px solid var(--nm-border);
+    padding-top: 1.5rem;
+}
+
+.project-intro p {
+    text-align: center;
+    line-height: 1.6;
+    color: var(--nm-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+body.light-theme .project-intro {
+    background: var(--nm-container);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border: 1px solid var(--nm-border);
+}
+
+body.light-theme .project-intro h2 {
+    text-shadow: none;
+    color: var(--nm-text);
+}
+/* === END OF ADDED STYLES === */
+
 
 /* =================================================================
    DESKTOP & WIDE SCREEN STYLES
