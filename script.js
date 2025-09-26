@@ -60,8 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
         
         languageModal.querySelectorAll('.language-button').forEach(button => {
             button.addEventListener('click', () => {
-                changeLanguage(button.dataset.lang);
-                hideModal(languageModal);
+                try {
+                    // Attempt to change the language
+                    changeLanguage(button.dataset.lang);
+                } catch (error) {
+                    // Log any errors to the console for debugging
+                    console.error("An error occurred while changing the language:", error);
+                } finally {
+                    // IMPORTANT: This will now run even if changeLanguage() fails
+                    hideModal(languageModal);
+                }
             });
         });
         
