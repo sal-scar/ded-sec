@@ -266,15 +266,6 @@ body.light-theme #scroll-indicator-thumb {
     flex-grow: 1;
 }
 
-.top-controls-container {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    width: 100%;
-    padding-top: 15px;
-    margin-bottom: 1rem;
-}
-
 .main-header-container {
     display: flex;
     flex-direction: column; 
@@ -499,22 +490,6 @@ body.light-theme .main-header-container > h1 {
 .app-wrapper:focus-visible .app-icon i {
     color: var(--nm-darkest);
     text-shadow: none;
-}
-
-.top-controls-container .app-icon {
-    width: auto;
-    height: auto;
-    padding: 8px 15px;
-    gap: 10px;
-}
-
-.top-controls-container .app-icon i {
-    font-size: 1.1rem;
-}
-
-.top-controls-container .app-icon span {
-    font-size: 0.7rem;
-    text-align: left;
 }
 
 body.light-theme .app-icon {
