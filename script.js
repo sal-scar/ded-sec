@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let searchIndex = [];
     let usefulInfoSearchIndex = []; // Dedicated index for the modal
     let usefulInformationLoaded = false;
+    let isFetchingUsefulInfo = false;
     
     // --- PORTFOLIO INITIALIZATION ---
     function initializePortfolio() {
@@ -61,13 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
         languageModal.querySelectorAll('.language-button').forEach(button => {
             button.addEventListener('click', () => {
                 try {
-                    // Attempt to change the language
                     changeLanguage(button.dataset.lang);
                 } catch (error) {
-                    // Log any errors to the console for debugging
                     console.error("An error occurred while changing the language:", error);
                 } finally {
-                    // IMPORTANT: This will now run even if changeLanguage() fails
                     hideModal(languageModal);
                 }
             });
@@ -120,36 +118,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         document.getElementById('decline-disclaimer').addEventListener('click', () => window.location.href = 'https://www.google.com');
         
-        document.querySelectorAll('.app-wrapper[data-modal], a.app-wrapper').forEach(wrapper => {
-            if (wrapper.dataset.modal) {
+        document.querySelectorAll('button.app-wrapper[data-modal], a.app-wrapper').forEach(wrapper => {
+            const modalId = wrapper.dataset.modal;
+            if (modalId) {
                 const clickHandler = () => {
-                    if (wrapper.dataset.modal === 'installation') {
-                        if (disclaimerModal) {
-                            showModal(disclaimerModal);
-                        }
-                    } 
-                    else {
-                        const modalId = `${wrapper.dataset.modal}-modal`;
-                        const modal = document.getElementById(modalId);
+                    if (modalId === 'installation') {
+                        if (disclaimerModal) showModal(disclaimerModal);
+                    } else {
+                        const modal = document.getElementById(`${modalId}-modal`);
                         if (modal) {
                              showModal(modal);
-                             if (modalId === 'certification-modal' && window.resetQuiz) {
+                             if (modalId === 'certification' && window.resetQuiz) {
                                  window.resetQuiz();
                              }
-                             if (modalId === 'useful-information-modal' && !usefulInformationLoaded) {
+                             if (modalId === 'useful-information' && !usefulInformationLoaded) {
                                 fetchUsefulInformation();
                              }
                         }
                     }
                 };
-                
                 wrapper.addEventListener('click', clickHandler);
-                wrapper.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        clickHandler();
-                    }
-                });
             }
         });
 
@@ -157,14 +145,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             const closeModal = () => {
                 hideModal(modal);
-                // Reset 'Useful Information' modal state when closed
                 if (modal.id === 'useful-information-modal') {
-                    const prompt = document.getElementById('useful-info-prompt');
-                    if (prompt) prompt.style.display = 'block';
+                    document.getElementById('useful-info-prompt').style.display = 'block';
                     document.getElementById('useful-information-content').innerHTML = '';
                     document.getElementById('useful-info-search-input').value = '';
                     document.getElementById('useful-info-results-container').classList.add('hidden');
-                    // Reset search filter
                     document.getElementById('useful-information-nav').querySelectorAll('.app-icon').forEach(article => {
                         article.style.display = 'flex';
                     });
@@ -180,24 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (closeModalButton) {
                 closeModalButton.addEventListener('click', closeModal);
             }
-        });
-
-        // --- OTHER UI LOGIC ---
-        const profilePic = document.querySelector('.profile-pic');
-        const imageViewer = document.getElementById('image-viewer-modal');
-        
-        if (profilePic) {
-            profilePic.addEventListener('click', () => {
-                const style = window.getComputedStyle(profilePic);
-                const bgImage = style.backgroundImage;
-                const imageUrl = bgImage.slice(5, -2);
-                imageViewer.querySelector('#expanded-img').src = imageUrl;
-                showModal(imageViewer);
-            });
-        }
-
-        imageViewer.addEventListener('click', () => {
-            hideModal(imageViewer);
         });
         
         window.copyToClipboard = (button, targetId) => {
@@ -224,12 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (totalImages > 0) {
                 const showImage = (index) => {
-                    images.forEach((img, i) => {
-                        img.classList.remove('active');
-                        if (i === index) {
-                            img.classList.add('active');
-                        }
-                    });
+                    images.forEach((img, i) => img.classList.toggle('active', i === index));
                 };
                 prevBtn.addEventListener('click', () => {
                     currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalImages - 1;
@@ -245,13 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // --- SEARCH FUNCTIONALITY ---
         function buildSearchIndex() {
-            if (!searchIndex) searchIndex = [];
-
-            const weights = {
-                MODAL_BUTTON: 10, H2: 8, H3: 7, B: 5,
-                LI: 4, CODE: 3, TIP: 2, DEFAULT: 1
-            };
-
+            if (searchIndex.length > 0) return;
             document.querySelectorAll('.app-wrapper[data-modal]').forEach(el => {
                 const span = el.querySelector('.app-label');
                 if (span && el.dataset.modal) {
@@ -260,66 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         gr: span.getAttribute('data-gr') || '',
                         type: 'modal_button',
                         target: el.dataset.modal,
-                        weight: weights.MODAL_BUTTON,
                         element: el
-                    });
-                }
-            });
-
-            document.querySelectorAll('.modal-content').forEach(modal => {
-                const modalId = modal.parentElement.id.replace('-modal', '');
-                
-                const title = modal.querySelector('.modal-header h2');
-                if (title) {
-                     searchIndex.push({
-                        en: title.getAttribute('data-en') || '',
-                        gr: title.getAttribute('data-gr') || '',
-                        type: 'content', target: modalId,
-                        element: title, weight: weights.H2
-                    });
-                }
-                
-                const selector = '.modal-body p, .modal-body li, .modal-body h3, .modal-body b, .modal-body code';
-                modal.querySelectorAll(selector).forEach(el => {
-                    const section = el.closest('[data-lang-section]');
-                    if (!section) return;
-                    
-                    const lang = section.dataset.langSection;
-                    const text = el.textContent.trim();
-                    
-                    if (text.length > 3) {
-                        const existingEntry = searchIndex.find(item => item.element === el);
-                        if (!existingEntry) {
-                            let weight = weights.DEFAULT;
-                            if (el.closest('.tip')) weight = weights.TIP;
-                            if (el.tagName === 'CODE') weight = weights.CODE;
-                            if (el.tagName === 'LI') weight = weights.LI;
-                            if (el.tagName === 'B' || el.tagName === 'STRONG') weight = weights.B;
-                            if (el.tagName === 'H3') weight = weights.H3;
-
-                            let entry = { type: 'content', target: modalId, element: el, en: '', gr: '', weight: weight };
-                            entry[lang] = text;
-                            searchIndex.push(entry);
-                        } else {
-                            existingEntry[lang] = text;
-                        }
-                    }
-                });
-            });
-
-            document.querySelectorAll('.modal-body a.app-icon').forEach(el => {
-                const span = el.querySelector('span');
-                const modal = el.closest('.modal-overlay');
-                if (!span || !modal) return;
-
-                const modalId = modal.id.replace('-modal', '');
-                const enText = span.getAttribute('data-en') || span.textContent;
-                const grText = span.getAttribute('data-gr') || span.textContent;
-
-                if (enText.length > 2) {
-                    searchIndex.push({
-                        en: enText, gr: grText, type: 'content',
-                        target: modalId, weight: weights.B, element: el
                     });
                 }
             });
@@ -339,102 +236,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 
-                const queryWords = query.split(/\s+/).filter(w => w.length > 0);
-                let results = [];
-
-                searchIndex.forEach(item => {
+                let results = searchIndex.filter(item => {
                     const text = (item[currentLanguage] || item['en'] || '').toLowerCase();
-                    if (!text) return;
-                    let score = 0;
-                    let phraseMatch = false;
-
-                    if (text.includes(query)) {
-                        score += 50;
-                        phraseMatch = true;
-                    }
-
-                    const foundWords = new Set();
-                    const wordPositions = [];
-                    queryWords.forEach(word => {
-                        let lastIndex = -1;
-                        while ((lastIndex = text.indexOf(word, lastIndex + 1)) !== -1) {
-                            if (!phraseMatch) {
-                                score += 5;
-                            }
-                            foundWords.add(word);
-                            wordPositions.push(lastIndex);
-                        }
-                    });
-                    
-                    if (foundWords.size === queryWords.length) {
-                        score += 20;
-                        
-                        if (wordPositions.length > 1) {
-                            const minPos = Math.min(...wordPositions);
-                            const maxPos = Math.max(...wordPositions);
-                            const span = maxPos - minPos;
-                            if (span < 250 && span > 0) {
-                                score += (250 - span) / 10;
-                            }
-                        }
-                    }
-                    
-                    if (score > 0) {
-                        score *= item.weight;
-                        results.push({ ...item, score });
-                    }
+                    return text.includes(query);
                 });
                 
-                results.sort((a, b) => b.score - a.score);
-
                 if (results.length > 0) {
                     results.slice(0, 7).forEach(result => {
                         const itemEl = document.createElement('div');
                         itemEl.classList.add('search-result-item');
-                        
                         const mainText = result[currentLanguage] || result['en'];
-                        const targetText = result.target.replace(/-/g, ' ');
-                        const locationText = {
-                            en: `In: ${targetText}`,
-                            gr: `Σε: ${targetText}`
-                        };
-                        let snippet = '';
-                        const textLower = mainText.toLowerCase();
-                        let firstMatchIndex = textLower.indexOf(query);
-                        if (firstMatchIndex === -1) firstMatchIndex = textLower.indexOf(queryWords[0]);
-                        
-                        if (result.type === 'modal_button' || mainText.length < 100) {
-                           snippet = mainText;
-                        } else if (firstMatchIndex !== -1) {
-                            const start = Math.max(0, firstMatchIndex - 40);
-                            const end = Math.min(mainText.length, firstMatchIndex + query.length + 60);
-                            snippet = (start > 0 ? '...' : '') + mainText.substring(start, end) + (end < mainText.length ? '...' : '');
-                        } else {
-                            snippet = mainText.substring(0, 100) + (mainText.length > 100 ? '...' : '');
-                        }
-                        let highlightedSnippet = snippet;
-                        const uniqueWords = [...new Set(queryWords)];
-                        uniqueWords.forEach(word => {
-                             const regex = new RegExp(`(${word})`, 'gi');
-                             highlightedSnippet = highlightedSnippet.replace(regex, '<strong>$1</strong>');
-                        });
-                        itemEl.innerHTML = `${highlightedSnippet} <small>${locationText[currentLanguage]}</small>`;
+                        itemEl.innerHTML = mainText.replace(new RegExp(query, 'gi'), '<strong>$&</strong>');
                         
                         itemEl.addEventListener('click', () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
-                            
-                            const targetElement = result.element;
-                            if (targetElement) { targetElement.click(); }
-                            if (result.type === 'content') {
-                                setTimeout(() => {
-                                    result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                    result.element.classList.add('content-highlight');
-                                    setTimeout(() => {
-                                        result.element.classList.remove('content-highlight');
-                                    }, 2000);
-                                }, 300);
-                            }
+                            if (result.element) result.element.click();
                         });
                         resultsContainer.appendChild(itemEl);
                     });
@@ -448,43 +265,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // FIX: Add blur event listener to hide results when focus is lost
             searchInput.addEventListener('blur', () => {
-                // A small delay ensures that a click on a search result itself can be processed before the container is hidden.
                 setTimeout(() => {
                     resultsContainer.classList.add('hidden');
                 }, 150);
             });
 
             document.addEventListener('click', (e) => {
-                if (!searchContainer.contains(e.target)) {
+                if (searchContainer && !searchContainer.contains(e.target)) {
                     resultsContainer.classList.add('hidden');
                 }
             });
         }
         
-        function initializeScrollIndicator() {
-            const scrollContainer = document.querySelector('.home-screen');
-            const scrollIndicatorThumb = document.getElementById('scroll-indicator-thumb');
-            const handleScroll = () => {
-                if (!scrollContainer || !scrollIndicatorThumb) return;
-                const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
-                if (scrollHeight <= clientHeight) {
-                    scrollIndicatorThumb.style.opacity = '0';
-                    return;
-                }
-                scrollIndicatorThumb.style.opacity = '1';
-                const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
-                const thumbHeight = scrollIndicatorThumb.clientHeight;
-                const trackHeight = clientHeight;
-                const thumbPosition = scrollPercentage * (trackHeight - thumbHeight);
-                scrollIndicatorThumb.style.top = `${thumbPosition}px`;
-            };
-            scrollContainer.addEventListener('scroll', handleScroll);
-            window.addEventListener('resize', handleScroll);
-            setTimeout(handleScroll, 100);
-        }
-
         function initializeUsefulInfoSearch() {
             const searchInput = document.getElementById('useful-info-search-input');
             const resultsContainer = document.getElementById('useful-info-results-container');
@@ -496,75 +289,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (query.length < 3) {
                     resultsContainer.classList.add('hidden');
-                    // Show all articles when search is cleared
                     document.getElementById('useful-information-nav').querySelectorAll('.app-icon').forEach(article => {
                         article.style.display = 'flex';
                     });
                     return;
                 }
                 
-                // Hide the original article list while searching
                 document.getElementById('useful-information-nav').querySelectorAll('.app-icon').forEach(article => {
                     article.style.display = 'none';
                 });
 
-                let results = [];
-                usefulInfoSearchIndex.forEach(item => {
-                    if (item.lang !== currentLanguage) return;
-
-                    const text = item.text.toLowerCase();
-                    let score = 0;
-
-                    if (text.includes(query)) {
-                        score += 50 * item.weight;
-                    }
-                    
-                    if (score > 0) {
-                        results.push({ ...item, score });
-                    }
-                });
+                let results = usefulInfoSearchIndex.filter(item => 
+                    item.lang === currentLanguage && item.text.toLowerCase().includes(query)
+                );
                 
                 const uniqueResults = [...new Map(results.map(item => [item.text, item])).values()];
-                uniqueResults.sort((a, b) => b.score - a.score);
+                uniqueResults.sort((a, b) => b.weight - a.weight);
 
                 if (uniqueResults.length > 0) {
                     uniqueResults.slice(0, 7).forEach(result => {
                         const itemEl = document.createElement('div');
                         itemEl.classList.add('search-result-item');
-                        
                         const snippet = result.text.substring(0, 100) + (result.text.length > 100 ? '...' : '');
                         const highlightedSnippet = snippet.replace(new RegExp(`(${query})`, 'gi'), '<strong>$1</strong>');
-                        
                         itemEl.innerHTML = `${highlightedSnippet} <small>${result.title}</small>`;
                         
                         itemEl.addEventListener('click', async () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
-                            
                             await loadInformationContent(result.url);
-                            
-                            setTimeout(() => {
-                                const contentContainer = document.getElementById('useful-information-content');
-                                if (!contentContainer) return;
-
-                                const allElements = contentContainer.querySelectorAll('p, li, h3, b, code');
-                                let targetElement = null;
-
-                                for (const el of allElements) {
-                                    if (el.textContent.trim() === result.text) {
-                                        targetElement = el;
-                                        break;
-                                    }
-                                }
-
-                                if (targetElement) {
-                                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                    targetElement.classList.add('content-highlight');
-                                    setTimeout(() => {
-                                        targetElement.classList.remove('content-highlight');
-                                    }, 2500);
-                                }
-                            }, 300);
                         });
                         resultsContainer.appendChild(itemEl);
                     });
@@ -590,25 +343,23 @@ document.addEventListener('DOMContentLoaded', () => {
         
         buildSearchIndex();
         initializeSearch();
-        initializeScrollIndicator();
         initializeUsefulInfoSearch();
     }
 
-    // --- USEFUL INFORMATION LOGIC ---
+    // --- USEFUL INFORMATION LOGIC (GITHUB API - FIXED) ---
     async function fetchUsefulInformation() {
+        if (usefulInformationLoaded || isFetchingUsefulInfo) return;
+
+        isFetchingUsefulInfo = true;
         const navContainer = document.getElementById('useful-information-nav');
-        const contentContainer = document.getElementById('useful-information-content');
         const GITHUB_API_URL = 'https://api.github.com/repos/dedsec1121fk/dedsec1121fk.github.io/contents/Useful_Information';
         
-        if (usefulInformationLoaded) return;
         navContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
         
         try {
             const response = await fetch(GITHUB_API_URL);
             if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
             const files = await response.json();
-            
-            navContainer.innerHTML = '';
             
             const htmlFiles = files.filter(file => file.type === 'file' && file.name.endsWith('.html'));
             
@@ -618,11 +369,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             usefulInfoSearchIndex = [];
-
+            // This promise array will hold all the fetch operations for individual files.
             const indexPromises = htmlFiles.map(async (file) => {
                 try {
                     const tipContentResponse = await fetch(file.download_url);
-                    if (!tipContentResponse.ok) return;
+                    if (!tipContentResponse.ok) return; // Skip failed fetches
                     const htmlContent = await tipContentResponse.text();
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = htmlContent;
@@ -648,10 +399,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error(`Failed to index information: ${file.name}`, e);
                 }
             });
+            
+            // CRITICAL FIX: Wait for all the file fetches and indexing to complete.
             await Promise.all(indexPromises);
 
+            // Now that indexing is complete, populate the navigation.
+            navContainer.innerHTML = '';
             htmlFiles.forEach(file => {
-                const button = document.createElement('div');
+                const button = document.createElement('button'); // Use button for accessibility
                 button.className = 'app-icon';
                 const icon = document.createElement('i');
                 icon.className = 'fas fa-book-open';
@@ -662,18 +417,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.addEventListener('click', () => loadInformationContent(file.download_url));
                 navContainer.appendChild(button);
             });
+
             usefulInformationLoaded = true;
 
         } catch (error) {
             console.error('Failed to fetch useful information:', error);
             navContainer.innerHTML = `<p style="color: var(--nm-danger);">${currentLanguage === 'gr' ? 'Αποτυχία φόρτωσης περιεχομένου.' : 'Failed to load content.'}</p>`;
+        } finally {
+            isFetchingUsefulInfo = false;
         }
     }
 
     async function loadInformationContent(url) {
         const contentContainer = document.getElementById('useful-information-content');
-        const prompt = document.getElementById('useful-info-prompt');
-        if (prompt) prompt.style.display = 'none';
+        document.getElementById('useful-info-prompt').style.display = 'none';
         contentContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
 
         try {
@@ -688,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // --- CERTIFICATION QUIZ LOGIC ---
+    // --- CERTIFICATION QUIZ LOGIC (DATA INCLUDED) ---
     function initializeCertificationQuiz() {
         const fullQuizData = [
             { id: 1, book: 1, question_en: "Which command is used to find out your current location in the filesystem?", question_gr: "Ποια εντολή χρησιμοποιείται για να μάθετε την τρέχουσα τοποθεσία σας στο σύστημα αρχείων;", options_en: ["whoami", "ls", "pwd", "cd"], options_gr: ["whoami", "ls", "pwd", "cd"], correct_answer: 2 },
@@ -777,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const translations = {
             en: { userInfoTitle: "Enter Your Details", firstNameLabel: "First Name", lastNameLabel: "Last Name", startBtn: "Start Workbook Exam", page: "Page", of: "of", prevBtn: "Previous", nextBtn: "Next", submitBtn: "Submit Test", resultsTitle: "Test Complete!", certTitle: "Certificate of Completion", certAwardedTo: "This certificate is awarded to", certAchievement: "for successfully completing the Termux Mastery Series seminar with exceptional knowledge and skill.", certDate: "Date of Completion", failureTitle: "Keep Studying!", failureText1: "You have completed the test, but you made", failureText2: "mistakes. You need fewer than 20 mistakes to pass. Please review the material and try again!", restartBtn: "Try Again", gradeLabel: "Grade", gradeExcellent: "Excellent", gradeVeryGood: "Very Good", gradeGood: "Good", pdfError: "Sorry, there was an error creating the PDF.", mistakesLabel: "Mistakes", timeLeftLabel: "Time Left" },
-            gr: { userInfoTitle: "Εισάγετε τα Στοιχεία σας", firstNameLabel: "Όνομα", lastNameLabel: "Επώνυμο", startBtn: "Έναρξη Εξέτασης", page: "Σελίδα", of: "από", prevBtn: "Προηγούμενο", nextBtn: "Επόμενο", submitBtn: "Υποβολή Εξέτασης", resultsTitle: "Η Εξέταση Ολοκληρώθηκε!", certTitle: "Πιστοποιητικό Ολοκλήρωσης", certAwardedTo: "Αυτό το πιστοποιητικό απονέμεται στον/στην", certAchievement: "για την επιτυχή ολοκλήρωση του σεμιναρίου Termux Mastery Series με εξαιρετική γνώση και δεξιότητα.", certDate: "Ημερομηνία Ολοκλήρωσης", failureTitle: "Συνεχίστε τη Μελέτη!", failureText1: "Ολοκληρώσατε την εξέταση, αλλά κάνατε", failureText2: "λάθη. Χρειάζεστε λιγότερα από 20 λάθη για να περάσετε. Παρακαλώ μελετήστε ξανά την ύλη και προσπαθήστε ξανά!", restartBtn: "Προσπαθήστε Ξανά", gradeLabel: "Βαθμός", gradeExcellent: "Άριστα", gradeVeryGood: "Πολύ Καλά", gradeGood: "Καλά", pdfError: "Παρουσιάστηκε σφάλμα κατά τη δημιουργία του PDF.", mistakesLabel: "Λάθη", timeLeftLabel: "Χρόνος Που Απομένει" }
+            gr: { userInfoTitle: "Εισάγετε τα Στοιχεία σας", firstNameLabel: "Όνομα", lastNameLabel: "Επώνυμο", startBtn: "Έναρξη Εξέτασης", page: "Σελίδα", of: "από", prevBtn: "Προηγούμενο", nextBtn: "Επόμενο", submitBtn: "Υποβολή Εξέτασης", resultsTitle: "Η Εξέταση Ολοκληρώθηκε!", certTitle: "Πιστοποιητικό Ολοκλήρωσης", certAwardedTo: "Αυτό το πιστοποιητικό απονέμεται στον/στην", certAchievement: "για την επιτυχή ολοκλήρωση του σεμιναρίου Termux Mastery Series με εξαιρετική γνώση και δεξιότητα.", certDate: "Ημερομηνία Ολοκλήρωσης", failureTitle: "Συνεχíστε τη Μελέτη!", failureText1: "Ολοκληρώσατε την εξέταση, αλλά κάνατε", failureText2: "λάθη. Χρειάζεστε λιγότερα από 20 λάθη για να περάσετε. Παρακαλώ μελετήστε ξανά την ύλη και προσπαθήστε ξανά!", restartBtn: "Προσπαθήστε Ξανά", gradeLabel: "Βαθμός", gradeExcellent: "Άριστα", gradeVeryGood: "Πολύ Καλά", gradeGood: "Καλά", pdfError: "Παρουσιάστηκε σφάλμα κατά τη δημιουργία του PDF.", mistakesLabel: "Λάθη", timeLeftLabel: "Χρόνος Που Απομένει" }
         };
 
         let currentPage, userLang, userName, userAnswers, activeQuestions;
