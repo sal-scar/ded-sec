@@ -161,7 +161,7 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 0; /* FIXED */
     overflow: hidden; 
 }
 
@@ -267,9 +267,6 @@ body.light-theme #scroll-indicator-thumb {
     width: 100%;
     gap: 15px;
     margin-bottom: 20px;
-    z-index: 10; /* GHOST TAP FIX: Ensure header is above the grid. */
-    position: relative; /* GHOST TAP FIX: Create a stacking context. */
-    overflow: hidden; /* GHOST TAP FIX: Clip the oversized title */
 }
 
 .main-header-container h1 {
@@ -398,23 +395,25 @@ body.light-theme .main-header-container > h1 {
 .app-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px; /* Reduced from 20px */
+    gap: 20px;
     width: 100%;
     max-width: 500px;
-    margin: 20px auto; /* Reduced vertical margin */
+    margin: 25px auto 15px;
     align-items: start;
-    z-index: 5; /* GHOST TAP FIX: Ensure grid is below the header. */
-    position: relative; /* GHOST TAP FIX: Create a stacking context. */
+    position: relative; /* FIXED */
+    z-index: 2; /* FIXED */
 }
 
 .app-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px; /* Reduced from 8px */
+    gap: 8px;
     text-decoration: none;
     color: var(--nm-text);
     cursor: pointer;
+    position: relative; /* FIXED */
+    z-index: 2; /* FIXED */
 }
 
 .app-icon {
@@ -440,14 +439,14 @@ body.light-theme .main-header-container > h1 {
 
 .app-wrapper .app-icon {
     justify-content: center;
-    width: 60px; /* Reduced from 64px */
-    height: 60px; /* Reduced from 64px */
+    width: 64px;
+    height: 64px;
     padding: 0;
     gap: 0;
 }
 
 .app-label {
-    font-size: 0.7rem; /* Reduced from 0.75rem */
+    font-size: 0.75rem;
     font-weight: 400;
     color: var(--nm-text);
     text-align: center;
@@ -482,7 +481,7 @@ body.light-theme .main-header-container > h1 {
 .app-icon i {
     color: var(--nm-accent-hover);
     transition: color 0.2s ease;
-    font-size: 1.3rem; /* Reduced from 1.4rem */
+    font-size: 1.4rem;
     margin: 0;
     text-shadow: 0 0 8px var(--glow-color);
     flex-shrink: 0;
@@ -1319,3 +1318,4 @@ body.light-theme .certificate-header h1 {
         grid-template-columns: repeat(6, 1fr);
         max-width: none; 
     }
+}
