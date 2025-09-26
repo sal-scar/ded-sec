@@ -99,34 +99,50 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         document.getElementById('decline-disclaimer').addEventListener('click', () => window.location.href = 'https://www.google.com');
-
-        // MODIFIED: Reworked the modal click listeners to handle the special case for installation.
-        document.querySelectorAll('.app-icon[data-modal], a.app-icon[target="_blank"]').forEach(icon => {
-            // Special handling for the installation button to show the disclaimer first.
-            if (icon.dataset.modal === 'installation') {
-                icon.addEventListener('click', () => {
-                    if (disclaimerModal) {
-                        disclaimerModal.classList.add('visible');
+        
+        // =================================================================
+        //  START OF UPDATED CODE BLOCK
+        // =================================================================
+        // MODIFIED: Selector changed from .app-icon to .app-wrapper
+        document.querySelectorAll('.app-wrapper[data-modal], a.app-wrapper').forEach(wrapper => {
+            // This handles opening modals but excludes external links like the store
+            if (wrapper.dataset.modal) {
+                const clickHandler = () => {
+                    // Special handling for the installation button to show the disclaimer first.
+                    if (wrapper.dataset.modal === 'installation') {
+                        if (disclaimerModal) {
+                            disclaimerModal.classList.add('visible');
+                        }
+                    } 
+                    // Standard behavior for all other modal buttons.
+                    else {
+                        const modalId = `${wrapper.dataset.modal}-modal`;
+                        const modal = document.getElementById(modalId);
+                        if (modal) {
+                             modal.classList.add('visible');
+                             if (modalId === 'certification-modal' && window.resetQuiz) {
+                                 window.resetQuiz();
+                             }
+                             if (modalId === 'useful-information-modal' && !usefulInformationLoaded) {
+                                fetchUsefulInformation();
+                             }
+                        }
                     }
-                });
-            } 
-            // Standard behavior for all other modal buttons.
-            else if (icon.dataset.modal) {
-                icon.addEventListener('click', () => {
-                    const modalId = `${icon.dataset.modal}-modal`;
-                    const modal = document.getElementById(modalId);
-                    if (modal) {
-                         modal.classList.add('visible');
-                         if (modalId === 'certification-modal' && window.resetQuiz) {
-                             window.resetQuiz();
-                         }
-                         if (modalId === 'useful-information-modal' && !usefulInformationLoaded) {
-                            fetchUsefulInformation();
-                         }
+                };
+                
+                wrapper.addEventListener('click', clickHandler);
+
+                wrapper.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        clickHandler();
                     }
                 });
             }
         });
+        // ===============================================================
+        //  END OF UPDATED CODE BLOCK
+        // ===============================================================
 
 
         document.querySelectorAll('.modal-overlay').forEach(modal => {
@@ -160,22 +176,20 @@ document.addEventListener('DOMContentLoaded', () => {
             imageViewer.classList.remove('visible');
         });
         
+        // UPDATED: Modern Copy to Clipboard function
         window.copyToClipboard = (button, targetId) => {
             const codeElement = document.getElementById(targetId);
-            if (!codeElement) return;
-            const textarea = document.createElement('textarea');
-            textarea.value = codeElement.innerText;
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand('copy');
+            if (!codeElement || !navigator.clipboard) return; 
+
+            const textToCopy = codeElement.innerText;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
                 const originalText = button.textContent;
-                button.textContent = (currentLanguage === 'gr') ? 'Αντιγράφηκε!' : 'Copied!';
+                button.textContent = (currentLanguage === 'gr') ? 'Αντιγράφηке!' : 'Copied!';
                 setTimeout(() => { button.textContent = originalText; }, 1500);
-            } catch (err) {
-                console.error('Fallback: Oops, unable to copy', err);
-            }
-            document.body.removeChild(textarea);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
         };
         
         const carousel = document.querySelector('.gym-carousel');
@@ -207,16 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // --- ADDED: Project Intro Toggle ---
-        document.querySelectorAll('.project-intro-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const introContainer = header.closest('.project-intro');
-                if (introContainer) {
-                    introContainer.classList.toggle('collapsed');
-                }
-            });
-        });
-
         // --- SEARCH FUNCTIONALITY (ADVANCED) ---
         function buildSearchIndex() {
             if (!searchIndex) searchIndex = []; // MODIFIED: Initialize only if it doesn't exist
@@ -232,28 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 DEFAULT: 1
             };
 
-            // ADDED: Index the new intro text on the main page
-            document.querySelectorAll('.project-intro p, .project-intro h2, .project-intro h3').forEach(el => {
-                const section = el.closest('[data-lang-section]');
-                if (!section) return;
-
-                const lang = section.dataset.langSection;
-                const text = el.textContent.trim();
-                const weight = el.tagName === 'H2' ? weights.H2 : weights.DEFAULT;
-
-                const existingEntry = searchIndex.find(item => item.element === el);
-                if (!existingEntry) {
-                    let entry = { type: 'content', target: 'Introduction', element: el, en: '', gr: '', weight: weight };
-                    entry[lang] = text;
-                    searchIndex.push(entry);
-                } else {
-                    existingEntry[lang] = text;
-                }
-            });
-
-
-            document.querySelectorAll('.app-icon[data-modal]').forEach(el => {
-                const span = el.querySelector('span');
+            // MODIFIED: Now indexes the new .app-wrapper structure
+            document.querySelectorAll('.app-wrapper[data-modal]').forEach(el => {
+                const span = el.querySelector('.app-label'); // targets the new .app-label
                 if (span && el.dataset.modal) {
                     searchIndex.push({
                         en: span.getAttribute('data-en') || '',
@@ -401,7 +386,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         const mainText = result[currentLanguage] || result['en'];
                         
-                        // MODIFIED: Use the more descriptive target from the index item
                         const targetText = result.target.replace(/-/g, ' ');
                         const locationText = {
                             en: `In: ${targetText}`,
@@ -434,27 +418,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         itemEl.innerHTML = `${highlightedSnippet} <small>${locationText[currentLanguage]}</small>`;
                         
-                        // --- MODIFIED CLICK HANDLER TO HANDLE NEW 'Introduction' TARGET ---
                         itemEl.addEventListener('click', () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
 
                             if (result.type === 'useful_information') {
-                                const usefulInformationIcon = document.querySelector('.app-icon[data-modal="useful-information"]');
-                                if (usefulInformationIcon) usefulInformationIcon.click();
+                                // Find the right button to click based on its content/target
+                                document.querySelector(`.app-wrapper[data-modal="useful-information"]`).click();
                                 loadInformationContent(result.url);
-                            } else if (result.target === 'Introduction') {
-                                // For intro text, just scroll to it
-                                result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                result.element.classList.add('content-highlight');
-                                setTimeout(() => {
-                                    result.element.classList.remove('content-highlight');
-                                }, 2000);
-                            }
+                            } 
                             else {
                                 // Original logic for other modals
-                                const targetModalId = result.type === 'modal_button' ? result.target : result.target;
-                                const targetElement = document.querySelector(`.app-icon[data-modal="${targetModalId}"]`);
+                                const targetElement = result.element;
                                 if (targetElement) { targetElement.click(); }
 
                                 if (result.type === 'content') {
@@ -468,7 +443,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
                             }
                         });
-                        // --- END MODIFIED BLOCK ---
 
                         resultsContainer.appendChild(itemEl);
                     });
