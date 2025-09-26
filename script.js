@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- GLOBAL PORTFOLIO STATE ---
     let currentLanguage = 'en';
     let searchIndex = [];
+    let usefulInfoSearchIndex = []; // Dedicated index for the modal
     let usefulInformationLoaded = false;
     
     // --- PORTFOLIO INITIALIZATION ---
@@ -474,21 +475,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function initializeUsefulInfoSearch() {
             const searchInput = document.getElementById('useful-info-search-input');
-            if (!searchInput) return;
+            const resultsContainer = document.getElementById('useful-info-results-container');
+            if (!searchInput || !resultsContainer) return;
 
             searchInput.addEventListener('input', () => {
                 const query = searchInput.value.toLowerCase().trim();
-                const navContainer = document.getElementById('useful-information-nav');
-                const articles = navContainer.querySelectorAll('.app-icon');
+                resultsContainer.innerHTML = '';
 
-                articles.forEach(article => {
-                    const articleText = article.querySelector('span').textContent.toLowerCase();
-                    if (articleText.includes(query)) {
+                if (query.length < 3) {
+                    resultsContainer.classList.add('hidden');
+                    // Show all articles when search is cleared
+                    document.getElementById('useful-information-nav').querySelectorAll('.app-icon').forEach(article => {
                         article.style.display = 'flex';
-                    } else {
-                        article.style.display = 'none';
+                    });
+                    return;
+                }
+                
+                // Hide the original article list while searching
+                document.getElementById('useful-information-nav').querySelectorAll('.app-icon').forEach(article => {
+                    article.style.display = 'none';
+                });
+
+                let results = [];
+                usefulInfoSearchIndex.forEach(item => {
+                    if (item.lang !== currentLanguage) return;
+
+                    const text = item.text.toLowerCase();
+                    let score = 0;
+
+                    if (text.includes(query)) {
+                        score += 50 * item.weight;
+                    }
+                    
+                    if (score > 0) {
+                        results.push({ ...item, score });
                     }
                 });
+                
+                const uniqueResults = [...new Map(results.map(item => [item.text, item])).values()];
+                uniqueResults.sort((a, b) => b.score - a.score);
+
+                if (uniqueResults.length > 0) {
+                    uniqueResults.slice(0, 7).forEach(result => {
+                        const itemEl = document.createElement('div');
+                        itemEl.classList.add('search-result-item');
+                        
+                        const snippet = result.text.substring(0, 100) + (result.text.length > 100 ? '...' : '');
+                        const highlightedSnippet = snippet.replace(new RegExp(`(${query})`, 'gi'), '<strong>$1</strong>');
+                        
+                        itemEl.innerHTML = `${highlightedSnippet} <small>${result.title}</small>`;
+                        
+                        itemEl.addEventListener('click', async () => {
+                            searchInput.value = '';
+                            resultsContainer.classList.add('hidden');
+                            
+                            await loadInformationContent(result.url);
+                            
+                            setTimeout(() => {
+                                const targetElement = document.getElementById(result.elementId);
+                                if (targetElement) {
+                                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    targetElement.classList.add('content-highlight');
+                                    setTimeout(() => {
+                                        targetElement.classList.remove('content-highlight');
+                                    }, 2500);
+                                }
+                            }, 300);
+                        });
+                        resultsContainer.appendChild(itemEl);
+                    });
+                    resultsContainer.classList.remove('hidden');
+                } else {
+                    resultsContainer.classList.add('hidden');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                const searchContainer = document.querySelector('.modal-search-container');
+                if (searchContainer && !searchContainer.contains(e.target)) {
+                    resultsContainer.classList.add('hidden');
+                }
             });
         }
         
@@ -526,8 +592,10 @@ document.addEventListener('DOMContentLoaded', () => {
                  navContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Δεν βρέθηκαν πληροφορίες.' : 'No information found.'}</p>`;
                  return;
             }
+            
+            usefulInfoSearchIndex = []; // Clear previous index
 
-            const indexPromises = htmlFiles.map(async (file) => {
+            const indexPromises = htmlFiles.map(async (file, fileIndex) => {
                 try {
                     const tipContentResponse = await fetch(file.download_url);
                     if (!tipContentResponse.ok) return;
@@ -536,23 +604,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     tempDiv.innerHTML = htmlContent;
                     
                     const infoName = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
-                    const weights = { H3: 7, B: 5, LI: 4, TIP: 2, DEFAULT: 1 };
+                    let contentCounter = 0;
+
                     tempDiv.querySelectorAll('[data-lang-section]').forEach(section => {
                         const lang = section.dataset.langSection;
-                        section.querySelectorAll('p, li, h3, b').forEach(el => {
+                        section.querySelectorAll('p, li, h3, b, code').forEach(el => {
                             const text = el.textContent.trim();
-                            if (text.length > 3) {
-                                let weight = weights.DEFAULT;
-                                if (el.closest('.tip')) weight = weights.TIP;
-                                if (el.tagName === 'LI') weight = weights.LI;
-                                if (el.tagName === 'B' || el.tagName === 'STRONG') weight = weights.B;
-                                if (el.tagName === 'H3') weight = weights.H3;
-                                const entry = {
-                                    type: 'useful_information', target: `Useful Information > ${infoName}`,
-                                    element: el, url: file.download_url, en: '', gr: '', weight: weight
-                                };
-                                entry[lang] = text;
-                                searchIndex.push(entry);
+                            if (text.length > 5) {
+                                const contentId = `useful-content-${fileIndex}-${contentCounter++}`;
+                                
+                                usefulInfoSearchIndex.push({
+                                    lang: lang,
+                                    title: infoName,
+                                    text: text,
+                                    url: file.download_url,
+                                    elementId: contentId,
+                                    weight: (el.tagName === 'H3' ? 5 : 1)
+                                });
                             }
                         });
                     });
@@ -585,7 +653,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadInformationContent(url) {
         const contentContainer = document.getElementById('useful-information-content');
         const prompt = document.getElementById('useful-info-prompt');
-        if (prompt) prompt.style.display = 'none'; // Hide prompt text when loading content
+        if (prompt) prompt.style.display = 'none';
         contentContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
 
         try {
@@ -593,6 +661,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error(`Failed to fetch content: ${response.status}`);
             const htmlContent = await response.text();
             contentContainer.innerHTML = htmlContent;
+            
+            // Re-apply unique IDs to the loaded content
+            const fileIndex = usefulInfoSearchIndex.findIndex(item => item.url === url);
+            if (fileIndex !== -1) {
+                let contentCounter = 0;
+                contentContainer.querySelectorAll('p, li, h3, b, code').forEach(el => {
+                     const text = el.textContent.trim();
+                     if (text.length > 5) {
+                         el.id = `useful-content-${fileIndex}-${contentCounter++}`;
+                     }
+                });
+            }
+
             changeLanguage(currentLanguage);
         } catch (error) {
             console.error('Failed to load content:', error);
@@ -669,7 +750,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 64, book: 14, question_en: "What command creates a Python virtual environment named 'env'?", question_gr: "Ποια εντολή δημιουργεί ένα εικονικό περιβάλλον Python με το όνομα 'env';", options_en: ["python -m venv env", "virtualenv env", "python create-env env", "pip venv env"], options_gr: ["python -m venv env", "virtualenv env", "python create-env env", "pip venv env"], correct_answer: 0 },
             { id: 65, book: 15, question_en: "What is the purpose of the `package.json` file in a Node.js project?", question_gr: "Ποιος είναι ο σκοπός του αρχείου `package.json` σε ένα έργο Node.js;", options_en: ["To store the main application code", "To list project dependencies and metadata", "To configure the server", "To store user data"], options_gr: ["Να αποθηκεύει τον κύριο κώδικα της εφαρμογής", "Να καταγράφει τις εξαρτήσεις και τα μεταδεδομένα του έργου", "Να ρυθμίζει τον διακομιστή", "Να αποθηκεύει δεδομένα χρήστη"], correct_answer: 1 },
             { id: 66, book: 16, question_en: "The sum of all points where an attacker can try to enter or extract data is called what?", question_gr: "Το σύνολο όλων των σημείων όπου ένας επιτιθέμενος μπορεί να προσπαθήσει να εισάγει ή να εξάγει δεδομένα ονομάζεται τι;", options_en: ["The Security Perimeter", "The Attack Surface", "The Vulnerability Zone", "The Network Footprint"], options_gr: ["Η Περίμετρος Ασφαλείας", "Η Επιφάνεια Επίθεσης", "Η Ζώνη Ευπάθειας", "Το Αποτύπωμα Δικτύου"], correct_answer: 1 },
-            { id: 67, book: 17, question_en: "Which command is used to list the shared libraries an executable depends on?", question_gr: "Ποια εντολή χρησιμοποιείται για την εμφάνιση της λίστας των κοινόχρηστων βιβλιοθηκών από τις οποίες εξαρτάται ένα εκτελέσιμο;", options_en: ["libs", "show-deps", "ldd", "readelf"], options_gr: ["libs", "show-deps", "ldd", "readelf"], correct_answer: 2 },
+            { id: 67, book: 17, question_en: "Which command is used to list the shared libraries an executable depends on?", question_gr: "Ποια εντολή χρησιμοποιείται για την εμφάνιση της λίστας των κοινόχρηστων βιβλιοθήκων από τις οποίες εξαρτάται ένα εκτελέσιμο;", options_en: ["libs", "show-deps", "ldd", "readelf"], options_gr: ["libs", "show-deps", "ldd", "readelf"], correct_answer: 2 },
             { id: 68, book: 18, question_en: "In a Makefile, what is a 'target'?", question_gr: "Σε ένα Makefile, τι είναι ένας 'στόχος' (target);", options_en: ["A source code file", "A compiler flag", "A file to be built or an action to be performed", "A comment"], options_gr: ["Ένα αρχείο πηγαίου κώδικα", "Μια σημαία μεταγλωττιστή", "Ένα αρχείο προς κατασκευή ή μια ενέργεια προς εκτέλεση", "Ένα σχόλιο"], correct_answer: 2 },
             { id: 69, book: 19, question_en: "What is the command to log in to an installed Ubuntu distribution via proot-distro?", question_gr: "Ποια είναι η εντολή για να συνδεθείτε σε μια εγκατεστημένη διανομή Ubuntu μέσω του proot-distro;", options_en: ["proot-distro start ubuntu", "proot-distro run ubuntu", "proot-distro exec ubuntu", "proot-distro login ubuntu"], options_gr: ["proot-distro start ubuntu", "proot-distro run ubuntu", "proot-distro exec ubuntu", "proot-distro login ubuntu"], correct_answer: 3 },
             { id: 70, book: 20, question_en: "Which Termux:API command creates a native Android notification?", question_gr: "Ποια εντολή του Termux:API δημιουργεί μια εγγενή ειδοποίηση Android;", options_en: ["termux-toast", "termux-dialog", "termux-notify", "termux-notification"], options_gr: ["termux-toast", "termux-dialog", "termux-notify", "termux-notification"], correct_answer: 3 },
