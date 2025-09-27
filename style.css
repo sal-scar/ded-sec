@@ -569,8 +569,7 @@ body.light-theme .modal-overlay {
     max-height: 800px;
     border: 1px solid var(--nm-accent); 
     box-shadow: none; 
-    /* MODIFIED: Set to flex column to allow inner components to grow */
-    display: flex; 
+    display: flex;
     flex-direction: column;
     overflow: hidden;
     transform: translateY(20px);
@@ -759,10 +758,8 @@ body.light-theme .modal-content {
 
 .modal-footer button,
 .language-button,
-#language-selection button,
-#user-info button,
-#navigation-container button,
-#results-container button {
+/* REMOVED: #language-selection, #user-info, #navigation-container, #results-container */
+.language-button {
     background-color: transparent;
     color: var(--nm-text); /* Enforce White */
     border: 1px solid var(--nm-accent);
@@ -781,11 +778,9 @@ body.light-theme .modal-content {
 
 .modal-footer button:hover,
 .language-button:hover,
-.language-button.selected,
-#language-selection button:hover,
-#user-info button:hover,
-#navigation-container button:hover,
-#results-container button:hover {
+.language-button.selected
+/* REMOVED: #language-selection button:hover, #user-info button:hover, #navigation-container button:hover, #results-container button:hover */
+ {
     color: var(--nm-darkest);
     background-color: var(--nm-accent);
     border-color: var(--nm-accent-hover);
@@ -843,38 +838,7 @@ body.light-theme .modal-content {
     border-radius: 20px; 
 }
 
-
-#certification-modal .modal-body {
-    padding: 15px;
-    background-color: var(--nm-abyss-blue);
-    /* NEW FIX: The overall modal-body should grow but not scroll on its own */
-    overflow-y: hidden;
-    padding-bottom: 0; /* Remove bottom padding to let app-container manage space */
-}
-
-/* --- REMOVED SCROLL OVERRIDE LOGIC HERE --- */
-
-
-#app-container {
-    background-color: var(--nm-dark);
-    padding: 20px;
-    box-shadow: none; 
-    height: 100%;
-    /* MODIFIED: Set to flex column to allow inner components to fill space */
-    display: flex;
-    flex-direction: column;
-    color: var(--nm-text);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* Added uniform border-radius */
-    clip-path: none;
-    border-radius: 20px;
-    min-height: 0; /* Important for flex children to prevent overflow */
-}
-/* FIX 1: New class to hide content overflow for short content in #app-container 
-   This class is managed by script.js and determines the scroll state above. */
-#app-container.no-scroll {
-    overflow-y: hidden;
-}
+/* REMOVED: #certification-modal and its nested styles */
 
 .hidden { 
     display: none !important; 
@@ -883,308 +847,12 @@ body.light-theme .modal-content {
     display: none; 
 } 
 
-#language-selection h1, #user-info h1, #results-container h1 {
-    color: var(--nm-text); /* Enforce White */
-    text-shadow: none; 
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 1rem;
-}
+/* REMOVED: #language-selection, #user-info, #results-container h1/p/label/form styles */
 
-body.light-theme #language-selection h1,
-body.light-theme #user-info h1,
-body.light-theme #results-container h1 {
-    text-shadow: none;
-    color: var(--nm-text);
-}
+/* REMOVED: All quiz-related styles: #user-info input, #quiz-container, #quiz-stats, .quiz-page, @keyframes fadeIn, .quiz-page h2/hr/etc., #navigation-container styles */
 
-#language-selection p, #user-info label {
-    color: var(--nm-text-muted);
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-#language-selection .button-container, #user-info form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-}
+/* REMOVED: All certificate styles: .certificate-container, .certificate, .certificate-header, .certificate-body, .certificate-footer, .grade-display, .serif */
 
-#language-selection button, #user-info button, #navigation-container button, #results-container button {
-    width: 100%;
-    max-width: 250px;
-}
-
-#navigation-container button#submit-btn {
-    background-color: var(--nm-success) !important;
-    border-color: var(--nm-success) !important;
-    color: var(--nm-darkest) !important;
-}
-#navigation-container button#submit-btn:hover {
-    opacity: 0.9;
-}
-#results-container .text-red-600 { color: var(--nm-danger); }
-
-#user-info input {
-    background-color: var(--nm-darkest);
-    border: 1px solid var(--nm-border);
-    color: var(--nm-text);
-    padding: 12px;
-    width: 100%;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    /* Added uniform border-radius */
-    clip-path: none;
-    border-radius: 20px;
-}
-#user-info input:focus {
-    outline: none;
-    box-shadow: none; 
-    border-color: var(--nm-accent);
-    background-color: var(--nm-dark);
-}
-#quiz-container {
-    /* MODIFIED: The key styles to make only the quiz content scrollable */
-    flex-grow: 1; /* Allows it to take up available vertical space */
-    overflow-y: auto; /* Enables scrolling for this section */
-    padding-right: 10px;
-    min-height: 0; /* Prevents overflow in flex context */
-}
-#quiz-stats {
-    /* MODIFIED: Prevent stats from shrinking */
-    flex-shrink: 0; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    background: var(--nm-darkest);
-    margin-bottom: 1rem;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
-    border: 1px solid var(--nm-border);
-    transition: background-color 0.3s ease;
-    /* Added uniform border-radius */
-    clip-path: none;
-    border-radius: 20px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
-}
-.quiz-page { animation: fadeIn 0.5s ease-in-out; }
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.quiz-page h2 { color: var(--nm-accent-hover); font-size: 1.1rem; margin-bottom: 0.5rem; }
-.quiz-page hr { border-color: var(--nm-border); margin: 1rem 0;}
-.quiz-page .question-box { 
-    background-color: var(--nm-darkest); 
-    padding: 1rem; 
-    margin-bottom: 1rem; 
-    transition: background-color 0.3s ease; 
-    /* Added uniform border-radius */
-    clip-path: none;
-    border-radius: 20px;
-}
-.quiz-page .options-container { display: flex; flex-direction: column; gap: 0.75rem; }
-.quiz-page label {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem;
-    border: 1px solid var(--nm-border);
-    background-color: var(--nm-container);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    /* Added uniform border-radius */
-    clip-path: none;
-    border-radius: 20px;
-}
-.quiz-page label:hover, .quiz-page input[type="radio"]:checked + span {
-    background-color: var(--nm-accent-hover);
-    color: var(--nm-darkest);
-    border-color: var(--nm-accent);
-    box-shadow: none; 
-}
-
-.quiz-page input[type="radio"] {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    position: absolute;
-}
-
-.quiz-page label span {
-    display: inline-block;
-    padding-left: 30px;
-    position: relative;
-}
-.quiz-page label span::before {
-    content: '';
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    border: 2px solid var(--nm-accent);
-    border-radius: 50%;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: all 0.2s;
-}
-.quiz-page label:hover span::before {
-    border-color: var(--nm-darkest);
-}
-.quiz-page input[type="radio"]:checked + span::before {
-    background: var(--nm-darkest);
-    border-color: var(--nm-darkest);
-}
-.quiz-page input[type="radio"]:checked + span::after {
-    content: '';
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background: var(--nm-accent-hover);
-    border-radius: 50%;
-    position: absolute;
-    left: 6px;
-    top: 50%;
-    transform: translateY(-50%);
-    box-shadow: none; 
-}
-
-
-#navigation-container {
-    margin-top: 1rem;
-    gap: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* MODIFIED: Prevent navigation from shrinking */
-    flex-shrink: 0; 
-}
-#navigation-container button { width: auto; }
-#navigation-container button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    box-shadow: none !important;
-    background-color: var(--nm-container) !important;
-    color: var(--nm-text) !important;
-    border-color: var(--nm-border) !important;
-}
-
-.certificate-container {
-    background: var(--nm-darkest);
-    padding: 20px;
-    box-shadow: none; 
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* Added uniform border-radius */
-    clip-path: none;
-    border-radius: 20px;
-}
-.certificate {
-    background-image:
-        linear-gradient(rgba(var(--glow-rgb), 0.1), rgba(var(--glow-rgb), 0.1)),
-        radial-gradient(ellipse at center, rgba(21, 30, 42, 0.5) 0%, var(--nm-abyss-blue) 70%);
-    border: 2px solid var(--nm-accent);
-    padding: 2rem;
-    text-align: center;
-    position: relative;
-    font-family: 'Noto Serif', serif;
-    color: var(--nm-text);
-    /* Added uniform border-radius to certificate itself */
-    border-radius: 20px;
-}
-
-body.light-theme .certificate {
-     background-image:
-        linear-gradient(rgba(var(--glow-rgb), 0.1), rgba(var(--glow-rgb), 0.1)),
-        radial-gradient(ellipse at center, rgba(230, 230, 230, 0.5) 0%, var(--nm-abyss-blue) 70%);
-}
-
-.certificate-header {
-    margin-bottom: 1.5rem;
-}
-.certificate-header .seal {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1rem;
-}
-.certificate-header .seal .seal-border {
-    fill: none;
-    stroke: var(--nm-accent);
-    stroke-width: 2;
-}
-.certificate-header .seal .seal-star {
-    fill: var(--nm-accent-hover);
-}
-.certificate-header .seal .seal-text {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    fill: var(--nm-darkest);
-    text-anchor: middle;
-    font-weight: bold;
-}
-.certificate-header h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2rem;
-    color: var(--nm-text); /* Enforce White */
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: none; 
-}
-
-body.light-theme .certificate-header h1 {
-    text-shadow: none;
-    color: var(--nm-text);
-}
-
-.certificate-body p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--nm-text-muted);
-    margin: 0.5rem 0;
-}
-.certificate-body .recipient-name {
-    font-family: 'Noto Serif', serif;
-    font-style: italic;
-    font-size: 2.5rem;
-    color: var(--nm-text); /* Enforce White */
-    margin: 1.5rem 0;
-    font-weight: 700;
-    border-bottom: 2px solid var(--nm-border);
-    display: inline-block;
-    padding-bottom: 0.5rem;
-}
-.certificate-footer {
-    margin-top: 2.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    text-align: center;
-    font-size: 0.8rem;
-}
-.certificate-footer .signature, .certificate-footer .date-info {
-    border-top: 1px solid var(--nm-text-muted);
-    padding-top: 0.5rem;
-    width: 45%;
-}
-.certificate-footer strong {
-    color: var(--nm-text);
-}
-.grade-display {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: var(--nm-accent);
-    color: var(--nm-darkest);
-    padding: 5px 10px;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: bold;
-    font-size: 0.9rem;
-    /* Added uniform border-radius */
-    clip-path: none;
-    border-radius: 20px;
-}
-.serif { font-family: 'Noto Serif', serif; }
 .text-green-600 { color: var(--nm-success) !important; }
 
 .content-section-modal {
