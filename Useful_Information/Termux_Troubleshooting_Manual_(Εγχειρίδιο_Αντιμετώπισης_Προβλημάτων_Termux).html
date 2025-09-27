@@ -31,7 +31,7 @@
             color: #48edac; /* Greenish color for commands */
             border-left: 5px solid #10b981; /* Green accent */
             overflow-x: auto;
-            white-space: nowrap; /* Prevent command wrapping in code blocks */
+            white-space: pre; /* Allow wrapping in code blocks */
         }
         /* Style the language selector to match the dark theme */
         .lang-selector {
@@ -109,9 +109,9 @@
         
         <div class="p-5 my-6 rounded-xl note-critical shadow-2xl">
             <h5 class="text-lg font-bold mb-2 text-red-300">CRITICAL WARNING: The Google Play Store Version is Obsolete!</h5>
-            <p class="text-sm">The version of <b>Termux</b> from the Google Play Store is permanently outdated and unsupported due to changes in Android policy. It is <b>mandatory</b> to use the version from <b>F-Droid</b> or the official <b>GitHub</b> releases.</p>
+            <p class="text-sm">The version of <b>Termux</b> from the Google Play Store is permanently outdated and unsupported due to changes in Android policy. It suffers from incorrect signing keys and cannot update its own packages, leading to constant errors. It is <b>mandatory</b> to use the version from <b>F-Droid</b> or the official <b>GitHub</b> releases.</p>
             <ul class="list-disc list-inside ml-4 mt-2 text-sm">
-                <li><b>Fix:</b> Uninstall old version, install from <b>F-Droid</b>.</li>
+                <li><b>Fix:</b> Uninstall any old version completely, then install from <b>F-Droid</b>. This applies to all companion apps like `Termux:API` and `Termux:Styling` as well.</li>
             </ul>
         </div>
 
@@ -126,12 +126,12 @@
                     </li>
                     <li><b>Step 2: Change Repository Mirror:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">termux-change-repo</div>
-                        <p class="text-xs text-gray-500">Choose a different geographical mirror (e.g., Grimler or Alabugin) and run `pkg update` again.</p>
+                        <p class="text-xs text-gray-500">Select "All mirrors" and choose a different main mirror. Mirrors hosted by Grimler, Alabugin, or A1-Mirrors are generally reliable. After changing, run `pkg update` again.</p>
                     </li>
                     <li><b>Step 3: Clear Cache and Rebuild:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">apt clean && apt update</div>
                     </li>
-                    <li><b>Step 4: Fix Expired Key Error (If applicable):</b> Run `pkg update && pkg upgrade`. If the error persists, check GitHub for the latest manual key refresh command.</li>
+                    <li><b>Step 4: Fix Expired Key Error (If applicable):</b> Run `pkg update && pkg upgrade`. If a GPG key error persists, the repository signing key may need to be manually refreshed. Check the official Termux GitHub issues for the most current command.</li>
                 </ol>
             </li>
         </ul>
@@ -150,9 +150,26 @@
                     <li><b>Install the package:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install &lt;command-name&gt;</div>
                     </li>
-                    <li><b>If still not found</b>, verify the command is actually in the standard executable paths:
+                    <li><b>If still not found</b>, verify the standard executable path is in your PATH:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">echo $PATH</div>
+                        <p class="text-xs text-gray-500">It should contain `/data/data/com.termux/files/usr/bin`. If not, add `export PATH=$PREFIX/bin:$PATH` to your `~/.bashrc`.</p>
                     </li>
+                </ol>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Problem: I don't know the exact name of the package to install.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Package names can sometimes be non-obvious (e.g., `imagemagick` for the `convert` command).</p>
+                <p class="mt-3"><b>Solution: Search for packages:</b>
+                    <div class="code-block p-2 mt-1 rounded-md text-sm">pkg search &lt;query&gt;</div>
+                    <p class="text-xs text-gray-500 mt-1">For example, `pkg search "image editor"` will list packages related to image manipulation.</p>
+                </ol>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Error: `bash: ./myscript.sh: Permission denied` when running a script.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> The script file does not have the "execute" permission bit set.</p>
+                <p class="mt-3"><b>Solution: Make the script executable:</b>
+                    <div class="code-block p-2 mt-1 rounded-md text-sm">chmod +x ./myscript.sh</div>
+                    <p class="text-xs text-gray-500 mt-1">Also, ensure your script starts with a shebang line pointing to the correct interpreter, like `#!/data/data/com.termux/files/usr/bin/bash`.</p>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
@@ -163,7 +180,7 @@
                     <li><b>Run the setup utility:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">termux-setup-storage</div>
                     </li>
-                    <li><b>Crucial Caveat:</b> Only run large tools or install complex packages within the <b>Termux Home Directory</b> (`~`). External storage paths often cause execution failures (e.g., Git failures).</li>
+                    <li><b>Crucial Caveat:</b> Do not run complex tools or install packages on external storage. Android formats external storage (like SD cards) with a `noexec` flag, which prevents binary files from executing. Always operate within the <b>Termux Home Directory</b> (`~`) for reliability.</li>
                 </ol>
             </li>
         </ul>
@@ -171,27 +188,34 @@
         <hr class="border-gray-700 my-8">
 
         <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Chapter 2: Networking and DNS Issues</h4>
-        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">When network requests fail, the problem is rarely the Termux application itself, but often DNS resolution or a blocked mirror.</p>
+        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">When network requests fail, the problem is rarely the Termux application itself, but often DNS resolution, a blocked mirror, or local network configuration.</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Termux cannot resolve domain names or download packages (DNS Failure).</b>
-                <p class="text-gray-400 mt-2"><b>Cause:</b> Your device's DNS is not being picked up correctly, or the mirror is blocked.</p>
-                <p class="mt-3"><b>Solution: Force Google DNS</b> (Most Reliable Fix):</p>
-                <div class="code-block p-2 mt-1 rounded-md text-sm">rm $PREFIX/etc/resolv.conf && echo "nameserver 8.8.8.8" > $PREFIX/etc/resolv.conf</div>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Your device's DNS is not being picked up correctly, the mirror is blocked, or a VPN/Private DNS is interfering.</p>
+                <p class="mt-3"><b>Solution: Diagnose and Fix DNS</b></p>
+                <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li><b>Test basic connectivity:</b> `ping 8.8.8.8`. If this fails, your device has no internet connection.</li>
+                    <li><b>Test DNS resolution:</b> `ping google.com`. If the previous step worked but this fails, it's a DNS issue.</li>
+                    <li><b>Force Google DNS</b> (Most Reliable Fix):
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">rm $PREFIX/etc/resolv.conf && echo "nameserver 8.8.8.8" > $PREFIX/etc/resolv.conf</div>
+                    </li>
+                    <li><b>Check for Interference:</b> Temporarily disable any VPN or Android's "Private DNS" setting and try again.</li>
+                </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: Git clone fails with `ssl certificate problem: unable to get local issuer certificate`.</b>
                 <p class="text-gray-400 mt-2"><b>Cause:</b> Git needs the local certificate store updated to trust HTTPS connections.</p>
                 <p class="mt-3"><b>Solution: Install and Update CA Certificates:</b></p>
-                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install ca-certificates</div>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install ca-certificates && update-ca-certificates</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Package download fails with connection reset or timeout (Blocked Repository).</b>
                 <p class="text-gray-400 mt-2"><b>Cause:</b> Your ISP or firewall may be blocking the current Termux repository mirror.</p>
                 <p class="mt-3"><b>Solution: Force HTTP over HTTPS for the repository:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">termux-change-repo</div>
-                <p class="text-xs text-gray-500">When prompted, make sure to select the option to <b>use HTTP</b> instead of HTTPS.</p>
+                <p class="text-xs text-gray-500">When prompted, select a mirror and then choose the option to <b>use HTTP</b> instead of HTTPS if available. This is less secure but can bypass some firewalls.</p>
             </li>
         </ul>
         
@@ -203,10 +227,14 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Termux freezing, crashing, or processes being killed unexpectedly (Phantom Processes).</b>
-                <p class="text-gray-400 mt-2"><b>Cause:</b> Aggressive battery optimization settings on Android, especially Android 10+ (Phantom Processes). </p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Aggressive battery optimization settings on Android, especially Android 10+ (Phantom Processes).</p>
                 <p class="mt-3"><b>Solution:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Disable battery optimization</b> for Termux in Android settings.</li>
+                    <li><b>Disable battery optimization</b> for Termux in Android settings. For device-specific instructions, consult the website `dontkillmyapp.com`.</li>
+                    <li><b>Acquire a wake lock</b> for long-running tasks:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">termux-wake-lock</div>
+                        <p class="text-xs text-gray-500">Run this before your long command. To release it, press Ctrl+C or run `termux-wake-unlock` in another session.</p>
+                    </li>
                     <li><b>Use `tmux` or `screen`</b> to manage sessions that survive disconnections:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install tmux && tmux new -s persistent-session</div>
                     </li>
@@ -217,13 +245,14 @@
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: Termux:API commands not found or not working (e.g., `termux-battery-status`).</b>
-                <p class="text-gray-400 mt-2"><b>Cause:</b> Requires two separate components: the Termux package and the separate Android app.</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Requires two separate components: the Termux package and the separate Android app, and both must be from the same source (F-Droid).</p>
                 <p class="mt-3"><b>Solution:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
                     <li><b>Install the API package in Termux:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install termux-api</div>
                     </li>
                     <li><b>Install the separate Termux:API app</b> from F-Droid or GitHub.</li>
+                    <li><b>Reload Termux settings:</b> After installing, run `termux-reload-settings` to ensure the API commands are recognized.</li>
                 </ol>
             </li>
         </ul>
@@ -231,33 +260,40 @@
         <hr class="border-gray-700 my-8">
 
         <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Chapter 4: Package-Specific and Advanced Build Errors</h4>
-        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Common issues when compiling tools or installing Python dependencies.</p>
+        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Common issues when compiling tools or installing Python, NodeJS, or Ruby dependencies.</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Error: `pip install` fails with `Error: command 'gcc' failed` or dependencies missing.</b>
-                <p class="text-gray-400 mt-2"><b>Cause:</b> Python packages need to compile C/C++ dependencies (build-essentials).</p>
+                <b class="text-lg text-yellow-400">Error: `pip install` fails with `Error: command 'clang' failed` or dependencies missing.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Python packages need to compile C/C++ dependencies (build-essentials), which are not installed by default.</p>
                 <p class="mt-3"><b>Solution: Install development tools first:</b></p>
-                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install python clang make libcrypt-dev</div>
-                <p class="text-xs text-gray-500 mt-1">These packages provide the compiler and necessary headers for many libraries to build correctly.</p>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install build-essential python-dev</div>
+                <p class="text-xs text-gray-500 mt-1">`build-essential` is a meta-package that includes `clang`, `make`, etc. `python-dev` provides necessary headers.</p>
             </li>
              <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: Pip install fails for packages like `lxml`, `scipy`, or `numpy`.</b>
                 <p class="text-gray-400 mt-2"><b>Cause:</b> These packages require specific headers and libraries (like `libxml2` or `openblas`) that are not included in the default development tools.</p>
                 <p class="mt-3"><b>Solution: Install prerequisite headers:</b></p>
-                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install libxml2 libxslt libblas openblas libjpeg-turbo libpng</div>
-                <p class="text-xs text-gray-500 mt-1">Then re-run the `pip install` command.</p>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install libxml2-dev libxslt-dev libblas-dev openblas-dev libjpeg-turbo-dev libpng-dev</div>
+                <p class="text-xs text-gray-500 mt-1">The `-dev` suffix is crucial as it contains the header files needed for compilation. Then re-run the `pip install` command.</p>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Error: `npm install` or `gem install` fails to build native extensions.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Similar to Python, NodeJS and Ruby packages often need a C/C++ compiler and `make`.</p>
+                <p class="mt-3"><b>Solution: Ensure build tools are present:</b></p>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install build-essential</div>
+                <p class="text-xs text-gray-500 mt-1">This single package usually resolves most `npm` and `gem` build failures.</p>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: `dpkg: error processing package &lt;package&gt; (--install): &lt;path&gt;: No such file or directory`.</b>
                 <p class="text-gray-400 mt-2"><b>Cause:</b> Corrupted package metadata, usually after a failed upgrade or installation.</p>
                 <p class="mt-3"><b>Solution: Force a fix and clean up:</b></p>
-                <div class="code-block p-2 mt-1 rounded-md text-sm">dpkg --configure -a && pkg install --fix-missing</div>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">dpkg --configure -a && pkg install --fix-missing && apt-get install -f</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: `Segmentation fault` or `Illegal Instruction` during program execution.</b>
                 <p class="text-gray-400 mt-2"><b>Cause:</b> The tool is not compiled for your device's CPU architecture (e.g., using an x86 tool on an ARM device).</p>
-                <p class="mt-3"><b>Solution:</b> Use the command `uname -m` to verify your architecture and only install packages compatible with that architecture (aarch64, armv7l, or i686).</p>
+                <p class="mt-3"><b>Solution:</b> Use the command `uname -m` to verify your architecture and only install packages compatible with that architecture (aarch64, armv7l, or i686). Never copy binaries from a standard Linux PC to Termux; they must be compiled for the Android Bionic C library.</p>
             </li>
         </ul>
 
@@ -278,6 +314,7 @@
                 <p class="text-gray-400 mt-2"><b>Cause:</b> The terminal environment is not configured for Unicode (UTF-8) correctly.</p>
                 <p class="mt-3"><b>Solution: Set the correct environment variable in your shell config (`~/.bashrc`):</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">export LANG=en_US.UTF-8</div>
+                <p class="text-xs text-gray-500 mt-1">Then reload the shell with `source ~/.bashrc`.</p>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: I can't type special keys (like F-keys, Esc, or Ctrl+C) easily.</b>
@@ -286,9 +323,7 @@
                 <ol class="list-disc list-inside ml-4 space-y-1">
                     <li><b>`CTRL` Key:</b> Press the <b>Volume Down</b> button and then the character key (e.g., `Vol Down` + `C` for Ctrl+C).</li>
                     <li><b>`ESC` Key:</b> Press the <b>Volume Up</b> button and then the `E` key.</li>
-                    <li><b>Extra Keys View:</b> Swipe left from the left edge of the screen to toggle the extra keys row (e.g., Tab, Ctrl, Alt). Or run:
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">~/.termux/boot/termux-wake-lock</div>
-                    </li>
+                    <li><b>Customize Extra Keys:</b> Create/edit the file `~/.termux/termux.properties`. Add custom keys like this: `extra-keys = [['ESC','/','-','HOME','UP','END'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT']]`. Reload with `termux-reload-settings`.</li>
                 </ol>
             </li>
         </ul>
@@ -311,47 +346,50 @@
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: `sudo: command not found` or need for root permissions.</b>
                 <p class="text-gray-400 mt-2"><b>Cause:</b> Termux is not a rooted environment by default and cannot use superuser commands.</p>
-                <p class="mt-3"><b>Solution: Use Proot or Fakeroot:</b></p>
+                <p class="mt-3"><b>Solution: Use Proot-Distro for a full Linux environment:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>To emulate a full Linux root environment (chroot):</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install proot</div>
-                        <p class="text-xs text-gray-500">Run a rootless Linux distribution "chroot" using `proot`.</p>
+                    <li><b>Install proot-distro and a Linux distribution:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install proot-distro && proot-distro install ubuntu</div>
                     </li>
-                    <li><b>For building packages requiring root ownership:</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install fakeroot</div>
-                        <p class="text-xs text-gray-500">Use `fakeroot` to create archives with specific permissions.</p>
+                    <li><b>Login to the distro:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">proot-distro login ubuntu</div>
+                    </li>
+                     <li><b>Inside the distro,</b> you can use its native package manager as root:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">apt update && apt install neofetch</div>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Problem: Program fails with `CANNOT LINK EXECUTABLE... "..." is 32-bit instead of 64-bit` or `LD_PRELOAD` issues.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Mixing packages from different sources or trying to run a standard Linux binary that is not compatible with Android's linker (`/system/bin/linker`).</p>
+                <p class="mt-3"><b>Solution: Use `termux-exec`:</b></p>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install termux-exec && termux-elf-cleaner /path/to/binary</div>
+                <p class="text-xs text-gray-500 mt-1">`termux-exec` automatically rewrites shebangs and handles linker paths. `termux-elf-cleaner` can fix some ELF header issues on incompatible binaries.</p>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Program starts and immediately fails silently (or `No such file or directory`).</b>
-                <p class="text-gray-400 mt-2"><b>Cause:</b> The program may be attempting a system call (like file access or network setup) that is blocked or missing a dependency, but it's not printing a useful error.</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> The program may be attempting a system call that is blocked, missing a dependency, or looking for a file in the wrong path.</p>
                 <p class="mt-3"><b>Solution: Trace System Calls with `strace`:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install strace && strace -f &lt;failing-command&gt;</div>
-                <p class="text-xs text-gray-500 mt-1">`strace` will print a line-by-line log of all system interactions, often revealing the exact "Permission denied" or path error that caused the crash.</p>
+                <p class="text-xs text-gray-500 mt-1">`strace` will print a log of all system interactions, often revealing the exact "Permission denied" or path error that caused the crash.</p>
             </li>
         </ul>
 
         <hr class="border-gray-700 my-8">
 
-        <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Chapter 7: Customization and Graphical Environment (X11)</h4>
-        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Installing alternative shells and setting up a basic graphical desktop for X-Window applications.</p>
+        <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Chapter 7: Customization and Graphical Environment (X11/VNC)</h4>
+        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Installing alternative shells and setting up a graphical desktop for X-Window or VNC applications.</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: I want better features and customization than the default Bash shell.</b>
-                <p class="text-gray-400 mt-2"><b>Cause:</b> Bash is the standard, but shells like Zsh offer advanced autocompletion and extensibility via plugins.</p>
-                <p class="mt-3"><b>Solution: Install Zsh and Switch Shells:</b></p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Bash is standard, but shells like Zsh and Fish offer advanced autocompletion, syntax highlighting, and extensibility.</p>
+                <p class="mt-3"><b>Solution: Install Zsh/Fish and Switch Shells:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Install the package:</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install zsh</div>
-                    </li>
+                    <li><b>Install the package:</b> `pkg install zsh` or `pkg install fish`</li>
                     <li><b>Switch your default shell:</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">chsh -s zsh</div>
-                        <p class="text-xs text-gray-500">You must reload Termux for this change to take effect.</p>
-                    </li>
-                    <li><b>Customize the prompt (e.g., in `~/.zshrc`):</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">export PROMPT='%n@%m:%~%# '</div>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">chsh -s zsh (or chsh -s fish)</div>
+                        <p class="text-xs text-gray-500">You must restart Termux for this change to take effect.</p>
                     </li>
                 </ol>
             </li>
@@ -360,14 +398,29 @@
                 <p class="text-gray-400 mt-2"><b>Cause:</b> Graphical applications require an X Server running on the Android device to render the output.</p>
                 <p class="mt-3"><b>Solution: Setup X11 Environment:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Install the X11 repository and client package:</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install x11-repo && pkg install termux-x11-nightly</div>
+                    <li><b>Install X11 repository and packages:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install x11-repo && pkg install termux-x11-nightly fluxbox</div>
                     </li>
                     <li><b>Install the separate Termux:X11 app</b> from F-Droid or GitHub.</li>
-                    <li><b>Set the display variable and run an app (e.g., `xeyes`):</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">export DISPLAY=':0' && pkg install xeyes && xeyes</div>
-                        <p class="text-xs text-gray-500">The Termux:X11 app must be running in the background for this to work.</p>
+                    <li><b>Configure and run:</b> Open the Termux:X11 app. In Termux, run:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">export DISPLAY=':0' && termux-x11 & && sleep 3 && fluxbox &</div>
+                        <p class="text-xs text-gray-500">This starts the X11 server and the Fluxbox window manager. You can now run graphical apps like `xterm`.</p>
                     </li>
+                </ol>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Alternative: I want a more stable, persistent graphical desktop.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> X11 can be fragile. VNC (Virtual Network Computing) provides a more robust virtual desktop that persists even if the client app disconnects.</p>
+                <p class="mt-3"><b>Solution: Setup a VNC Server:</b></p>
+                <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li><b>Install TigerVNC and a window manager:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install tigervnc fluxbox</div>
+                    </li>
+                    <li><b>Start the VNC server:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">vncserver -localhost no</div>
+                        <p class="text-xs text-gray-500">Set a password on the first run. This starts a server on port 5901.</p>
+                    </li>
+                    <li><b>Connect with a client:</b> Install a VNC Viewer app on Android (like AVNC from F-Droid), and connect to `127.0.0.1:5901`.</li>
                 </ol>
             </li>
         </ul>
@@ -381,21 +434,85 @@
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Termux is completely broken, or `pkg` and `apt` commands immediately fail (Corrupted Prefix).</b>
                 <p class="text-gray-400 mt-2"><b>Cause:</b> Critical files in the `$PREFIX` directory (`/usr`) are corrupted, often by bad scripts or a force-kill during an upgrade.</p>
-                <p class="mt-3"><b>Solution: Reset Termux Environment (Non-Destructive to Home):</b></p>
+                <p class="mt-3"><b>Solution: Backup and Reset:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Step 1:</b> If possible, save all files from `$HOME` to your Android storage using `cp -r ~ /sdcard/TermuxBackup`.</li>
-                    <li><b>Step 2:</b> Execute the full reset:
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">termux-setup-storage --reset</div>
-                        <p class="text-xs text-gray-500">This command clears <i>all</i> installed packages and the Termux prefix, but <i>attempts to save</i> your `$HOME` directory.</p>
+                    <li><b>Step 1: Backup your Home Directory.</b> Run `termux-setup-storage` first. Then create a compressed archive:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">tar -czvf /sdcard/termux-backup.tar.gz -C $HOME .</div>
+                        <p class="text-xs text-gray-500">This saves everything in your home directory to a single file in your phone's internal storage.</p>
                     </li>
-                    <li><b>Step 3:</b> Alternatively, <b>clear the app data</b> through Android Settings, which performs a complete factory reset.</li>
+                    <li><b>Step 2: Clear App Data.</b> Go to Android Settings -> Apps -> Termux -> Storage and "Clear data". This performs a complete factory reset of Termux.</li>
+                    <li><b>Step 3: Restore your data.</b> After re-opening Termux, run `termux-setup-storage` again and then extract your backup:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">tar -xzvf /sdcard/termux-backup.tar.gz -C $HOME</div>
+                    </li>
+                </ol>
+            </li>
+        </ul>
+
+        <hr class="border-gray-700 my-8">
+
+        <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Chapter 9: Scripting and Automation</h4>
+        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Leveraging Termux plugins to automate tasks and integrate with the Android system.</p>
+
+        <ul class="space-y-6">
+             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Problem: I want to access my Termux session from my computer.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> By default, Termux does not run an SSH server for remote access.</p>
+                <p class="mt-3"><b>Solution: Set up the OpenSSH server:</b></p>
+                <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li><b>Install OpenSSH:</b> `pkg install openssh`</li>
+                    <li><b>Set a password:</b> Run `passwd` to set a password for your user. This is what you'll use to log in.</li>
+                    <li><b>Start the SSH server:</b> `sshd`</li>
+                    <li><b>Find your device's IP address:</b> `ifconfig` (look for the `inet` address under `wlan0`).</li>
+                    <li><b>Connect from another computer:</b> Use an SSH client to connect. The default user is `termux` and the default port is `8022`.
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">ssh termux@&lt;your-phone-ip&gt; -p 8022</div>
+                    </li>
+                </ol>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Problem: I want to run a script when my device boots up.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Requires the `Termux:Boot` companion app to hook into Android's boot event.</p>
+                <p class="mt-3"><b>Solution: Use Termux:Boot:</b></p>
+                <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li><b>Install the Termux:Boot app</b> from F-Droid.</li>
+                    <li><b>Create the startup directory:</b> `mkdir -p ~/.termux/boot/`</li>
+                    <li><b>Create your script:</b> Create a new file like `~/.termux/boot/start-sshd`. Make it executable with `chmod +x`.
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">#!/data/data/com.termux/files/usr/bin/bash<br>termux-wake-lock<br>sshd</div>
+                        <p class="text-xs text-gray-500">Any executable script placed in this directory will run on boot.</p>
+                    </li>
+                </ol>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Problem: I want to run scripts from my Android home screen.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> This requires the `Termux:Widget` companion app.</p>
+                <p class="mt-3"><b>Solution: Use Termux:Widget:</b></p>
+                <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li><b>Install the Termux:Widget app</b> from F-Droid.</li>
+                    <li><b>Create the shortcuts directory:</b> `mkdir -p ~/.shortcuts/`</li>
+                    <li><b>Place your scripts there:</b> Create a script like `~/.shortcuts/update-all`. The script will be run by the widget. For example:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">#!/data/data/com.termux/files/usr/bin/bash<br>pkg update && pkg upgrade -y<br>termux-toast "Updates complete!"</div>
+                    </li>
+                     <li>Add the Termux Widget to your home screen. It will list all executable scripts from the `.shortcuts` directory.</li>
+                </ol>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Problem: How can my scripts interact with Android (e.g., send a notification, read battery status)?</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> This requires the `Termux:API` package and app, which expose Android functionality to shell commands.</p>
+                <p class="mt-3"><b>Solution: Use Termux:API commands:</b></p>
+                <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li>Ensure both the `termux-api` package and `Termux:API` app are installed from F-Droid.</li>
+                    <li><b>Example 1: Show a notification from a script:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">termux-notification --title "Backup Complete" --content "Your backup script has finished."</div>
+                    </li>
+                    <li><b>Example 2: Get battery level and show a toast message:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">battery=$(termux-battery-status | grep -oP '(?<="percentage": )[0-9]+')<br>termux-toast "Battery is at $battery%"</div>
+                    </li>
                 </ol>
             </li>
         </ul>
 
         <div class="p-6 bg-blue-900 rounded-lg shadow-xl mt-10">
             <h4 class="text-xl font-bold text-white mb-2">Final Word on Termux</h4>
-            <p class="text-blue-200">Termux is a powerful and low-level environment. When troubleshooting, always proceed step-by-step, starting with the correct installation source (F-Droid) and proper permissions. If an error persists, always check the <b>Termux Wiki</b> or <b>GitHub Issues</b>.</p>
+            <p class="text-blue-200">Termux is a powerful and low-level environment. When troubleshooting, always proceed step-by-step, starting with the correct installation source (F-Droid) and proper permissions. If an error persists, always check the official <b>Termux Wiki</b> or <b>GitHub Issues</b> for community-provided solutions.</p>
         </div>
     </div>
     <div data-lang-section="gr" style="display:none;">
@@ -406,9 +523,9 @@
         
         <div class="p-5 my-6 rounded-xl note-critical shadow-2xl">
             <h5 class="text-lg font-bold mb-2 text-red-300">ΚΡΙΣΙΜΗ ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Η Έκδοση του Google Play Store Είναι Παρωχημένη!</h5>
-            <p class="text-sm">Η έκδοση του <b>Termux</b> από το Google Play Store είναι μόνιμα παρωχημένη και μη υποστηριζόμενη λόγω αλλαγών στην πολιτική του Android. Είναι <b>υποχρεωτικό</b> να χρησιμοποιήσετε την έκδοση από το <b>F-Droid</b> ή τις επίσημες κυκλοφορίες του <b>GitHub</b>.</p>
+            <p class="text-sm">Η έκδοση του <b>Termux</b> από το Google Play Store είναι μόνιμα παρωχημένη και μη υποστηριζόμενη λόγω αλλαγών στην πολιτική του Android. Υποφέρει από λανθασμένα κλειδιά υπογραφής και δεν μπορεί να ενημερώσει τα ίδια της τα πακέτα, οδηγώντας σε συνεχή σφάλματα. Είναι <b>υποχρεωτικό</b> να χρησιμοποιήσετε την έκδοση από το <b>F-Droid</b> ή τις επίσημες κυκλοφορίες του <b>GitHub</b>.</p>
             <ul class="list-disc list-inside ml-4 mt-2 text-sm">
-                <li><b>Διόρθωση:</b> Απεγκαταστήστε την παλιά έκδοση, εγκαταστήστε από το <b>F-Droid</b>.</li>
+                <li><b>Διόρθωση:</b> Απεγκαταστήστε πλήρως οποιαδήποτε παλιά έκδοση, και μετά εγκαταστήστε από το <b>F-Droid</b>. Αυτό ισχύει και για όλες τις συνοδευτικές εφαρμογές όπως `Termux:API` και `Termux:Styling`.</li>
             </ul>
         </div>
 
@@ -423,12 +540,12 @@
                     </li>
                     <li><b>Βήμα 2: Αλλαγή Διακομιστή Mirror (Repository Mirror):</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">termux-change-repo</div>
-                        <p class="text-xs text-gray-500">Επιλέξτε έναν διαφορετικό γεωγραφικό mirror (π.χ., Grimler ή Alabugin) και εκτελέστε ξανά `pkg update`.</p>
+                        <p class="text-xs text-gray-500">Επιλέξτε "All mirrors" και διαλέξτε έναν διαφορετικό κύριο mirror. Οι mirrors που φιλοξενούνται από τους Grimler, Alabugin, ή A1-Mirrors είναι γενικά αξιόπιστοι. Μετά την αλλαγή, εκτελέστε ξανά `pkg update`.</p>
                     </li>
                     <li><b>Βήμα 3: Εκκαθάριση Cache και Αναδόμηση:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">apt clean && apt update</div>
                     </li>
-                    <li><b>Βήμα 4: Διόρθωση Σφάλματος Ληγμένου Κλειδιού (Εάν ισχύει):</b> Εκτελέστε `pkg update && pkg upgrade`. Αν το σφάλμα επιμένει, ελέγξτε το GitHub για την πιο πρόσφατη εντολή μη αυτόματης ανανέωσης κλειδιού.</li>
+                    <li><b>Βήμα 4: Διόρθωση Σφάλματος Ληγμένου Κλειδιού (Εάν ισχύει):</b> Εκτελέστε `pkg update && pkg upgrade`. Αν ένα σφάλμα κλειδιού GPG επιμένει, το κλειδί υπογραφής του αποθετηρίου μπορεί να χρειάζεται μη αυτόματη ανανέωση. Ελέγξτε τα επίσημα GitHub issues του Termux για την πιο πρόσφατη εντολή.</li>
                 </ol>
             </li>
         </ul>
@@ -447,9 +564,26 @@
                     <li><b>Εγκαταστήστε το πακέτο:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install &lt;command-name&gt;</div>
                     </li>
-                    <li><b>Αν εξακολουθεί να μην βρίσκεται</b>, επαληθεύστε ότι η εντολή βρίσκεται πράγματι στις τυπικές εκτελέσιμες διαδρομές:
+                    <li><b>Αν εξακολουθεί να μην βρίσκεται</b>, επαληθεύστε ότι η τυπική εκτελέσιμη διαδρομή είναι στο PATH σας:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">echo $PATH</div>
+                        <p class="text-xs text-gray-500">Θα πρέπει να περιέχει `/data/data/com.termux/files/usr/bin`. Αν όχι, προσθέστε `export PATH=$PREFIX/bin:$PATH` στο `~/.bashrc` σας.</p>
                     </li>
+                </ol>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Πρόβλημα: Δεν ξέρω το ακριβές όνομα του πακέτου για εγκατάσταση.</b>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Τα ονόματα των πακέτων μπορεί μερικές φορές να μην είναι προφανή (π.χ., `imagemagick` για την εντολή `convert`).</p>
+                <p class="mt-3"><b>Λύση: Αναζήτηση για πακέτα:</b>
+                    <div class="code-block p-2 mt-1 rounded-md text-sm">pkg search &lt;query&gt;</div>
+                    <p class="text-xs text-gray-500 mt-1">Για παράδειγμα, το `pkg search "image editor"` θα εμφανίσει πακέτα που σχετίζονται με την επεξεργασία εικόνων.</p>
+                </ol>
+            </li>
+             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Σφάλμα: `bash: ./myscript.sh: Permission denied` κατά την εκτέλεση ενός script.</b>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το αρχείο script δεν έχει οριστεί το δικαίωμα "εκτέλεσης".</p>
+                <p class="mt-3"><b>Λύση: Κάντε το script εκτελέσιμο:</b>
+                    <div class="code-block p-2 mt-1 rounded-md text-sm">chmod +x ./myscript.sh</div>
+                    <p class="text-xs text-gray-500 mt-1">Επίσης, βεβαιωθείτε ότι το script σας ξεκινά με μια γραμμή shebang που δείχνει στον σωστό διερμηνέα, όπως `#!/data/data/com.termux/files/usr/bin/bash`.</p>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
@@ -460,7 +594,7 @@
                     <li><b>Εκτελέστε το βοηθητικό πρόγραμμα ρύθμισης:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">termux-setup-storage</div>
                     </li>
-                    <li><b>Κρίσιμη Επιφύλαξη:</b> Εκτελείτε μεγάλα εργαλεία ή εγκαταστήστε σύνθετα πακέτα μόνο μέσα στον <b>Αρχικό Κατάλογο του Termux</b> (`~`). Οι εξωτερικές διαδρομές αποθήκευσης συχνά προκαλούν σφάλματα εκτέλεσης (π.χ., αποτυχίες Git).</li>
+                    <li><b>Κρίσιμη Επιφύλαξη:</b> Μην εκτελείτε πολύπλοκα εργαλεία ή μην εγκαθιστάτε πακέτα σε εξωτερικό αποθηκευτικό χώρο. Το Android μορφοποιεί τον εξωτερικό χώρο (όπως κάρτες SD) με τη σημαία `noexec`, η οποία εμποδίζει την εκτέλεση δυαδικών αρχείων. Πάντα να λειτουργείτε εντός του <b>Αρχικού Καταλόγου του Termux</b> (`~`) για αξιοπιστία.</li>
                 </ol>
             </li>
         </ul>
@@ -468,27 +602,34 @@
         <hr class="border-gray-700 my-8">
 
         <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Κεφάλαιο 2: Θέματα Δικτύωσης και DNS</h4>
-        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Όταν αποτυγχάνουν οι αιτήσεις δικτύου, το πρόβλημα σπάνια είναι η ίδια η εφαρμογή Termux, αλλά συχνά η ανάλυση ονομάτων τομέα (DNS) ή ένας μπλοκαρισμένος mirror.</p>
+        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Όταν αποτυγχάνουν οι αιτήσεις δικτύου, το πρόβλημα σπάνια είναι η ίδια η εφαρμογή Termux, αλλά συχνά η ανάλυση ονομάτων τομέα (DNS), ένας μπλοκαρισμένος mirror, ή η τοπική διαμόρφωση δικτύου.</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Το Termux δεν μπορεί να αναλύσει ονόματα τομέα ή να κατεβάσει πακέτα (Αποτυχία DNS).</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το DNS της συσκευής σας δεν ανιχνεύεται σωστά, ή ο mirror είναι μπλοκαρισμένος.</p>
-                <p class="mt-3"><b>Λύση: Επιβολή Google DNS</b> (Πιο Αξιόπιστη Διόρθωση):</p>
-                <div class="code-block p-2 mt-1 rounded-md text-sm">rm $PREFIX/etc/resolv.conf && echo "nameserver 8.8.8.8" > $PREFIX/etc/resolv.conf</div>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το DNS της συσκευής σας δεν ανιχνεύεται σωστά, ο mirror είναι μπλοκαρισμένος, ή ένα VPN/Ιδιωτικό DNS παρεμβαίνει.</p>
+                <p class="mt-3"><b>Λύση: Διάγνωση και Επιδιόρθωση DNS</b></p>
+                 <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li><b>Ελέγξτε τη βασική συνδεσιμότητα:</b> `ping 8.8.8.8`. Αν αυτό αποτύχει, η συσκευή σας δεν έχει σύνδεση στο διαδίκτυο.</li>
+                    <li><b>Ελέγξτε την ανάλυση DNS:</b> `ping google.com`. Αν το προηγούμενο βήμα λειτούργησε αλλά αυτό αποτυγχάνει, είναι πρόβλημα DNS.</li>
+                    <li><b>Επιβολή Google DNS</b> (Πιο Αξιόπιστη Διόρθωση):
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">rm $PREFIX/etc/resolv.conf && echo "nameserver 8.8.8.8" > $PREFIX/etc/resolv.conf</div>
+                    </li>
+                    <li><b>Έλεγχος για Παρεμβολές:</b> Απενεργοποιήστε προσωρινά οποιοδήποτε VPN ή τη ρύθμιση "Ιδιωτικό DNS" του Android και δοκιμάστε ξανά.</li>
+                </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: Το Git clone αποτυγχάνει με `ssl certificate problem: unable to get local issuer certificate`.</b>
                 <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Git χρειάζεται ενημερωμένο τοπικό κατάστημα πιστοποιητικών για να εμπιστεύεται τις συνδέσεις HTTPS.</p>
                 <p class="mt-3"><b>Λύση: Εγκατάσταση και Ενημέρωση Πιστοποιητικών CA:</b></p>
-                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install ca-certificates</div>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install ca-certificates && update-ca-certificates</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Η λήψη πακέτου αποτυγχάνει με επαναφορά σύνδεσης ή timeout (Μπλοκαρισμένο Αποθετήριο).</b>
                 <p class="text-gray-400 mt-2"><b>Αιτία:</b> Ο πάροχος υπηρεσιών διαδικτύου (ISP) ή το firewall σας ενδέχεται να μπλοκάρει τον τρέχοντα mirror αποθετηρίου Termux.</p>
                 <p class="mt-3"><b>Λύση: Επιβολή HTTP αντί για HTTPS για το αποθετήριο:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">termux-change-repo</div>
-                <p class="text-xs text-gray-500">Όταν σας ζητηθεί, βεβαιωθείτε ότι επιλέγετε την επιλογή <b>να χρησιμοποιήσετε HTTP</b> αντί για HTTPS.</p>
+                <p class="text-xs text-gray-500">Όταν σας ζητηθεί, επιλέξτε έναν mirror και μετά διαλέξτε την επιλογή <b>να χρησιμοποιήσετε HTTP</b> αντί για HTTPS, αν είναι διαθέσιμη. Αυτό είναι λιγότερο ασφαλές αλλά μπορεί να παρακάμψει ορισμένα firewalls.</p>
             </li>
         </ul>
         
@@ -503,7 +644,11 @@
                 <p class="text-gray-400 mt-2"><b>Αιτία:</b> Επιθετικές ρυθμίσεις βελτιστοποίησης μπαταρίας στο Android, ειδικά στο Android 10+ (Phantom Processes). </p>
                 <p class="mt-3"><b>Λύση:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Απενεργοποιήστε τη βελτιστοποίηση μπαταρίας</b> για το Termux στις ρυθμίσεις του Android.</li>
+                    <li><b>Απενεργοποιήστε τη βελτιστοποίηση μπαταρίας</b> για το Termux στις ρυθμίσεις του Android. Για οδηγίες ανάλογα με τη συσκευή, συμβουλευτείτε την ιστοσελίδα `dontkillmyapp.com`.</li>
+                     <li><b>Αποκτήστε wake lock</b> για εργασίες μεγάλης διάρκειας:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">termux-wake-lock</div>
+                        <p class="text-xs text-gray-500">Εκτελέστε αυτό πριν από τη μακροσκελή εντολή σας. Για να το απελευθερώσετε, πατήστε Ctrl+C ή εκτελέστε `termux-wake-unlock` σε άλλη περίοδο λειτουργίας.</p>
+                    </li>
                     <li><b>Χρησιμοποιήστε `tmux` ή `screen`</b> για τη διαχείριση περιόδων σύνδεσης που επιβιώνουν από αποσυνδέσεις:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install tmux && tmux new -s persistent-session</div>
                     </li>
@@ -514,13 +659,14 @@
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: Οι εντολές Termux:API δεν βρίσκονται ή δεν λειτουργούν (π.χ., `termux-battery-status`).</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Απαιτούνται δύο ξεχωριστά στοιχεία: το πακέτο Termux και η ξεχωριστή εφαρμογή Android.</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Απαιτούνται δύο ξεχωριστά στοιχεία: το πακέτο Termux και η ξεχωριστή εφαρμογή Android, και τα δύο πρέπει να προέρχονται από την ίδια πηγή (F-Droid).</p>
                 <p class="mt-3"><b>Λύση:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
                     <li><b>Εγκαταστήστε το πακέτο API στο Termux:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install termux-api</div>
                     </li>
                     <li><b>Εγκαταστήστε την ξεχωριστή εφαρμογή Termux:API</b> από το F-Droid ή το GitHub.</li>
+                    <li><b>Επαναφορτώστε τις ρυθμίσεις του Termux:</b> Μετά την εγκατάσταση, εκτελέστε `termux-reload-settings` για να βεβαιωθείτε ότι οι εντολές API αναγνωρίζονται.</li>
                 </ol>
             </li>
         </ul>
@@ -528,33 +674,40 @@
         <hr class="border-gray-700 my-8">
 
         <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Κεφάλαιο 4: Ειδικά Σφάλματα Πακέτων και Σύνθετα Σφάλματα Δόμησης</h4>
-        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Κοινά ζητήματα κατά τη μεταγλώττιση εργαλείων ή την εγκατάσταση εξαρτήσεων Python.</p>
+        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Κοινά ζητήματα κατά τη μεταγλώττιση εργαλείων ή την εγκατάσταση εξαρτήσεων Python, NodeJS, ή Ruby.</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Σφάλμα: Το `pip install` αποτυγχάνει με `Error: command 'gcc' failed` ή έλλειψη εξαρτήσεων.</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Τα πακέτα Python πρέπει να μεταγλωττίσουν εξαρτήσεις C/C++ (build-essentials).</p>
+                <b class="text-lg text-yellow-400">Σφάλμα: Το `pip install` αποτυγχάνει με `Error: command 'clang' failed` ή έλλειψη εξαρτήσεων.</b>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Τα πακέτα Python πρέπει να μεταγλωττίσουν εξαρτήσεις C/C++ (build-essentials), οι οποίες δεν είναι εγκατεστημένες από προεπιλογή.</p>
                 <p class="mt-3"><b>Λύση: Εγκαταστήστε πρώτα τα εργαλεία ανάπτυξης:</b></p>
-                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install python clang make libcrypt-dev</div>
-                <p class="text-xs text-gray-500 mt-1">Αυτά τα πακέτα παρέχουν τον μεταγλωττιστή και τα απαραίτητα headers για να δημιουργηθούν σωστά πολλές βιβλιοθήκες.</p>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install build-essential python-dev</div>
+                <p class="text-xs text-gray-500 mt-1">Το `build-essential` είναι ένα μετα-πακέτο που περιλαμβάνει `clang`, `make`, κλπ. Το `python-dev` παρέχει απαραίτητα headers.</p>
             </li>
              <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: Το Pip install αποτυγχάνει για πακέτα όπως `lxml`, `scipy`, ή `numpy`.</b>
                 <p class="text-gray-400 mt-2"><b>Αιτία:</b> Αυτά τα πακέτα απαιτούν συγκεκριμένα headers και βιβλιοθήκες (όπως `libxml2` ή `openblas`) που δεν περιλαμβάνονται στα προεπιλεγμένα εργαλεία ανάπτυξης.</p>
                 <p class="mt-3"><b>Λύση: Εγκαταστήστε τις προαπαιτούμενες κεφαλίδες (headers):</b></p>
-                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install libxml2 libxslt libblas openblas libjpeg-turbo libpng</div>
-                <p class="text-xs text-gray-500 mt-1">Στη συνέχεια, εκτελέστε ξανά την εντολή `pip install`.</p>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install libxml2-dev libxslt-dev libblas-dev openblas-dev libjpeg-turbo-dev libpng-dev</div>
+                <p class="text-xs text-gray-500 mt-1">Το επίθημα `-dev` είναι κρίσιμο καθώς περιέχει τα αρχεία header που χρειάζονται για τη μεταγλώττιση. Στη συνέχεια, εκτελέστε ξανά την εντολή `pip install`.</p>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Σφάλμα: Το `npm install` ή `gem install` αποτυγχάνει στη δημιουργία native extensions.</b>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Παρόμοια με την Python, τα πακέτα NodeJS και Ruby συχνά χρειάζονται έναν μεταγλωττιστή C/C++ και `make`.</p>
+                <p class="mt-3"><b>Λύση: Βεβαιωθείτε ότι υπάρχουν τα εργαλεία δόμησης:</b></p>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install build-essential</div>
+                <p class="text-xs text-gray-500 mt-1">Αυτό το μεμονωμένο πακέτο συνήθως επιλύει τις περισσότερες αποτυχίες δόμησης `npm` και `gem`.</p>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: `dpkg: error processing package &lt;package&gt; (--install): &lt;path&gt;: No such file or directory`.</b>
                 <p class="text-gray-400 mt-2"><b>Αιτία:</b> Κατεστραμμένα μεταδεδομένα πακέτου, συνήθως μετά από μια αποτυχημένη αναβάθμιση ή εγκατάσταση.</p>
                 <p class="mt-3"><b>Λύση: Επιβολή διόρθωσης και εκκαθάρισης:</b></p>
-                <div class="code-block p-2 mt-1 rounded-md text-sm">dpkg --configure -a && pkg install --fix-missing</div>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">dpkg --configure -a && pkg install --fix-missing && apt-get install -f</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: `Segmentation fault` ή `Illegal Instruction` κατά την εκτέλεση προγράμματος.</b>
                 <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το εργαλείο δεν έχει μεταγλωττιστεί για την αρχιτεκτονική CPU της συσκευής σας (π.χ., χρήση ενός εργαλείου x86 σε συσκευή ARM).</p>
-                <p class="mt-3"><b>Λύση:</b> Χρησιμοποιήστε την εντολή `uname -m` για να επαληθεύσετε την αρχιτεκτονική σας και εγκαταστήστε μόνο πακέτα συμβατά με αυτήν την αρχιτεκτονική (aarch64, armv7l, ή i686).</p>
+                <p class="mt-3"><b>Λύση:</b> Χρησιμοποιήστε την εντολή `uname -m` για να επαληθεύσετε την αρχιτεκτονική σας και εγκαταστήστε μόνο πακέτα συμβατά με αυτήν την αρχιτεκτονική (aarch64, armv7l, ή i686). Ποτέ μην αντιγράφετε binaries από έναν τυπικό υπολογιστή Linux στο Termux- πρέπει να μεταγλωττιστούν για τη βιβλιοθήκη Android Bionic C.</p>
             </li>
         </ul>
 
@@ -575,6 +728,7 @@
                 <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το περιβάλλον τερματικού δεν έχει ρυθμιστεί σωστά για Unicode (UTF-8).</p>
                 <p class="mt-3"><b>Λύση: Ορίστε τη σωστή μεταβλητή περιβάλλοντος στη διαμόρφωση του κελύφους σας (`~/.bashrc`):</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">export LANG=en_US.UTF-8</div>
+                <p class="text-xs text-gray-500 mt-1">Στη συνέχεια, επαναφορτώστε το κέλυφος με `source ~/.bashrc`.</p>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Δεν μπορώ να πληκτρολογήσω εύκολα ειδικά πλήκτρα (όπως F-keys, Esc, ή Ctrl+C).</b>
@@ -583,9 +737,7 @@
                 <ol class="list-disc list-inside ml-4 space-y-1">
                     <li><b>`CTRL` Key:</b> Πατήστε το πλήκτρο <b>Μείωσης Έντασης</b> (Volume Down) και στη συνέχεια το πλήκτρο χαρακτήρα (π.χ., `Vol Down` + `C` για Ctrl+C).</li>
                     <li><b>`ESC` Key:</b> Πατήστε το πλήκτρο <b>Αύξησης Έντασης</b> (Volume Up) και στη συνέχεια το πλήκτρο `E`.</li>
-                    <li><b>Προβολή Επιπλέον Πλήκτρων:</b> Σύρετε αριστερά από την αριστερή άκρη της οθόνης για εναλλαγή της σειράς επιπλέον πλήκτρων (π.χ., Tab, Ctrl, Alt). Ή εκτελέστε:
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">~/.termux/boot/termux-wake-lock</div>
-                    </li>
+                    <li><b>Προσαρμογή Επιπλέον Πλήκτρων:</b> Δημιουργήστε/επεξεργαστείτε το αρχείο `~/.termux/termux.properties`. Προσθέστε προσαρμοσμένα πλήκτρα όπως: `extra-keys = [['ESC','/','-','HOME','UP','END'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT']]`. Επαναφορτώστε με `termux-reload-settings`.</li>
                 </ol>
             </li>
         </ul>
@@ -608,47 +760,50 @@
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: `sudo: command not found` ή ανάγκη για δικαιώματα root.</b>
                 <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Termux δεν είναι περιβάλλον rooted από προεπιλογή και δεν μπορεί να χρησιμοποιήσει εντολές superuser.</p>
-                <p class="mt-3"><b>Λύση: Χρήση Proot ή Fakeroot:</b></p>
+                <p class="mt-3"><b>Λύση: Χρήση Proot-Distro για ένα πλήρες περιβάλλον Linux:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Για εξομοίωση ενός πλήρους περιβάλλοντος root Linux (chroot):</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install proot</div>
-                        <p class="text-xs text-gray-500">Εκτελέστε μια διανομή Linux χωρίς root "chroot" χρησιμοποιώντας το `proot`.</p>
+                    <li><b>Εγκατάσταση του proot-distro και μιας διανομής Linux:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install proot-distro && proot-distro install ubuntu</div>
                     </li>
-                    <li><b>Για δόμηση πακέτων που απαιτούν root ownership:</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install fakeroot</div>
-                        <p class="text-xs text-gray-500">Χρησιμοποιήστε το `fakeroot` για να δημιουργήσετε αρχεία με συγκεκριμένα δικαιώματα.</p>
+                    <li><b>Σύνδεση στη διανομή:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">proot-distro login ubuntu</div>
+                    </li>
+                     <li><b>Μέσα στη διανομή,</b> μπορείτε να χρησιμοποιήσετε τον εγγενή διαχειριστή πακέτων της ως root:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">apt update && apt install neofetch</div>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Πρόβλημα: Το πρόγραμμα αποτυγχάνει με `CANNOT LINK EXECUTABLE... "..." is 32-bit instead of 64-bit` ή θέματα `LD_PRELOAD`.</b>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Ανάμειξη πακέτων από διαφορετικές πηγές ή προσπάθεια εκτέλεσης ενός τυπικού δυαδικού αρχείου Linux που δεν είναι συμβατό με τον linker του Android (`/system/bin/linker`).</p>
+                <p class="mt-3"><b>Λύση: Χρήση `termux-exec`:</b></p>
+                <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install termux-exec && termux-elf-cleaner /path/to/binary</div>
+                <p class="text-xs text-gray-500 mt-1">Το `termux-exec` ξαναγράφει αυτόματα τα shebangs και διαχειρίζεται τις διαδρομές του linker. Το `termux-elf-cleaner` μπορεί να διορθώσει ορισμένα προβλήματα επικεφαλίδας ELF σε μη συμβατά binaries.</p>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Το πρόγραμμα ξεκινά και αποτυγχάνει αμέσως σιωπηλά (ή `No such file or directory`).</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το πρόγραμμα μπορεί να επιχειρεί μια κλήση συστήματος (όπως πρόσβαση σε αρχείο ή ρύθμιση δικτύου) που είναι μπλοκαρισμένη ή λείπει μια εξάρτηση, αλλά δεν εμφανίζει ένα χρήσιμο σφάλμα.</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το πρόγραμμα μπορεί να επιχειρεί μια κλήση συστήματος που είναι μπλοκαρισμένη, λείπει μια εξάρτηση, ή ψάχνει για ένα αρχείο σε λάθος διαδρομή.</p>
                 <p class="mt-3"><b>Λύση: Παρακολούθηση Κλήσεων Συστήματος με `strace`:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install strace && strace -f &lt;failing-command&gt;</div>
-                <p class="text-xs text-gray-500 mt-1">Το `strace` θα εμφανίσει ένα αρχείο καταγραφής γραμμή-γραμμή όλων των αλληλεπιδράσεων του συστήματος, αποκαλύπτοντας συχνά το ακριβές "Permission denied" ή σφάλμα διαδρομής που προκάλεσε το crash.</p>
+                <p class="text-xs text-gray-500 mt-1">Το `strace` θα εμφανίσει ένα αρχείο καταγραφής όλων των αλληλεπιδράσεων του συστήματος, αποκαλύπτοντας συχνά το ακριβές "Permission denied" ή σφάλμα διαδρομής που προκάλεσε το crash.</p>
             </li>
         </ul>
 
         <hr class="border-gray-700 my-8">
 
-        <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Κεφάλαιο 7: Προσαρμογή και Γραφικό Περιβάλλον (X11)</h4>
-        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Εγκατάσταση εναλλακτικών κελυφών και ρύθμιση ενός βασικού γραφικού desktop για εφαρμογές X-Window.</p>
+        <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Κεφάλαιο 7: Προσαρμογή και Γραφικό Περιβάλλον (X11/VNC)</h4>
+        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Εγκατάσταση εναλλακτικών κελυφών και ρύθμιση ενός γραφικού desktop για εφαρμογές X-Window ή VNC.</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Θέλω καλύτερες λειτουργίες και προσαρμογή από το προεπιλεγμένο κέλυφος Bash.</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Bash είναι το πρότυπο, αλλά κελύφη όπως το Zsh προσφέρουν προηγμένη αυτόματη συμπλήρωση και επεκτασιμότητα μέσω plugins.</p>
-                <p class="mt-3"><b>Λύση: Εγκαταστήστε το Zsh και Αλλάξτε Κέλυφος:</b></p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Bash είναι το πρότυπο, αλλά κελύφη όπως το Zsh και το Fish προσφέρουν προηγμένη αυτόματη συμπλήρωση, επισήμανση σύνταξης και επεκτασιμότητα.</p>
+                <p class="mt-3"><b>Λύση: Εγκαταστήστε το Zsh/Fish και Αλλάξτε Κέλυφος:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Εγκαταστήστε το πακέτο:</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install zsh</div>
-                    </li>
+                    <li><b>Εγκαταστήστε το πακέτο:</b> `pkg install zsh` ή `pkg install fish`</li>
                     <li><b>Αλλάξτε το προεπιλεγμένο κέλυφος:</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">chsh -s zsh</div>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">chsh -s zsh (ή chsh -s fish)</div>
                         <p class="text-xs text-gray-500">Πρέπει να κάνετε επανεκκίνηση του Termux για να τεθεί σε ισχύ αυτή η αλλαγή.</p>
-                    </li>
-                    <li><b>Προσαρμόστε την προτροπή (π.χ., στο `~/.zshrc`):</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">export PROMPT='%n@%m:%~%# '</div>
                     </li>
                 </ol>
             </li>
@@ -657,18 +812,33 @@
                 <p class="text-gray-400 mt-2"><b>Αιτία:</b> Οι γραφικές εφαρμογές απαιτούν έναν X Server να εκτελείται στη συσκευή Android για να αποδώσει την έξοδο.</p>
                 <p class="mt-3"><b>Λύση: Ρύθμιση Περιβάλλοντος X11:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Εγκαταστήστε το αποθετήριο X11 και το πακέτο client:</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install x11-repo && pkg install termux-x11-nightly</div>
+                    <li><b>Εγκαταστήστε το αποθετήριο X11 και πακέτα:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install x11-repo && pkg install termux-x11-nightly fluxbox</div>
                     </li>
                     <li><b>Εγκαταστήστε την ξεχωριστή εφαρμογή Termux:X11</b> από το F-Droid ή το GitHub.</li>
-                    <li><b>Ορίστε τη μεταβλητή οθόνης και εκτελέστε μια εφαρμογή (π.χ., `xeyes`):</b>
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">export DISPLAY=':0' && pkg install xeyes && xeyes</div>
-                        <p class="text-xs text-gray-500">Η εφαρμογή Termux:X11 πρέπει να εκτελείται στο παρασκήνιο για να λειτουργήσει αυτό.</p>
+                    <li><b>Διαμόρφωση και εκτέλεση:</b> Ανοίξτε την εφαρμογή Termux:X11. Στο Termux, εκτελέστε:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">export DISPLAY=':0' && termux-x11 & && sleep 3 && fluxbox &</div>
+                        <p class="text-xs text-gray-500">Αυτό ξεκινά τον διακομιστή X11 και τον διαχειριστή παραθύρων Fluxbox. Τώρα μπορείτε να εκτελέσετε γραφικές εφαρμογές όπως το `xterm`.</p>
                     </li>
                 </ol>
             </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Εναλλακτική: Θέλω ένα πιο σταθερό, μόνιμο γραφικό περιβάλλον εργασίας.</b>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το X11 μπορεί να είναι εύθραυστο. Το VNC (Virtual Network Computing) παρέχει ένα πιο ανθεκτικό εικονικό περιβάλλον εργασίας που παραμένει ενεργό ακόμα και αν η εφαρμογή-πελάτης αποσυνδεθεί.</p>
+                <p class="mt-3"><b>Λύση: Ρύθμιση ενός VNC Server:</b></p>
+                <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li><b>Εγκατάσταση του TigerVNC και ενός διαχειριστή παραθύρων:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install tigervnc fluxbox</div>
+                    </li>
+                    <li><b>Εκκίνηση του VNC server:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">vncserver -localhost no</div>
+                        <p class="text-xs text-gray-500">Ορίστε έναν κωδικό πρόσβασης την πρώτη φορά. Αυτό ξεκινά έναν διακομιστή στη θύρα 5901.</p>
+                    </li>
+                    <li><b>Σύνδεση με έναν client:</b> Εγκαταστήστε μια εφαρμογή VNC Viewer στο Android (όπως το AVNC από το F-Droid), και συνδεθείτε στο `127.0.0.1:5901`.</li>
+                </ol>
+            </li>
         </ul>
-
+        
         <hr class="border-gray-700 my-8">
 
         <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Κεφάλαιο 8: Ανάκτηση Δεδομένων και Κατεστραμμένες Εγκαταστάσεις</h4>
@@ -678,21 +848,85 @@
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Το Termux είναι εντελώς χαλασμένο, ή οι εντολές `pkg` και `apt` αποτυγχάνουν αμέσως (Κατεστραμμένο Prefix).</b>
                 <p class="text-gray-400 mt-2"><b>Αιτία:</b> Κρίσιμα αρχεία στον κατάλογο `$PREFIX` (`/usr`) είναι κατεστραμμένα, συχνά από κακά scripts ή βίαιο τερματισμό κατά τη διάρκεια μιας αναβάθμισης.</p>
-                <p class="mt-3"><b>Λύση: Επαναφορά Περιβάλλοντος Termux (Μη Καταστροφική για το Home):</b></p>
+                <p class="mt-3"><b>Λύση: Δημιουργία αντιγράφων ασφαλείας και Επαναφορά:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Βήμα 1:</b> Εάν είναι δυνατόν, αποθηκεύστε όλα τα αρχεία από το `$HOME` στον αποθηκευτικό χώρο του Android χρησιμοποιώντας `cp -r ~ /sdcard/TermuxBackup`.</li>
-                    <li><b>Βήμα 2:</b> Εκτελέστε την πλήρη επαναφορά:
-                        <div class="code-block p-2 mt-1 rounded-md text-sm">termux-setup-storage --reset</div>
-                        <p class="text-xs text-gray-500">Αυτή η εντολή καθαρίζει <i>όλα</i> τα εγκατεστημένα πακέτα και το prefix του Termux, αλλά <i>προσπαθεί να διατηρήσει</i> τον κατάλογο `$HOME`.</p>
+                    <li><b>Βήμα 1: Δημιουργία αντιγράφου ασφαλείας του αρχικού σας καταλόγου.</b> Εκτελέστε πρώτα `termux-setup-storage`. Στη συνέχεια, δημιουργήστε ένα συμπιεσμένο αρχείο:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">tar -czvf /sdcard/termux-backup.tar.gz -C $HOME .</div>
+                        <p class="text-xs text-gray-500">Αυτό αποθηκεύει τα πάντα στον αρχικό σας κατάλογο σε ένα ενιαίο αρχείο στον εσωτερικό χώρο αποθήκευσης του τηλεφώνου σας.</p>
                     </li>
-                    <li><b>Βήμα 3:</b> Εναλλακτικά, <b>καθαρίστε τα δεδομένα της εφαρμογής</b> μέσω των Ρυθμίσεων του Android, κάτι που εκτελεί μια πλήρη εργοστασιακή επαναφορά.</li>
+                    <li><b>Βήμα 2: Εκκαθάριση Δεδομένων Εφαρμογής.</b> Πηγαίνετε στις Ρυθμίσεις Android -> Εφαρμογές -> Termux -> Αποθηκευτικός χώρος και "Εκκαθάριση δεδομένων". Αυτό εκτελεί μια πλήρη εργοστασιακή επαναφορά του Termux.</li>
+                    <li><b>Βήμα 3: Επαναφορά των δεδομένων σας.</b> Αφού ανοίξετε ξανά το Termux, εκτελέστε ξανά το `termux-setup-storage` και στη συνέχεια αποσυμπιέστε το αντίγραφο ασφαλείας σας:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">tar -xzvf /sdcard/termux-backup.tar.gz -C $HOME</div>
+                    </li>
+                </ol>
+            </li>
+        </ul>
+
+         <hr class="border-gray-700 my-8">
+
+        <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Κεφάλαιο 9: Scripting και Αυτοματισμός</h4>
+        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Αξιοποίηση των plugins του Termux για την αυτοματοποίηση εργασιών και την ενσωμάτωση με το σύστημα Android.</p>
+
+        <ul class="space-y-6">
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Πρόβλημα: Θέλω να έχω πρόσβαση στη συνεδρία μου στο Termux από τον υπολογιστή μου.</b>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Από προεπιλογή, το Termux δεν εκτελεί διακομιστή SSH για απομακρυσμένη πρόσβαση.</p>
+                <p class="mt-3"><b>Λύση: Ρύθμιση του διακομιστή OpenSSH:</b></p>
+                <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li><b>Εγκατάσταση του OpenSSH:</b> `pkg install openssh`</li>
+                    <li><b>Ορισμός κωδικού πρόσβασης:</b> Εκτελέστε `passwd` για να ορίσετε έναν κωδικό πρόσβασης για τον χρήστη σας. Αυτό θα χρησιμοποιήσετε για να συνδεθείτε.</li>
+                    <li><b>Εκκίνηση του διακομιστή SSH:</b> `sshd`</li>
+                    <li><b>Εύρεση της διεύθυνσης IP της συσκευής σας:</b> `ifconfig` (αναζητήστε τη διεύθυνση `inet` κάτω από το `wlan0`).</li>
+                    <li><b>Σύνδεση από άλλον υπολογιστή:</b> Χρησιμοποιήστε έναν πελάτη SSH για να συνδεθείτε. Ο προεπιλεγμένος χρήστης είναι `termux` και η προεπιλεγμένη θύρα είναι `8022`.
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">ssh termux@&lt;your-phone-ip&gt; -p 8022</div>
+                    </li>
+                </ol>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Πρόβλημα: Θέλω να εκτελέσω ένα script κατά την εκκίνηση της συσκευής μου.</b>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Απαιτεί τη συνοδευτική εφαρμογή `Termux:Boot` για να συνδεθεί με το συμβάν εκκίνησης του Android.</p>
+                <p class="mt-3"><b>Λύση: Χρήση του Termux:Boot:</b></p>
+                <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li><b>Εγκαταστήστε την εφαρμογή Termux:Boot</b> από το F-Droid.</li>
+                    <li><b>Δημιουργήστε τον κατάλογο εκκίνησης:</b> `mkdir -p ~/.termux/boot/`</li>
+                    <li><b>Δημιουργήστε το script σας:</b> Δημιουργήστε ένα νέο αρχείο όπως `~/.termux/boot/start-sshd`. Κάντε το εκτελέσιμο με `chmod +x`.
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">#!/data/data/com.termux/files/usr/bin/bash<br>termux-wake-lock<br>sshd</div>
+                        <p class="text-xs text-gray-500">Οποιοδήποτε εκτελέσιμο script τοποθετηθεί σε αυτόν τον κατάλογο θα εκτελείται κατά την εκκίνηση.</p>
+                    </li>
+                </ol>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Πρόβλημα: Θέλω να εκτελώ scripts από την αρχική οθόνη του Android.</b>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Αυτό απαιτεί τη συνοδευτική εφαρμογή `Termux:Widget`.</p>
+                <p class="mt-3"><b>Λύση: Χρήση του Termux:Widget:</b></p>
+                <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li><b>Εγκαταστήστε την εφαρμογή Termux:Widget</b> από το F-Droid.</li>
+                    <li><b>Δημιουργήστε τον κατάλογο συντομεύσεων:</b> `mkdir -p ~/.shortcuts/`</li>
+                    <li><b>Τοποθετήστε τα scripts σας εκεί:</b> Δημιουργήστε ένα script όπως `~/.shortcuts/update-all`. Το script θα εκτελεστεί από το widget. Για παράδειγμα:
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">#!/data/data/com.termux/files/usr/bin/bash<br>pkg update && pkg upgrade -y<br>termux-toast "Οι ενημερώσεις ολοκληρώθηκαν!"</div>
+                    </li>
+                     <li>Προσθέστε το Termux Widget στην αρχική σας οθόνη. Θα εμφανίσει όλα τα εκτελέσιμα scripts από τον κατάλογο `.shortcuts`.</li>
+                </ol>
+            </li>
+            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Πρόβλημα: Πώς μπορούν τα scripts μου να αλληλεπιδράσουν με το Android (π.χ., αποστολή ειδοποίησης, ανάγνωση κατάστασης μπαταρίας);</b>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Αυτό απαιτεί το πακέτο και την εφαρμογή `Termux:API`, τα οποία εκθέτουν τη λειτουργικότητα του Android σε εντολές κελύφους.</p>
+                <p class="mt-3"><b>Λύση: Χρήση εντολών Termux:API:</b></p>
+                <ol class="list-decimal list-inside ml-4 space-y-1">
+                    <li>Βεβαιωθείτε ότι τόσο το πακέτο `termux-api` όσο και η εφαρμογή `Termux:API` είναι εγκατεστημένα από το F-Droid.</li>
+                    <li><b>Παράδειγμα 1: Εμφάνιση ειδοποίησης από ένα script:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">termux-notification --title "Το αντίγραφο ασφαλείας ολοκληρώθηκε" --content "Το script αντιγράφων ασφαλείας σας ολοκληρώθηκε."</div>
+                    </li>
+                    <li><b>Παράδειγμα 2: Λήψη επιπέδου μπαταρίας και εμφάνιση μηνύματος toast:</b>
+                        <div class="code-block p-2 mt-1 rounded-md text-sm">battery=$(termux-battery-status | grep -oP '(?<="percentage": )[0-9]+')<br>termux-toast "Η μπαταρία είναι στο $battery%"</div>
+                    </li>
                 </ol>
             </li>
         </ul>
 
         <div class="p-6 bg-blue-900 rounded-lg shadow-xl mt-10">
             <h4 class="text-xl font-bold text-white mb-2">Τελική Σκέψη για το Termux</h4>
-            <p class="text-blue-200">Το Termux είναι ένα ισχυρό περιβάλλον χαμηλού επιπέδου. Κατά την αντιμετώπιση προβλημάτων, προχωρήστε πάντα βήμα προς βήμα, ξεκινώντας με τη σωστή πηγή εγκατάστασης (F-Droid) και τα κατάλληλα δικαιώματα. Εάν ένα σφάλμα επιμένει, ελέγχετε πάντα το <b>Termux Wiki</b> ή τα <b>GitHub Issues</b>.</p>
+            <p class="text-blue-200">Το Termux είναι ένα ισχυρό περιβάλλον χαμηλού επιπέδου. Κατά την αντιμετώπιση προβλημάτων, προχωρήστε πάντα βήμα προς βήμα, ξεκινώντας με τη σωστή πηγή εγκατάστασης (F-Droid) και τα κατάλληλα δικαιώματα. Εάν ένα σφάλμα επιμένει, ελέγχετε πάντα το επίσημο <b>Termux Wiki</b> ή τα <b>GitHub Issues</b> για λύσεις που παρέχονται από την κοινότητα.</p>
         </div>
     </div>
     </div>
