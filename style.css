@@ -12,8 +12,8 @@
     --nm-container: #1F2A38;  
     --nm-border: #3A4A5E;      
     --nm-accent: #9966FF;      /* Digital Lavender (Used for borders/success) */
-    --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender (Used for subtle highlights) */
-    --nm-text: #FFFFFF;        /* MODIFIED: All main text/titles default to white */
+    --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender (Used ONLY for Main Title) */
+    --nm-text: #FFFFFF;        /* MODIFIED: All text/titles default to PURE WHITE */
     --nm-text-muted: #7A8899;  
     /* DANGER/FAIL: Red */
     --nm-danger: #FF0000;      
@@ -261,8 +261,8 @@ body.light-theme #scroll-indicator-thumb {
     margin: 0;
     text-align: center;
     white-space: nowrap; 
-    font-size: clamp(5.5vw, 8vw, 3.0rem); 
-    color: var(--nm-text); /* MODIFIED: Set to white */
+    font-size: clamp(6.5vw, 8vw, 3.0rem);
+    color: var(--nm-accent-hover); /* Main Title is Lavender */
 }
 
 .search-container {
@@ -288,9 +288,9 @@ body.light-theme #scroll-indicator-thumb {
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
-    /* MODIFIED: Removed clip-path and added border-radius */
+    /* MODIFIED: Remove clip-path, large border-radius for pill shape */
     clip-path: none; 
-    border-radius: 10px;
+    border-radius: 50px; 
     box-sizing: border-box;
     animation: pulse-cyan 2s infinite; 
 }
@@ -312,7 +312,7 @@ body.light-theme #scroll-indicator-thumb {
     max-height: 300px;
     overflow-y: auto;
     z-index: 100;
-    /* MODIFIED: Removed clip-path and added border-radius */
+    /* MODIFIED: Large border-radius for rounded results box */
     clip-path: none;
     border-radius: 10px;
 }
@@ -359,7 +359,7 @@ main.home-screen > h1, .main-header-container > h1 {
     margin: 0; 
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(6.5vw, 8vw, 3.0rem);
-    color: var(--nm-text); /* MODIFIED: Set to white */
+    color: var(--nm-accent-hover); /* Main Title is Lavender */
     text-shadow: none; 
     transition: text-shadow 0.3s ease, color 0.3s ease;
     animation: none; 
@@ -372,6 +372,7 @@ main.home-screen > h1:hover, .main-header-container > h1:hover {
 body.light-theme main.home-screen > h1,
 body.light-theme .main-header-container > h1 {
     text-shadow: none;
+    color: var(--nm-text);
     animation: none;
 }
 
@@ -398,7 +399,7 @@ body.light-theme .main-header-container > h1 {
     /* Pitch Black Background */
     background: #000000; 
     border: 1px solid var(--nm-accent);
-    color: var(--nm-text); 
+    color: var(--nm-text); /* MODIFIED: Enforce White text/icon */
     cursor: pointer;
     font-family: 'Roboto Mono', monospace;
     transition: all 0.2s ease;
@@ -410,7 +411,7 @@ body.light-theme .main-header-container > h1 {
     padding: 10px 15px;
     box-sizing: border-box;
     position: relative;
-    /* MODIFIED: Circular shape (removed clip-path, using border-radius) */
+    /* MODIFIED: Circular shape maintained for app icons */
     clip-path: none;
     border-radius: 50%;
     gap: 12px;
@@ -431,7 +432,7 @@ body.light-theme .main-header-container > h1 {
 .app-label {
     font-size: 0.75rem;
     font-weight: 400;
-    color: var(--nm-text);
+    color: var(--nm-text); /* MODIFIED: Enforce White text */
     text-align: center;
     word-break: break-word;
     line-height: 1.2;
@@ -458,7 +459,7 @@ body.light-theme .main-header-container > h1 {
 }
 
 .app-icon i {
-    color: var(--nm-text); 
+    color: var(--nm-text); /* MODIFIED: Enforce White icon color */
     transition: color 0.2s ease;
     font-size: 1.4rem;
     margin: 0;
@@ -509,9 +510,9 @@ body.light-theme .app-icon:hover {
     height: auto;
     border: 1px solid var(--nm-border);
     background-color: var(--nm-container);
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px; 
 }
 
 .main-footer {
@@ -561,9 +562,9 @@ body.light-theme .modal-overlay {
     overflow: hidden;
     transform: translateY(20px);
     transition: all 0.3s ease;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .modal-content-auto-height { 
     height: auto;
@@ -591,7 +592,7 @@ body.light-theme .modal-content {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.1rem;
     margin: 0;
-    color: var(--nm-text); /* MODIFIED: Set to white */
+    color: var(--nm-text); /* MODIFIED: Enforce White */
     text-transform: uppercase;
     text-shadow: none; 
 }
@@ -625,7 +626,7 @@ body.light-theme .modal-content {
 }
 
 .modal-body h3 {
-    color: var(--nm-text); /* MODIFIED: Set to white */
+    color: var(--nm-text); /* MODIFIED: Enforce White */
     border-bottom: 1px solid var(--nm-border);
     padding-bottom: 8px;
     margin-top: 1.5rem;
@@ -682,8 +683,8 @@ body.light-theme .modal-content {
     background: var(--nm-darkest);
     font-size: 0.85em;
     color: var(--nm-text-muted);
-    /* MODIFIED: Added border-radius */
-    border-radius: 10px;
+    /* MODIFIED: Added uniform border-radius */
+    border-radius: 20px;
 }
 
 .code-container {
@@ -693,9 +694,9 @@ body.light-theme .modal-content {
     padding: 15px;
     margin: 1em 0;
     transition: background-color 0.3s ease;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
 }
 .code-container code {
@@ -722,10 +723,9 @@ body.light-theme .modal-content {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.7rem;
     text-transform: uppercase;
-    transition: all 0.2s ease;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .copy-btn:hover {
     background: var(--nm-accent);
@@ -750,7 +750,7 @@ body.light-theme .modal-content {
 #navigation-container button,
 #results-container button {
     background-color: transparent;
-    color: var(--nm-accent-hover);
+    color: var(--nm-text); /* MODIFIED: Enforce White */
     border: 1px solid var(--nm-accent);
     font-family: 'Orbitron', sans-serif;
     text-transform: uppercase;
@@ -759,9 +759,9 @@ body.light-theme .modal-content {
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: none; 
 }
 
@@ -806,7 +806,7 @@ body.light-theme .modal-content {
     box-shadow: none; 
     margin: 1em 0;
     padding: 0.8em 1em;
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 20px 20px 0; /* MODIFIED: Rounded right side only, typical for tips */
     transition: all 0.3s ease;
 }
 
@@ -824,9 +824,9 @@ body.light-theme .modal-content {
     padding: 12px 15px;
     gap: 15px;
     justify-content: center;
-    /* MODIFIED: Enforce rectangle on contact grid icons */
+    /* MODIFIED: Enforce uniform border-radius */
     clip-path: none;
-    border-radius: 10px; 
+    border-radius: 20px; 
 }
 
 
@@ -843,15 +843,15 @@ body.light-theme .modal-content {
     flex-direction: column;
     color: var(--nm-text);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .hidden { display: none; } 
 .hidden-by-default { display: none; } 
 
 #language-selection h1, #user-info h1, #results-container h1 {
-    color: var(--nm-text); /* MODIFIED: Set to white */
+    color: var(--nm-text); /* MODIFIED: Enforce White */
     text-shadow: none; 
     font-size: 1.5rem;
     text-align: center;
@@ -900,9 +900,9 @@ body.light-theme #results-container h1 {
     width: 100%;
     box-sizing: border-box;
     transition: all 0.3s ease;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 #user-info input:focus {
     outline: none;
@@ -926,9 +926,9 @@ body.light-theme #results-container h1 {
     font-size: 0.9rem;
     border: 1px solid var(--nm-border);
     transition: background-color 0.3s ease;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
 }
 .quiz-page { animation: fadeIn 0.5s ease-in-out; }
@@ -943,9 +943,9 @@ body.light-theme #results-container h1 {
     padding: 1rem; 
     margin-bottom: 1rem; 
     transition: background-color 0.3s ease; 
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .quiz-page .options-container { display: flex; flex-direction: column; gap: 0.75rem; }
 .quiz-page label {
@@ -956,9 +956,9 @@ body.light-theme #results-container h1 {
     background-color: var(--nm-container);
     cursor: pointer;
     transition: all 0.2s ease;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .quiz-page label:hover, .quiz-page input[type="radio"]:checked + span {
     background-color: var(--nm-accent-hover);
@@ -1037,9 +1037,9 @@ body.light-theme #results-container h1 {
     padding: 20px;
     box-shadow: none; 
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .certificate {
     background-image:
@@ -1051,8 +1051,8 @@ body.light-theme #results-container h1 {
     position: relative;
     font-family: 'Noto Serif', serif;
     color: var(--nm-text);
-    /* MODIFIED: Added border-radius to certificate itself */
-    border-radius: 10px;
+    /* MODIFIED: Added uniform border-radius to certificate itself */
+    border-radius: 20px;
 }
 
 body.light-theme .certificate {
@@ -1087,7 +1087,7 @@ body.light-theme .certificate {
 .certificate-header h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
-    color: var(--nm-text); /* MODIFIED: Set to white */
+    color: var(--nm-text); /* MODIFIED: Enforce White */
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -1109,7 +1109,7 @@ body.light-theme .certificate-header h1 {
     font-family: 'Noto Serif', serif;
     font-style: italic;
     font-size: 2.5rem;
-    color: var(--nm-text); /* MODIFIED: Set to white */
+    color: var(--nm-text); /* MODIFIED: Enforce White */
     margin: 1.5rem 0;
     font-weight: 700;
     border-bottom: 2px solid var(--nm-border);
@@ -1142,9 +1142,9 @@ body.light-theme .certificate-header h1 {
     font-family: 'Orbitron', sans-serif;
     font-weight: bold;
     font-size: 0.9rem;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .serif { font-family: 'Noto Serif', serif; }
 .text-green-600 { color: var(--nm-success) !important; }
@@ -1179,9 +1179,9 @@ body.light-theme .certificate-header h1 {
     max-width: 100%;
     box-sizing: border-box;
     line-height: 1.4;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .store-link a:hover {
     background-color: var(--nm-accent-hover);
@@ -1198,9 +1198,9 @@ body.light-theme .certificate-header h1 {
     overflow: hidden;
     border: 1px solid var(--nm-border);
     background-color: var(--nm-container);
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Added uniform border-radius */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .gym-clothing-images {
     width: 100%;
@@ -1244,7 +1244,7 @@ body.light-theme .certificate-header h1 {
 
 #useful-information-content h3 {
     text-align: left;
-    color: var(--nm-text); /* MODIFIED: Set to white */
+    color: var(--nm-text); /* MODIFIED: Enforce White */
     border-bottom: 1px solid var(--nm-border);
     padding-bottom: 8px;
     margin-top: 1rem;
@@ -1278,9 +1278,9 @@ body.light-theme .certificate-header h1 {
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
-    /* MODIFIED: Added border-radius */
+    /* MODIFIED: Large border-radius for pill shape */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 50px;
     box-sizing: border-box;
     animation: pulse-cyan 2s infinite; 
 }
@@ -1296,8 +1296,8 @@ body.light-theme .certificate-header h1 {
     max-height: 90vh;
     border: 3px solid var(--nm-accent);
     box-shadow: none; 
-    /* MODIFIED: Added border-radius */
-    border-radius: 10px;
+    /* MODIFIED: Added uniform border-radius */
+    border-radius: 20px;
 }
 .modal-divider {
     margin: 2rem 0;
@@ -1311,14 +1311,14 @@ body.light-theme .certificate-header h1 {
     color: white;
     font-weight: bold;
     border-color: var(--nm-warning); 
-    /* MODIFIED: Added border-radius */
-    border-radius: 10px;
+    /* MODIFIED: Added uniform border-radius */
+    border-radius: 20px;
 }
 .note.note-danger {
     border-left-color: var(--nm-danger);
     background: var(--danger-bg);
-    /* MODIFIED: Added border-radius */
-    border-radius: 10px;
+    /* MODIFIED: Added uniform border-radius */
+    border-radius: 20px;
 }
 .certificate-footer .signature span {
     font-style: italic;
@@ -1328,7 +1328,7 @@ body.light-theme .certificate-header h1 {
     max-width: 400px;
     margin: 1rem auto;
     display: block;
-    border-radius: 10px;
+    border-radius: 20px; /* MODIFIED: Uniform border-radius */
     border: 1px solid var(--nm-border);
 }
 #useful-info-prompt {
