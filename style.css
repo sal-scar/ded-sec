@@ -860,8 +860,13 @@ body.light-theme .modal-content {
     clip-path: none;
     border-radius: 20px;
 }
+/* FIX 1: New class to remove scrolling for short content in #app-container */
+#app-container.no-scroll {
+    overflow-y: hidden;
+}
+
 .hidden { 
-    display: none !important; /* CRITICAL FIX: Ensure elements are hidden */
+    display: none !important; 
 } 
 .hidden-by-default { 
     display: none; 

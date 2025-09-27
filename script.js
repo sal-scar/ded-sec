@@ -621,6 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const lastNameInput = certModal.querySelector('#last-name');
         const mistakeCounterEl = certModal.querySelector('#mistake-counter');
         const timerDisplayEl = certModal.querySelector('#timer-display');
+        const appContainerDiv = certModal.querySelector('#app-container'); // NEW: Get the app container
 
         window.resetQuiz = () => {
             currentPage = 1;
@@ -634,6 +635,9 @@ document.addEventListener('DOMContentLoaded', () => {
             quizContainerDiv.innerHTML = '';
             resultsContainerDiv.innerHTML = '';
 
+            // FIX: Add no-scroll class immediately when resetting to a short page
+            appContainerDiv.classList.add('no-scroll');
+            
             userInfoDiv.classList.add('hidden');
             quizContainerDiv.classList.add('hidden');
             quizStatsDiv.classList.add('hidden');
@@ -666,6 +670,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 quizContainerDiv.classList.remove('hidden');
                 navigationContainerDiv.classList.remove('hidden');
                 quizStatsDiv.classList.remove('hidden');
+
+                // FIX: Remove no-scroll class right before starting the long quiz
+                appContainerDiv.classList.remove('no-scroll');
                 
                 buildPages();
                 renderPage();
@@ -861,6 +868,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
+            // FIX: Add no-scroll back when showing the results page
+            appContainerDiv.classList.add('no-scroll');
+
             quizContainerDiv.classList.add('hidden');
             navigationContainerDiv.classList.add('hidden');
             quizStatsDiv.classList.add('hidden');
@@ -913,6 +923,9 @@ document.addEventListener('DOMContentLoaded', () => {
         prevBtn.addEventListener('click', () => navigatePage(-1));
         nextBtn.addEventListener('click', () => navigatePage(1));
         submitBtn.addEventListener('click', showResults);
+
+        // Ensure the initial state is set
+        window.resetQuiz();
     }
 
     // --- INITIALIZE ALL FEATURES ---
