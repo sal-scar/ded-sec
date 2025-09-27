@@ -11,32 +11,36 @@
     --nm-dark: #151E2A;       
     --nm-container: #1F2A38;  
     --nm-border: #3A4A5E;      
-    --nm-accent: #9966FF;      /* Digital Lavender */
-    --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender for intense glow */
+    --nm-accent: #9966FF;      /* Digital Lavender (Used for borders/success) */
+    --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender */
     --nm-text: #D0D8E0;        
     --nm-text-muted: #7A8899;  
-    /* MODIFIED: Red for Decline/Danger */
+    /* DANGER/FAIL: Red */
     --nm-danger: #FF0000;      
     --nm-danger-hover: #FF0000; 
-    /* MODIFIED: Green for Accept/Success */
+    /* SUCCESS: Green */
     --nm-success: #00FF00;     
-    /* MODIFIED: Yellow for search bar, general warning */
+    /* WARNING/HIGHLIGHT: Yellow */
     --nm-warning: #FFFF00;     
     
     --glow-rgb: 153, 102, 255; /* RGB components for the accent color */
-    --glow-color: rgba(var(--glow-rgb), 0.9);
-    /* NEW: Yellow Glow for search bar */
-    --glow-color-danger: rgba(255, 255, 0, 0.8); 
-    /* NEW: Red Glow for highlighter */
-    --glow-color-warning: rgba(255, 0, 0, 0.8); 
+    --glow-color: rgba(var(--glow-rgb), 0.0); /* MODIFIED: Removed glow */
+    /* Search Bar Green/Matrix Color */
+    --nm-search-green: #00CC00; 
+    /* Search Bar Green Glow */
+    --glow-color-search: rgba(0, 204, 0, 0.8); 
+    /* Highlight Red Glow (kept for compatibility, though red is not requested) */
+    --glow-color-danger: rgba(255, 0, 0, 0.0); /* MODIFIED: Removed glow */
+    /* Highlighter Yellow Glow */
+    --glow-color-warning: rgba(255, 255, 0, 0.8); 
 
-    /* NEW: Red and Yellow Backgrounds for Notes */
-    --warning-bg: rgba(255, 255, 0, 0.1);
+    --warning-bg: rgba(255, 255, 0, 0.1); /* Yellow background for warning notes */
     --danger-bg: rgba(255, 0, 0, 0.1);
 
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
     --shape-cut: 20px;
-    --clip-path-shape: polygon(0 0, calc(100% - var(--shape-cut)) 0, 100% var(--shape-cut), 100% 100%, var(--shape-cut) 100%, 0 calc(100% - var(--shape-cut)));
+    /* MODIFIED: Removed custom clip path since buttons are circles */
+    --clip-path-shape: polygon(0 0, 100% 0, 100% 100%, 0 100%); 
 }
 
 body.light-theme {
@@ -47,7 +51,7 @@ body.light-theme {
     --nm-border: #cccccc;
     --nm-text: #000000;
     --nm-text-muted: #555555;
-    --nm-warning: #9966FF; /* CHANGED */
+    --nm-warning: #9966FF; 
     --glow-color: rgba(var(--glow-rgb), 0.3);
 }
 
@@ -56,22 +60,18 @@ body.light-theme {
     100% { transform: translateY(-50%); }
 }
 
+/* MODIFIED: Remove text glitch animation entirely */
 @keyframes text-glitch {
-    2%, 64% { transform: translate(2px, 0) skew(-1deg); }
-    4%, 60% { transform: translate(-2px, 0) skew(1deg); }
-    62% { transform: translate(0, 0) skew(5deg); }
+    0% { transform: translate(0, 0) skew(0); }
+    100% { transform: translate(0, 0) skew(0); }
 }
 
+/* MODIFIED: Remove flickering effect and associated text-shadows (glowing) */
 @keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+  0%, 100% {
     opacity: 1;
-    text-shadow: 0 0 5px #fff, 0 0 15px var(--glow-color), 0 0 25px var(--glow-color);
+    text-shadow: none;
   }
-  20%, 24%, 55% {
-    opacity: 0.7;
-    text-shadow: 0 0 10px #fff, 0 0 20px var(--glow-color), 0 0 35px var(--glow-color);
-  }
-  22%, 53% { opacity: 0.9; }
 }
 
 html, body {
@@ -98,9 +98,9 @@ button.app-wrapper {
     border: none;
     padding: 0;
     margin: 0;
-    font: inherit; /* Inherit font from parent */
-    color: inherit;  /* Inherit text color from parent */
-    text-align: inherit; /* Inherit text alignment */
+    font: inherit; 
+    color: inherit; 
+    text-align: inherit; 
     cursor: pointer;
 }
 
@@ -121,10 +121,13 @@ button.app-wrapper {
     position: absolute;
     right: 0;
     top: 0;
+    width: 8px;
+    height: 100%;
+    /* REMOVED GLOW */
     background: linear-gradient(to bottom, var(--nm-danger), var(--nm-danger-hover), var(--nm-danger));
-    box-shadow: 0 0 15px var(--glow-color-danger), 0 0 30px var(--glow-color-danger);
+    box-shadow: none;
     z-index: 10;
-    display: none; /* MODIFIED: Permanently hidden */
+    display: none; 
 }
 
 #scroll-indicator-thumb {
@@ -133,8 +136,10 @@ button.app-wrapper {
     top: 0; 
     width: 8px;
     height: 40px;
-    background: linear-gradient(to bottom, var(--nm-accent), var(--nm-accent-hover), var(--nm-accent));
-    box-shadow: 0 0 15px var(--glow-color), 0 0 30px var(--glow-color);
+    /* MODIFIED: Changed to Black */
+    background: #000000; 
+    /* REMOVED GLOW */
+    box-shadow: none;
     z-index: 11;
     transition: opacity 0.3s ease;
     opacity: 0; 
@@ -147,7 +152,6 @@ button.app-wrapper {
     background-color: var(--nm-abyss-blue);
     background-image:
         url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="46.188" viewBox="0 0 40 46.188"><path d="M20 0 L40 11.547 v23.094 L20 46.188 L0 34.641 V11.547 Z" fill="none" stroke="rgba(58, 74, 94, 0.1)" stroke-width="1"/></svg>'),
-        /* MODIFIED: Removed the purple linear-gradient overlay */
         url("data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3E/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     background-size: auto, cover, cover;
     position: relative;
@@ -169,7 +173,7 @@ button.app-wrapper {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.3; /* MODIFIED: Set opacity to 0.3 */
+    opacity: 0.3; 
     z-index: -1;
 }
 
@@ -185,26 +189,23 @@ button.app-wrapper {
 }
 
 .screen-overlay::after {
-    /* MODIFIED: Removed content to eliminate the purple scanline glow */
     content: '';
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 200%; 
-    background: transparent; /* Changed to transparent */
-    animation: none; /* Disabled animation */
+    background: transparent; 
+    animation: none; 
     will-change: transform; 
 }
 
 .screen::before {
-    /* MODIFIED: Removed content and background to eliminate the dark radial vignette */
     content: '';
     position: absolute;
     top: 0; left: 0;
     width: 100%;
     height: 100%;
-    /* background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.9) 100%); */
     background: none;
     pointer-events: none;
     z-index: 3;
@@ -236,10 +237,11 @@ body.light-theme #scroll-indicator-thumb {
     background: var(--nm-dark);
 }
 ::-webkit-scrollbar-thumb {
-    background-color: var(--nm-accent);
+    /* MODIFIED: Changed scrollbar thumb to black */
+    background-color: #000000;
     border-radius: 10px;
     border: 2px solid var(--nm-dark);
-    box-shadow: 0 0 10px var(--glow-color);
+    box-shadow: none; /* Removed glow */
 }
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--nm-accent-hover);
@@ -252,14 +254,14 @@ body.light-theme #scroll-indicator-thumb {
     width: 100%;
     gap: 15px;
     margin-bottom: 20px;
-    padding-top: 25px; /* Moved from inline style */
+    padding-top: 25px; 
 }
 
 .main-header-container h1 {
     margin: 0;
     text-align: center;
-    white-space: nowrap; /* Moved from head style block */
-    font-size: clamp(5.5vw, 8vw, 3.0rem); /* Moved from head style block */
+    white-space: nowrap; 
+    font-size: clamp(5.5vw, 8vw, 3.0rem); 
 }
 
 .search-container {
@@ -269,10 +271,10 @@ body.light-theme #scroll-indicator-thumb {
 }
 
 @keyframes pulse-cyan {
-    /* MODIFIED: Using Yellow/Warning glow */
-    0% { box-shadow: 0 0 20px rgba(255, 255, 0, 0.8), inset 0 0 15px rgba(255, 255, 0, 0.4); } 
-    50% { box-shadow: 0 0 30px rgba(255, 255, 0, 0.8), inset 0 0 20px rgba(255, 255, 0, 0.5); } 
-    100% { box-shadow: 0 0 20px rgba(255, 255, 0, 0.8), inset 0 0 15px rgba(255, 255, 0, 0.4); } 
+    /* MODIFIED: Using Dark Green/Matrix Glow */
+    0% { box-shadow: 0 0 20px var(--glow-color-search), inset 0 0 15px rgba(0, 204, 0, 0.4); } 
+    50% { box-shadow: 0 0 30px var(--glow-color-search), inset 0 0 20px rgba(0, 204, 0, 0.5); } 
+    100% { box-shadow: 0 0 20px var(--glow-color-search), inset 0 0 15px rgba(0, 204, 0, 0.4); } 
 }
 
 
@@ -280,12 +282,13 @@ body.light-theme #scroll-indicator-thumb {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 2px solid var(--nm-warning); /* MODIFIED: Set to Yellow */
+    border: 2px solid var(--nm-search-green); /* MODIFIED: Set to Dark Green */
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); 
     box-sizing: border-box;
     animation: pulse-cyan 2s infinite; 
 }
@@ -302,12 +305,13 @@ body.light-theme #scroll-indicator-thumb {
     left: 0;
     width: 100%;
     background-color: var(--nm-dark);
-    border: 1px solid var(--nm-warning); /* MODIFIED: Set to Yellow */
-    box-shadow: 0 10px 30px rgba(255, 255, 0, 0.8); /* MODIFIED: Set to Yellow Glow */
+    border: 1px solid var(--nm-search-green); /* MODIFIED: Set to Dark Green */
+    box-shadow: none; /* Removed glow */
     max-height: 300px;
     overflow-y: auto;
     z-index: 100;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 #search-results-container .search-result-item,
@@ -325,8 +329,8 @@ body.light-theme #scroll-indicator-thumb {
 
 #search-results-container .search-result-item:hover,
 #useful-info-results-container .search-result-item:hover {
-    background-color: var(--nm-accent); /* CHANGED to Lavender */
-    color: var(--nm-darkest); /* CHANGED to dark text on hover */
+    background-color: var(--nm-accent); 
+    color: var(--nm-darkest); 
 }
 #search-results-container .search-result-item small,
 #useful-info-results-container .search-result-item small {
@@ -341,8 +345,9 @@ body.light-theme #scroll-indicator-thumb {
 }
 
 .content-highlight {
-    background-color: rgba(255, 0, 0, 0.3); /* MODIFIED: Set to Red */
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8); /* MODIFIED: Set to Red Glow */
+    /* MODIFIED: Set to Yellow and removed glow */
+    background-color: rgba(255, 255, 0, 0.3); 
+    box-shadow: none; 
     transition: background-color 1s ease;
 }
 
@@ -352,16 +357,16 @@ main.home-screen > h1, .main-header-container > h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(6.5vw, 8vw, 3.0rem);
     color: var(--nm-accent-hover);
-    text-shadow: 0 0 5px rgba(255,255,255,0.8),
-                 0 0 15px var(--glow-color),
-                 0 0 30px var(--glow-color),
-                 0 0 50px var(--glow-color);
+    /* MODIFIED: Removed glowing text-shadow */
+    text-shadow: none;
     transition: text-shadow 0.3s ease, color 0.3s ease;
-    animation: flicker 6s linear infinite; 
+    /* MODIFIED: Removed flickering animation */
+    animation: none; 
 }
 
 main.home-screen > h1:hover, .main-header-container > h1:hover {
-    animation: text-glitch 0.4s infinite, flicker 6s linear infinite;
+    /* MODIFIED: Removed glitch/flicker animation on hover */
+    animation: none;
 }
 
 body.light-theme main.home-screen > h1,
@@ -390,7 +395,7 @@ body.light-theme .main-header-container > h1 {
 }
 
 .app-icon {
-    /* MODIFIED: Pitch Black Background */
+    /* Pitch Black Background */
     background: #000000; 
     border: 1px solid var(--nm-accent);
     color: var(--nm-text); 
@@ -405,9 +410,10 @@ body.light-theme .main-header-container > h1 {
     padding: 10px 15px;
     box-sizing: border-box;
     position: relative;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Circular shape */
+    clip-path: circle(50%);
     gap: 12px;
-    box-shadow: none; /* Removed initial inset glow */
+    box-shadow: none; /* Removed glow */
     height: 56px;
 }
 
@@ -417,6 +423,8 @@ body.light-theme .main-header-container > h1 {
     height: 64px;
     padding: 0;
     gap: 0;
+    /* MODIFIED: Enforce circle on button wrapper icon */
+    border-radius: 50%; 
 }
 
 .app-label {
@@ -429,21 +437,17 @@ body.light-theme .main-header-container > h1 {
 }
 
 .app-icon:hover {
-    /* Hover maintains dark text on Lavender background */
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    box-shadow: 0 0 20px var(--glow-color),
-                0 0 40px var(--glow-color); /* Removed inset glow */
+    box-shadow: none; /* Removed glow */
 }
 
 .app-wrapper:hover .app-icon,
 .app-wrapper:focus-visible .app-icon {
-    /* Hover maintains dark text on Lavender background */
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
-    box-shadow: 0 0 20px var(--glow-color),
-                0 0 40px var(--glow-color); /* Removed inset glow */
+    box-shadow: none; /* Removed glow */
     outline: none;
 }
 
@@ -453,11 +457,11 @@ body.light-theme .main-header-container > h1 {
 }
 
 .app-icon i {
-    color: var(--nm-text); /* MODIFIED: White icon color */
+    color: var(--nm-text); 
     transition: color 0.2s ease;
     font-size: 1.4rem;
     margin: 0;
-    text-shadow: none; /* Removed initial glow */
+    text-shadow: none; /* Removed glow */
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -466,7 +470,7 @@ body.light-theme .main-header-container > h1 {
 .app-icon:hover i,
 .app-wrapper:hover .app-icon i,
 .app-wrapper:focus-visible .app-icon i {
-    color: var(--nm-darkest); /* Dark text on Lavender hover */
+    color: var(--nm-darkest); 
     text-shadow: none;
 }
 
@@ -504,7 +508,8 @@ body.light-theme .app-icon:hover {
     height: auto;
     border: 1px solid var(--nm-border);
     background-color: var(--nm-container);
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 .main-footer {
@@ -548,15 +553,16 @@ body.light-theme .modal-overlay {
     height: 85%;
     max-height: 800px;
     border: 1px solid var(--nm-accent); 
-    box-shadow: 0 0 30px var(--glow-color), 0 0 70px var(--glow-color), inset 0 0 15px rgba(var(--glow-rgb), 0.25);
+    box-shadow: none; /* Removed glow */
     display: flex;
     flex-direction: column;
     overflow: hidden;
     transform: translateY(20px);
     transition: all 0.3s ease;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
-.modal-content-auto-height { /* ADDED for language modal */
+.modal-content-auto-height { 
     height: auto;
 }
 
@@ -584,7 +590,7 @@ body.light-theme .modal-content {
     margin: 0;
     color: var(--nm-accent-hover);
     text-transform: uppercase;
-    text-shadow: 0 0 8px var(--glow-color), 0 0 2px #fff;
+    text-shadow: none; /* Removed glow */
 }
 .close-modal {
     background: none;
@@ -598,7 +604,7 @@ body.light-theme .modal-content {
 }
 .close-modal:hover {
     color: var(--nm-danger);
-    text-shadow: 0 0 10px var(--glow-color-danger);
+    text-shadow: none; /* Removed glow */
 }
 .modal-body {
     padding: 25px;
@@ -607,7 +613,7 @@ body.light-theme .modal-content {
     line-height: 1.7;
     min-height: 0;
 }
-.modal-body-centered { /* ADDED for language modal */
+.modal-body-centered { 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -682,7 +688,8 @@ body.light-theme .modal-content {
     padding: 15px;
     margin: 1em 0;
     transition: background-color 0.3s ease;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
 }
 .code-container code {
@@ -710,12 +717,13 @@ body.light-theme .modal-content {
     font-size: 0.7rem;
     text-transform: uppercase;
     transition: all 0.2s ease;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 .copy-btn:hover {
     background: var(--nm-accent);
     color: var(--nm-darkest);
-    box-shadow: 0 0 10px var(--glow-color);
+    box-shadow: none; /* Removed glow */
     border-color: var(--nm-accent-hover);
 }
 
@@ -744,8 +752,9 @@ body.light-theme .modal-content {
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
-    clip-path: var(--clip-path-shape);
-    box-shadow: inset 0 0 15px rgba(var(--glow-rgb), 0.3);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    box-shadow: none; /* Removed glow */
 }
 
 .modal-footer button:hover,
@@ -758,7 +767,7 @@ body.light-theme .modal-content {
     color: var(--nm-darkest);
     background-color: var(--nm-accent);
     border-color: var(--nm-accent-hover);
-    box-shadow: 0 0 20px var(--glow-color), 0 0 40px var(--glow-color);
+    box-shadow: none; /* Removed glow */
 }
 
 
@@ -766,28 +775,27 @@ body.light-theme .modal-content {
     color: var(--nm-darkest) !important;
 }
 .accept-btn {
-    background-color: var(--nm-success) !important; /* MODIFIED: Green */
+    background-color: var(--nm-success) !important; 
     border-color: var(--nm-success) !important;
 }
 .decline-btn {
-    background-color: var(--nm-danger) !important; /* MODIFIED: Red */
+    background-color: var(--nm-danger) !important; 
     border-color: var(--nm-danger) !important;
     color: var(--nm-darkest) !important;
 }
 .accept-btn:hover {
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.8), 0 0 40px rgba(0, 255, 0, 0.8) !important;
+    box-shadow: none !important; /* Removed glow */
     opacity: 0.9;
 }
 .decline-btn:hover {
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.8) !important;
+    box-shadow: none !important; /* Removed glow */
     opacity: 0.9;
 }
 
 .tip {
-    /* MODIFIED: Tip is using Yellow/Warning */
     background: var(--nm-dark);
     border-left: 2px solid var(--nm-warning);
-    box-shadow: -7px 0 15px -8px rgba(255, 255, 0, 0.8);
+    box-shadow: none; /* Removed glow */
     margin: 1em 0;
     padding: 0.8em 1em;
     border-radius: 0 4px 4px 0;
@@ -808,6 +816,9 @@ body.light-theme .modal-content {
     padding: 12px 15px;
     gap: 15px;
     justify-content: center;
+    /* MODIFIED: Enforce rectangle on contact grid icons */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    border-radius: 0; 
 }
 
 
@@ -818,20 +829,21 @@ body.light-theme .modal-content {
 #app-container {
     background-color: var(--nm-dark);
     padding: 20px;
-    box-shadow: 0 0 20px var(--glow-color);
+    box-shadow: none; /* Removed glow */
     height: 100%;
     display: flex;
     flex-direction: column;
     color: var(--nm-text);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
-.hidden { display: none; } /* REMOVED !important */
-.hidden-by-default { display: none; } /* ADDED */
+.hidden { display: none; } 
+.hidden-by-default { display: none; } 
 
 #language-selection h1, #user-info h1, #results-container h1 {
     color: var(--nm-accent-hover); 
-    text-shadow: 0 0 8px var(--glow-color), 0 0 2px #fff; 
+    text-shadow: none; /* Removed glow */
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 1rem;
@@ -879,11 +891,12 @@ body.light-theme #results-container h1 {
     width: 100%;
     box-sizing: border-box;
     transition: all 0.3s ease;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 #user-info input:focus {
     outline: none;
-    box-shadow: 0 0 15px var(--glow-color), inset 0 0 10px rgba(var(--glow-rgb), 0.2);
+    box-shadow: none; /* Removed glow */
     border-color: var(--nm-accent);
     background-color: var(--nm-dark);
 }
@@ -903,7 +916,8 @@ body.light-theme #results-container h1 {
     font-size: 0.9rem;
     border: 1px solid var(--nm-border);
     transition: background-color 0.3s ease;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
 }
 .quiz-page { animation: fadeIn 0.5s ease-in-out; }
@@ -913,7 +927,14 @@ body.light-theme #results-container h1 {
 }
 .quiz-page h2 { color: var(--nm-accent-hover); font-size: 1.1rem; margin-bottom: 0.5rem; }
 .quiz-page hr { border-color: var(--nm-border); margin: 1rem 0;}
-.quiz-page .question-box { background-color: var(--nm-darkest); padding: 1rem; margin-bottom: 1rem; transition: background-color 0.3s ease; clip-path: var(--clip-path-shape);}
+.quiz-page .question-box { 
+    background-color: var(--nm-darkest); 
+    padding: 1rem; 
+    margin-bottom: 1rem; 
+    transition: background-color 0.3s ease; 
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
 .quiz-page .options-container { display: flex; flex-direction: column; gap: 0.75rem; }
 .quiz-page label {
     display: flex;
@@ -923,13 +944,14 @@ body.light-theme #results-container h1 {
     background-color: var(--nm-container);
     cursor: pointer;
     transition: all 0.2s ease;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 .quiz-page label:hover, .quiz-page input[type="radio"]:checked + span {
     background-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
     border-color: var(--nm-accent);
-    box-shadow: 0 0 10px var(--glow-color); 
+    box-shadow: none; /* Removed glow */
 }
 
 .quiz-page input[type="radio"] {
@@ -975,7 +997,7 @@ body.light-theme #results-container h1 {
     left: 6px;
     top: 50%;
     transform: translateY(-50%);
-    box-shadow: 0 0 10px var(--nm-accent-hover);
+    box-shadow: none; /* Removed glow */
 }
 
 
@@ -1000,9 +1022,10 @@ body.light-theme #results-container h1 {
 .certificate-container {
     background: var(--nm-darkest);
     padding: 20px;
-    box-shadow: 0 0 30px var(--glow-color);
+    box-shadow: none; /* Removed glow */
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 .certificate {
     background-image:
@@ -1052,7 +1075,7 @@ body.light-theme .certificate {
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: 0 0 15px var(--glow-color); 
+    text-shadow: none; /* Removed glow */
 }
 
 body.light-theme .certificate-header h1 {
@@ -1103,7 +1126,8 @@ body.light-theme .certificate-header h1 {
     font-family: 'Orbitron', sans-serif;
     font-weight: bold;
     font-size: 0.9rem;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 .serif { font-family: 'Noto Serif', serif; }
 .text-green-600 { color: var(--nm-success) !important; }
@@ -1113,7 +1137,9 @@ body.light-theme .certificate-header h1 {
 }
 
 .content-section-modal .tip {
-    /* MODIFIED: Tip is using Yellow/Warning */
+    background: var(--nm-dark);
+    border-left: 2px solid var(--nm-warning);
+    box-shadow: none; /* Removed glow */
     margin-bottom: 0;
     text-align: left;
 }
@@ -1136,7 +1162,8 @@ body.light-theme .certificate-header h1 {
     max-width: 100%;
     box-sizing: border-box;
     line-height: 1.4;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 .store-link a:hover {
     background-color: var(--nm-accent-hover);
@@ -1153,7 +1180,8 @@ body.light-theme .certificate-header h1 {
     overflow: hidden;
     border: 1px solid var(--nm-border);
     background-color: var(--nm-container);
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 .gym-clothing-images {
     width: 100%;
@@ -1226,14 +1254,15 @@ body.light-theme .certificate-header h1 {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 2px solid var(--nm-warning); /* MODIFIED: Set to Yellow */
+    border: 2px solid var(--nm-search-green); /* MODIFIED: Set to Dark Green */
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
-    clip-path: var(--clip-path-shape);
+    /* MODIFIED: Removed clip-path shape */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     box-sizing: border-box;
-    animation: pulse-cyan 2s infinite; /* Animation name remains, but uses Yellow glow */
+    animation: pulse-cyan 2s infinite; 
 }
 
 .modal-search-container input:focus {
@@ -1246,7 +1275,7 @@ body.light-theme .certificate-header h1 {
     max-width: 90vw;
     max-height: 90vh;
     border: 3px solid var(--nm-accent);
-    box-shadow: 0 0 25px var(--glow-color);
+    box-shadow: none; /* Removed glow */
 }
 .modal-divider {
     margin: 2rem 0;
@@ -1256,14 +1285,12 @@ body.light-theme .certificate-header h1 {
     text-align: center;
 }
 .note.note-warning {
-    /* MODIFIED: Tip is using Yellow/Warning */
     background-color: var(--warning-bg);
     color: white;
     font-weight: bold;
     border-color: var(--nm-warning); 
 }
 .note.note-danger {
-    /* MODIFIED: Danger note uses Red */
     border-left-color: var(--nm-danger);
     background: var(--danger-bg);
 }
