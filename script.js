@@ -88,11 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     /** Open modal and optionally highlight text within it. */
     window.openModalAndHighlight = (modalId, highlightText = null) => {
+        // --- MODIFIED LOGIC: Intercept 'installation' open if disclaimer not accepted ---
         if (modalId === 'installation' && !isDisclaimerAccepted && disclaimerModal) {
-            // Special case: must accept disclaimer first
+            // If the user tries to open Installation without accepting, show the disclaimer first.
             showModal(disclaimerModal);
+            // Store a flag so we know to open Installation after acceptance
+            disclaimerModal.dataset.pendingAction = 'open-installation'; 
             return;
         }
+        // --- END MODIFIED LOGIC ---
+
         const modal = document.getElementById(`${modalId}-modal`);
         if (modal) {
             showModal(modal);
@@ -186,7 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
         themeSpan.setAttribute('data-gr', isLightTheme ? 'Φωτεινό Θέμα' : 'Σκοτεινό Θέμα');
 
         // Re-apply translation for the updated button text attributes
-        // (This call is now reliable due to the checks in updateLanguageContent)
         if (themeSpan.children.length === 0) {
             themeSpan.textContent = themeSpan.getAttribute(`data-${currentLanguage}`) || themeSpan.getAttribute('data-en');
         }
@@ -556,14 +560,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- LANGUAGE INIT ---
         updateLanguageContent(currentLanguage);
         
-        // --- INITIAL MODAL DISPLAY ---
-        if (!isDisclaimerAccepted) {
-            // Enforce language selection first by hiding close button
-            if (languageModalCloseBtn) languageModalCloseBtn.style.display = 'none';
-            showModal(languageModal);
-        } else {
-            // If disclaimer is accepted, directly show the User Guide modal
-            window.openModalAndHighlight('welcome');
+        // --- INITIAL MODAL DISPLAY (MODIFIED) ---
+        // 1. Always show language modal first if no language is set.
+        if (!localStorage.getItem('lang')) {
+             if (languageModalCloseBtn) languageModalCloseBtn.style.display = 'none';
+             showModal(languageModal);
+        } 
+        // 2. If language is set (or just selected), but disclaimer is NOT accepted, 
+        // DO NOT show disclaimer. Instead, show the User Guide.
+        else {
+             window.openModalAndHighlight('welcome');
         }
     };
     
@@ -602,9 +608,9 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLanguageContent(button.dataset.lang);
             hideModal(languageModal);
             
-            // After selecting language for the first time, show the disclaimer
-            if (!isDisclaimerAccepted && disclaimerModal) {
-                showModal(disclaimerModal);
+            // After selecting language for the first time, open the welcome guide
+            if (!isDisclaimerAccepted && !disclaimerModal.dataset.pendingAction) {
+                window.openModalAndHighlight('welcome');
             }
         });
     });
@@ -619,7 +625,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateThemeDisplay(isLight);
     });
 
-    // --- DISCLAIMER HANDLERS ---
+    // --- DISCLAIMER HANDLERS (MODIFIED) ---
     document.getElementById('accept-disclaimer').addEventListener('click', () => {
         isDisclaimerAccepted = true;
         try {
@@ -627,8 +633,16 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch(e) { /* Ignore storage errors */ }
         
         hideModal(disclaimerModal);
-        // Automatically open the User Guide after accepting the disclaimer
-        window.openModalAndHighlight('welcome');
+        
+        // Check for pending action (opening Installation modal)
+        if (disclaimerModal.dataset.pendingAction === 'open-installation') {
+             // Open Installation, and remove the flag
+             delete disclaimerModal.dataset.pendingAction;
+             window.openModalAndHighlight('installation');
+        } else {
+             // Fallback: Just open the welcome guide if no other action was pending
+             window.openModalAndHighlight('welcome');
+        }
     });
     document.getElementById('decline-disclaimer').addEventListener('click', () => {
         // Redirect to a neutral page on decline
