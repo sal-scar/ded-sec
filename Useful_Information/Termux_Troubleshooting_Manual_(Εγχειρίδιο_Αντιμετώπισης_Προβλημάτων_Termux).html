@@ -109,29 +109,29 @@
         
         <div class="p-5 my-6 rounded-xl note-critical shadow-2xl">
             <h5 class="text-lg font-bold mb-2 text-red-300">CRITICAL WARNING: The Google Play Store Version is Obsolete!</h5>
-            <p class="text-sm">The version of **Termux** from the Google Play Store is permanently outdated and unsupported due to changes in Android policy. It is **mandatory** to use the version from **F-Droid** or the official **GitHub** releases.</p>
+            <p class="text-sm">The version of <b>Termux</b> from the Google Play Store is permanently outdated and unsupported due to changes in Android policy. It is <b>mandatory</b> to use the version from <b>F-Droid</b> or the official <b>GitHub</b> releases.</p>
             <ul class="list-disc list-inside ml-4 mt-2 text-sm">
-                <li>**Fix:** Uninstall old version, install from **F-Droid**.</li>
+                <li><b>Fix:</b> Uninstall old version, install from <b>F-Droid</b>.</li>
             </ul>
         </div>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Package Update Errors (`404 Not Found`, `repository not signed`, `E: Unable to locate`).</b>
-                <p class="text-gray-400 mt-2">**Cause:** Broken repository link, an issue with the mirror server, or using the wrong app version.</p>
-                <p class="mt-3">**Solution:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Broken repository link, an issue with the mirror server, or using the wrong app version.</p>
+                <p class="mt-3"><b>Solution:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Step 1: Update & Upgrade (Essential):**
+                    <li><b>Step 1: Update & Upgrade (Essential):</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg update && pkg upgrade -y</div>
                     </li>
-                    <li>**Step 2: Change Repository Mirror:**
+                    <li><b>Step 2: Change Repository Mirror:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">termux-change-repo</div>
                         <p class="text-xs text-gray-500">Choose a different geographical mirror (e.g., Grimler or Alabugin) and run `pkg update` again.</p>
                     </li>
-                    <li>**Step 3: Clear Cache and Rebuild:**
+                    <li><b>Step 3: Clear Cache and Rebuild:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">apt clean && apt update</div>
                     </li>
-                    <li>**Step 4: Fix Expired Key Error (If applicable):** Run `pkg update && pkg upgrade`. If the error persists, check GitHub for the latest manual key refresh command.</li>
+                    <li><b>Step 4: Fix Expired Key Error (If applicable):</b> Run `pkg update && pkg upgrade`. If the error persists, check GitHub for the latest manual key refresh command.</li>
                 </ol>
             </li>
         </ul>
@@ -139,31 +139,31 @@
         <hr class="border-gray-700 my-8">
 
         <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Chapter 1: Execution, Commands, and File Permissions</h4>
-        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">When something doesn't run, check the three Ps: **Package**, **Path**, and **Permissions**.</p>
+        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">When something doesn't run, check the three Ps: <b>Package</b>, <b>Path</b>, and <b>Permissions</b>.</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: `bash: git: command not found` (or `wget`, `nano`, `python`, etc.)</b>
-                <p class="text-gray-400 mt-2">**Cause:** The package for the command is not installed, or its path is not in the system's PATH variable.</p>
-                <p class="mt-3">**Solution:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> The package for the command is not installed, or its path is not in the system's PATH variable.</p>
+                <p class="mt-3"><b>Solution:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Install the package:**
+                    <li><b>Install the package:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install &lt;command-name&gt;</div>
                     </li>
-                    <li>**If still not found**, verify the command is actually in the standard executable paths:
+                    <li><b>If still not found</b>, verify the command is actually in the standard executable paths:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">echo $PATH</div>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: `Permission denied` when accessing Android storage (SD Card, Downloads, etc.).</b>
-                <p class="text-gray-400 mt-2">**Cause:** Termux does not have Android's storage permission yet.</p>
-                <p class="mt-3">**Solution: Setup Storage Access:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Termux does not have Android's storage permission yet.</p>
+                <p class="mt-3"><b>Solution: Setup Storage Access:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Run the setup utility:**
+                    <li><b>Run the setup utility:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">termux-setup-storage</div>
                     </li>
-                    <li>**Crucial Caveat:** Only run large tools or install complex packages within the **Termux Home Directory** (`~`). External storage paths often cause execution failures (e.g., Git failures).</li>
+                    <li><b>Crucial Caveat:</b> Only run large tools or install complex packages within the <b>Termux Home Directory</b> (`~`). External storage paths often cause execution failures (e.g., Git failures).</li>
                 </ol>
             </li>
         </ul>
@@ -176,22 +176,22 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Termux cannot resolve domain names or download packages (DNS Failure).</b>
-                <p class="text-gray-400 mt-2">**Cause:** Your device's DNS is not being picked up correctly, or the mirror is blocked.</p>
-                <p class="mt-3">**Solution: Force Google DNS** (Most Reliable Fix):</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Your device's DNS is not being picked up correctly, or the mirror is blocked.</p>
+                <p class="mt-3"><b>Solution: Force Google DNS</b> (Most Reliable Fix):</p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">rm $PREFIX/etc/resolv.conf && echo "nameserver 8.8.8.8" > $PREFIX/etc/resolv.conf</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: Git clone fails with `ssl certificate problem: unable to get local issuer certificate`.</b>
-                <p class="text-gray-400 mt-2">**Cause:** Git needs the local certificate store updated to trust HTTPS connections.</p>
-                <p class="mt-3">**Solution: Install and Update CA Certificates:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Git needs the local certificate store updated to trust HTTPS connections.</p>
+                <p class="mt-3"><b>Solution: Install and Update CA Certificates:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install ca-certificates</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Package download fails with connection reset or timeout (Blocked Repository).</b>
-                <p class="text-gray-400 mt-2">**Cause:** Your ISP or firewall may be blocking the current Termux repository mirror.</p>
-                <p class="mt-3">**Solution: Force HTTP over HTTPS for the repository:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Your ISP or firewall may be blocking the current Termux repository mirror.</p>
+                <p class="mt-3"><b>Solution: Force HTTP over HTTPS for the repository:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">termux-change-repo</div>
-                <p class="text-xs text-gray-500">When prompted, make sure to select the option to **use HTTP** instead of HTTPS.</p>
+                <p class="text-xs text-gray-500">When prompted, make sure to select the option to <b>use HTTP</b> instead of HTTPS.</p>
             </li>
         </ul>
         
@@ -203,27 +203,27 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Termux freezing, crashing, or processes being killed unexpectedly (Phantom Processes).</b>
-                <p class="text-gray-400 mt-2">**Cause:** Aggressive battery optimization settings on Android, especially Android 10+ (Phantom Processes). </p>
-                <p class="mt-3">**Solution:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Aggressive battery optimization settings on Android, especially Android 10+ (Phantom Processes). </p>
+                <p class="mt-3"><b>Solution:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Disable battery optimization** for Termux in Android settings.</li>
-                    <li>**Use `tmux` or `screen`** to manage sessions that survive disconnections:
+                    <li><b>Disable battery optimization</b> for Termux in Android settings.</li>
+                    <li><b>Use `tmux` or `screen`</b> to manage sessions that survive disconnections:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install tmux && tmux new -s persistent-session</div>
                     </li>
-                    <li>**If totally frozen**, force-kill all Termux processes:
+                    <li><b>If totally frozen</b>, force-kill all Termux processes:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkill -f "termux"</div>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: Termux:API commands not found or not working (e.g., `termux-battery-status`).</b>
-                <p class="text-gray-400 mt-2">**Cause:** Requires two separate components: the Termux package and the separate Android app.</p>
-                <p class="mt-3">**Solution:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Requires two separate components: the Termux package and the separate Android app.</p>
+                <p class="mt-3"><b>Solution:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Install the API package in Termux:**
+                    <li><b>Install the API package in Termux:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install termux-api</div>
                     </li>
-                    <li>**Install the separate Termux:API app** from F-Droid or GitHub.</li>
+                    <li><b>Install the separate Termux:API app</b> from F-Droid or GitHub.</li>
                 </ol>
             </li>
         </ul>
@@ -236,28 +236,28 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: `pip install` fails with `Error: command 'gcc' failed` or dependencies missing.</b>
-                <p class="text-gray-400 mt-2">**Cause:** Python packages need to compile C/C++ dependencies (`build-essentials`).</p>
-                <p class="mt-3">**Solution: Install development tools first:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Python packages need to compile C/C++ dependencies (build-essentials).</p>
+                <p class="mt-3"><b>Solution: Install development tools first:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install python clang make libcrypt-dev</div>
                 <p class="text-xs text-gray-500 mt-1">These packages provide the compiler and necessary headers for many libraries to build correctly.</p>
             </li>
              <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: Pip install fails for packages like `lxml`, `scipy`, or `numpy`.</b>
-                <p class="text-gray-400 mt-2">**Cause:** These packages require specific headers and libraries (like `libxml2` or `openblas`) that are not included in the default development tools.</p>
-                <p class="mt-3">**Solution: Install prerequisite headers:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> These packages require specific headers and libraries (like `libxml2` or `openblas`) that are not included in the default development tools.</p>
+                <p class="mt-3"><b>Solution: Install prerequisite headers:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install libxml2 libxslt libblas openblas libjpeg-turbo libpng</div>
                 <p class="text-xs text-gray-500 mt-1">Then re-run the `pip install` command.</p>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: `dpkg: error processing package &lt;package&gt; (--install): &lt;path&gt;: No such file or directory`.</b>
-                <p class="text-gray-400 mt-2">**Cause:** Corrupted package metadata, usually after a failed upgrade or installation.</p>
-                <p class="mt-3">**Solution: Force a fix and clean up:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Corrupted package metadata, usually after a failed upgrade or installation.</p>
+                <p class="mt-3"><b>Solution: Force a fix and clean up:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">dpkg --configure -a && pkg install --fix-missing</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: `Segmentation fault` or `Illegal Instruction` during program execution.</b>
-                <p class="text-gray-400 mt-2">**Cause:** The tool is not compiled for your device's CPU architecture (e.g., using an x86 tool on an ARM device).</p>
-                <p class="mt-3">**Solution:** Use the command `uname -m` to verify your architecture and only install packages compatible with that architecture (aarch64, armv7l, or i686).</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> The tool is not compiled for your device's CPU architecture (e.g., using an x86 tool on an ARM device).</p>
+                <p class="mt-3"><b>Solution:</b> Use the command `uname -m` to verify your architecture and only install packages compatible with that architecture (aarch64, armv7l, or i686).</p>
             </li>
         </ul>
 
@@ -269,24 +269,24 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Changes to `.bashrc` or `.zshrc` are ignored until I restart Termux.</b>
-                <p class="text-gray-400 mt-2">**Cause:** Shell configuration files must be manually "sourced" to apply changes immediately.</p>
-                <p class="mt-3">**Solution: Manually reload the configuration:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Shell configuration files must be manually "sourced" to apply changes immediately.</p>
+                <p class="mt-3"><b>Solution: Manually reload the configuration:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">source ~/.bashrc (or source ~/.zshrc)</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Unreadable characters or missing symbols when editing files (Text Encoding).</b>
-                <p class="text-gray-400 mt-2">**Cause:** The terminal environment is not configured for Unicode (UTF-8) correctly.</p>
-                <p class="mt-3">**Solution: Set the correct environment variable in your shell config (`~/.bashrc`):**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> The terminal environment is not configured for Unicode (UTF-8) correctly.</p>
+                <p class="mt-3"><b>Solution: Set the correct environment variable in your shell config (`~/.bashrc`):</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">export LANG=en_US.UTF-8</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: I can't type special keys (like F-keys, Esc, or Ctrl+C) easily.</b>
-                <p class="text-gray-400 mt-2">**Cause:** Termux uses volume keys and swipes for special characters.</p>
-                <p class="mt-3">**Solution: Use built-in key combinations and the extra keys view:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Termux uses volume keys and swipes for special characters.</p>
+                <p class="mt-3"><b>Solution: Use built-in key combinations and the extra keys view:</b></p>
                 <ol class="list-disc list-inside ml-4 space-y-1">
-                    <li>**`CTRL` Key:** Press the **Volume Down** button and then the character key (e.g., `Vol Down` + `C` for Ctrl+C).</li>
-                    <li>**`ESC` Key:** Press the **Volume Up** button and then the `E` key.</li>
-                    <li>**Extra Keys View:** Swipe left from the left edge of the screen to toggle the extra keys row (e.g., Tab, Ctrl, Alt). Or run:
+                    <li><b>`CTRL` Key:</b> Press the <b>Volume Down</b> button and then the character key (e.g., `Vol Down` + `C` for Ctrl+C).</li>
+                    <li><b>`ESC` Key:</b> Press the <b>Volume Up</b> button and then the `E` key.</li>
+                    <li><b>Extra Keys View:</b> Swipe left from the left edge of the screen to toggle the extra keys row (e.g., Tab, Ctrl, Alt). Or run:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">~/.termux/boot/termux-wake-lock</div>
                     </li>
                 </ol>
@@ -302,22 +302,22 @@
             <h5 class="text-lg font-bold text-cyan-300 mb-2">Termux Key Environment Variables</h5>
             <p class="text-gray-400 mb-2">Termux is a non-root user-space environment. All tools are installed in a specific location that differs from a standard Linux system.</p>
             <ul class="list-disc list-inside ml-4 space-y-1 text-sm">
-                <li>**`$PREFIX`**: The Termux installation root (`/data/data/com.termux/files/usr`). All binaries and libraries are found here.</li>
-                <li>**`$HOME`**: The user's home directory (`/data/data/com.termux/files/home`). All personal files and user-installed tools should live here.</li>
+                <li><b>`$PREFIX`</b>: The Termux installation root (`/data/data/com.termux/files/usr`). All binaries and libraries are found here.</li>
+                <li><b>`$HOME`</b>: The user's home directory (`/data/data/com.termux/files/home`). All personal files and user-installed tools should live here.</li>
             </ul>
         </div>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Error: `sudo: command not found` or need for root permissions.</b>
-                <p class="text-gray-400 mt-2">**Cause:** Termux is not a rooted environment by default and cannot use superuser commands.</p>
-                <p class="mt-3">**Solution: Use Proot or Fakeroot:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Termux is not a rooted environment by default and cannot use superuser commands.</p>
+                <p class="mt-3"><b>Solution: Use Proot or Fakeroot:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**To emulate a full Linux root environment (chroot):**
+                    <li><b>To emulate a full Linux root environment (chroot):</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install proot</div>
                         <p class="text-xs text-gray-500">Run a rootless Linux distribution "chroot" using `proot`.</p>
                     </li>
-                    <li>**For building packages requiring root ownership:**
+                    <li><b>For building packages requiring root ownership:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install fakeroot</div>
                         <p class="text-xs text-gray-500">Use `fakeroot` to create archives with specific permissions.</p>
                     </li>
@@ -325,8 +325,8 @@
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Program starts and immediately fails silently (or `No such file or directory`).</b>
-                <p class="text-gray-400 mt-2">**Cause:** The program may be attempting a system call (like file access or network setup) that is blocked or missing a dependency, but it's not printing a useful error.</p>
-                <p class="mt-3">**Solution: Trace System Calls with `strace`:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> The program may be attempting a system call (like file access or network setup) that is blocked or missing a dependency, but it's not printing a useful error.</p>
+                <p class="mt-3"><b>Solution: Trace System Calls with `strace`:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install strace && strace -f &lt;failing-command&gt;</div>
                 <p class="text-xs text-gray-500 mt-1">`strace` will print a line-by-line log of all system interactions, often revealing the exact "Permission denied" or path error that caused the crash.</p>
             </li>
@@ -340,31 +340,31 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: I want better features and customization than the default Bash shell.</b>
-                <p class="text-gray-400 mt-2">**Cause:** Bash is the standard, but shells like Zsh offer advanced autocompletion and extensibility via plugins.</p>
-                <p class="mt-3">**Solution: Install Zsh and Switch Shells:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Bash is the standard, but shells like Zsh offer advanced autocompletion and extensibility via plugins.</p>
+                <p class="mt-3"><b>Solution: Install Zsh and Switch Shells:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Install the package:**
+                    <li><b>Install the package:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install zsh</div>
                     </li>
-                    <li>**Switch your default shell:**
+                    <li><b>Switch your default shell:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">chsh -s zsh</div>
                         <p class="text-xs text-gray-500">You must reload Termux for this change to take effect.</p>
                     </li>
-                    <li>**Customize the prompt (e.g., in `~/.zshrc`):**
+                    <li><b>Customize the prompt (e.g., in `~/.zshrc`):</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">export PROMPT='%n@%m:%~%# '</div>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: I need to run a graphical (X-Window) Linux application.</b>
-                <p class="text-gray-400 mt-2">**Cause:** Graphical applications require an X Server running on the Android device to render the output.</p>
-                <p class="mt-3">**Solution: Setup X11 Environment:**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Graphical applications require an X Server running on the Android device to render the output.</p>
+                <p class="mt-3"><b>Solution: Setup X11 Environment:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Install the X11 repository and client package:**
+                    <li><b>Install the X11 repository and client package:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install x11-repo && pkg install termux-x11-nightly</div>
                     </li>
-                    <li>**Install the separate Termux:X11 app** from F-Droid or GitHub.</li>
-                    <li>**Set the display variable and run an app (e.g., `xeyes`):**
+                    <li><b>Install the separate Termux:X11 app</b> from F-Droid or GitHub.</li>
+                    <li><b>Set the display variable and run an app (e.g., `xeyes`):</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">export DISPLAY=':0' && pkg install xeyes && xeyes</div>
                         <p class="text-xs text-gray-500">The Termux:X11 app must be running in the background for this to work.</p>
                     </li>
@@ -380,22 +380,22 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Problem: Termux is completely broken, or `pkg` and `apt` commands immediately fail (Corrupted Prefix).</b>
-                <p class="text-gray-400 mt-2">**Cause:** Critical files in the `$PREFIX` directory (`/usr`) are corrupted, often by bad scripts or a force-kill during an upgrade.</p>
-                <p class="mt-3">**Solution: Reset Termux Environment (Non-Destructive to Home):**</p>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Critical files in the `$PREFIX` directory (`/usr`) are corrupted, often by bad scripts or a force-kill during an upgrade.</p>
+                <p class="mt-3"><b>Solution: Reset Termux Environment (Non-Destructive to Home):</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Step 1:** If possible, save all files from `$HOME` to your Android storage using `cp -r ~ /sdcard/TermuxBackup`.</li>
-                    <li>**Step 2:** Execute the full reset:
+                    <li><b>Step 1:</b> If possible, save all files from `$HOME` to your Android storage using `cp -r ~ /sdcard/TermuxBackup`.</li>
+                    <li><b>Step 2:</b> Execute the full reset:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">termux-setup-storage --reset</div>
-                        <p class="text-xs text-gray-500">This command clears *all* installed packages and the Termux prefix, but *attempts to save* your `$HOME` directory.</p>
+                        <p class="text-xs text-gray-500">This command clears <i>all</i> installed packages and the Termux prefix, but <i>attempts to save</i> your `$HOME` directory.</p>
                     </li>
-                    <li>**Step 3:** Alternatively, **clear the app data** through Android Settings, which performs a complete factory reset.</li>
+                    <li><b>Step 3:</b> Alternatively, <b>clear the app data</b> through Android Settings, which performs a complete factory reset.</li>
                 </ol>
             </li>
         </ul>
 
         <div class="p-6 bg-blue-900 rounded-lg shadow-xl mt-10">
             <h4 class="text-xl font-bold text-white mb-2">Final Word on Termux</h4>
-            <p class="text-blue-200">Termux is a powerful and low-level environment. When troubleshooting, always proceed step-by-step, starting with the correct installation source (F-Droid) and proper permissions. If an error persists, always check the **Termux Wiki** or **GitHub Issues**.</p>
+            <p class="text-blue-200">Termux is a powerful and low-level environment. When troubleshooting, always proceed step-by-step, starting with the correct installation source (F-Droid) and proper permissions. If an error persists, always check the <b>Termux Wiki</b> or <b>GitHub Issues</b>.</p>
         </div>
     </div>
     <div data-lang-section="gr" style="display:none;">
@@ -406,29 +406,29 @@
         
         <div class="p-5 my-6 rounded-xl note-critical shadow-2xl">
             <h5 class="text-lg font-bold mb-2 text-red-300">ΚΡΙΣΙΜΗ ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Η Έκδοση του Google Play Store Είναι Παρωχημένη!</h5>
-            <p class="text-sm">Η έκδοση του **Termux** από το Google Play Store είναι μόνιμα παρωχημένη και μη υποστηριζόμενη λόγω αλλαγών στην πολιτική του Android. Είναι **υποχρεωτικό** να χρησιμοποιήσετε την έκδοση από το **F-Droid** ή τις επίσημες κυκλοφορίες του **GitHub**.</p>
+            <p class="text-sm">Η έκδοση του <b>Termux</b> από το Google Play Store είναι μόνιμα παρωχημένη και μη υποστηριζόμενη λόγω αλλαγών στην πολιτική του Android. Είναι <b>υποχρεωτικό</b> να χρησιμοποιήσετε την έκδοση από το <b>F-Droid</b> ή τις επίσημες κυκλοφορίες του <b>GitHub</b>.</p>
             <ul class="list-disc list-inside ml-4 mt-2 text-sm">
-                <li>**Διόρθωση:** Απεγκαταστήστε την παλιά έκδοση, εγκαταστήστε από το **F-Droid**.</li>
+                <li><b>Διόρθωση:</b> Απεγκαταστήστε την παλιά έκδοση, εγκαταστήστε από το <b>F-Droid</b>.</li>
             </ul>
         </div>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Σφάλματα Ενημέρωσης Πακέτων (`404 Not Found`, `repository not signed`, `E: Unable to locate`).</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Κατεστραμμένος σύνδεσμος αποθετηρίου, πρόβλημα με τον διακομιστή mirror, ή χρήση λάθος έκδοσης εφαρμογής.</p>
-                <p class="mt-3">**Λύση:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Κατεστραμμένος σύνδεσμος αποθετηρίου, πρόβλημα με τον διακομιστή mirror, ή χρήση λάθος έκδοσης εφαρμογής.</p>
+                <p class="mt-3"><b>Λύση:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Βήμα 1: Ενημέρωση & Αναβάθμιση (Απαραίτητο):**
+                    <li><b>Βήμα 1: Ενημέρωση & Αναβάθμιση (Απαραίτητο):</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg update && pkg upgrade -y</div>
                     </li>
-                    <li>**Βήμα 2: Αλλαγή Διακομιστή Mirror (Repository Mirror):**
+                    <li><b>Βήμα 2: Αλλαγή Διακομιστή Mirror (Repository Mirror):</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">termux-change-repo</div>
                         <p class="text-xs text-gray-500">Επιλέξτε έναν διαφορετικό γεωγραφικό mirror (π.χ., Grimler ή Alabugin) και εκτελέστε ξανά `pkg update`.</p>
                     </li>
-                    <li>**Βήμα 3: Εκκαθάριση Cache και Αναδόμηση:**
+                    <li><b>Βήμα 3: Εκκαθάριση Cache και Αναδόμηση:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">apt clean && apt update</div>
                     </li>
-                    <li>**Βήμα 4: Διόρθωση Σφάλματος Ληγμένου Κλειδιού (Εάν ισχύει):** Εκτελέστε `pkg update && pkg upgrade`. Αν το σφάλμα επιμένει, ελέγξτε το GitHub για την πιο πρόσφατη εντολή μη αυτόματης ανανέωσης κλειδιού.</li>
+                    <li><b>Βήμα 4: Διόρθωση Σφάλματος Ληγμένου Κλειδιού (Εάν ισχύει):</b> Εκτελέστε `pkg update && pkg upgrade`. Αν το σφάλμα επιμένει, ελέγξτε το GitHub για την πιο πρόσφατη εντολή μη αυτόματης ανανέωσης κλειδιού.</li>
                 </ol>
             </li>
         </ul>
@@ -436,31 +436,31 @@
         <hr class="border-gray-700 my-8">
 
         <h4 class="text-xl font-bold mt-8 mb-4 chapter-title pb-2">Κεφάλαιο 1: Εκτέλεση, Εντολές και Δικαιώματα Αρχείων</h4>
-        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Όταν κάτι δεν εκτελείται, ελέγξτε τα τρία Π: **Πακέτο**, **Διαδρομή** (Path), και **Πρόσβαση** (Permissions).</p>
+        <p class="section-intro p-4 mb-6 text-gray-300 rounded-lg">Όταν κάτι δεν εκτελείται, ελέγξτε τα τρία Π: <b>Πακέτο</b>, <b>Διαδρομή</b> (Path), και <b>Πρόσβαση</b> (Permissions).</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: `bash: git: command not found` (ή `wget`, `nano`, `python`, κλπ.)</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Το πακέτο για την εντολή δεν είναι εγκατεστημένο, ή η διαδρομή του δεν βρίσκεται στη μεταβλητή PATH του συστήματος.</p>
-                <p class="mt-3">**Λύση:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το πακέτο για την εντολή δεν είναι εγκατεστημένο, ή η διαδρομή του δεν βρίσκεται στη μεταβλητή PATH του συστήματος.</p>
+                <p class="mt-3"><b>Λύση:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Εγκαταστήστε το πακέτο:**
+                    <li><b>Εγκαταστήστε το πακέτο:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install &lt;command-name&gt;</div>
                     </li>
-                    <li>**Αν εξακολουθεί να μην βρίσκεται**, επαληθεύστε ότι η εντολή βρίσκεται πράγματι στις τυπικές εκτελέσιμες διαδρομές:
+                    <li><b>Αν εξακολουθεί να μην βρίσκεται</b>, επαληθεύστε ότι η εντολή βρίσκεται πράγματι στις τυπικές εκτελέσιμες διαδρομές:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">echo $PATH</div>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: `Permission denied` κατά την πρόσβαση σε αποθηκευτικό χώρο Android (SD Card, Downloads, κλπ.).</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Το Termux δεν έχει ακόμα την άδεια αποθήκευσης του Android.</p>
-                <p class="mt-3">**Λύση: Ρύθμιση Πρόσβασης Αποθηκευτικού Χώρου:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Termux δεν έχει ακόμα την άδεια αποθήκευσης του Android.</p>
+                <p class="mt-3"><b>Λύση: Ρύθμιση Πρόσβασης Αποθηκευτικού Χώρου:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Εκτελέστε το βοηθητικό πρόγραμμα ρύθμισης:**
+                    <li><b>Εκτελέστε το βοηθητικό πρόγραμμα ρύθμισης:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">termux-setup-storage</div>
                     </li>
-                    <li>**Κρίσιμη Επιφύλαξη:** Εκτελείτε μεγάλα εργαλεία ή εγκαταστήστε σύνθετα πακέτα μόνο μέσα στον **Αρχικό Κατάλογο του Termux** (`~`). Οι εξωτερικές διαδρομές αποθήκευσης συχνά προκαλούν σφάλματα εκτέλεσης (π.χ., αποτυχίες Git).</li>
+                    <li><b>Κρίσιμη Επιφύλαξη:</b> Εκτελείτε μεγάλα εργαλεία ή εγκαταστήστε σύνθετα πακέτα μόνο μέσα στον <b>Αρχικό Κατάλογο του Termux</b> (`~`). Οι εξωτερικές διαδρομές αποθήκευσης συχνά προκαλούν σφάλματα εκτέλεσης (π.χ., αποτυχίες Git).</li>
                 </ol>
             </li>
         </ul>
@@ -473,22 +473,22 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Το Termux δεν μπορεί να αναλύσει ονόματα τομέα ή να κατεβάσει πακέτα (Αποτυχία DNS).</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Το DNS της συσκευής σας δεν ανιχνεύεται σωστά, ή ο mirror είναι μπλοκαρισμένος.</p>
-                <p class="mt-3">**Λύση: Επιβολή Google DNS** (Πιο Αξιόπιστη Διόρθωση):</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το DNS της συσκευής σας δεν ανιχνεύεται σωστά, ή ο mirror είναι μπλοκαρισμένος.</p>
+                <p class="mt-3"><b>Λύση: Επιβολή Google DNS</b> (Πιο Αξιόπιστη Διόρθωση):</p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">rm $PREFIX/etc/resolv.conf && echo "nameserver 8.8.8.8" > $PREFIX/etc/resolv.conf</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: Το Git clone αποτυγχάνει με `ssl certificate problem: unable to get local issuer certificate`.</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Το Git χρειάζεται ενημερωμένο τοπικό κατάστημα πιστοποιητικών για να εμπιστεύεται τις συνδέσεις HTTPS.</p>
-                <p class="mt-3">**Λύση: Εγκατάσταση και Ενημέρωση Πιστοποιητικών CA:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Git χρειάζεται ενημερωμένο τοπικό κατάστημα πιστοποιητικών για να εμπιστεύεται τις συνδέσεις HTTPS.</p>
+                <p class="mt-3"><b>Λύση: Εγκατάσταση και Ενημέρωση Πιστοποιητικών CA:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install ca-certificates</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Η λήψη πακέτου αποτυγχάνει με επαναφορά σύνδεσης ή timeout (Μπλοκαρισμένο Αποθετήριο).</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Ο πάροχος υπηρεσιών διαδικτύου (ISP) ή το firewall σας ενδέχεται να μπλοκάρει τον τρέχοντα mirror αποθετηρίου Termux.</p>
-                <p class="mt-3">**Λύση: Επιβολή HTTP αντί για HTTPS για το αποθετήριο:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Ο πάροχος υπηρεσιών διαδικτύου (ISP) ή το firewall σας ενδέχεται να μπλοκάρει τον τρέχοντα mirror αποθετηρίου Termux.</p>
+                <p class="mt-3"><b>Λύση: Επιβολή HTTP αντί για HTTPS για το αποθετήριο:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">termux-change-repo</div>
-                <p class="text-xs text-gray-500">Όταν σας ζητηθεί, βεβαιωθείτε ότι επιλέγετε την επιλογή **να χρησιμοποιήσετε HTTP** αντί για HTTPS.</p>
+                <p class="text-xs text-gray-500">Όταν σας ζητηθεί, βεβαιωθείτε ότι επιλέγετε την επιλογή <b>να χρησιμοποιήσετε HTTP</b> αντί για HTTPS.</p>
             </li>
         </ul>
         
@@ -500,27 +500,27 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Το Termux παγώνει, κρασάρει, ή οι διεργασίες τερματίζονται απροσδόκητα (Phantom Processes).</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Επιθετικές ρυθμίσεις βελτιστοποίησης μπαταρίας στο Android, ειδικά στο Android 10+ (Phantom Processes). </p>
-                <p class="mt-3">**Λύση:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Επιθετικές ρυθμίσεις βελτιστοποίησης μπαταρίας στο Android, ειδικά στο Android 10+ (Phantom Processes). </p>
+                <p class="mt-3"><b>Λύση:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Απενεργοποιήστε τη βελτιστοποίηση μπαταρίας** για το Termux στις ρυθμίσεις του Android.</li>
-                    <li>**Χρησιμοποιήστε `tmux` ή `screen`** για τη διαχείριση περιόδων σύνδεσης που επιβιώνουν από αποσυνδέσεις:
+                    <li><b>Απενεργοποιήστε τη βελτιστοποίηση μπαταρίας</b> για το Termux στις ρυθμίσεις του Android.</li>
+                    <li><b>Χρησιμοποιήστε `tmux` ή `screen`</b> για τη διαχείριση περιόδων σύνδεσης που επιβιώνουν από αποσυνδέσεις:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install tmux && tmux new -s persistent-session</div>
                     </li>
-                    <li>**Αν έχει παγώσει εντελώς**, τερματίστε βίαια όλες τις διεργασίες Termux:
+                    <li><b>Αν έχει παγώσει εντελώς</b>, τερματίστε βίαια όλες τις διεργασίες Termux:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkill -f "termux"</div>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: Οι εντολές Termux:API δεν βρίσκονται ή δεν λειτουργούν (π.χ., `termux-battery-status`).</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Απαιτούνται δύο ξεχωριστά στοιχεία: το πακέτο Termux και η ξεχωριστή εφαρμογή Android.</p>
-                <p class="mt-3">**Λύση:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Απαιτούνται δύο ξεχωριστά στοιχεία: το πακέτο Termux και η ξεχωριστή εφαρμογή Android.</p>
+                <p class="mt-3"><b>Λύση:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Εγκαταστήστε το πακέτο API στο Termux:**
+                    <li><b>Εγκαταστήστε το πακέτο API στο Termux:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install termux-api</div>
                     </li>
-                    <li>**Εγκαταστήστε την ξεχωριστή εφαρμογή Termux:API** από το F-Droid ή το GitHub.</li>
+                    <li><b>Εγκαταστήστε την ξεχωριστή εφαρμογή Termux:API</b> από το F-Droid ή το GitHub.</li>
                 </ol>
             </li>
         </ul>
@@ -533,28 +533,28 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: Το `pip install` αποτυγχάνει με `Error: command 'gcc' failed` ή έλλειψη εξαρτήσεων.</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Τα πακέτα Python πρέπει να μεταγλωττίσουν εξαρτήσεις C/C++ (`build-essentials`).</p>
-                <p class="mt-3">**Λύση: Εγκαταστήστε πρώτα τα εργαλεία ανάπτυξης:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Τα πακέτα Python πρέπει να μεταγλωττίσουν εξαρτήσεις C/C++ (build-essentials).</p>
+                <p class="mt-3"><b>Λύση: Εγκαταστήστε πρώτα τα εργαλεία ανάπτυξης:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install python clang make libcrypt-dev</div>
                 <p class="text-xs text-gray-500 mt-1">Αυτά τα πακέτα παρέχουν τον μεταγλωττιστή και τα απαραίτητα headers για να δημιουργηθούν σωστά πολλές βιβλιοθήκες.</p>
             </li>
              <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: Το Pip install αποτυγχάνει για πακέτα όπως `lxml`, `scipy`, ή `numpy`.</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Αυτά τα πακέτα απαιτούν συγκεκριμένα headers και βιβλιοθήκες (όπως `libxml2` ή `openblas`) που δεν περιλαμβάνονται στα προεπιλεγμένα εργαλεία ανάπτυξης.</p>
-                <p class="mt-3">**Λύση: Εγκαταστήστε τις προαπαιτούμενες κεφαλίδες (headers):**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Αυτά τα πακέτα απαιτούν συγκεκριμένα headers και βιβλιοθήκες (όπως `libxml2` ή `openblas`) που δεν περιλαμβάνονται στα προεπιλεγμένα εργαλεία ανάπτυξης.</p>
+                <p class="mt-3"><b>Λύση: Εγκαταστήστε τις προαπαιτούμενες κεφαλίδες (headers):</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install libxml2 libxslt libblas openblas libjpeg-turbo libpng</div>
                 <p class="text-xs text-gray-500 mt-1">Στη συνέχεια, εκτελέστε ξανά την εντολή `pip install`.</p>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: `dpkg: error processing package &lt;package&gt; (--install): &lt;path&gt;: No such file or directory`.</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Κατεστραμμένα μεταδεδομένα πακέτου, συνήθως μετά από μια αποτυχημένη αναβάθμιση ή εγκατάσταση.</p>
-                <p class="mt-3">**Λύση: Επιβολή διόρθωσης και εκκαθάρισης:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Κατεστραμμένα μεταδεδομένα πακέτου, συνήθως μετά από μια αποτυχημένη αναβάθμιση ή εγκατάσταση.</p>
+                <p class="mt-3"><b>Λύση: Επιβολή διόρθωσης και εκκαθάρισης:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">dpkg --configure -a && pkg install --fix-missing</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: `Segmentation fault` ή `Illegal Instruction` κατά την εκτέλεση προγράμματος.</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Το εργαλείο δεν έχει μεταγλωττιστεί για την αρχιτεκτονική CPU της συσκευής σας (π.χ., χρήση ενός εργαλείου x86 σε συσκευή ARM).</p>
-                <p class="mt-3">**Λύση:** Χρησιμοποιήστε την εντολή `uname -m` για να επαληθεύσετε την αρχιτεκτονική σας και εγκαταστήστε μόνο πακέτα συμβατά με αυτήν την αρχιτεκτονική (aarch64, armv7l, ή i686).</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το εργαλείο δεν έχει μεταγλωττιστεί για την αρχιτεκτονική CPU της συσκευής σας (π.χ., χρήση ενός εργαλείου x86 σε συσκευή ARM).</p>
+                <p class="mt-3"><b>Λύση:</b> Χρησιμοποιήστε την εντολή `uname -m` για να επαληθεύσετε την αρχιτεκτονική σας και εγκαταστήστε μόνο πακέτα συμβατά με αυτήν την αρχιτεκτονική (aarch64, armv7l, ή i686).</p>
             </li>
         </ul>
 
@@ -566,24 +566,24 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Οι αλλαγές σε `.bashrc` ή `.zshrc` αγνοούνται μέχρι να επανεκκινήσω το Termux.</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Τα αρχεία διαμόρφωσης του κελύφους πρέπει να "πηγάζονται" (sourced) χειροκίνητα για να εφαρμοστούν οι αλλαγές άμεσα.</p>
-                <p class="mt-3">**Λύση: Χειροκίνητη επαναφόρτωση της διαμόρφωσης:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Τα αρχεία διαμόρφωσης του κελύφους πρέπει να "πηγάζονται" (sourced) χειροκίνητα για να εφαρμοστούν οι αλλαγές άμεσα.</p>
+                <p class="mt-3"><b>Λύση: Χειροκίνητη επαναφόρτωση της διαμόρφωσης:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">source ~/.bashrc (ή source ~/.zshrc)</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Μη αναγνώσιμοι χαρακτήρες ή ελλείποντα σύμβολα κατά την επεξεργασία αρχείων (Κωδικοποίηση Κειμένου).</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Το περιβάλλον τερματικού δεν έχει ρυθμιστεί σωστά για Unicode (UTF-8).</p>
-                <p class="mt-3">**Λύση: Ορίστε τη σωστή μεταβλητή περιβάλλοντος στη διαμόρφωση του κελύφους σας (`~/.bashrc`):**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το περιβάλλον τερματικού δεν έχει ρυθμιστεί σωστά για Unicode (UTF-8).</p>
+                <p class="mt-3"><b>Λύση: Ορίστε τη σωστή μεταβλητή περιβάλλοντος στη διαμόρφωση του κελύφους σας (`~/.bashrc`):</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">export LANG=en_US.UTF-8</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Δεν μπορώ να πληκτρολογήσω εύκολα ειδικά πλήκτρα (όπως F-keys, Esc, ή Ctrl+C).</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Το Termux χρησιμοποιεί τα πλήκτρα έντασης και swipes για ειδικούς χαρακτήρες.</p>
-                <p class="mt-3">**Λύση: Χρησιμοποιήστε τους ενσωματωμένους συνδυασμούς πλήκτρων και την προβολή επιπλέον πλήκτρων:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Termux χρησιμοποιεί τα πλήκτρα έντασης και swipes για ειδικούς χαρακτήρες.</p>
+                <p class="mt-3"><b>Λύση: Χρησιμοποιήστε τους ενσωματωμένους συνδυασμούς πλήκτρων και την προβολή επιπλέον πλήκτρων:</b></p>
                 <ol class="list-disc list-inside ml-4 space-y-1">
-                    <li>**Πλήκτρο `CTRL`:** Πατήστε το πλήκτρο **Μείωσης Έντασης** (Volume Down) και στη συνέχεια το πλήκτρο χαρακτήρα (π.χ., `Vol Down` + `C` για Ctrl+C).</li>
-                    <li>**Πλήκτρο `ESC`:** Πατήστε το πλήκτρο **Αύξησης Έντασης** (Volume Up) και στη συνέχεια το πλήκτρο `E`.</li>
-                    <li>**Προβολή Επιπλέον Πλήκτρων:** Σύρετε αριστερά από την αριστερή άκρη της οθόνης για εναλλαγή της σειράς επιπλέον πλήκτρων (π.χ., Tab, Ctrl, Alt). Ή εκτελέστε:
+                    <li><b>`CTRL` Key:</b> Πατήστε το πλήκτρο <b>Μείωσης Έντασης</b> (Volume Down) και στη συνέχεια το πλήκτρο χαρακτήρα (π.χ., `Vol Down` + `C` για Ctrl+C).</li>
+                    <li><b>`ESC` Key:</b> Πατήστε το πλήκτρο <b>Αύξησης Έντασης</b> (Volume Up) και στη συνέχεια το πλήκτρο `E`.</li>
+                    <li><b>Προβολή Επιπλέον Πλήκτρων:</b> Σύρετε αριστερά από την αριστερή άκρη της οθόνης για εναλλαγή της σειράς επιπλέον πλήκτρων (π.χ., Tab, Ctrl, Alt). Ή εκτελέστε:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">~/.termux/boot/termux-wake-lock</div>
                     </li>
                 </ol>
@@ -599,22 +599,22 @@
             <h5 class="text-lg font-bold text-cyan-300 mb-2">Βασικές Μεταβλητές Περιβάλλοντος Termux</h5>
             <p class="text-gray-400 mb-2">Το Termux είναι ένα ισχυρό περιβάλλον user-space χωρίς root. Όλα τα εργαλεία είναι εγκατεστημένα σε μια συγκεκριμένη θέση που διαφέρει από ένα τυπικό σύστημα Linux.</p>
             <ul class="list-disc list-inside ml-4 space-y-1 text-sm">
-                <li>**`$PREFIX`**: Η ρίζα εγκατάστασης του Termux (`/data/data/com.termux/files/usr`). Όλα τα binaries και οι βιβλιοθήκες βρίσκονται εδώ.</li>
-                <li>**`$HOME`**: Ο αρχικός κατάλογος του χρήστη (`/data/data/com.termux/files/home`). Όλα τα προσωπικά αρχεία και τα εργαλεία που εγκαθιστά ο χρήστης πρέπει να βρίσκονται εδώ.</li>
+                <li><b>`$PREFIX`</b>: Η ρίζα εγκατάστασης του Termux (`/data/data/com.termux/files/usr`). Όλα τα binaries και οι βιβλιοθήκες βρίσκονται εδώ.</li>
+                <li><b>`$HOME`</b>: Ο αρχικός κατάλογος του χρήστη (`/data/data/com.termux/files/home`). Όλα τα προσωπικά αρχεία και τα εργαλεία που εγκαθιστά ο χρήστης πρέπει να βρίσκονται εδώ.</li>
             </ul>
         </div>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Σφάλμα: `sudo: command not found` ή ανάγκη για δικαιώματα root.</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Το Termux δεν είναι περιβάλλον rooted από προεπιλογή και δεν μπορεί να χρησιμοποιήσει εντολές superuser.</p>
-                <p class="mt-3">**Λύση: Χρήση Proot ή Fakeroot:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Termux δεν είναι περιβάλλον rooted από προεπιλογή και δεν μπορεί να χρησιμοποιήσει εντολές superuser.</p>
+                <p class="mt-3"><b>Λύση: Χρήση Proot ή Fakeroot:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Για εξομοίωση ενός πλήρους περιβάλλοντος root Linux (chroot):**
+                    <li><b>Για εξομοίωση ενός πλήρους περιβάλλοντος root Linux (chroot):</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install proot</div>
                         <p class="text-xs text-gray-500">Εκτελέστε μια διανομή Linux χωρίς root "chroot" χρησιμοποιώντας το `proot`.</p>
                     </li>
-                    <li>**Για δόμηση πακέτων που απαιτούν root ownership:**
+                    <li><b>Για δόμηση πακέτων που απαιτούν root ownership:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install fakeroot</div>
                         <p class="text-xs text-gray-500">Χρησιμοποιήστε το `fakeroot` για να δημιουργήσετε αρχεία με συγκεκριμένα δικαιώματα.</p>
                     </li>
@@ -622,10 +622,10 @@
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Το πρόγραμμα ξεκινά και αποτυγχάνει αμέσως σιωπηλά (ή `No such file or directory`).</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Το πρόγραμμα μπορεί να επιχειρεί μια κλήση συστήματος (όπως πρόσβαση σε αρχείο ή ρύθμιση δικτύου) που είναι μπλοκαρισμένη ή λείπει μια εξάρτηση, αλλά δεν εμφανίζει ένα χρήσιμο σφάλμα.</p>
-                <p class="mt-3">**Λύση: Παρακολούθηση Κλήσεων Συστήματος με `strace`:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το πρόγραμμα μπορεί να επιχειρεί μια κλήση συστήματος (όπως πρόσβαση σε αρχείο ή ρύθμιση δικτύου) που είναι μπλοκαρισμένη ή λείπει μια εξάρτηση, αλλά δεν εμφανίζει ένα χρήσιμο σφάλμα.</p>
+                <p class="mt-3"><b>Λύση: Παρακολούθηση Κλήσεων Συστήματος με `strace`:</b></p>
                 <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install strace && strace -f &lt;failing-command&gt;</div>
-                <p class="text-xs text-gray-500 mt-1">Το `strace` θα εμφανίσει ένα αρχείο καταγραφής γραμμή-γραμμή όλων των αλληλεπιδράσεων του συστήματος, αποκαλύπτοντας συχνά το ακριβές σφάλμα "Permission denied" ή σφάλμα διαδρομής που προκάλεσε το crash.</p>
+                <p class="text-xs text-gray-500 mt-1">Το `strace` θα εμφανίσει ένα αρχείο καταγραφής γραμμή-γραμμή όλων των αλληλεπιδράσεων του συστήματος, αποκαλύπτοντας συχνά το ακριβές "Permission denied" ή σφάλμα διαδρομής που προκάλεσε το crash.</p>
             </li>
         </ul>
 
@@ -637,31 +637,31 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Θέλω καλύτερες λειτουργίες και προσαρμογή από το προεπιλεγμένο κέλυφος Bash.</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Το Bash είναι το πρότυπο, αλλά κελύφη όπως το Zsh προσφέρουν προηγμένη αυτόματη συμπλήρωση και επεκτασιμότητα μέσω plugins.</p>
-                <p class="mt-3">**Λύση: Εγκαταστήστε το Zsh και Αλλάξτε Κέλυφος:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Bash είναι το πρότυπο, αλλά κελύφη όπως το Zsh προσφέρουν προηγμένη αυτόματη συμπλήρωση και επεκτασιμότητα μέσω plugins.</p>
+                <p class="mt-3"><b>Λύση: Εγκαταστήστε το Zsh και Αλλάξτε Κέλυφος:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Εγκαταστήστε το πακέτο:**
+                    <li><b>Εγκαταστήστε το πακέτο:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install zsh</div>
                     </li>
-                    <li>**Αλλάξτε το προεπιλεγμένο κέλυφος:**
+                    <li><b>Αλλάξτε το προεπιλεγμένο κέλυφος:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">chsh -s zsh</div>
                         <p class="text-xs text-gray-500">Πρέπει να κάνετε επανεκκίνηση του Termux για να τεθεί σε ισχύ αυτή η αλλαγή.</p>
                     </li>
-                    <li>**Προσαρμόστε την προτροπή (π.χ., στο `~/.zshrc`):**
+                    <li><b>Προσαρμόστε την προτροπή (π.χ., στο `~/.zshrc`):</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">export PROMPT='%n@%m:%~%# '</div>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Χρειάζεται να εκτελέσω μια γραφική εφαρμογή Linux (X-Window).</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Οι γραφικές εφαρμογές απαιτούν έναν X Server να εκτελείται στη συσκευή Android για να αποδώσει την έξοδο.</p>
-                <p class="mt-3">**Λύση: Ρύθμιση Περιβάλλοντος X11:**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Οι γραφικές εφαρμογές απαιτούν έναν X Server να εκτελείται στη συσκευή Android για να αποδώσει την έξοδο.</p>
+                <p class="mt-3"><b>Λύση: Ρύθμιση Περιβάλλοντος X11:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Εγκαταστήστε το αποθετήριο X11 και το πακέτο client:**
+                    <li><b>Εγκαταστήστε το αποθετήριο X11 και το πακέτο client:</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">pkg install x11-repo && pkg install termux-x11-nightly</div>
                     </li>
-                    <li>**Εγκαταστήστε την ξεχωριστή εφαρμογή Termux:X11** από το F-Droid ή το GitHub.</li>
-                    <li>**Ορίστε τη μεταβλητή οθόνης και εκτελέστε μια εφαρμογή (π.χ., `xeyes`):**
+                    <li><b>Εγκαταστήστε την ξεχωριστή εφαρμογή Termux:X11</b> από το F-Droid ή το GitHub.</li>
+                    <li><b>Ορίστε τη μεταβλητή οθόνης και εκτελέστε μια εφαρμογή (π.χ., `xeyes`):</b>
                         <div class="code-block p-2 mt-1 rounded-md text-sm">export DISPLAY=':0' && pkg install xeyes && xeyes</div>
                         <p class="text-xs text-gray-500">Η εφαρμογή Termux:X11 πρέπει να εκτελείται στο παρασκήνιο για να λειτουργήσει αυτό.</p>
                     </li>
@@ -677,22 +677,22 @@
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
                 <b class="text-lg text-yellow-400">Πρόβλημα: Το Termux είναι εντελώς χαλασμένο, ή οι εντολές `pkg` και `apt` αποτυγχάνουν αμέσως (Κατεστραμμένο Prefix).</b>
-                <p class="text-gray-400 mt-2">**Αιτία:** Κρίσιμα αρχεία στον κατάλογο `$PREFIX` (`/usr`) είναι κατεστραμμένα, συχνά από κακά scripts ή βίαιο τερματισμό κατά τη διάρκεια μιας αναβάθμισης.</p>
-                <p class="mt-3">**Λύση: Επαναφορά Περιβάλλοντος Termux (Μη Καταστροφική για το Home):**</p>
+                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Κρίσιμα αρχεία στον κατάλογο `$PREFIX` (`/usr`) είναι κατεστραμμένα, συχνά από κακά scripts ή βίαιο τερματισμό κατά τη διάρκεια μιας αναβάθμισης.</p>
+                <p class="mt-3"><b>Λύση: Επαναφορά Περιβάλλοντος Termux (Μη Καταστροφική για το Home):</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>**Βήμα 1:** Εάν είναι δυνατόν, αποθηκεύστε όλα τα αρχεία από το `$HOME` στον αποθηκευτικό χώρο του Android χρησιμοποιώντας την εντολή `cp -r ~ /sdcard/TermuxBackup`.</li>
-                    <li>**Βήμα 2:** Εκτελέστε την πλήρη επαναφορά:
+                    <li><b>Βήμα 1:</b> Εάν είναι δυνατόν, αποθηκεύστε όλα τα αρχεία από το `$HOME` στον αποθηκευτικό χώρο του Android χρησιμοποιώντας `cp -r ~ /sdcard/TermuxBackup`.</li>
+                    <li><b>Βήμα 2:</b> Εκτελέστε την πλήρη επαναφορά:
                         <div class="code-block p-2 mt-1 rounded-md text-sm">termux-setup-storage --reset</div>
-                        <p class="text-xs text-gray-500">Αυτή η εντολή καθαρίζει *όλα* τα εγκατεστημένα πακέτα και το prefix του Termux, αλλά *προσπαθεί να διατηρήσει* τον κατάλογο `$HOME`.</p>
+                        <p class="text-xs text-gray-500">Αυτή η εντολή καθαρίζει <i>όλα</i> τα εγκατεστημένα πακέτα και το prefix του Termux, αλλά <i>προσπαθεί να διατηρήσει</i> τον κατάλογο `$HOME`.</p>
                     </li>
-                    <li>**Βήμα 3:** Εναλλακτικά, **καθαρίστε τα δεδομένα της εφαρμογής** μέσω των Ρυθμίσεων του Android, κάτι που εκτελεί μια πλήρη εργοστασιακή επαναφορά.</li>
+                    <li><b>Βήμα 3:</b> Εναλλακτικά, <b>καθαρίστε τα δεδομένα της εφαρμογής</b> μέσω των Ρυθμίσεων του Android, κάτι που εκτελεί μια πλήρη εργοστασιακή επαναφορά.</li>
                 </ol>
             </li>
         </ul>
 
         <div class="p-6 bg-blue-900 rounded-lg shadow-xl mt-10">
             <h4 class="text-xl font-bold text-white mb-2">Τελική Σκέψη για το Termux</h4>
-            <p class="text-blue-200">Το Termux είναι ένα ισχυρό περιβάλλον χαμηλού επιπέδου. Κατά την αντιμετώπιση προβλημάτων, προχωρήστε πάντα βήμα προς βήμα, ξεκινώντας με τη σωστή πηγή εγκατάστασης (F-Droid) και τα κατάλληλα δικαιώματα. Εάν ένα σφάλμα επιμένει, ελέγχετε πάντα το **Termux Wiki** ή τα **GitHub Issues**.</p>
+            <p class="text-blue-200">Το Termux είναι ένα ισχυρό περιβάλλον χαμηλού επιπέδου. Κατά την αντιμετώπιση προβλημάτων, προχωρήστε πάντα βήμα προς βήμα, ξεκινώντας με τη σωστή πηγή εγκατάστασης (F-Droid) και τα κατάλληλα δικαιώματα. Εάν ένα σφάλμα επιμένει, ελέγχετε πάντα το <b>Termux Wiki</b> ή τα <b>GitHub Issues</b>.</p>
         </div>
     </div>
     </div>
