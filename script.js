@@ -82,7 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         document.getElementById('lang-switcher-btn').addEventListener('click', () => {
-            if (languageModalCloseBtn) languageModalCloseBtn.style.display = '';
+            // Re-enable close button when using the language switcher button later
+            if (languageModalCloseBtn) languageModalCloseBtn.style.display = ''; 
             showModal(languageModal);
         });
 
@@ -148,6 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const modal = document.getElementById(`${modalId}-modal`);
             if (modal) {
+                // Ensure the language modal close button is available if we open it
+                if (modalId === 'language-selection' && languageModalCloseBtn) {
+                     languageModalCloseBtn.style.display = '';
+                }
                 showModal(modal);
                 if (modalId === 'certification' && window.resetQuiz) {
                     window.resetQuiz();
@@ -229,13 +234,19 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             
             modal.addEventListener('click', e => {
-                if (e.target === modal) {
+                // MODIFICATION START: Prevent closing the initial language modal by clicking the overlay
+                if (e.target === modal && modal.id !== 'language-selection-modal') { 
                     closeModal();
                 }
+                // MODIFICATION END
             });
             const closeModalButton = modal.querySelector('.close-modal');
             if (closeModalButton) {
-                closeModalButton.addEventListener('click', closeModal);
+                // MODIFICATION START: Only attach handler if it's NOT the language modal's close button (which is hidden anyway)
+                if (modal.id !== 'language-selection-modal') {
+                    closeModalButton.addEventListener('click', closeModal);
+                }
+                // MODIFICATION END
             }
         });
         
@@ -444,10 +455,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // --- INITIAL PAGE LOAD ---
-        if (languageModalCloseBtn) languageModalCloseBtn.style.display = 'none';
+        // MODIFICATION START: The close button is hidden on purpose on initial load
+        if (languageModalCloseBtn) {
+            languageModalCloseBtn.style.display = 'none';
+        }
         showModal(languageModal);
         changeLanguage('en'); 
         document.querySelector('#language-selection-modal .modal-header h2').textContent = 'Choose Language / Επιλογή Γλώσσας';
+        // MODIFICATION END
         
         buildSiteWideSearchIndex(); // Index all modals
         initializeSearch();
