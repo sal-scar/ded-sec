@@ -846,7 +846,16 @@ body.light-theme .modal-content {
 #certification-modal .modal-body {
     padding: 15px;
     background-color: var(--nm-abyss-blue);
+    /* NEW FIX: Disable scrolling on modal-body for short content (default state) */
+    overflow-y: hidden !important; 
 }
+
+/* Override the above to re-enable scrolling when the long quiz starts, 
+   by targetting the #app-container which is given a new height */
+#certification-modal .modal-body:has(#app-container:not(.no-scroll)) {
+    overflow-y: auto !important;
+}
+
 #app-container {
     background-color: var(--nm-dark);
     padding: 20px;
@@ -860,7 +869,8 @@ body.light-theme .modal-content {
     clip-path: none;
     border-radius: 20px;
 }
-/* FIX 1: New class to remove scrolling for short content in #app-container */
+/* FIX 1: New class to hide content overflow for short content in #app-container 
+   This class is managed by script.js and determines the scroll state above. */
 #app-container.no-scroll {
     overflow-y: hidden;
 }
