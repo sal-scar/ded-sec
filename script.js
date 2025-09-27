@@ -85,11 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     hideModal(languageModal);
                     
                     // --- MODIFICATION START (To prevent autopend) ---
-                    // ONLY show the disclaimer if it hasn't been accepted yet.
-                    if (!localStorage.getItem('disclaimerAccepted')) {
-                        showModal(disclaimerModal);
-                    }
-                    // REMOVED: Automatic opening of installationModal.
+                    // REMOVED: Logic to automatically show the disclaimer modal here.
+                    // The disclaimer will now ONLY show when the 'Installation' app button is clicked
+                    // and 'disclaimerAccepted' is not set.
                     // --- MODIFICATION END ---
                 }
             });
