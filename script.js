@@ -234,19 +234,17 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             
             modal.addEventListener('click', e => {
-                // MODIFICATION START: Prevent closing the initial language modal by clicking the overlay
-                if (e.target === modal && modal.id !== 'language-selection-modal') { 
+                // MODIFICATION: Prevent closing the initial language modal by clicking the overlay
+                if (e.target === modal && modal.id !== 'language-selection-modal') {
                     closeModal();
                 }
-                // MODIFICATION END
             });
             const closeModalButton = modal.querySelector('.close-modal');
             if (closeModalButton) {
-                // MODIFICATION START: Only attach handler if it's NOT the language modal's close button (which is hidden anyway)
-                if (modal.id !== 'language-selection-modal') {
+                // MODIFICATION: Only attach handler if it's NOT the language modal's close button (which is hidden anyway)
+                if (modal.id !== 'language-selection-modal') { 
                     closeModalButton.addEventListener('click', closeModal);
                 }
-                // MODIFICATION END
             }
         });
         
@@ -455,14 +453,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // --- INITIAL PAGE LOAD ---
-        // MODIFICATION START: The close button is hidden on purpose on initial load
+        // MODIFICATION: Ensure close button is hidden on initial load for language enforcement
         if (languageModalCloseBtn) {
             languageModalCloseBtn.style.display = 'none';
         }
         showModal(languageModal);
         changeLanguage('en'); 
         document.querySelector('#language-selection-modal .modal-header h2').textContent = 'Choose Language / Επιλογή Γλώσσας';
-        // MODIFICATION END
         
         buildSiteWideSearchIndex(); // Index all modals
         initializeSearch();
@@ -501,7 +498,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = htmlContent;
                     
-                    const infoName = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
+                    // MODIFICATION: Clean name for indexing: remove .html, then remove leading numbers/underscores, then replace internal underscores with spaces.
+                    const infoName = file.name
+                        .replace(/\.html$/, '') 
+                        .replace(/^\d+_/, '') // Remove leading numbers and underscore (e.g., '1_')
+                        .replace(/_/g, ' '); 
 
                     tempDiv.querySelectorAll('[data-lang-section]').forEach(section => {
                         const lang = section.dataset.langSection;
@@ -534,7 +535,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const icon = document.createElement('i');
                 icon.className = 'fas fa-book-open';
                 const span = document.createElement('span');
-                span.textContent = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
+                
+                // MODIFICATION: Clean name for display: remove .html, then remove leading numbers/underscores, then replace internal underscores with spaces.
+                span.textContent = file.name
+                    .replace(/\.html$/, '') 
+                    .replace(/^\d+_/, '') 
+                    .replace(/_/g, ' ');
+                
                 button.appendChild(icon);
                 button.appendChild(span);
                 button.addEventListener('click', () => loadInformationContent(file.download_url));
