@@ -159,8 +159,7 @@ button.app-wrapper {
     display: flex;
     flex-direction: column;
     transition: background-color 0.3s ease;
-    /* ADDED: Explicit z-index to ensure screen content is on top */
-    z-index: 2; 
+    z-index: 0;
 }
 
 .screen::after {
@@ -174,8 +173,7 @@ button.app-wrapper {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    /* FIXED: Increased opacity to make the logo brighter against the dark background */
-    opacity: 0.6; 
+    opacity: 0.3; 
     z-index: -1;
 }
 
