@@ -15,18 +15,18 @@
     --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender for intense glow */
     --nm-text: #D0D8E0;        
     --nm-text-muted: #7A8899;  
-    --nm-danger: #00FFFF;      /* CHANGED to Cyan Blue */
-    --nm-danger-hover: #00FFFF; /* CHANGED to Cyan Blue */
+    --nm-danger: #9966FF;      /* CHANGED to Lavender */
+    --nm-danger-hover: #E6D9FF; /* CHANGED to Lavender */
     --nm-success: #9966FF;     /* Success is also Digital Lavender */
-    --nm-warning: #FFD700;     
+    --nm-warning: #9966FF;     /* CHANGED to Lavender */
     
     --glow-rgb: 153, 102, 255; /* ADDED: RGB components for the accent color */
     --glow-color: rgba(var(--glow-rgb), 0.9);
-    --glow-color-danger: rgba(0, 255, 255, 0.8); /* CHANGED to Cyan Blue */
-    --glow-color-warning: rgba(255, 215, 0, 0.8); 
+    --glow-color-danger: rgba(var(--glow-rgb), 0.8); /* CHANGED to Lavender Glow */
+    --glow-color-warning: rgba(var(--glow-rgb), 0.8); /* CHANGED to Lavender Glow */
 
-    --warning-bg: rgba(255, 215, 0, 0.1);
-    --danger-bg: rgba(0, 255, 255, 0.1);
+    --warning-bg: rgba(var(--glow-rgb), 0.1); /* CHANGED to Lavender */
+    --danger-bg: rgba(var(--glow-rgb), 0.1); /* CHANGED to Lavender */
 
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
     --shape-cut: 20px;
@@ -41,7 +41,7 @@ body.light-theme {
     --nm-border: #cccccc;
     --nm-text: #000000;
     --nm-text-muted: #555555;
-    --nm-warning: #FDB813;
+    --nm-warning: #9966FF; /* CHANGED */
     --glow-color: rgba(var(--glow-rgb), 0.3);
 }
 
@@ -263,9 +263,9 @@ body.light-theme #scroll-indicator-thumb {
 }
 
 @keyframes pulse-cyan {
-    0% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(0, 255, 255, 0.4); }
-    50% { box-shadow: 0 0 30px var(--glow-color-danger), inset 0 0 20px rgba(0, 255, 255, 0.5); }
-    100% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(0, 255, 255, 0.4); }
+    0% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(var(--glow-rgb), 0.4); } /* CHANGED to Lavender */
+    50% { box-shadow: 0 0 30px var(--glow-color-danger), inset 0 0 20px rgba(var(--glow-rgb), 0.5); } /* CHANGED to Lavender */
+    100% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(var(--glow-rgb), 0.4); } /* CHANGED to Lavender */
 }
 
 
@@ -273,7 +273,7 @@ body.light-theme #scroll-indicator-thumb {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 2px solid var(--nm-danger); 
+    border: 2px solid var(--nm-danger); /* Uses --nm-danger (Lavender) */
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
@@ -295,8 +295,8 @@ body.light-theme #scroll-indicator-thumb {
     left: 0;
     width: 100%;
     background-color: var(--nm-dark);
-    border: 1px solid var(--nm-danger);
-    box-shadow: 0 10px 30px var(--glow-color-danger);
+    border: 1px solid var(--nm-danger); /* Uses --nm-danger (Lavender) */
+    box-shadow: 0 10px 30px var(--glow-color-danger); /* Uses --glow-color-danger (Lavender) */
     max-height: 300px;
     overflow-y: auto;
     z-index: 100;
@@ -318,8 +318,8 @@ body.light-theme #scroll-indicator-thumb {
 
 #search-results-container .search-result-item:hover,
 #useful-info-results-container .search-result-item:hover {
-    background-color: var(--nm-danger);
-    color: #000; 
+    background-color: var(--nm-accent); /* CHANGED to Lavender */
+    color: var(--nm-darkest); /* CHANGED to dark text on hover */
 }
 #search-results-container .search-result-item small,
 #useful-info-results-container .search-result-item small {
@@ -334,8 +334,8 @@ body.light-theme #scroll-indicator-thumb {
 }
 
 .content-highlight {
-    background-color: rgba(255, 215, 0, 0.3);
-    box-shadow: 0 0 15px var(--glow-color-warning);
+    background-color: rgba(var(--glow-rgb), 0.3); /* CHANGED from Yellow/Warning */
+    box-shadow: 0 0 15px var(--glow-color); /* CHANGED from Yellow/Warning */
     transition: background-color 1s ease;
 }
 
@@ -383,9 +383,10 @@ body.light-theme .main-header-container > h1 {
 }
 
 .app-icon {
-    background: rgba(var(--glow-rgb), 0.05);
+    /* MODIFIED: Black Background, White Text/Icon, Lavender Border */
+    background: var(--nm-darkest); 
     border: 1px solid var(--nm-accent);
-    color: var(--nm-accent-hover);
+    color: var(--nm-text); 
     cursor: pointer;
     font-family: 'Roboto Mono', monospace;
     transition: all 0.2s ease;
@@ -399,7 +400,7 @@ body.light-theme .main-header-container > h1 {
     position: relative;
     clip-path: var(--clip-path-shape);
     gap: 12px;
-    box-shadow: inset 0 0 15px rgba(var(--glow-rgb), 0.25);
+    box-shadow: none; /* Removed initial inset glow */
     height: 56px;
 }
 
@@ -421,21 +422,21 @@ body.light-theme .main-header-container > h1 {
 }
 
 .app-icon:hover {
+    /* Hover maintains dark text on Lavender background */
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
     box-shadow: 0 0 20px var(--glow-color),
-                0 0 40px var(--glow-color),
-                inset 0 0 10px rgba(11, 18, 28, 0.5);
+                0 0 40px var(--glow-color); /* Removed inset glow */
 }
 
 .app-wrapper:hover .app-icon,
 .app-wrapper:focus-visible .app-icon {
+    /* Hover maintains dark text on Lavender background */
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     box-shadow: 0 0 20px var(--glow-color),
-                0 0 40px var(--glow-color),
-                inset 0 0 10px rgba(11, 18, 28, 0.5);
+                0 0 40px var(--glow-color); /* Removed inset glow */
     outline: none;
 }
 
@@ -445,11 +446,11 @@ body.light-theme .main-header-container > h1 {
 }
 
 .app-icon i {
-    color: var(--nm-accent-hover);
+    color: var(--nm-text); /* MODIFIED: White icon color */
     transition: color 0.2s ease;
     font-size: 1.4rem;
     margin: 0;
-    text-shadow: 0 0 8px var(--glow-color);
+    text-shadow: none; /* Removed initial glow */
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -458,7 +459,7 @@ body.light-theme .main-header-container > h1 {
 .app-icon:hover i,
 .app-wrapper:hover .app-icon i,
 .app-wrapper:focus-visible .app-icon i {
-    color: var(--nm-darkest);
+    color: var(--nm-darkest); /* Dark text on Lavender hover */
     text-shadow: none;
 }
 
@@ -762,23 +763,26 @@ body.light-theme .modal-content {
     border-color: var(--nm-success) !important;
 }
 .decline-btn {
-    background-color: var(--nm-danger) !important;
-    border-color: var(--nm-danger) !important;
-    color: #000 !important;
+    /* MODIFIED: Changed from Cyan/Danger to Lavender/Accent */
+    background-color: var(--nm-accent) !important; 
+    border-color: var(--nm-accent) !important;
+    color: var(--nm-darkest) !important;
 }
 .accept-btn:hover {
     box-shadow: 0 0 20px var(--glow-color), 0 0 40px var(--glow-color) !important;
     opacity: 0.9;
 }
 .decline-btn:hover {
-    box-shadow: 0 0 20px var(--glow-color-danger), 0 0 40px var(--glow-color-danger) !important;
+    /* MODIFIED: Changed from Cyan/Danger Glow to Lavender Glow */
+    box-shadow: 0 0 20px var(--glow-color), 0 0 40px var(--glow-color) !important;
     opacity: 0.9;
 }
 
 .tip {
+    /* MODIFIED: Changed from Yellow/Warning to Lavender/Accent */
     background: var(--nm-dark);
-    border-left: 2px solid var(--nm-warning);
-    box-shadow: -7px 0 15px -8px var(--glow-color-warning);
+    border-left: 2px solid var(--nm-accent);
+    box-shadow: -7px 0 15px -8px var(--glow-color); 
     margin: 1em 0;
     padding: 0.8em 1em;
     border-radius: 0 4px 4px 0;
@@ -1216,14 +1220,14 @@ body.light-theme .certificate-header h1 {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 2px solid var(--nm-danger);
+    border: 2px solid var(--nm-danger); /* Uses --nm-danger (Lavender) */
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
     clip-path: var(--clip-path-shape);
     box-sizing: border-box;
-    animation: pulse-cyan 2s infinite;
+    animation: pulse-cyan 2s infinite; /* Animation name remains, but uses Lavender glow */
 }
 
 .modal-search-container input:focus {
@@ -1246,12 +1250,14 @@ body.light-theme .certificate-header h1 {
     text-align: center;
 }
 .note.note-warning {
+    /* MODIFIED: Changed from Yellow/Warning to Lavender/Accent */
     background-color: var(--warning-bg);
     color: white;
     font-weight: bold;
-    border-color: var(--nm-warning);
+    border-color: var(--nm-accent); 
 }
 .note.note-danger {
+    /* MODIFIED: Changed from Cyan/Danger to Lavender/Accent */
     border-left-color: var(--nm-danger);
     background: var(--danger-bg);
 }
