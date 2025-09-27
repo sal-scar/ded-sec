@@ -5,28 +5,28 @@
 */
 
 :root {
-    /* MODIFIED: Digital Lavender Palette */
+    /* MODIFIED: Reverting to Digital Lavender Palette (with Cyan Danger) */
     --nm-abyss-blue: #01040a; 
     --nm-darkest: #0B121C;    
     --nm-dark: #151E2A;       
     --nm-container: #1F2A38;  
     --nm-border: #3A4A5E;      
-    --nm-accent: #9966FF;      /* Digital Lavender */
-    --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender for intense glow */
+    --nm-accent: #9966FF;      /* Digital Lavender (Original) */
+    --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender for intense glow (Original) */
     --nm-text: #D0D8E0;        
     --nm-text-muted: #7A8899;  
-    --nm-danger: #00FFFF;      /* CHANGED to Cyan Blue */
-    --nm-danger-hover: #00FFFF; /* CHANGED to Cyan Blue */
-    --nm-success: #9966FF;     /* Success is also Digital Lavender */
+    --nm-danger: #00FFFF;      /* Cyan Blue (As per previous request) */
+    --nm-danger-hover: #00FFFF; /* Cyan Blue */
+    --nm-success: #9966FF;     /* Success is also Digital Lavender (Original) */
     --nm-warning: #FFD700;     
     
-    --glow-rgb: 153, 102, 255; /* ADDED: RGB components for the accent color */
+    --glow-rgb: 153, 102, 255; /* ADDED: RGB components for the accent color (Lavender) */
     --glow-color: rgba(var(--glow-rgb), 0.9);
-    --glow-color-danger: rgba(0, 255, 255, 0.8); /* CHANGED to Cyan Blue */
+    --glow-color-danger: rgba(0, 255, 255, 0.8); /* Cyan Blue for danger glow */
     --glow-color-warning: rgba(255, 215, 0, 0.8); 
 
     --warning-bg: rgba(255, 215, 0, 0.1);
-    --danger-bg: rgba(0, 255, 255, 0.1);
+    --danger-bg: rgba(0, 255, 255, 0.1); /* Cyan for danger background */
 
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
     --shape-cut: 20px;
