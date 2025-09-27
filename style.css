@@ -860,8 +860,12 @@ body.light-theme .modal-content {
     clip-path: none;
     border-radius: 20px;
 }
-.hidden { display: none; } 
-.hidden-by-default { display: none; } 
+.hidden { 
+    display: none !important; /* CRITICAL FIX: Ensure elements are hidden */
+} 
+.hidden-by-default { 
+    display: none; 
+} 
 
 #language-selection h1, #user-info h1, #results-container h1 {
     color: var(--nm-text); /* Enforce White */
