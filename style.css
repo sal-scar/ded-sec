@@ -181,15 +181,15 @@ button.app-wrapper {
 }
 
 .screen-overlay::after {
+    /* MODIFIED: Removed content to eliminate the purple scanline glow */
     content: '';
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 200%; 
-    background: 
-        repeating-linear-gradient(0deg, rgba(var(--glow-rgb), 0.12), rgba(var(--glow-rgb), 0.12) 1px, transparent 1px, transparent 4px);
-    animation: scanline-scroll 15s linear infinite;
+    background: transparent; /* Changed to transparent */
+    animation: none; /* Disabled animation */
     will-change: transform; 
 }
 
