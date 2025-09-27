@@ -313,11 +313,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.lang === currentLanguage && item.text.toLowerCase().includes(query)
                 );
                 
-                // FIX: Removed the flawed deduplication logic. Now all relevant snippets are shown.
-                const sortedResults = results.sort((a, b) => b.weight - a.weight);
+                const uniqueResults = [...new Map(results.map(item => [item.text, item])).values()];
+                uniqueResults.sort((a, b) => b.weight - a.weight);
 
-                if (sortedResults.length > 0) {
-                    sortedResults.slice(0, 7).forEach(result => {
+                if (uniqueResults.length > 0) {
+                    uniqueResults.slice(0, 7).forEach(result => {
                         const itemEl = document.createElement('div');
                         itemEl.classList.add('search-result-item');
                         const snippet = result.text.substring(0, 100) + (result.text.length > 100 ? '...' : '');
@@ -694,7 +694,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h1>${t.certTitle}</h1>
                     </div>
                     <div class="certificate-body">
-                        <p class="serif">${t.certAwardedTo}</p>
+                        <p class="serif">${t.awardedTo}</p>
                         <h2 class="recipient-name">${name}</h2>
                         <p class="serif">${t.certAchievement}</p>
                     </div>
