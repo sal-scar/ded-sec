@@ -624,62 +624,11 @@ body.light-theme .modal-content {
 }
 .modal-body {
     padding: 25px;
-    overflow-y: auto; 
+    overflow-y: auto;
     flex-grow: 1;
     line-height: 1.7;
     min-height: 0;
 }
-
-/* --- CERTIFICATION QUIZ SPECIFIC STYLES --- */
-
-#certification-modal .modal-body {
-    padding: 15px;
-    background-color: var(--nm-abyss-blue);
-    /* NEW FIX: Disable scrolling on modal-body for short content (default state) */
-    overflow-y: hidden !important; 
-}
-
-/* Use :has() to re-enable modal-body scrolling only if the inner container is NOT in no-scroll mode.
-   This controls the overall modal scrollbar for the long quiz/results. */
-#certification-modal .modal-body:has(#app-container:not(.no-scroll)) {
-    overflow-y: auto !important;
-}
-
-#app-container {
-    background-color: var(--nm-dark);
-    padding: 20px;
-    box-shadow: none; 
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    color: var(--nm-text);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* Added uniform border-radius */
-    clip-path: none;
-    border-radius: 20px;
-    
-    /* CRITICAL FIX: Make app-container the main scrollable area when the quiz starts */
-    overflow-y: hidden; /* Prevent this container from generating a scrollbar by default */
-}
-/* FIX 1: New class to hide content overflow for short content in #app-container 
-   This class is managed by script.js and determines the scroll state above. */
-#app-container.no-scroll {
-    overflow-y: hidden;
-}
-
-
-/* CRITICAL FIX: Style for the new scrollable answers wrapper */
-.options-scroll-container {
-    flex-grow: 1;
-    overflow-y: auto; /* THIS enables scrolling only for the options */
-    padding-right: 10px; /* Space for the scrollbar */
-    padding-bottom: 10px;
-    min-height: 0; /* Allows flex item to shrink correctly */
-}
-
-
-/* --- END CERTIFICATION QUIZ SPECIFIC STYLES --- */
-
 .modal-body-centered { 
     display: flex;
     flex-direction: column;
@@ -894,12 +843,109 @@ body.light-theme .modal-content {
 }
 
 
-#quiz-container {
-    flex-grow: 1;
-    overflow-y: hidden; /* CRITICAL: Prevent quiz container from scrolling itself */
-    padding-right: 0;
+#certification-modal .modal-body {
+    padding: 15px;
+    background-color: var(--nm-abyss-blue);
+    /* NEW FIX: Disable scrolling on modal-body for short content (default state) */
+    overflow-y: hidden !important; 
+}
+
+/* Override the above to re-enable scrolling when the long quiz starts, 
+   by targetting the #app-container which is given a new height */
+#certification-modal .modal-body:has(#app-container:not(.no-scroll)) {
+    overflow-y: auto !important;
+}
+
+#app-container {
+    background-color: var(--nm-dark);
+    padding: 20px;
+    box-shadow: none; 
+    height: 100%;
     display: flex;
     flex-direction: column;
+    color: var(--nm-text);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    /* Added uniform border-radius */
+    clip-path: none;
+    border-radius: 20px;
+}
+/* FIX 1: New class to hide content overflow for short content in #app-container 
+   This class is managed by script.js and determines the scroll state above. */
+#app-container.no-scroll {
+    overflow-y: hidden;
+}
+
+.hidden { 
+    display: none !important; 
+} 
+.hidden-by-default { 
+    display: none; 
+} 
+
+#language-selection h1, #user-info h1, #results-container h1 {
+    color: var(--nm-text); /* Enforce White */
+    text-shadow: none; 
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+body.light-theme #language-selection h1,
+body.light-theme #user-info h1,
+body.light-theme #results-container h1 {
+    text-shadow: none;
+    color: var(--nm-text);
+}
+
+#language-selection p, #user-info label {
+    color: var(--nm-text-muted);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+#language-selection .button-container, #user-info form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+#language-selection button, #user-info button, #navigation-container button, #results-container button {
+    width: 100%;
+    max-width: 250px;
+}
+
+#navigation-container button#submit-btn {
+    background-color: var(--nm-success) !important;
+    border-color: var(--nm-success) !important;
+    color: var(--nm-darkest) !important;
+}
+#navigation-container button#submit-btn:hover {
+    opacity: 0.9;
+}
+#results-container .text-red-600 { color: var(--nm-danger); }
+
+#user-info input {
+    background-color: var(--nm-darkest);
+    border: 1px solid var(--nm-border);
+    color: var(--nm-text);
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    /* Added uniform border-radius */
+    clip-path: none;
+    border-radius: 20px;
+}
+#user-info input:focus {
+    outline: none;
+    box-shadow: none; 
+    border-color: var(--nm-accent);
+    background-color: var(--nm-dark);
+}
+#quiz-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
 }
 #quiz-stats {
     display: flex;
@@ -916,14 +962,8 @@ body.light-theme .modal-content {
     clip-path: none;
     border-radius: 20px;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
-    flex-shrink: 0; /* CRITICAL: Ensure stats bar stays fixed */
 }
-.quiz-page { 
-    animation: fadeIn 0.5s ease-in-out; 
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1; /* Allow the quiz page to fill the #quiz-container height */
-}
+.quiz-page { animation: fadeIn 0.5s ease-in-out; }
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -938,15 +978,8 @@ body.light-theme .modal-content {
     /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
-    flex-shrink: 0; /* CRITICAL: Prevent the question box from shrinking/scrolling away */
 }
-.quiz-page .options-container { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 0.75rem; 
-    padding-right: 5px; /* Adjust padding if needed for inner container */
-    flex-shrink: 0; /* Prevent options container from shrinking inside options-scroll-container */
-}
+.quiz-page .options-container { display: flex; flex-direction: column; gap: 0.75rem; }
 .quiz-page label {
     display: flex;
     align-items: center;
@@ -1019,7 +1052,7 @@ body.light-theme .modal-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0; /* CRITICAL: Ensure navigation buttons stay fixed */
+    flex-shrink: 0;
 }
 #navigation-container button { width: auto; }
 #navigation-container button:disabled {
