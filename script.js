@@ -621,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const lastNameInput = certModal.querySelector('#last-name');
         const mistakeCounterEl = certModal.querySelector('#mistake-counter');
         const timerDisplayEl = certModal.querySelector('#timer-display');
-        const appContainerDiv = certModal.querySelector('#app-container'); // Get the app container
+        const appContainerDiv = certModal.querySelector('#app-container'); // NEW: Get the app container
 
         window.resetQuiz = () => {
             currentPage = 1;
@@ -698,10 +698,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2>${t.page} ${index + 1} ${t.of} ${activeQuestions.length}</h2>
                     <hr>
                     <div class="question-box"><p>${q[`question_${userLang}`]}</p></div>
-                    
-                    <div class="options-scroll-container">
-                        <div class="options-container">${optionsHTML}</div>
-                    </div>
+                    <div class="options-container">${optionsHTML}</div>
                 `;
                 pageDiv.querySelectorAll(`input[name="question-${index}"]`).forEach(radio => {
                     radio.addEventListener('change', () => saveAnswer(index, parseInt(radio.value)));
