@@ -33,7 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const text = el.getAttribute(`data-${lang}`) || el.getAttribute('data-en');
                 const isSimpleTextElement = el.matches('h1, h2, h3, p, label, button, span, a');
 
-                if (isSimpleTextElement) {
+                // FIX: More robust check to prevent destroying child HTML elements.
+                // Only update textContent if the element has no element children.
+                const hasElementChild = el.children.length > 0;
+
+                if (isSimpleTextElement && !hasElementChild) {
                      el.textContent = text;
                 }
             });
@@ -145,6 +149,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.modal-overlay').forEach(modal => {
             const closeModal = () => {
                 hideModal(modal);
+
+                // FIX: Add this check to prevent quiz timer memory leak upon closing the modal.
+                if (modal.id === 'certification-modal' && window.resetQuiz) {
+                    window.resetQuiz();
+                }
+
                 if (modal.id === 'useful-information-modal') {
                     document.getElementById('useful-info-prompt').style.display = 'block';
                     document.getElementById('useful-information-content').innerHTML = '';
@@ -443,7 +453,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // New logic to find, scroll, and highlight the result
             if (textToHighlight) {
                 const allElements = contentContainer.querySelectorAll('p, li, h3, b, code');
-                const targetElement = Array.from(allElements).find(el => el.textContent.trim() === textToHighlight.trim());
+                // FIX: Use .includes() for a more robust match that isn't broken by minor whitespace differences.
+                const targetElement = Array.from(allElements).find(el => el.textContent.trim().includes(textToHighlight.trim()));
 
                 if (targetElement) {
                     // Scroll the element into the middle of the view
