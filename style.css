@@ -165,7 +165,7 @@ button.app-wrapper {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.1;
+    opacity: 0.4; /* MODIFIED: Increased opacity for visibility */
     z-index: -1;
 }
 
@@ -194,12 +194,14 @@ button.app-wrapper {
 }
 
 .screen::before {
+    /* MODIFIED: Removed content and background to eliminate the dark radial vignette */
     content: '';
     position: absolute;
     top: 0; left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.9) 100%);
+    /* background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.9) 100%); */
+    background: none;
     pointer-events: none;
     z-index: 3;
 }
