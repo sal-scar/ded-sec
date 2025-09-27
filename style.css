@@ -1296,3 +1296,19 @@ span.sub-item {
         max-width: none; 
     }
 }
+
+/* === ADDED FOR USER REQUEST === */
+
+/* Rule to prevent awkward word splitting/hyphenation in modal text */
+.modal-body p {
+    word-break: normal;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+/* Rule to make the main trademark disclaimer in the modal larger */
+#disclaimer-modal .note p:first-of-type {
+    font-size: 1.1em;
+    font-weight: 500;
+}
