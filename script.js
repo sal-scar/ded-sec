@@ -67,6 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (usefulInfoSearchInput) {
                 usefulInfoSearchInput.placeholder = lang === 'gr' ? 'Αναζήτηση άρθρων...' : 'Search articles...';
             }
+
+            // NEW: Unhide main screen content when language is successfully chosen
+            const mainScreen = document.querySelector('main.home-screen');
+            if (mainScreen) {
+                mainScreen.classList.remove('hidden-on-load');
+            }
         };
         
         languageModal.querySelectorAll('.language-button').forEach(button => {
@@ -228,8 +234,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             };
             
+            // MODIFIED (Final Correction): Prevent closing the language modal via overlay click by preventing propagation
             modal.addEventListener('click', e => {
                 if (e.target === modal) {
+                    if (modal.id === 'language-selection-modal') {
+                        e.stopPropagation();
+                        // Add this to prevent any underlying click actions, although the main screen is hidden
+                        e.preventDefault(); 
+                        return;
+                    }
                     closeModal();
                 }
             });
@@ -377,6 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             document.addEventListener('click', (e) => {
+                const searchContainer = document.querySelector('.search-container');
                 if (searchContainer && !searchContainer.contains(e.target)) {
                     resultsContainer.classList.add('hidden');
                 }
@@ -444,9 +458,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // --- INITIAL PAGE LOAD ---
+        // Force initial state: hide X button, show modal, do NOT set language yet
         if (languageModalCloseBtn) languageModalCloseBtn.style.display = 'none';
         showModal(languageModal);
-        changeLanguage('en'); 
+        // REMOVED: changeLanguage('en'); 
         document.querySelector('#language-selection-modal .modal-header h2').textContent = 'Choose Language / Επιλογή Γλώσσας';
         
         buildSiteWideSearchIndex(); // Index all modals
@@ -486,7 +501,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const tempDiv = document.createElement('div');
                     tempDiv.innerHTML = htmlContent;
                     
-                    const infoName = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
+                    // MODIFIED: Remove .html from the title
+                    const infoName = file.name.replace(/\.html$/, '').replace(/_\d*\.html$/, '').replace(/_/g, ' ');
 
                     tempDiv.querySelectorAll('[data-lang-section]').forEach(section => {
                         const lang = section.dataset.langSection;
@@ -519,7 +535,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const icon = document.createElement('i');
                 icon.className = 'fas fa-book-open';
                 const span = document.createElement('span');
-                span.textContent = file.name.replace(/_\d*\.html$/, '').replace(/_/g, ' ');
+                // MODIFIED: Remove .html from the display text
+                span.textContent = file.name.replace(/\.html$/, '').replace(/_\d*\.html$/, '').replace(/_/g, ' ');
                 button.appendChild(icon);
                 button.appendChild(span);
                 button.addEventListener('click', () => loadInformationContent(file.download_url));
