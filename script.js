@@ -230,6 +230,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
             });
+            // Include link-based app wrappers like 'DedSec Store'
+            document.querySelectorAll('a.app-wrapper').forEach(el => {
+                const span = el.querySelector('.app-label');
+                if (span && el.href) {
+                     searchIndex.push({
+                        en: span.getAttribute('data-en') || span.textContent,
+                        gr: span.getAttribute('data-gr') || span.textContent,
+                        type: 'link_button',
+                        target: el.href,
+                        element: el
+                    });
+                }
+            });
         }
         
         function initializeSearch() {
@@ -247,8 +260,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 let results = searchIndex.filter(item => {
-                    const text = (item[currentLanguage] || item['en'] || '').toLowerCase();
-                    return text.includes(query);
+                    // Check against both current language text and English/default text for robustness
+                    const textEn = (item['en'] || '').toLowerCase();
+                    const textGr = (item['gr'] || '').toLowerCase();
+                    const currentText = (item[currentLanguage] || item['en'] || '').toLowerCase();
+                    return currentText.includes(query) || textEn.includes(query) || textGr.includes(query);
                 });
                 
                 if (results.length > 0) {
@@ -259,16 +275,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         itemEl.innerHTML = mainText.replace(new RegExp(query, 'gi'), '<strong>$&</strong>');
                         
                         itemEl.addEventListener('click', (e) => {
-                            // Fix: Introduce a small delay to ensure the click on the result item 
-                            // is fully processed before triggering the button click and preventing the blur logic.
+                            // FIX: Use requestAnimationFrame for reliable click propagation
                             e.preventDefault(); 
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
                             
-                            // Trigger the actual element click after a moment
-                            setTimeout(() => {
+                            // Ensure the browser finishes handling the click on the result element 
+                            // before the blur event fires and prevents the target element's click.
+                            window.requestAnimationFrame(() => {
                                 if (result.element) result.element.click();
-                            }, 50); 
+                            });
                         });
                         resultsContainer.appendChild(itemEl);
                     });
@@ -283,6 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             searchInput.addEventListener('blur', () => {
+                // Keep the small timeout to allow click events to register before hiding.
                 setTimeout(() => {
                     resultsContainer.classList.add('hidden');
                 }, 150);
@@ -312,6 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 
+                // Hide the main nav elements when search results appear
                 document.getElementById('useful-information-nav').querySelectorAll('.app-icon').forEach(article => {
                     article.style.display = 'none';
                 });
@@ -320,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.lang === currentLanguage && item.text.toLowerCase().includes(query)
                 );
                 
-                // FIX: The flawed deduplication logic was removed in the last step.
+                // Sorted results (no deduplication)
                 const sortedResults = results.sort((a, b) => b.weight - a.weight);
 
                 if (sortedResults.length > 0) {
@@ -334,7 +352,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         itemEl.addEventListener('click', async () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
-                            await loadInformationContent(result.url, result.text);
+                            // This function handles loading the content and applying the highlight (yellow glow)
+                            await loadInformationContent(result.url, result.text); 
                         });
                         resultsContainer.appendChild(itemEl);
                     });
