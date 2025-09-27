@@ -236,15 +236,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const closeModal = () => {
                 hideModal(modal);
 
+                // --- MODIFICATION START: Simplified reset for Useful Info modal ---
                 if (modal.id === 'useful-information-modal') {
-                    document.getElementById('useful-info-prompt').style.display = 'block';
-                    document.getElementById('useful-information-content').innerHTML = '';
+                    // Content is now in a pop-up, so we only need to reset the search state
                     document.getElementById('useful-info-search-input').value = '';
                     document.getElementById('useful-info-results-container').classList.add('hidden');
                     document.getElementById('useful-information-nav').querySelectorAll('.app-icon').forEach(article => {
-                        article.style.display = 'flex';
+                        article.style.display = 'flex'; // Ensure nav buttons are visible again
                     });
                 }
+                // --- MODIFICATION END ---
                 
                 // Remove highlight from any closed modal content
                 modal.querySelectorAll('.content-highlight').forEach(el => {
@@ -451,12 +452,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         const highlightedSnippet = snippet.replace(new RegExp(query, 'gi'), '<strong>$&</strong>'); 
                         itemEl.innerHTML = `${highlightedSnippet} <small>${result.title}</small>`;
                         
+                        // --- MODIFICATION START: Update click handler ---
                         itemEl.addEventListener('click', async () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
-                            // FIX: Ensure we await the content loading for correct timing of highlight
-                            await loadInformationContent(result.url, result.text); 
+                            // Pass title from the result object to create the pop-up modal
+                            await loadInformationContent(result.url, result.title, result.text); 
                         });
+                        // --- MODIFICATION END ---
                         resultsContainer.appendChild(itemEl);
                     });
                     resultsContainer.classList.remove('hidden');
@@ -562,16 +565,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon.className = 'fas fa-book-open';
                 const span = document.createElement('span');
                 
-                // MODIFICATION: Clean name for display: remove .html, then remove leading numbers/underscores, then replace internal underscores with spaces.
-                span.textContent = file.name
+                // MODIFICATION: Clean name for display and store it for the click handler.
+                const articleTitle = file.name
                     .replace(/\.html$/, '') 
                     .replace(/^\d+_/, '') 
                     .replace(/_/g, ' ');
+                span.textContent = articleTitle;
                 
                 button.appendChild(icon);
                 button.appendChild(span);
-                // FIX: Added 'async' keyword to ensure the click handler can await loadInformationContent
-                button.addEventListener('click', async () => await loadInformationContent(file.download_url));
+                
+                // --- MODIFICATION START: Update click handler ---
+                // Clicking will now fetch the content and display it in a new pop-up modal.
+                button.addEventListener('click', async () => await loadInformationContent(file.download_url, articleTitle));
+                // --- MODIFICATION END ---
+                
                 navContainer.appendChild(button);
             });
 
@@ -585,49 +593,83 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function loadInformationContent(url, textToHighlight = null) {
-        const contentContainer = document.getElementById('useful-information-content');
-        const modalBody = document.querySelector('#useful-information-modal .modal-body');
+    // --- MODIFICATION START: New function to create and show article pop-up modals ---
+    function createAndShowArticleModal(title, htmlContent, textToHighlight = null) {
+        // Remove any other article pop-ups to prevent stacking
+        document.querySelectorAll('.article-modal-overlay').forEach(modal => modal.remove());
 
-        document.getElementById('useful-info-prompt').style.display = 'none';
-        contentContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
-        // Scroll back to the top of the modal body when content starts loading
-        if (modalBody) modalBody.scrollTo({ top: 0, behavior: 'instant' });
-
-        try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`Failed to fetch content: ${response.status}`);
-            const htmlContent = await response.text();
-            contentContainer.innerHTML = htmlContent;
-            
-            // Apply language filtering to the newly loaded content
-            changeLanguage(currentLanguage);
-
-            // Logic to find, scroll, and highlight the result
-            if (textToHighlight) {
-                // FIX: Search within the contentContainer now that the content is loaded
-                const allElements = contentContainer.querySelectorAll('p, li, h3, b, code, .tip, .note'); 
-                // Use .includes() for a more robust match
+        const modalOverlay = document.createElement('div');
+        modalOverlay.className = 'modal-overlay article-modal-overlay'; 
+    
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+    
+        const modalHeader = document.createElement('div');
+        modalHeader.className = 'modal-header';
+        modalHeader.innerHTML = `<h2>${title}</h2><button class="close-modal">&times;</button>`;
+    
+        const modalBody = document.createElement('div');
+        modalBody.className = 'modal-body';
+        modalBody.innerHTML = htmlContent;
+    
+        modalContent.appendChild(modalHeader);
+        modalContent.appendChild(modalBody);
+        modalOverlay.appendChild(modalContent);
+        document.body.appendChild(modalOverlay);
+        
+        // Make it visible with a slight delay to allow CSS transitions to work
+        setTimeout(() => modalOverlay.classList.add('visible'), 10);
+    
+        // Apply language visibility to the new modal's content
+        changeLanguage(currentLanguage);
+    
+        // Highlight logic if a search result was clicked
+        if (textToHighlight) {
+            setTimeout(() => { // Delay to ensure rendering
+                const allElements = modalBody.querySelectorAll('p, li, h3, h4, b, code, .tip, .note');
                 const targetElement = Array.from(allElements).find(el => el.textContent.trim().includes(textToHighlight.trim()));
-
+    
                 if (targetElement) {
-                    // Scroll the element into the middle of the view inside the modal body
-                    if (modalBody) modalBody.scrollTo({ top: targetElement.offsetTop - 50, behavior: 'smooth' });
-                    
-                    // Add the highlight class
+                    modalBody.scrollTo({ top: targetElement.offsetTop - 50, behavior: 'smooth' });
                     targetElement.classList.add('content-highlight');
-
-                    // Remove the highlight after 2.5 seconds for a temporary effect
                     setTimeout(() => {
                         targetElement.classList.remove('content-highlight');
                     }, 2500);
                 }
-            }
+            }, 150);
+        }
+        
+        // Function to close and remove the modal from the DOM
+        const closeModal = () => {
+            modalOverlay.classList.remove('visible');
+            // Wait for the fade-out transition to finish before removing the element
+            modalOverlay.addEventListener('transitionend', () => modalOverlay.remove(), { once: true });
+        };
+    
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+    
+        modalHeader.querySelector('.close-modal').addEventListener('click', closeModal);
+    }
+
+    // --- MODIFICATION START: `loadInformationContent` now triggers the pop-up modal ---
+    async function loadInformationContent(url, title, textToHighlight = null) {
+        // This function now fetches content and passes it to the pop-up modal creator.
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`Failed to fetch content: ${response.status}`);
+            const htmlContent = await response.text();
+            
+            // Call the new function to display the pop-up
+            createAndShowArticleModal(title, htmlContent, textToHighlight);
+
         } catch (error) {
             console.error('Failed to load content:', error);
-            contentContainer.innerHTML = `<p style="color: var(--nm-danger);">${currentLanguage === 'gr' ? 'Αποτυχία φόρτωσης περιεχομένου.' : 'Failed to load content.'}</p>`;
+            alert(currentLanguage === 'gr' ? 'Αποτυχία φόρτωσης περιεχομένου.' : 'Failed to load content.');
         }
     }
+    // --- MODIFICATION END ---
     
     // --- INITIALIZE ALL FEATURES ---
     initializePortfolio();
