@@ -15,18 +15,24 @@
     --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender for intense glow */
     --nm-text: #D0D8E0;        
     --nm-text-muted: #7A8899;  
-    --nm-danger: #9966FF;      /* CHANGED to Lavender */
-    --nm-danger-hover: #E6D9FF; /* CHANGED to Lavender */
-    --nm-success: #9966FF;     /* Success is also Digital Lavender */
-    --nm-warning: #9966FF;     /* CHANGED to Lavender */
+    /* MODIFIED: Red for Decline/Danger */
+    --nm-danger: #FF0000;      
+    --nm-danger-hover: #FF0000; 
+    /* MODIFIED: Green for Accept/Success */
+    --nm-success: #00FF00;     
+    /* MODIFIED: Yellow for search bar, general warning */
+    --nm-warning: #FFFF00;     
     
-    --glow-rgb: 153, 102, 255; /* ADDED: RGB components for the accent color */
+    --glow-rgb: 153, 102, 255; /* RGB components for the accent color */
     --glow-color: rgba(var(--glow-rgb), 0.9);
-    --glow-color-danger: rgba(var(--glow-rgb), 0.8); /* CHANGED to Lavender Glow */
-    --glow-color-warning: rgba(var(--glow-rgb), 0.8); /* CHANGED to Lavender Glow */
+    /* NEW: Yellow Glow for search bar */
+    --glow-color-danger: rgba(255, 255, 0, 0.8); 
+    /* NEW: Red Glow for highlighter */
+    --glow-color-warning: rgba(255, 0, 0, 0.8); 
 
-    --warning-bg: rgba(var(--glow-rgb), 0.1); /* CHANGED to Lavender */
-    --danger-bg: rgba(var(--glow-rgb), 0.1); /* CHANGED to Lavender */
+    /* NEW: Red and Yellow Backgrounds for Notes */
+    --warning-bg: rgba(255, 255, 0, 0.1);
+    --danger-bg: rgba(255, 0, 0, 0.1);
 
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
     --shape-cut: 20px;
@@ -115,8 +121,6 @@ button.app-wrapper {
     position: absolute;
     right: 0;
     top: 0;
-    width: 8px;
-    height: 100%;
     background: linear-gradient(to bottom, var(--nm-danger), var(--nm-danger-hover), var(--nm-danger));
     box-shadow: 0 0 15px var(--glow-color-danger), 0 0 30px var(--glow-color-danger);
     z-index: 10;
@@ -165,7 +169,7 @@ button.app-wrapper {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.4; /* MODIFIED: Increased opacity for visibility */
+    opacity: 0.3; /* MODIFIED: Set opacity to 0.3 */
     z-index: -1;
 }
 
@@ -265,9 +269,10 @@ body.light-theme #scroll-indicator-thumb {
 }
 
 @keyframes pulse-cyan {
-    0% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(var(--glow-rgb), 0.4); } /* CHANGED to Lavender */
-    50% { box-shadow: 0 0 30px var(--glow-color-danger), inset 0 0 20px rgba(var(--glow-rgb), 0.5); } /* CHANGED to Lavender */
-    100% { box-shadow: 0 0 20px var(--glow-color-danger), inset 0 0 15px rgba(var(--glow-rgb), 0.4); } /* CHANGED to Lavender */
+    /* MODIFIED: Using Yellow/Warning glow */
+    0% { box-shadow: 0 0 20px rgba(255, 255, 0, 0.8), inset 0 0 15px rgba(255, 255, 0, 0.4); } 
+    50% { box-shadow: 0 0 30px rgba(255, 255, 0, 0.8), inset 0 0 20px rgba(255, 255, 0, 0.5); } 
+    100% { box-shadow: 0 0 20px rgba(255, 255, 0, 0.8), inset 0 0 15px rgba(255, 255, 0, 0.4); } 
 }
 
 
@@ -275,7 +280,7 @@ body.light-theme #scroll-indicator-thumb {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 2px solid var(--nm-danger); /* Uses --nm-danger (Lavender) */
+    border: 2px solid var(--nm-warning); /* MODIFIED: Set to Yellow */
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
@@ -297,8 +302,8 @@ body.light-theme #scroll-indicator-thumb {
     left: 0;
     width: 100%;
     background-color: var(--nm-dark);
-    border: 1px solid var(--nm-danger); /* Uses --nm-danger (Lavender) */
-    box-shadow: 0 10px 30px var(--glow-color-danger); /* Uses --glow-color-danger (Lavender) */
+    border: 1px solid var(--nm-warning); /* MODIFIED: Set to Yellow */
+    box-shadow: 0 10px 30px rgba(255, 255, 0, 0.8); /* MODIFIED: Set to Yellow Glow */
     max-height: 300px;
     overflow-y: auto;
     z-index: 100;
@@ -336,8 +341,8 @@ body.light-theme #scroll-indicator-thumb {
 }
 
 .content-highlight {
-    background-color: rgba(var(--glow-rgb), 0.3); /* CHANGED from Yellow/Warning to Lavender */
-    box-shadow: 0 0 15px var(--glow-color); /* CHANGED from Yellow/Warning to Lavender */
+    background-color: rgba(255, 0, 0, 0.3); /* MODIFIED: Set to Red */
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8); /* MODIFIED: Set to Red Glow */
     transition: background-color 1s ease;
 }
 
@@ -761,30 +766,28 @@ body.light-theme .modal-content {
     color: var(--nm-darkest) !important;
 }
 .accept-btn {
-    background-color: var(--nm-success) !important;
+    background-color: var(--nm-success) !important; /* MODIFIED: Green */
     border-color: var(--nm-success) !important;
 }
 .decline-btn {
-    /* MODIFIED: Changed from Cyan/Danger to Lavender/Accent */
-    background-color: var(--nm-accent) !important; 
-    border-color: var(--nm-accent) !important;
+    background-color: var(--nm-danger) !important; /* MODIFIED: Red */
+    border-color: var(--nm-danger) !important;
     color: var(--nm-darkest) !important;
 }
 .accept-btn:hover {
-    box-shadow: 0 0 20px var(--glow-color), 0 0 40px var(--glow-color) !important;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.8), 0 0 40px rgba(0, 255, 0, 0.8) !important;
     opacity: 0.9;
 }
 .decline-btn:hover {
-    /* MODIFIED: Changed from Cyan/Danger Glow to Lavender Glow */
-    box-shadow: 0 0 20px var(--glow-color), 0 0 40px var(--glow-color) !important;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.8) !important;
     opacity: 0.9;
 }
 
 .tip {
-    /* MODIFIED: Changed from Yellow/Warning to Lavender/Accent */
+    /* MODIFIED: Tip is using Yellow/Warning */
     background: var(--nm-dark);
-    border-left: 2px solid var(--nm-accent);
-    box-shadow: -7px 0 15px -8px var(--glow-color); 
+    border-left: 2px solid var(--nm-warning);
+    box-shadow: -7px 0 15px -8px rgba(255, 255, 0, 0.8);
     margin: 1em 0;
     padding: 0.8em 1em;
     border-radius: 0 4px 4px 0;
@@ -1110,6 +1113,7 @@ body.light-theme .certificate-header h1 {
 }
 
 .content-section-modal .tip {
+    /* MODIFIED: Tip is using Yellow/Warning */
     margin-bottom: 0;
     text-align: left;
 }
@@ -1222,14 +1226,14 @@ body.light-theme .certificate-header h1 {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 2px solid var(--nm-danger); /* Uses --nm-danger (Lavender) */
+    border: 2px solid var(--nm-warning); /* MODIFIED: Set to Yellow */
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
     clip-path: var(--clip-path-shape);
     box-sizing: border-box;
-    animation: pulse-cyan 2s infinite; /* Animation name remains, but uses Lavender glow */
+    animation: pulse-cyan 2s infinite; /* Animation name remains, but uses Yellow glow */
 }
 
 .modal-search-container input:focus {
@@ -1252,14 +1256,14 @@ body.light-theme .certificate-header h1 {
     text-align: center;
 }
 .note.note-warning {
-    /* MODIFIED: Changed from Yellow/Warning to Lavender/Accent */
+    /* MODIFIED: Tip is using Yellow/Warning */
     background-color: var(--warning-bg);
     color: white;
     font-weight: bold;
-    border-color: var(--nm-accent); 
+    border-color: var(--nm-warning); 
 }
 .note.note-danger {
-    /* MODIFIED: Changed from Cyan/Danger to Lavender/Accent */
+    /* MODIFIED: Danger note uses Red */
     border-left-color: var(--nm-danger);
     background: var(--danger-bg);
 }
