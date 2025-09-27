@@ -569,7 +569,8 @@ body.light-theme .modal-overlay {
     max-height: 800px;
     border: 1px solid var(--nm-accent); 
     box-shadow: none; 
-    display: flex;
+    /* MODIFIED: Set to flex column to allow inner components to grow */
+    display: flex; 
     flex-direction: column;
     overflow: hidden;
     transform: translateY(20px);
@@ -846,21 +847,20 @@ body.light-theme .modal-content {
 #certification-modal .modal-body {
     padding: 15px;
     background-color: var(--nm-abyss-blue);
-    /* NEW FIX: Disable scrolling on modal-body for short content (default state) */
-    overflow-y: hidden !important; 
+    /* NEW FIX: The overall modal-body should grow but not scroll on its own */
+    overflow-y: hidden;
+    padding-bottom: 0; /* Remove bottom padding to let app-container manage space */
 }
 
-/* Override the above to re-enable scrolling when the long quiz starts, 
-   by targetting the #app-container which is given a new height */
-#certification-modal .modal-body:has(#app-container:not(.no-scroll)) {
-    overflow-y: auto !important;
-}
+/* --- REMOVED SCROLL OVERRIDE LOGIC HERE --- */
+
 
 #app-container {
     background-color: var(--nm-dark);
     padding: 20px;
     box-shadow: none; 
     height: 100%;
+    /* MODIFIED: Set to flex column to allow inner components to fill space */
     display: flex;
     flex-direction: column;
     color: var(--nm-text);
@@ -868,6 +868,7 @@ body.light-theme .modal-content {
     /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
+    min-height: 0; /* Important for flex children to prevent overflow */
 }
 /* FIX 1: New class to hide content overflow for short content in #app-container 
    This class is managed by script.js and determines the scroll state above. */
@@ -943,11 +944,15 @@ body.light-theme #results-container h1 {
     background-color: var(--nm-dark);
 }
 #quiz-container {
-    flex-grow: 1;
-    overflow-y: auto;
+    /* MODIFIED: The key styles to make only the quiz content scrollable */
+    flex-grow: 1; /* Allows it to take up available vertical space */
+    overflow-y: auto; /* Enables scrolling for this section */
     padding-right: 10px;
+    min-height: 0; /* Prevents overflow in flex context */
 }
 #quiz-stats {
+    /* MODIFIED: Prevent stats from shrinking */
+    flex-shrink: 0; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1052,7 +1057,8 @@ body.light-theme #results-container h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0;
+    /* MODIFIED: Prevent navigation from shrinking */
+    flex-shrink: 0; 
 }
 #navigation-container button { width: auto; }
 #navigation-container button:disabled {

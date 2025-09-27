@@ -643,8 +643,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const lastNameInput = certModal.querySelector('#last-name');
         const mistakeCounterEl = certModal.querySelector('#mistake-counter');
         const timerDisplayEl = certModal.querySelector('#timer-display');
-        const appContainerDiv = certModal.querySelector('#app-container'); // NEW: Get the app container
+        const appContainerDiv = certModal.querySelector('#app-container');
 
+        // MODIFICATION: Add scrollable-content class to quizContainerDiv immediately
+        quizContainerDiv.classList.add('scrollable-content');
+        
         window.resetQuiz = () => {
             currentPage = 1;
             userLang = 'en';
@@ -657,7 +660,7 @@ document.addEventListener('DOMContentLoaded', () => {
             quizContainerDiv.innerHTML = '';
             resultsContainerDiv.innerHTML = '';
 
-            // FIX: Add no-scroll class immediately when resetting to a short page
+            // The 'no-scroll' class is now related to the main page scroll, but let's manage the inner scroll here.
             appContainerDiv.classList.add('no-scroll');
             
             userInfoDiv.classList.add('hidden');
