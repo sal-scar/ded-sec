@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- GLOBAL PORTFOLIO STATE ---
     let currentLanguage = 'en';
-    let searchIndex = [];
+    let searchIndex = []; // Now stores site-wide content snippets
     let usefulInfoSearchIndex = []; // Dedicated index for the modal
     let usefulInformationLoaded = false;
     let isFetchingUsefulInfo = false;
@@ -122,26 +122,66 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         document.getElementById('decline-disclaimer').addEventListener('click', () => window.location.href = 'https://www.google.com');
         
-        document.querySelectorAll('button.app-wrapper[data-modal], a.app-wrapper').forEach(wrapper => {
+        // This is a global function to be used by both search and home screen buttons
+        window.openModalAndHighlight = (modalId, highlightText = null) => {
+            if (modalId === 'installation' && disclaimerModal) {
+                // Special case for installation modal to show disclaimer first
+                showModal(disclaimerModal);
+                return;
+            }
+            const modal = document.getElementById(`${modalId}-modal`);
+            if (modal) {
+                showModal(modal);
+                if (modalId === 'certification' && window.resetQuiz) {
+                    window.resetQuiz();
+                }
+                
+                // If the Useful Info modal is opened, start fetching the content index if not loaded
+                if (modalId === 'useful-information' && !usefulInformationLoaded) {
+                    fetchUsefulInformation();
+                }
+                
+                // Highlight the text after the modal is open and rendered
+                if (highlightText) {
+                    // Use a small delay to ensure the content is visible before searching for text
+                    setTimeout(() => {
+                        highlightModalContent(modal, highlightText);
+                    }, 100); 
+                }
+            }
+        };
+
+        const highlightModalContent = (modal, text) => {
+            const modalBody = modal.querySelector('.modal-body');
+            if (!modalBody) return;
+            
+            // Look for the specific text within the currently active language section
+            const activeSection = modalBody.querySelector(`[data-lang-section="${currentLanguage}"]`) || modalBody;
+            
+            const allElements = activeSection.querySelectorAll('p, li, h3, b, code, span');
+            
+            // Find the element containing the exact search text. We use .includes for robustness.
+            const targetElement = Array.from(allElements).find(el => el.textContent.trim().includes(text.trim()));
+
+            if (targetElement) {
+                // Ensure the modal body scrolls to the target element
+                modalBody.scrollTo({ top: targetElement.offsetTop - 50, behavior: 'smooth' });
+                
+                // Add the highlight class
+                targetElement.classList.add('content-highlight');
+
+                // Remove the highlight after a delay for the pulsing effect
+                setTimeout(() => {
+                    targetElement.classList.remove('content-highlight');
+                }, 2500);
+            }
+        };
+        
+        // Attach click handlers to the home screen app buttons
+        document.querySelectorAll('button.app-wrapper[data-modal]').forEach(wrapper => {
             const modalId = wrapper.dataset.modal;
             if (modalId) {
-                const clickHandler = () => {
-                    if (modalId === 'installation') {
-                        if (disclaimerModal) showModal(disclaimerModal);
-                    } else {
-                        const modal = document.getElementById(`${modalId}-modal`);
-                        if (modal) {
-                             showModal(modal);
-                             if (modalId === 'certification' && window.resetQuiz) {
-                                 window.resetQuiz();
-                             }
-                             if (modalId === 'useful-information' && !usefulInformationLoaded) {
-                                fetchUsefulInformation();
-                             }
-                        }
-                    }
-                };
-                wrapper.addEventListener('click', clickHandler);
+                wrapper.addEventListener('click', () => openModalAndHighlight(modalId));
             }
         });
 
@@ -150,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const closeModal = () => {
                 hideModal(modal);
 
-                // FIX: Add this check to prevent quiz timer memory leak upon closing the modal.
+                // Add this check to prevent quiz timer memory leak upon closing the modal.
                 if (modal.id === 'certification-modal' && window.resetQuiz) {
                     window.resetQuiz();
                 }
@@ -164,6 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         article.style.display = 'flex';
                     });
                 }
+                
+                // Remove highlight from any closed modal content
+                modal.querySelectorAll('.content-highlight').forEach(el => {
+                    el.classList.remove('content-highlight');
+                });
             };
             
             modal.addEventListener('click', e => {
@@ -215,36 +260,42 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // --- SEARCH FUNCTIONALITY ---
-        function buildSearchIndex() {
+        // --- SITE-WIDE SEARCH INDEXING ---
+        function buildSiteWideSearchIndex() {
             if (searchIndex.length > 0) return;
-            document.querySelectorAll('.app-wrapper[data-modal]').forEach(el => {
-                const span = el.querySelector('.app-label');
-                if (span && el.dataset.modal) {
-                    searchIndex.push({
-                        en: span.getAttribute('data-en') || '',
-                        gr: span.getAttribute('data-gr') || '',
-                        type: 'modal_button',
-                        target: el.dataset.modal,
-                        element: el
+            
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                // Skip the language and disclaimer modals as they are transient
+                if (['language-selection-modal', 'disclaimer-modal'].includes(modal.id)) return;
+                
+                const modalId = modal.id.replace('-modal', '');
+                const modalTitle = modal.querySelector('.modal-header h2') ? modal.querySelector('.modal-header h2').textContent.trim() : modalId;
+                
+                modal.querySelectorAll('.modal-body').forEach(body => {
+                    // Determine language section
+                    const lang = body.dataset.langSection || 'en'; // Default to en if no section defined
+
+                    // Select all relevant text containers within the body
+                    body.querySelectorAll('h3, h4, p, li, code, .tip, .note, .modal-disclaimer').forEach(el => {
+                        // Skip elements with no actual text content
+                        if (el.textContent.trim().length < 5) return;
+                        
+                        const text = el.textContent.trim().replace(/\s\s+/g, ' ');
+                        const isTitle = ['H3', 'H4'].includes(el.tagName);
+                        
+                        searchIndex.push({
+                            lang: lang,
+                            title: modalTitle,
+                            text: text,
+                            modalId: modalId,
+                            weight: isTitle ? 5 : 1
+                        });
                     });
-                }
-            });
-            // Include link-based app wrappers like 'DedSec Store'
-            document.querySelectorAll('a.app-wrapper').forEach(el => {
-                const span = el.querySelector('.app-label');
-                if (span && el.href) {
-                     searchIndex.push({
-                        en: span.getAttribute('data-en') || span.textContent,
-                        gr: span.getAttribute('data-gr') || span.textContent,
-                        type: 'link_button',
-                        target: el.href,
-                        element: el
-                    });
-                }
+                });
             });
         }
         
+        // --- MAIN SEARCH FUNCTIONALITY (NOW SITE-WIDE) ---
         function initializeSearch() {
             const searchInput = document.getElementById('main-search-input');
             const resultsContainer = document.getElementById('search-results-container');
@@ -259,32 +310,35 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 
+                // Search the full, site-wide index
                 let results = searchIndex.filter(item => {
-                    // Check against both current language text and English/default text for robustness
-                    const textEn = (item['en'] || '').toLowerCase();
-                    const textGr = (item['gr'] || '').toLowerCase();
-                    const currentText = (item[currentLanguage] || item['en'] || '').toLowerCase();
-                    return currentText.includes(query) || textEn.includes(query) || textGr.includes(query);
+                    return item.lang === currentLanguage && item.text.toLowerCase().includes(query);
                 });
+
+                // Sort results by weight (to prioritize titles)
+                results.sort((a, b) => b.weight - a.weight);
                 
                 if (results.length > 0) {
+                    // Show top 7 results
                     results.slice(0, 7).forEach(result => {
                         const itemEl = document.createElement('div');
                         itemEl.classList.add('search-result-item');
-                        const mainText = result[currentLanguage] || result['en'];
-                        itemEl.innerHTML = mainText.replace(new RegExp(query, 'gi'), '<strong>$&</strong>');
+                        
+                        // Create a snippet and highlight the query
+                        const snippet = result.text.substring(0, 100) + (result.text.length > 100 ? '...' : '');
+                        const highlightedSnippet = snippet.replace(new RegExp(query, 'gi'), '<strong>$&</strong>');
+                        
+                        // Display the title (modal name) and the snippet
+                        itemEl.innerHTML = `${highlightedSnippet} <small>${result.title}</small>`;
                         
                         itemEl.addEventListener('click', (e) => {
-                            // FIX: Use requestAnimationFrame for reliable click propagation
+                            // Prevent default action (which is important for links, even if not here)
                             e.preventDefault(); 
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
                             
-                            // Ensure the browser finishes handling the click on the result element 
-                            // before the blur event fires and prevents the target element's click.
-                            window.requestAnimationFrame(() => {
-                                if (result.element) result.element.click();
-                            });
+                            // 1. Open the modal and 2. pass the full text for highlighting
+                            openModalAndHighlight(result.modalId, result.text);
                         });
                         resultsContainer.appendChild(itemEl);
                     });
@@ -312,6 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
+        // --- USEFUL INFO SEARCH FUNCTIONALITY (Internal to Modal) ---
         function initializeUsefulInfoSearch() {
             const searchInput = document.getElementById('useful-info-search-input');
             const resultsContainer = document.getElementById('useful-info-results-container');
@@ -346,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const itemEl = document.createElement('div');
                         itemEl.classList.add('search-result-item');
                         const snippet = result.text.substring(0, 100) + (result.text.length > 100 ? '...' : '');
-                        const highlightedSnippet = snippet.replace(new RegExp(`(${query})`, 'gi'), '<strong>$1</strong>');
+                        const highlightedSnippet = snippet.replace(new RegExp(query, 'gi'), '<strong>$1</strong>');
                         itemEl.innerHTML = `${highlightedSnippet} <small>${result.title}</small>`;
                         
                         itemEl.addEventListener('click', async () => {
@@ -377,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
         changeLanguage('en'); 
         document.querySelector('#language-selection-modal .modal-header h2').textContent = 'Choose Language / Επιλογή Γλώσσας';
         
-        buildSearchIndex();
+        buildSiteWideSearchIndex(); // Index all modals
         initializeSearch();
         initializeUsefulInfoSearch();
     }
