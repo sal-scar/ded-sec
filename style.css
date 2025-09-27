@@ -416,8 +416,7 @@ body.light-theme .main-header-container > h1 {
     font-weight: 400;
     color: var(--nm-text);
     text-align: center;
-    overflow-wrap: break-word; /* Replaced word-break with the standard property */
-    hyphens: auto;             /* Added for better word breaking */
+    word-break: break-word;
     line-height: 1.2;
 }
 
@@ -505,15 +504,6 @@ body.light-theme .app-icon:hover {
     padding: 1rem;
     font-size: 0.7rem;
     color: var(--nm-text-muted);
-}
-
-/* --- ADDED: Increase disclaimer font size and readability --- */
-.main-footer p[data-lang-section][style] {
-    font-size: 0.8rem !important; /* Increased font size to override inline style */
-    line-height: 1.4;
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .modal-overlay {
