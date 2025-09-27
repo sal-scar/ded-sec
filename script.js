@@ -83,12 +83,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error("An error occurred while changing the language:", error);
                 } finally {
                     hideModal(languageModal);
-                    // Automatically show the disclaimer after selecting a language
+                    
+                    // --- MODIFICATION START (To prevent autopend) ---
+                    // ONLY show the disclaimer if it hasn't been accepted yet.
                     if (!localStorage.getItem('disclaimerAccepted')) {
                         showModal(disclaimerModal);
-                    } else if (installationModal) {
-                        showModal(installationModal); // Show installation if disclaimer already accepted
                     }
+                    // REMOVED: Automatic opening of installationModal.
+                    // --- MODIFICATION END ---
                 }
             });
         });
@@ -148,6 +150,9 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('disclaimerAccepted', 'true');
             hideModal(disclaimerModal);
             if (installationModal) {
+                // The installation modal will now ONLY open if clicked from the home screen
+                // or if it was the target of a search result. 
+                // We leave this path open for demonstration/ease of access after accepting.
                 showModal(installationModal);
             }
         });
