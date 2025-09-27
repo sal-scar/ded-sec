@@ -39,9 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             document.querySelectorAll('[data-lang-section]').forEach(el => {
-                // --- THIS IS THE CORRECTED LINE ---
-                // It now sets display to 'block' instead of an empty string ('')
-                // to correctly override the '.hidden-by-default' CSS class.
                 el.style.display = el.dataset.langSection === lang ? 'block' : 'none';
             });
             
@@ -320,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         itemEl.addEventListener('click', async () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
-                            await loadInformationContent(result.url);
+                            await loadInformationContent(result.url, result.text);
                         });
                         resultsContainer.appendChild(itemEl);
                     });
@@ -431,7 +428,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function loadInformationContent(url) {
+    async function loadInformationContent(url, textToHighlight = null) {
         const contentContainer = document.getElementById('useful-information-content');
         document.getElementById('useful-info-prompt').style.display = 'none';
         contentContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
@@ -442,6 +439,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const htmlContent = await response.text();
             contentContainer.innerHTML = htmlContent;
             changeLanguage(currentLanguage);
+
+            // New logic to find, scroll, and highlight the result
+            if (textToHighlight) {
+                const allElements = contentContainer.querySelectorAll('p, li, h3, b, code');
+                const targetElement = Array.from(allElements).find(el => el.textContent.trim() === textToHighlight.trim());
+
+                if (targetElement) {
+                    // Scroll the element into the middle of the view
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Add the highlight class
+                    targetElement.classList.add('content-highlight');
+
+                    // Remove the highlight after 2.5 seconds for a temporary effect
+                    setTimeout(() => {
+                        targetElement.classList.remove('content-highlight');
+                    }, 2500);
+                }
+            }
         } catch (error) {
             console.error('Failed to load content:', error);
             contentContainer.innerHTML = `<p style="color: var(--nm-danger);">${currentLanguage === 'gr' ? 'Αποτυχία φόρτωσης περιεχομένου.' : 'Failed to load content.'}</p>`;
