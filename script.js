@@ -6,6 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let usefulInformationLoaded = false;
     let isFetchingUsefulInfo = false;
     
+    // --- LOGO URLS (Raw permalinks from request) ---
+    const LOGO_URLS = {
+        dark: 'https://raw.githubusercontent.com/dedsec1121fk/dedsec1121fk.github.io/5860edb8a7468d955336c9cf1d8b357597d6d645/Assets/Images/Logos/Custom%20Black%20Purple%20Fox%20Logo.png',
+        light: 'https://raw.githubusercontent.com/dedsec1121fk/dedsec1121fk.github.io/6f776cd9772a079a6d26370dddab911bf7cde8cd/Assets/Images/Logos/Custom%20White%20Purple%20Fox%20Logo.jpg'
+    };
+
     // --- PORTFOLIO INITIALIZATION ---
     function initializePortfolio() {
         // --- MODAL HELPER FUNCTIONS ---
@@ -98,6 +104,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 themeSpan.setAttribute('data-gr', 'Σκοτεινό Θέμα');
             }
             changeLanguage(currentLanguage);
+            updateLogo(); // <--- CALL LOGO UPDATE
+        };
+
+        const updateLogo = () => {
+             const logoEl = document.getElementById('header-logo-image');
+             if (!logoEl) return;
+             
+             const isLight = document.body.classList.contains('light-theme');
+             logoEl.src = isLight ? LOGO_URLS.light : LOGO_URLS.dark;
+             logoEl.alt = isLight ? 'DedSec Light Logo' : 'DedSec Dark Logo';
         };
 
         themeSwitcherBtn.addEventListener('click', () => {
@@ -112,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.add('light-theme');
         }
         updateThemeButton(document.body.classList.contains('light-theme'));
+        updateLogo(); // <--- INITIAL LOGO LOAD
 
         // --- DISCLAIMER AND MODAL OPENING LOGIC ---
         document.getElementById('accept-disclaimer').addEventListener('click', () => {

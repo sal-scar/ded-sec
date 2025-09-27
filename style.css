@@ -12,8 +12,8 @@
     --nm-container: #1F2A38;  
     --nm-border: #3A4A5E;      
     --nm-accent: #9966FF;      /* Digital Lavender (Used for borders/success/title) */
-    --nm-accent-hover: #9933FF; /* MODIFIED: Brighter, more distinct PURPLE for Main Title */
-    --nm-text: #FFFFFF;        /* MODIFIED: All text/titles default to PURE WHITE */
+    --nm-accent-hover: #9933FF; /* Brighter, more distinct PURPLE for Main Title */
+    --nm-text: #FFFFFF;        /* All text/titles default to PURE WHITE */
     --nm-text-muted: #7A8899;  
     /* DANGER/FAIL: Red */
     --nm-danger: #FF0000;      
@@ -24,13 +24,13 @@
     --nm-warning: #FFFF00;     
     
     --glow-rgb: 153, 102, 255; /* RGB components for the accent color */
-    --glow-color: rgba(var(--glow-rgb), 0.0); /* MODIFIED: Removed glow */
+    --glow-color: rgba(var(--glow-rgb), 0.0); 
     /* Search Bar Color: MODIFIED to use main accent color */
     --nm-search-green: var(--nm-accent); 
     /* Search Bar Glow: MODIFIED to remove glow */
     --glow-color-search: rgba(var(--glow-rgb), 0.0); 
     /* Highlight Red Glow (kept for compatibility, though red is not requested) */
-    --glow-color-danger: rgba(255, 0, 0, 0.0); /* MODIFIED: Removed glow */
+    --glow-color-danger: rgba(255, 0, 0, 0.0); 
     /* Highlighter Yellow Glow */
     --glow-color-warning: rgba(255, 255, 0, 0.8); 
 
@@ -39,7 +39,7 @@
 
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
     --shape-cut: 20px;
-    /* MODIFIED: Remove custom clip path variable */
+    /* REMOVED: Remove custom clip path variable */
     --clip-path-shape: none; 
 }
 
@@ -49,10 +49,16 @@ body.light-theme {
     --nm-dark: #e9e9e9;
     --nm-container: #ffffff;
     --nm-border: #cccccc;
-    --nm-text: #000000;        /* MODIFIED: Light theme text is BLACK */
-    --nm-text-muted: #555555;  /* MODIFIED: Light theme muted text is darker gray */
+    --nm-text: #000000;        /* Light theme text is BLACK */
+    --nm-text-muted: #555555;  /* Light theme muted text is darker gray */
     --nm-warning: #9966FF; 
     --glow-color: rgba(var(--glow-rgb), 0.3);
+
+    /* --- ADDED FOR LOGO SWAP --- */
+    /* Target the header logo element and set the light theme image */
+    .header-logo {
+        background-image: url('https://raw.githubusercontent.com/dedsec1121fk/dedsec1121fk.github.io/6f776cd9772a079a6d26370dddab911bf7cde8cd/Assets/Images/Logos/Custom%20White%20Purple%20Fox%20Logo.jpg') !important;
+    }
 }
 
 @keyframes scanline-scroll {
@@ -151,9 +157,9 @@ button.app-wrapper {
     height: 100%;
     background-color: var(--nm-abyss-blue);
     background-image:
-        /* MODIFIED: Removed hexagon background image/pattern (first url) */
+        /* MODIFIED: Removed hexagon background image/pattern */
         url("data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3E/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    background-size: cover, cover; /* Adjusted to two sizes instead of three */
+    background-size: cover, cover; 
     position: relative;
     overflow: hidden;
     display: flex;
@@ -162,6 +168,7 @@ button.app-wrapper {
     z-index: 0;
 }
 
+/* --- MODIFIED: REMOVED full screen logo background --- */
 .screen::after {
     content: '';
     position: absolute;
@@ -169,11 +176,8 @@ button.app-wrapper {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://raw.githubusercontent.com/dedsec1121fk/DedSec/79b4f9a526c30c6e7ba696745d9a18e64f5b39f5/Extra%20Content/Images/Custom%20Purple%20Fox%20Logo.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.3; 
+    background: none; /* No more large background image */
+    opacity: 0; 
     z-index: -1;
 }
 
@@ -257,12 +261,30 @@ body.light-theme #scroll-indicator-thumb {
     padding-top: 25px; 
 }
 
+/* --- ADDED: Logo Container Styles --- */
+.header-logo {
+    width: 120px; /* Adjust size as needed */
+    height: 120px; /* Adjust size as needed */
+    margin: 0 auto;
+    background-image: url('https://raw.githubusercontent.com/dedsec1121fk/dedsec1121fk.github.io/5860edb8a7468d955336c9cf1d8b357597d6d645/Assets/Images/Logos/Custom%20Black%20Purple%20Fox%20Logo.png'); /* Default Dark Theme Logo */
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.3s ease;
+}
+/* Ensure the image tag inside the logo container fills the space */
+.header-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .main-header-container h1 {
     margin: 0;
     text-align: center;
     white-space: nowrap; 
     font-size: clamp(6.5vw, 8vw, 3.0rem);
-    color: var(--nm-accent); /* MODIFIED: Main Title is now base Lavender */
+    color: var(--nm-accent); /* Main Title is now base Lavender */
 }
 
 .search-container {
@@ -283,7 +305,7 @@ body.light-theme #scroll-indicator-thumb {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 2px solid var(--nm-search-green); /* MODIFIED: Set to nm-accent */
+    border: 2px solid var(--nm-search-green); /* Set to nm-accent */
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
@@ -292,7 +314,7 @@ body.light-theme #scroll-indicator-thumb {
     clip-path: none; 
     border-radius: 50px; 
     box-sizing: border-box;
-    animation: none; /* MODIFIED: Removed pulse animation for no glow */
+    animation: none; /* Removed pulse animation for no glow */
 }
 
 #main-search-input:focus {
@@ -307,12 +329,12 @@ body.light-theme #scroll-indicator-thumb {
     left: 0;
     width: 100%;
     background-color: var(--nm-dark);
-    border: 1px solid var(--nm-search-green); /* MODIFIED: Set to nm-accent */
+    border: 1px solid var(--nm-search-green); /* Set to nm-accent */
     box-shadow: none; /* Removed glow */
     max-height: 300px;
     overflow-y: auto;
     z-index: 100;
-    /* MODIFIED: Large border-radius for rounded results box */
+    /* Large border-radius for rounded results box */
     clip-path: none;
     border-radius: 20px;
 }
@@ -348,7 +370,7 @@ body.light-theme #scroll-indicator-thumb {
 }
 
 .content-highlight {
-    /* MODIFIED: Set to Yellow and removed glow */
+    /* Set to Yellow and removed glow */
     background-color: rgba(255, 255, 0, 0.3); 
     box-shadow: none; 
     transition: background-color 1s ease;
@@ -359,7 +381,7 @@ main.home-screen > h1, .main-header-container > h1 {
     margin: 0; 
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(6.5vw, 8vw, 3.0rem);
-    color: var(--nm-accent); /* MODIFIED: Main Title is now base Lavender */
+    color: var(--nm-accent); /* Main Title is now base Lavender */
     text-shadow: none; 
     transition: text-shadow 0.3s ease, color 0.3s ease;
     animation: none; 
@@ -399,7 +421,7 @@ body.light-theme .main-header-container > h1 {
     /* Pitch Black Background */
     background: #000000; 
     border: 1px solid var(--nm-accent);
-    color: var(--nm-text); /* MODIFIED: Enforce White text/icon */
+    color: var(--nm-text); /* Enforce White text/icon */
     cursor: pointer;
     font-family: 'Roboto Mono', monospace;
     transition: all 0.2s ease;
@@ -411,7 +433,7 @@ body.light-theme .main-header-container > h1 {
     padding: 10px 15px;
     box-sizing: border-box;
     position: relative;
-    /* MODIFIED: Circular shape maintained for app icons */
+    /* Circular shape maintained for app icons */
     clip-path: none;
     border-radius: 50%;
     gap: 12px;
@@ -432,7 +454,7 @@ body.light-theme .main-header-container > h1 {
 .app-label {
     font-size: 0.75rem;
     font-weight: 400;
-    color: var(--nm-text); /* MODIFIED: Enforce White text */
+    color: var(--nm-text); /* Enforce White text */
     text-align: center;
     word-break: break-word;
     line-height: 1.2;
@@ -459,7 +481,7 @@ body.light-theme .main-header-container > h1 {
 }
 
 .app-icon i {
-    color: var(--nm-text); /* MODIFIED: Enforce White icon color */
+    color: var(--nm-text); /* Enforce White icon color */
     transition: color 0.2s ease;
     font-size: 1.4rem;
     margin: 0;
@@ -511,7 +533,7 @@ body.light-theme .app-icon:hover {
     height: auto;
     border: 1px solid var(--nm-border);
     background-color: var(--nm-container);
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px; 
 }
@@ -563,7 +585,7 @@ body.light-theme .modal-overlay {
     overflow: hidden;
     transform: translateY(20px);
     transition: all 0.3s ease;
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
 }
@@ -593,7 +615,7 @@ body.light-theme .modal-content {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.1rem;
     margin: 0;
-    color: var(--nm-text); /* MODIFIED: Enforce White */
+    color: var(--nm-text); /* Enforce White */
     text-transform: uppercase;
     text-shadow: none; 
 }
@@ -627,7 +649,7 @@ body.light-theme .modal-content {
 }
 
 .modal-body h3 {
-    color: var(--nm-text); /* MODIFIED: Enforce White */
+    color: var(--nm-text); /* Enforce White */
     border-bottom: 1px solid var(--nm-border);
     padding-bottom: 8px;
     margin-top: 1.5rem;
@@ -684,7 +706,7 @@ body.light-theme .modal-content {
     background: var(--nm-darkest);
     font-size: 0.85em;
     color: var(--nm-text-muted);
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     border-radius: 20px;
 }
 
@@ -695,7 +717,7 @@ body.light-theme .modal-content {
     padding: 15px;
     margin: 1em 0;
     transition: background-color 0.3s ease;
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
@@ -725,7 +747,7 @@ body.light-theme .modal-content {
     font-size: 0.7rem;
     text-transform: uppercase;
     transition: all 0.2s ease;
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
 }
@@ -752,7 +774,7 @@ body.light-theme .modal-content {
 #navigation-container button,
 #results-container button {
     background-color: transparent;
-    color: var(--nm-text); /* MODIFIED: Enforce White */
+    color: var(--nm-text); /* Enforce White */
     border: 1px solid var(--nm-accent);
     font-family: 'Orbitron', sans-serif;
     text-transform: uppercase;
@@ -761,7 +783,7 @@ body.light-theme .modal-content {
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
     box-shadow: none; 
@@ -808,7 +830,7 @@ body.light-theme .modal-content {
     box-shadow: none; 
     margin: 1em 0;
     padding: 0.8em 1em;
-    border-radius: 0 20px 20px 0; /* MODIFIED: Rounded right side only, typical for tips */
+    border-radius: 0 20px 20px 0; /* Rounded right side only, typical for tips */
     transition: all 0.3s ease;
 }
 
@@ -826,7 +848,7 @@ body.light-theme .modal-content {
     padding: 12px 15px;
     gap: 15px;
     justify-content: center;
-    /* MODIFIED: Enforce pill shape on list items */
+    /* Enforce pill shape on list items */
     clip-path: none;
     border-radius: 20px; 
 }
@@ -845,7 +867,7 @@ body.light-theme .modal-content {
     flex-direction: column;
     color: var(--nm-text);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
 }
@@ -853,7 +875,7 @@ body.light-theme .modal-content {
 .hidden-by-default { display: none; } 
 
 #language-selection h1, #user-info h1, #results-container h1 {
-    color: var(--nm-text); /* MODIFIED: Enforce White */
+    color: var(--nm-text); /* Enforce White */
     text-shadow: none; 
     font-size: 1.5rem;
     text-align: center;
@@ -902,7 +924,7 @@ body.light-theme #results-container h1 {
     width: 100%;
     box-sizing: border-box;
     transition: all 0.3s ease;
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
 }
@@ -928,7 +950,7 @@ body.light-theme #results-container h1 {
     font-size: 0.9rem;
     border: 1px solid var(--nm-border);
     transition: background-color 0.3s ease;
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
@@ -945,7 +967,7 @@ body.light-theme #results-container h1 {
     padding: 1rem; 
     margin-bottom: 1rem; 
     transition: background-color 0.3s ease; 
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
 }
@@ -958,7 +980,7 @@ body.light-theme #results-container h1 {
     background-color: var(--nm-container);
     cursor: pointer;
     transition: all 0.2s ease;
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
 }
@@ -1039,7 +1061,7 @@ body.light-theme #results-container h1 {
     padding: 20px;
     box-shadow: none; 
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
 }
@@ -1053,7 +1075,7 @@ body.light-theme #results-container h1 {
     position: relative;
     font-family: 'Noto Serif', serif;
     color: var(--nm-text);
-    /* MODIFIED: Added uniform border-radius to certificate itself */
+    /* Added uniform border-radius to certificate itself */
     border-radius: 20px;
 }
 
@@ -1089,7 +1111,7 @@ body.light-theme .certificate {
 .certificate-header h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
-    color: var(--nm-text); /* MODIFIED: Enforce White */
+    color: var(--nm-text); /* Enforce White */
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -1111,7 +1133,7 @@ body.light-theme .certificate-header h1 {
     font-family: 'Noto Serif', serif;
     font-style: italic;
     font-size: 2.5rem;
-    color: var(--nm-text); /* MODIFIED: Enforce White */
+    color: var(--nm-text); /* Enforce White */
     margin: 1.5rem 0;
     font-weight: 700;
     border-bottom: 2px solid var(--nm-border);
@@ -1144,7 +1166,7 @@ body.light-theme .certificate-header h1 {
     font-family: 'Orbitron', sans-serif;
     font-weight: bold;
     font-size: 0.9rem;
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
 }
@@ -1181,7 +1203,7 @@ body.light-theme .certificate-header h1 {
     max-width: 100%;
     box-sizing: border-box;
     line-height: 1.4;
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
 }
@@ -1200,7 +1222,7 @@ body.light-theme .certificate-header h1 {
     overflow: hidden;
     border: 1px solid var(--nm-border);
     background-color: var(--nm-container);
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
 }
@@ -1246,7 +1268,7 @@ body.light-theme .certificate-header h1 {
 
 #useful-information-content h3 {
     text-align: left;
-    color: var(--nm-text); /* MODIFIED: Enforce White */
+    color: var(--nm-text); /* Enforce White */
     border-bottom: 1px solid var(--nm-border);
     padding-bottom: 8px;
     margin-top: 1rem;
@@ -1275,16 +1297,16 @@ body.light-theme .certificate-header h1 {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 2px solid var(--nm-search-green); /* MODIFIED: Set to nm-accent */
+    border: 2px solid var(--nm-search-green); /* Set to nm-accent */
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
-    /* MODIFIED: Large border-radius for pill shape */
+    /* Large border-radius for pill shape */
     clip-path: none;
     border-radius: 50px;
     box-sizing: border-box;
-    animation: none; /* MODIFIED: Removed pulse animation for no glow */
+    animation: none; /* Removed pulse animation for no glow */
 }
 
 .modal-search-container input:focus {
@@ -1298,7 +1320,7 @@ body.light-theme .certificate-header h1 {
     max-height: 90vh;
     border: 3px solid var(--nm-accent);
     box-shadow: none; 
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     border-radius: 20px;
 }
 .modal-divider {
@@ -1313,13 +1335,13 @@ body.light-theme .certificate-header h1 {
     color: white;
     font-weight: bold;
     border-color: var(--nm-warning); 
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     border-radius: 20px;
 }
 .note.note-danger {
     border-left-color: var(--nm-danger);
     background: var(--danger-bg);
-    /* MODIFIED: Added uniform border-radius */
+    /* Added uniform border-radius */
     border-radius: 20px;
 }
 .certificate-footer .signature span {
@@ -1330,7 +1352,7 @@ body.light-theme .certificate-header h1 {
     max-width: 400px;
     margin: 1rem auto;
     display: block;
-    border-radius: 20px; /* MODIFIED: Uniform border-radius */
+    border-radius: 20px; /* Uniform border-radius */
     border: 1px solid var(--nm-border);
 }
 #useful-info-prompt {
@@ -1344,7 +1366,7 @@ body.light-theme .certificate-header h1 {
     /* Added to space the buttons out */
     gap: 15px; 
 }
-/* MODIFIED: Apply pill shape to the list of articles inside the Useful Information modal */
+/* Apply pill shape to the list of articles inside the Useful Information modal */
 #useful-information-nav .app-icon {
     width: 100%; /* Make them full width of container */
     height: auto; /* Allow height to adjust */
