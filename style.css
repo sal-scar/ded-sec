@@ -12,7 +12,7 @@
     --nm-container: #1F2A38;  
     --nm-border: #3A4A5E;      
     --nm-accent: #9966FF;      /* Digital Lavender (Used for borders/success) */
-    --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender (Used ONLY for Main Title) */
+    --nm-accent-hover: #9933FF; /* MODIFIED: Brighter, more distinct PURPLE for Main Title */
     --nm-text: #FFFFFF;        /* MODIFIED: All text/titles default to PURE WHITE */
     --nm-text-muted: #7A8899;  
     /* DANGER/FAIL: Red */
@@ -262,7 +262,7 @@ body.light-theme #scroll-indicator-thumb {
     text-align: center;
     white-space: nowrap; 
     font-size: clamp(6.5vw, 8vw, 3.0rem);
-    color: var(--nm-accent-hover); /* Main Title is Lavender */
+    color: var(--nm-accent-hover); /* MODIFIED: Main Title is Lavender */
 }
 
 .search-container {
@@ -359,7 +359,7 @@ main.home-screen > h1, .main-header-container > h1 {
     margin: 0; 
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(6.5vw, 8vw, 3.0rem);
-    color: var(--nm-accent-hover); /* Main Title is Lavender */
+    color: var(--nm-accent-hover); /* MODIFIED: Main Title is Lavender */
     text-shadow: none; 
     transition: text-shadow 0.3s ease, color 0.3s ease;
     animation: none; 
@@ -723,6 +723,7 @@ body.light-theme .modal-content {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.7rem;
     text-transform: uppercase;
+    transition: all 0.2s ease;
     /* MODIFIED: Added uniform border-radius */
     clip-path: none;
     border-radius: 20px;
@@ -1339,12 +1340,21 @@ body.light-theme .certificate-header h1 {
 #useful-information-nav {
     grid-template-columns: 1fr;
     max-width: 100%;
+    /* Added to space the buttons out */
+    gap: 15px; 
 }
 /* MODIFIED: Apply pill shape to the list of articles inside the Useful Information modal */
 #useful-information-nav .app-icon {
-    /* MODIFIED: Enforce pill shape on list items */
+    width: 100%; /* Make them full width of container */
+    height: auto; /* Allow height to adjust */
+    padding: 12px 15px; /* Add padding for content */
+    /* Enforce pill shape on list items */
     clip-path: none;
     border-radius: 20px;
+}
+/* Ensure the text is white */
+#useful-information-nav .app-icon span {
+    color: var(--nm-text);
 }
 span.sub-item {
     display: block;
