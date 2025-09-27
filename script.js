@@ -258,10 +258,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         const mainText = result[currentLanguage] || result['en'];
                         itemEl.innerHTML = mainText.replace(new RegExp(query, 'gi'), '<strong>$&</strong>');
                         
-                        itemEl.addEventListener('click', () => {
+                        itemEl.addEventListener('click', (e) => {
+                            // Fix: Introduce a small delay to ensure the click on the result item 
+                            // is fully processed before triggering the button click and preventing the blur logic.
+                            e.preventDefault(); 
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
-                            if (result.element) result.element.click();
+                            
+                            // Trigger the actual element click after a moment
+                            setTimeout(() => {
+                                if (result.element) result.element.click();
+                            }, 50); 
                         });
                         resultsContainer.appendChild(itemEl);
                     });
@@ -313,11 +320,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.lang === currentLanguage && item.text.toLowerCase().includes(query)
                 );
                 
-                const uniqueResults = [...new Map(results.map(item => [item.text, item])).values()];
-                uniqueResults.sort((a, b) => b.weight - a.weight);
+                // FIX: The flawed deduplication logic was removed in the last step.
+                const sortedResults = results.sort((a, b) => b.weight - a.weight);
 
-                if (uniqueResults.length > 0) {
-                    uniqueResults.slice(0, 7).forEach(result => {
+                if (sortedResults.length > 0) {
+                    sortedResults.slice(0, 7).forEach(result => {
                         const itemEl = document.createElement('div');
                         itemEl.classList.add('search-result-item');
                         const snippet = result.text.substring(0, 100) + (result.text.length > 100 ? '...' : '');
@@ -450,10 +457,10 @@ document.addEventListener('DOMContentLoaded', () => {
             contentContainer.innerHTML = htmlContent;
             changeLanguage(currentLanguage);
 
-            // New logic to find, scroll, and highlight the result
+            // Logic to find, scroll, and highlight the result
             if (textToHighlight) {
                 const allElements = contentContainer.querySelectorAll('p, li, h3, b, code');
-                // FIX: Use .includes() for a more robust match that isn't broken by minor whitespace differences.
+                // Use .includes() for a more robust match
                 const targetElement = Array.from(allElements).find(el => el.textContent.trim().includes(textToHighlight.trim()));
 
                 if (targetElement) {
@@ -694,7 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h1>${t.certTitle}</h1>
                     </div>
                     <div class="certificate-body">
-                        <p class="serif">${t.awardedTo}</p>
+                        <p class="serif">${t.certAwardedTo}</p>
                         <h2 class="recipient-name">${name}</h2>
                         <p class="serif">${t.certAchievement}</p>
                     </div>
