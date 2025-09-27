@@ -49,13 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             document.querySelectorAll('[data-lang-section]').forEach(el => {
-                // Use inline style to show/hide sections based on language
                 el.style.display = el.dataset.langSection === lang ? 'block' : 'none';
-                
-                // Also ensure main elements that might use hidden-by-default class are handled
-                if (el.classList.contains('hidden-by-default')) {
-                    el.classList.toggle('hidden-by-default', el.dataset.langSection !== lang);
-                }
             });
             
             document.querySelectorAll('.language-button').forEach(button => {
@@ -83,14 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error("An error occurred while changing the language:", error);
                 } finally {
                     hideModal(languageModal);
-                    
-                    // --- MODIFICATION START (To prevent autopend) ---
-                    // ONLY show the disclaimer if it hasn't been accepted yet.
-                    if (!localStorage.getItem('disclaimerAccepted')) {
-                        showModal(disclaimerModal);
-                    }
-                    // REMOVED: Automatic opening of installationModal.
-                    // --- MODIFICATION END ---
                 }
             });
         });
@@ -115,20 +101,20 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 themeIcon.classList.remove('fa-sun');
                 themeIcon.classList.add('fa-moon');
-                themeSpan.setAttribute('data-en', 'Theme');
-                themeSpan.setAttribute('data-gr', 'Θέμα');
+                themeSpan.setAttribute('data-en', 'Dark Theme');
+                themeSpan.setAttribute('data-gr', 'Σκοτεινό Θέμα');
             }
             changeLanguage(currentLanguage);
             updateLogo(); // <--- CALL LOGO UPDATE
         };
 
         const updateLogo = () => {
-             // The logo is set via CSS now, but this function remains for potential future use or if CSS fails
-             const screenAfter = document.querySelector('.screen::after');
-             if (!screenAfter) return;
+             const logoEl = document.getElementById('header-logo-image');
+             if (!logoEl) return;
              
              const isLight = document.body.classList.contains('light-theme');
-             // The actual logo swap is handled by the CSS :after selector in style.css for light-theme
+             logoEl.src = isLight ? LOGO_URLS.light : LOGO_URLS.dark;
+             logoEl.alt = isLight ? 'DedSec Light Logo' : 'DedSec Dark Logo';
         };
 
         themeSwitcherBtn.addEventListener('click', () => {
@@ -147,12 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- DISCLAIMER AND MODAL OPENING LOGIC ---
         document.getElementById('accept-disclaimer').addEventListener('click', () => {
-            localStorage.setItem('disclaimerAccepted', 'true');
             hideModal(disclaimerModal);
             if (installationModal) {
-                // The installation modal will now ONLY open if clicked from the home screen
-                // or if it was the target of a search result. 
-                // We leave this path open for demonstration/ease of access after accepting.
                 showModal(installationModal);
             }
         });
@@ -160,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // This is a global function to be used by both search and home screen buttons
         window.openModalAndHighlight = (modalId, highlightText = null) => {
-            if (modalId === 'installation' && !localStorage.getItem('disclaimerAccepted') && disclaimerModal) {
+            if (modalId === 'installation' && disclaimerModal) {
                 // Special case for installation modal to show disclaimer first
                 showModal(disclaimerModal);
                 return;
@@ -172,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
                      languageModalCloseBtn.style.display = '';
                 }
                 showModal(modal);
+                // Removed quiz reset call for 'certification' modal
                 
                 // If the Useful Info modal is opened, start fetching the content index if not loaded
                 if (modalId === 'useful-information' && !usefulInformationLoaded) {
@@ -193,26 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!modalBody) return;
             
             // Look for the specific text within the currently active language section
-            // FIX: Ensure we check both the lang-section wrapper AND the modalBody itself
-            const activeSections = modalBody.querySelectorAll(`[data-lang-section="${currentLanguage}"], :not([data-lang-section])`);
+            const activeSection = modalBody.querySelector(`[data-lang-section="${currentLanguage}"]`) || modalBody;
             
-            let targetElement = null;
-
-            activeSections.forEach(section => {
-                 if (targetElement) return; // Exit if found
-                 
-                 // Look within the section (or the whole body if no lang section)
-                 const searchRoot = section.hasAttribute('data-lang-section') ? section : modalBody;
-                 
-                 const allElements = searchRoot.querySelectorAll('h3, h4, p, li, b, code, span, .note, .tip, .modal-disclaimer');
-                 
-                 // Find the element containing the exact search text. We use .includes for robustness.
-                 targetElement = Array.from(allElements).find(el => el.textContent.trim().includes(text.trim()));
-            });
+            const allElements = activeSection.querySelectorAll('p, li, h3, b, code, span');
+            
+            // Find the element containing the exact search text. We use .includes for robustness.
+            const targetElement = Array.from(allElements).find(el => el.textContent.trim().includes(text.trim()));
 
             if (targetElement) {
                 // Ensure the modal body scrolls to the target element
-                // FIX: Scroll the containing modal body
                 modalBody.scrollTo({ top: targetElement.offsetTop - 50, behavior: 'smooth' });
                 
                 // Add the highlight class
@@ -238,6 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const closeModal = () => {
                 hideModal(modal);
 
+                // Removed quiz timer memory leak check
+
                 if (modal.id === 'useful-information-modal') {
                     document.getElementById('useful-info-prompt').style.display = 'block';
                     document.getElementById('useful-information-content').innerHTML = '';
@@ -255,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             
             modal.addEventListener('click', e => {
-                // MODIFICATION: Prevent closing the language modal by clicking the overlay
+                // MODIFICATION: Prevent closing the initial language modal by clicking the overlay
                 if (e.target === modal && modal.id !== 'language-selection-modal') {
                     closeModal();
                 }
@@ -312,8 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (searchIndex.length > 0) return;
             
             document.querySelectorAll('.modal-overlay').forEach(modal => {
-                // Skip the language and disclaimer modals as they are transient
-                if (['language-selection-modal', 'disclaimer-modal'].includes(modal.id)) return;
+                // Skip the language and disclaimer modals as they are transient, and the certification modal (now removed from HTML)
+                if (['language-selection-modal', 'disclaimer-modal', 'certification-modal'].includes(modal.id)) return;
                 
                 const modalId = modal.id.replace('-modal', '');
                 const modalTitle = modal.querySelector('.modal-header h2') ? modal.querySelector('.modal-header h2').textContent.trim() : modalId;
@@ -373,8 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         // Create a snippet and highlight the query
                         const snippet = result.text.substring(0, 100) + (result.text.length > 100 ? '...' : '');
-                        // FIX: Use $& to represent the full match, not $1 which implies a capturing group
-                        const highlightedSnippet = snippet.replace(new RegExp(query, 'gi'), '<strong>$&</strong>'); 
+                        const highlightedSnippet = snippet.replace(new RegExp(query, 'gi'), '<strong>$&</strong>');
                         
                         // Display the title (modal name) and the snippet
                         itemEl.innerHTML = `${highlightedSnippet} <small>${result.title}</small>`;
@@ -449,14 +422,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         const itemEl = document.createElement('div');
                         itemEl.classList.add('search-result-item');
                         const snippet = result.text.substring(0, 100) + (result.text.length > 100 ? '...' : '');
-                        // FIX: Use $& to represent the full match, not $1 which implies a capturing group
-                        const highlightedSnippet = snippet.replace(new RegExp(query, 'gi'), '<strong>$&</strong>'); 
+                        const highlightedSnippet = snippet.replace(new RegExp(query, 'gi'), '<strong>$1</strong>');
                         itemEl.innerHTML = `${highlightedSnippet} <small>${result.title}</small>`;
                         
                         itemEl.addEventListener('click', async () => {
                             searchInput.value = '';
                             resultsContainer.classList.add('hidden');
-                            // FIX: Ensure we await the content loading for correct timing of highlight
+                            // This function handles loading the content and applying the highlight (yellow glow)
                             await loadInformationContent(result.url, result.text); 
                         });
                         resultsContainer.appendChild(itemEl);
@@ -480,13 +452,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (languageModalCloseBtn) {
             languageModalCloseBtn.style.display = 'none';
         }
-        
-        // Show language selection first
         showModal(languageModal);
-        // Set default language, which will be overwritten by user click
         changeLanguage('en'); 
-        
-        // Removed unnecessary manual text overwrite for language modal header
+        document.querySelector('#language-selection-modal .modal-header h2').textContent = 'Choose Language / Επιλογή Γλώσσας';
         
         buildSiteWideSearchIndex(); // Index all modals
         initializeSearch();
@@ -531,10 +499,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         .replace(/^\d+_/, '') // Remove leading numbers and underscore (e.g., '1_')
                         .replace(/_/g, ' '); 
 
-                    // FIX: Ensure we check both lang sections and root elements for content
                     tempDiv.querySelectorAll('[data-lang-section]').forEach(section => {
                         const lang = section.dataset.langSection;
-                        section.querySelectorAll('h3, h4, p, li, b, code').forEach(el => {
+                        section.querySelectorAll('p, li, h3, b, code').forEach(el => {
                             const text = el.textContent.trim();
                             if (text.length > 5) {
                                 usefulInfoSearchIndex.push({
@@ -572,8 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 button.appendChild(icon);
                 button.appendChild(span);
-                // FIX: Added 'async' keyword to ensure the click handler can await loadInformationContent
-                button.addEventListener('click', async () => await loadInformationContent(file.download_url));
+                button.addEventListener('click', () => loadInformationContent(file.download_url));
                 navContainer.appendChild(button);
             });
 
@@ -589,32 +555,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadInformationContent(url, textToHighlight = null) {
         const contentContainer = document.getElementById('useful-information-content');
-        const modalBody = document.querySelector('#useful-information-modal .modal-body');
-
         document.getElementById('useful-info-prompt').style.display = 'none';
         contentContainer.innerHTML = `<p>${currentLanguage === 'gr' ? 'Φόρτωση...' : 'Loading...'}</p>`;
-        // Scroll back to the top of the modal body when content starts loading
-        if (modalBody) modalBody.scrollTo({ top: 0, behavior: 'instant' });
 
         try {
             const response = await fetch(url);
             if (!response.ok) throw new Error(`Failed to fetch content: ${response.status}`);
             const htmlContent = await response.text();
             contentContainer.innerHTML = htmlContent;
-            
-            // Apply language filtering to the newly loaded content
             changeLanguage(currentLanguage);
 
             // Logic to find, scroll, and highlight the result
             if (textToHighlight) {
-                // FIX: Search within the contentContainer now that the content is loaded
-                const allElements = contentContainer.querySelectorAll('p, li, h3, b, code, .tip, .note'); 
+                const allElements = contentContainer.querySelectorAll('p, li, h3, b, code');
                 // Use .includes() for a more robust match
                 const targetElement = Array.from(allElements).find(el => el.textContent.trim().includes(textToHighlight.trim()));
 
                 if (targetElement) {
-                    // Scroll the element into the middle of the view inside the modal body
-                    if (modalBody) modalBody.scrollTo({ top: targetElement.offsetTop - 50, behavior: 'smooth' });
+                    // Scroll the element into the middle of the view
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     
                     // Add the highlight class
                     targetElement.classList.add('content-highlight');
