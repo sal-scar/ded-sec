@@ -314,7 +314,7 @@ body.light-theme #scroll-indicator-thumb {
     z-index: 100;
     /* MODIFIED: Large border-radius for rounded results box */
     clip-path: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 #search-results-container .search-result-item,
@@ -824,7 +824,7 @@ body.light-theme .modal-content {
     padding: 12px 15px;
     gap: 15px;
     justify-content: center;
-    /* MODIFIED: Enforce uniform border-radius */
+    /* MODIFIED: Enforce pill shape on list items */
     clip-path: none;
     border-radius: 20px; 
 }
@@ -1339,6 +1339,12 @@ body.light-theme .certificate-header h1 {
 #useful-information-nav {
     grid-template-columns: 1fr;
     max-width: 100%;
+}
+/* MODIFIED: Apply pill shape to the list of articles inside the Useful Information modal */
+#useful-information-nav .app-icon {
+    /* MODIFIED: Enforce pill shape on list items */
+    clip-path: none;
+    border-radius: 20px;
 }
 span.sub-item {
     display: block;
