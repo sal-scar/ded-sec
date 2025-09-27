@@ -54,10 +54,10 @@ body.light-theme {
     --nm-warning: #9966FF; 
     --glow-color: rgba(var(--glow-rgb), 0.3);
 
-    /* --- ADDED FOR LOGO SWAP --- */
-    /* Target the header logo element and set the light theme image */
-    .header-logo {
+    /* --- ADDED/MODIFIED FOR LIGHT THEME BACKGROUND LOGO SWAP --- */
+    .screen::after {
         background-image: url('https://raw.githubusercontent.com/dedsec1121fk/dedsec1121fk.github.io/6f776cd9772a079a6d26370dddab911bf7cde8cd/Assets/Images/Logos/Custom%20White%20Purple%20Fox%20Logo.jpg') !important;
+        opacity: 0.3; /* Keep visibility for light theme */
     }
 }
 
@@ -168,7 +168,7 @@ button.app-wrapper {
     z-index: 0;
 }
 
-/* --- MODIFIED: REMOVED full screen logo background --- */
+/* --- MODIFIED: Uses new Dark Theme Logo as background --- */
 .screen::after {
     content: '';
     position: absolute;
@@ -176,9 +176,14 @@ button.app-wrapper {
     left: 0;
     width: 100%;
     height: 100%;
-    background: none; /* No more large background image */
-    opacity: 0; 
+    /* DEFAULT DARK THEME LOGO */
+    background-image: url('https://raw.githubusercontent.com/dedsec1121fk/dedsec1121fk.github.io/5860edb8a7468d955336c9cf1d8b357597d6d645/Assets/Images/Logos/Custom%20Black%20Purple%20Fox%20Logo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3; 
     z-index: -1;
+    transition: background-image 0.3s ease, opacity 0.3s ease;
 }
 
 .screen-overlay {
@@ -261,23 +266,7 @@ body.light-theme #scroll-indicator-thumb {
     padding-top: 25px; 
 }
 
-/* --- ADDED: Logo Container Styles --- */
-.header-logo {
-    width: 120px; /* Adjust size as needed */
-    height: 120px; /* Adjust size as needed */
-    margin: 0 auto;
-    background-image: url('https://raw.githubusercontent.com/dedsec1121fk/dedsec1121fk.github.io/5860edb8a7468d955336c9cf1d8b357597d6d645/Assets/Images/Logos/Custom%20Black%20Purple%20Fox%20Logo.png'); /* Default Dark Theme Logo */
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background-image 0.3s ease;
-}
-/* Ensure the image tag inside the logo container fills the space */
-.header-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
+/* --- REMOVED: .header-logo container since we are using .screen::after --- */
 
 .main-header-container h1 {
     margin: 0;
