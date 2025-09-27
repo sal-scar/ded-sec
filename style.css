@@ -25,10 +25,10 @@
     
     --glow-rgb: 153, 102, 255; /* RGB components for the accent color */
     --glow-color: rgba(var(--glow-rgb), 0.0); /* MODIFIED: Removed glow */
-    /* Search Bar Green/Matrix Color */
-    --nm-search-green: #00CC00; 
-    /* Search Bar Green Glow */
-    --glow-color-search: rgba(0, 204, 0, 0.8); 
+    /* Search Bar Color: MODIFIED to use main accent color */
+    --nm-search-green: var(--nm-accent); 
+    /* Search Bar Glow: MODIFIED to remove glow */
+    --glow-color-search: rgba(var(--glow-rgb), 0.0); 
     /* Highlight Red Glow (kept for compatibility, though red is not requested) */
     --glow-color-danger: rgba(255, 0, 0, 0.0); /* MODIFIED: Removed glow */
     /* Highlighter Yellow Glow */
@@ -271,11 +271,11 @@ body.light-theme #scroll-indicator-thumb {
     max-width: 500px; 
 }
 
+/* MODIFIED: Removed all box-shadow for no glow effect */
 @keyframes pulse-cyan {
-    /* MODIFIED: Using Dark Green/Matrix Glow */
-    0% { box-shadow: 0 0 20px var(--glow-color-search), inset 0 0 15px rgba(0, 204, 0, 0.4); } 
-    50% { box-shadow: 0 0 30px var(--glow-color-search), inset 0 0 20px rgba(0, 204, 0, 0.5); } 
-    100% { box-shadow: 0 0 20px var(--glow-color-search), inset 0 0 15px rgba(0, 204, 0, 0.4); } 
+    0% { box-shadow: none; } 
+    50% { box-shadow: none; } 
+    100% { box-shadow: none; } 
 }
 
 
@@ -283,7 +283,7 @@ body.light-theme #scroll-indicator-thumb {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 2px solid var(--nm-search-green); /* MODIFIED: Set to Dark Green */
+    border: 2px solid var(--nm-search-green); /* MODIFIED: Set to nm-accent */
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
@@ -292,7 +292,7 @@ body.light-theme #scroll-indicator-thumb {
     clip-path: none; 
     border-radius: 50px; 
     box-sizing: border-box;
-    animation: pulse-cyan 2s infinite; 
+    animation: none; /* MODIFIED: Removed pulse animation for no glow */
 }
 
 #main-search-input:focus {
@@ -307,7 +307,7 @@ body.light-theme #scroll-indicator-thumb {
     left: 0;
     width: 100%;
     background-color: var(--nm-dark);
-    border: 1px solid var(--nm-search-green); /* MODIFIED: Set to Dark Green */
+    border: 1px solid var(--nm-search-green); /* MODIFIED: Set to nm-accent */
     box-shadow: none; /* Removed glow */
     max-height: 300px;
     overflow-y: auto;
@@ -1275,7 +1275,7 @@ body.light-theme .certificate-header h1 {
     width: 100%;
     padding: 10px 15px;
     background-color: var(--nm-darkest);
-    border: 2px solid var(--nm-search-green); /* MODIFIED: Set to Dark Green */
+    border: 2px solid var(--nm-search-green); /* MODIFIED: Set to nm-accent */
     color: var(--nm-text);
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
@@ -1284,7 +1284,7 @@ body.light-theme .certificate-header h1 {
     clip-path: none;
     border-radius: 50px;
     box-sizing: border-box;
-    animation: pulse-cyan 2s infinite; 
+    animation: none; /* MODIFIED: Removed pulse animation for no glow */
 }
 
 .modal-search-container input:focus {
