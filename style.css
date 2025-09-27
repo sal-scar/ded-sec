@@ -61,6 +61,13 @@ body.light-theme {
     }
 }
 
+/* ADDED: Hide main content until language is selected and class is removed by script */
+main.home-screen.hidden-on-load {
+    visibility: hidden;
+    opacity: 0;
+}
+
+
 @keyframes scanline-scroll {
     0% { transform: translateY(0); }
     100% { transform: translateY(-50%); }
