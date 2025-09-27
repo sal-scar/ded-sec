@@ -11,8 +11,8 @@
     --nm-dark: #151E2A;       
     --nm-container: #1F2A38;  
     --nm-border: #3A4A5E;      
-    --nm-accent: #9966FF;      /* Digital Lavender (Used for borders/success) */
-    --nm-accent-hover: #9933FF; /* MODIFIED: Brighter, more distinct PURPLE for Main Title */
+    --nm-accent: #9966FF;      /* Digital Lavender (Used for borders/success/title) */
+    --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender (Used for subtle highlights) */
     --nm-text: #FFFFFF;        /* MODIFIED: All text/titles default to PURE WHITE */
     --nm-text-muted: #7A8899;  
     /* DANGER/FAIL: Red */
@@ -151,9 +151,9 @@ button.app-wrapper {
     height: 100%;
     background-color: var(--nm-abyss-blue);
     background-image:
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="46.188" viewBox="0 0 40 46.188"><path d="M20 0 L40 11.547 v23.094 L20 46.188 L0 34.641 V11.547 Z" fill="none" stroke="rgba(58, 74, 94, 0.1)" stroke-width="1"/></svg>'),
+        /* MODIFIED: Removed hexagon background image/pattern (first url) */
         url("data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3E/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    background-size: auto, cover, cover;
+    background-size: cover, cover; /* Adjusted to two sizes instead of three */
     position: relative;
     overflow: hidden;
     display: flex;
@@ -262,7 +262,7 @@ body.light-theme #scroll-indicator-thumb {
     text-align: center;
     white-space: nowrap; 
     font-size: clamp(6.5vw, 8vw, 3.0rem);
-    color: var(--nm-accent-hover); /* MODIFIED: Main Title is Lavender */
+    color: var(--nm-accent); /* MODIFIED: Main Title is now base Lavender */
 }
 
 .search-container {
@@ -359,7 +359,7 @@ main.home-screen > h1, .main-header-container > h1 {
     margin: 0; 
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(6.5vw, 8vw, 3.0rem);
-    color: var(--nm-accent-hover); /* MODIFIED: Main Title is Lavender */
+    color: var(--nm-accent); /* MODIFIED: Main Title is now base Lavender */
     text-shadow: none; 
     transition: text-shadow 0.3s ease, color 0.3s ease;
     animation: none; 
