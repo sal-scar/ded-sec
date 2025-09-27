@@ -12,8 +12,8 @@
     --nm-container: #1F2A38;  
     --nm-border: #3A4A5E;      
     --nm-accent: #9966FF;      /* Digital Lavender (Used for borders/success) */
-    --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender */
-    --nm-text: #D0D8E0;        
+    --nm-accent-hover: #E6D9FF; /* Brighter, almost white Lavender (Used for subtle highlights) */
+    --nm-text: #FFFFFF;        /* MODIFIED: All main text/titles default to white */
     --nm-text-muted: #7A8899;  
     /* DANGER/FAIL: Red */
     --nm-danger: #FF0000;      
@@ -39,8 +39,8 @@
 
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 10px);
     --shape-cut: 20px;
-    /* MODIFIED: Removed custom clip path since buttons are circles */
-    --clip-path-shape: polygon(0 0, 100% 0, 100% 100%, 0 100%); 
+    /* MODIFIED: Remove custom clip path variable */
+    --clip-path-shape: none; 
 }
 
 body.light-theme {
@@ -262,6 +262,7 @@ body.light-theme #scroll-indicator-thumb {
     text-align: center;
     white-space: nowrap; 
     font-size: clamp(5.5vw, 8vw, 3.0rem); 
+    color: var(--nm-text); /* MODIFIED: Set to white */
 }
 
 .search-container {
@@ -287,8 +288,9 @@ body.light-theme #scroll-indicator-thumb {
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); 
+    /* MODIFIED: Removed clip-path and added border-radius */
+    clip-path: none; 
+    border-radius: 10px;
     box-sizing: border-box;
     animation: pulse-cyan 2s infinite; 
 }
@@ -310,8 +312,9 @@ body.light-theme #scroll-indicator-thumb {
     max-height: 300px;
     overflow-y: auto;
     z-index: 100;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Removed clip-path and added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 
 #search-results-container .search-result-item,
@@ -356,16 +359,13 @@ main.home-screen > h1, .main-header-container > h1 {
     margin: 0; 
     font-family: 'Orbitron', sans-serif;
     font-size: clamp(6.5vw, 8vw, 3.0rem);
-    color: var(--nm-accent-hover);
-    /* MODIFIED: Removed glowing text-shadow */
-    text-shadow: none;
+    color: var(--nm-text); /* MODIFIED: Set to white */
+    text-shadow: none; 
     transition: text-shadow 0.3s ease, color 0.3s ease;
-    /* MODIFIED: Removed flickering animation */
     animation: none; 
 }
 
 main.home-screen > h1:hover, .main-header-container > h1:hover {
-    /* MODIFIED: Removed glitch/flicker animation on hover */
     animation: none;
 }
 
@@ -410,8 +410,9 @@ body.light-theme .main-header-container > h1 {
     padding: 10px 15px;
     box-sizing: border-box;
     position: relative;
-    /* MODIFIED: Circular shape */
-    clip-path: circle(50%);
+    /* MODIFIED: Circular shape (removed clip-path, using border-radius) */
+    clip-path: none;
+    border-radius: 50%;
     gap: 12px;
     box-shadow: none; /* Removed glow */
     height: 56px;
@@ -423,7 +424,7 @@ body.light-theme .main-header-container > h1 {
     height: 64px;
     padding: 0;
     gap: 0;
-    /* MODIFIED: Enforce circle on button wrapper icon */
+    /* Enforce circle on button wrapper icon */
     border-radius: 50%; 
 }
 
@@ -440,14 +441,14 @@ body.light-theme .main-header-container > h1 {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
 }
 
 .app-wrapper:hover .app-icon,
 .app-wrapper:focus-visible .app-icon {
     background: var(--nm-accent);
     border-color: var(--nm-accent-hover);
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
     outline: none;
 }
 
@@ -461,7 +462,7 @@ body.light-theme .main-header-container > h1 {
     transition: color 0.2s ease;
     font-size: 1.4rem;
     margin: 0;
-    text-shadow: none; /* Removed glow */
+    text-shadow: none; 
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -508,8 +509,9 @@ body.light-theme .app-icon:hover {
     height: auto;
     border: 1px solid var(--nm-border);
     background-color: var(--nm-container);
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 
 .main-footer {
@@ -553,14 +555,15 @@ body.light-theme .modal-overlay {
     height: 85%;
     max-height: 800px;
     border: 1px solid var(--nm-accent); 
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
     display: flex;
     flex-direction: column;
     overflow: hidden;
     transform: translateY(20px);
     transition: all 0.3s ease;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 .modal-content-auto-height { 
     height: auto;
@@ -588,9 +591,9 @@ body.light-theme .modal-content {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.1rem;
     margin: 0;
-    color: var(--nm-accent-hover);
+    color: var(--nm-text); /* MODIFIED: Set to white */
     text-transform: uppercase;
-    text-shadow: none; /* Removed glow */
+    text-shadow: none; 
 }
 .close-modal {
     background: none;
@@ -604,7 +607,7 @@ body.light-theme .modal-content {
 }
 .close-modal:hover {
     color: var(--nm-danger);
-    text-shadow: none; /* Removed glow */
+    text-shadow: none; 
 }
 .modal-body {
     padding: 25px;
@@ -622,7 +625,7 @@ body.light-theme .modal-content {
 }
 
 .modal-body h3 {
-    color: var(--nm-accent-hover);
+    color: var(--nm-text); /* MODIFIED: Set to white */
     border-bottom: 1px solid var(--nm-border);
     padding-bottom: 8px;
     margin-top: 1.5rem;
@@ -679,6 +682,8 @@ body.light-theme .modal-content {
     background: var(--nm-darkest);
     font-size: 0.85em;
     color: var(--nm-text-muted);
+    /* MODIFIED: Added border-radius */
+    border-radius: 10px;
 }
 
 .code-container {
@@ -688,8 +693,9 @@ body.light-theme .modal-content {
     padding: 15px;
     margin: 1em 0;
     transition: background-color 0.3s ease;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
 }
 .code-container code {
@@ -717,13 +723,14 @@ body.light-theme .modal-content {
     font-size: 0.7rem;
     text-transform: uppercase;
     transition: all 0.2s ease;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 .copy-btn:hover {
     background: var(--nm-accent);
     color: var(--nm-darkest);
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
     border-color: var(--nm-accent-hover);
 }
 
@@ -752,9 +759,10 @@ body.light-theme .modal-content {
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    box-shadow: none; /* Removed glow */
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
+    box-shadow: none; 
 }
 
 .modal-footer button:hover,
@@ -767,7 +775,7 @@ body.light-theme .modal-content {
     color: var(--nm-darkest);
     background-color: var(--nm-accent);
     border-color: var(--nm-accent-hover);
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
 }
 
 
@@ -784,18 +792,18 @@ body.light-theme .modal-content {
     color: var(--nm-darkest) !important;
 }
 .accept-btn:hover {
-    box-shadow: none !important; /* Removed glow */
+    box-shadow: none !important; 
     opacity: 0.9;
 }
 .decline-btn:hover {
-    box-shadow: none !important; /* Removed glow */
+    box-shadow: none !important; 
     opacity: 0.9;
 }
 
 .tip {
     background: var(--nm-dark);
     border-left: 2px solid var(--nm-warning);
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
     margin: 1em 0;
     padding: 0.8em 1em;
     border-radius: 0 4px 4px 0;
@@ -817,8 +825,8 @@ body.light-theme .modal-content {
     gap: 15px;
     justify-content: center;
     /* MODIFIED: Enforce rectangle on contact grid icons */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    border-radius: 0; 
+    clip-path: none;
+    border-radius: 10px; 
 }
 
 
@@ -829,21 +837,22 @@ body.light-theme .modal-content {
 #app-container {
     background-color: var(--nm-dark);
     padding: 20px;
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
     height: 100%;
     display: flex;
     flex-direction: column;
     color: var(--nm-text);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 .hidden { display: none; } 
 .hidden-by-default { display: none; } 
 
 #language-selection h1, #user-info h1, #results-container h1 {
-    color: var(--nm-accent-hover); 
-    text-shadow: none; /* Removed glow */
+    color: var(--nm-text); /* MODIFIED: Set to white */
+    text-shadow: none; 
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 1rem;
@@ -891,12 +900,13 @@ body.light-theme #results-container h1 {
     width: 100%;
     box-sizing: border-box;
     transition: all 0.3s ease;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 #user-info input:focus {
     outline: none;
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
     border-color: var(--nm-accent);
     background-color: var(--nm-dark);
 }
@@ -916,8 +926,9 @@ body.light-theme #results-container h1 {
     font-size: 0.9rem;
     border: 1px solid var(--nm-border);
     transition: background-color 0.3s ease;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.5); 
 }
 .quiz-page { animation: fadeIn 0.5s ease-in-out; }
@@ -932,8 +943,9 @@ body.light-theme #results-container h1 {
     padding: 1rem; 
     margin-bottom: 1rem; 
     transition: background-color 0.3s ease; 
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 .quiz-page .options-container { display: flex; flex-direction: column; gap: 0.75rem; }
 .quiz-page label {
@@ -944,14 +956,15 @@ body.light-theme #results-container h1 {
     background-color: var(--nm-container);
     cursor: pointer;
     transition: all 0.2s ease;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 .quiz-page label:hover, .quiz-page input[type="radio"]:checked + span {
     background-color: var(--nm-accent-hover);
     color: var(--nm-darkest);
     border-color: var(--nm-accent);
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
 }
 
 .quiz-page input[type="radio"] {
@@ -997,7 +1010,7 @@ body.light-theme #results-container h1 {
     left: 6px;
     top: 50%;
     transform: translateY(-50%);
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
 }
 
 
@@ -1022,10 +1035,11 @@ body.light-theme #results-container h1 {
 .certificate-container {
     background: var(--nm-darkest);
     padding: 20px;
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 .certificate {
     background-image:
@@ -1037,6 +1051,8 @@ body.light-theme #results-container h1 {
     position: relative;
     font-family: 'Noto Serif', serif;
     color: var(--nm-text);
+    /* MODIFIED: Added border-radius to certificate itself */
+    border-radius: 10px;
 }
 
 body.light-theme .certificate {
@@ -1071,11 +1087,11 @@ body.light-theme .certificate {
 .certificate-header h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
-    color: var(--nm-accent-hover); 
+    color: var(--nm-text); /* MODIFIED: Set to white */
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 2px;
-    text-shadow: none; /* Removed glow */
+    text-shadow: none; 
 }
 
 body.light-theme .certificate-header h1 {
@@ -1093,7 +1109,7 @@ body.light-theme .certificate-header h1 {
     font-family: 'Noto Serif', serif;
     font-style: italic;
     font-size: 2.5rem;
-    color: var(--nm-accent-hover);
+    color: var(--nm-text); /* MODIFIED: Set to white */
     margin: 1.5rem 0;
     font-weight: 700;
     border-bottom: 2px solid var(--nm-border);
@@ -1126,8 +1142,9 @@ body.light-theme .certificate-header h1 {
     font-family: 'Orbitron', sans-serif;
     font-weight: bold;
     font-size: 0.9rem;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 .serif { font-family: 'Noto Serif', serif; }
 .text-green-600 { color: var(--nm-success) !important; }
@@ -1139,7 +1156,7 @@ body.light-theme .certificate-header h1 {
 .content-section-modal .tip {
     background: var(--nm-dark);
     border-left: 2px solid var(--nm-warning);
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
     margin-bottom: 0;
     text-align: left;
 }
@@ -1162,8 +1179,9 @@ body.light-theme .certificate-header h1 {
     max-width: 100%;
     box-sizing: border-box;
     line-height: 1.4;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 .store-link a:hover {
     background-color: var(--nm-accent-hover);
@@ -1180,8 +1198,9 @@ body.light-theme .certificate-header h1 {
     overflow: hidden;
     border: 1px solid var(--nm-border);
     background-color: var(--nm-container);
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
 }
 .gym-clothing-images {
     width: 100%;
@@ -1225,7 +1244,7 @@ body.light-theme .certificate-header h1 {
 
 #useful-information-content h3 {
     text-align: left;
-    color: var(--nm-accent-hover);
+    color: var(--nm-text); /* MODIFIED: Set to white */
     border-bottom: 1px solid var(--nm-border);
     padding-bottom: 8px;
     margin-top: 1rem;
@@ -1259,8 +1278,9 @@ body.light-theme .certificate-header h1 {
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
-    /* MODIFIED: Removed clip-path shape */
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* MODIFIED: Added border-radius */
+    clip-path: none;
+    border-radius: 10px;
     box-sizing: border-box;
     animation: pulse-cyan 2s infinite; 
 }
@@ -1275,7 +1295,9 @@ body.light-theme .certificate-header h1 {
     max-width: 90vw;
     max-height: 90vh;
     border: 3px solid var(--nm-accent);
-    box-shadow: none; /* Removed glow */
+    box-shadow: none; 
+    /* MODIFIED: Added border-radius */
+    border-radius: 10px;
 }
 .modal-divider {
     margin: 2rem 0;
@@ -1289,10 +1311,14 @@ body.light-theme .certificate-header h1 {
     color: white;
     font-weight: bold;
     border-color: var(--nm-warning); 
+    /* MODIFIED: Added border-radius */
+    border-radius: 10px;
 }
 .note.note-danger {
     border-left-color: var(--nm-danger);
     background: var(--danger-bg);
+    /* MODIFIED: Added border-radius */
+    border-radius: 10px;
 }
 .certificate-footer .signature span {
     font-style: italic;
