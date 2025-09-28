@@ -80,6 +80,30 @@ body.light-theme {
   }
 }
 
+/* NEW: Pulsing glow animation for the main title */
+@keyframes pulsing-glow {
+  0%, 100% {
+    text-shadow:
+      /* Black stroke */
+      -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000,
+      /* Base Glow */
+      0 0 5px var(--nm-accent),
+      0 0 10px var(--nm-accent),
+      0 0 15px var(--nm-accent-hover);
+  }
+  50% {
+    text-shadow:
+      /* Black stroke */
+      -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000,
+      /* Intense Glow */
+      0 0 10px var(--nm-accent),
+      0 0 20px var(--nm-accent-hover),
+      0 0 30px var(--nm-accent-hover),
+      0 0 40px var(--nm-accent-hover);
+  }
+}
+
+
 html, body {
     height: 100%;
     width: 100%;
@@ -99,7 +123,7 @@ body {
 }
 
 /* --- ADDED: Reset for button elements used as app icons --- */
-button.app-wrapper {
+.app-grid button.app-wrapper {
     background: none;
     border: none;
     padding: 0;
@@ -107,6 +131,10 @@ button.app-wrapper {
     font: inherit; 
     color: inherit; 
     text-align: inherit; 
+    cursor: pointer;
+}
+
+button.hero-cta-button {
     cursor: pointer;
 }
 
@@ -119,7 +147,7 @@ button.app-wrapper {
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
 }
 
 .phone-container::after {
@@ -142,9 +170,7 @@ button.app-wrapper {
     top: 0; 
     width: 8px;
     height: 40px;
-    /* MODIFIED: Use theme-aware variable */
-    background: var(--nm-text); 
-    /* REMOVED GLOW */
+    background: var(--nm-accent); 
     box-shadow: none;
     z-index: 11;
     transition: opacity 0.3s ease, background-color 0.3s ease;
@@ -228,9 +254,10 @@ body.light-theme .phone-container::after {
 
 .home-screen {
     flex-grow: 1;
-    overflow-y: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     min-height: 0;
-    padding: 0 15px 15px; 
+    padding: 0 15px 15px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -245,11 +272,10 @@ body.light-theme .phone-container::after {
     background: var(--nm-dark);
 }
 ::-webkit-scrollbar-thumb {
-    /* MODIFIED: Changed scrollbar thumb to use theme-aware variable */
-    background-color: var(--nm-text);
+    background-color: var(--nm-accent);
     border-radius: 10px;
     border: 2px solid var(--nm-dark);
-    box-shadow: none; /* Removed glow */
+    box-shadow: none;
 }
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--nm-accent-hover);
@@ -263,12 +289,13 @@ body.light-theme ::-webkit-scrollbar-thumb {
 
 .main-header-container {
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     gap: 15px;
     margin-bottom: 20px;
-    padding-top: 25px; 
+    padding: 25px 15px 0 15px;
+    box-sizing: border-box;
 }
 
 /* --- REMOVED: .header-logo container since we are using .screen::after --- */
@@ -276,9 +303,10 @@ body.light-theme ::-webkit-scrollbar-thumb {
 .main-header-container h1 {
     margin: 0;
     text-align: center;
-    white-space: nowrap; 
-    font-size: clamp(6.5vw, 8vw, 3.0rem);
-    color: var(--nm-accent); /* Main Title is now base Lavender */
+    white-space: nowrap;
+    font-size: clamp(7vw, 9vw, 4.0rem);
+    color: var(--nm-accent);
+    animation: pulsing-glow 2s ease-in-out infinite;
 }
 
 .search-container {
@@ -370,39 +398,82 @@ body.light-theme ::-webkit-scrollbar-thumb {
     transition: background-color 1s ease;
 }
 
-main.home-screen > h1, .main-header-container > h1 {
+/* --- NEW HERO SECTION STYLES --- */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    margin: 0; 
+    width: 100%;
+    max-width: 500px;
+    margin: 15px 0 35px 0;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.hero-text {
+    color: var(--nm-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+}
+
+.hero-cta-button {
+    background-color: var(--nm-accent);
+    color: #000000;
+    border: 2px solid var(--nm-accent);
     font-family: 'Orbitron', sans-serif;
-    font-size: clamp(6.5vw, 8vw, 3.0rem);
-    color: var(--nm-accent); /* Main Title is now base Lavender */
-    text-shadow: none; 
-    transition: text-shadow 0.3s ease, color 0.3s ease;
-    animation: none; 
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 10px 15px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    box-shadow: none;
+    max-width: 700px;
+    box-sizing: border-box;
+    text-align: center;
+    white-space: nowrap;
+    min-width: max-content;
 }
 
-main.home-screen > h1:hover, .main-header-container > h1:hover {
-    animation: none;
+.hero-cta-button:hover {
+    background-color: var(--nm-accent-hover);
+    border-color: var(--nm-accent-hover);
+    color: #ffffff;
 }
+/* --- END HERO SECTION STYLES --- */
 
-body.light-theme main.home-screen > h1,
-body.light-theme .main-header-container > h1 {
-    text-shadow: none;
+
+/* --- NEW GRID HEADING STYLES --- */
+.grid-heading {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
     color: var(--nm-text);
-    animation: none;
+    text-transform: uppercase;
+    font-size: 1rem;
+    margin: 25px auto 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--nm-border);
 }
+/* --- END GRID HEADING STYLES --- */
+
 
 .app-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(4, max-content);
+    justify-content: center;
+    gap: 15px;
     width: 100%;
     max-width: 500px;
-    margin: 25px auto 15px;
+    margin: 0 auto 15px;
     align-items: start;
 }
 
 .app-wrapper {
+    width: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -537,6 +608,7 @@ body.light-theme .app-icon:hover {
     padding: 1rem;
     font-size: 0.7rem;
     color: var(--nm-text-muted);
+    margin-top: 25px; /* Added margin to push it down */
 }
 
 .modal-overlay {
@@ -762,8 +834,6 @@ body.light-theme .modal-content {
 }
 
 .modal-footer button,
-.language-button,
-/* REMOVED: #language-selection, #user-info, #navigation-container, #results-container */
 .language-button {
     background-color: transparent;
     color: var(--nm-text); /* Enforce White */
@@ -783,9 +853,7 @@ body.light-theme .modal-content {
 
 .modal-footer button:hover,
 .language-button:hover,
-.language-button.selected
-/* REMOVED: #language-selection button:hover, #user-info button:hover, #navigation-container button:hover, #results-container button:hover */
- {
+.language-button.selected {
     color: var(--nm-darkest);
     background-color: var(--nm-accent);
     border-color: var(--nm-accent-hover);
@@ -843,20 +911,12 @@ body.light-theme .modal-content {
     border-radius: 20px; 
 }
 
-/* REMOVED: #certification-modal and its nested styles */
-
 .hidden { 
     display: none !important; 
 } 
 .hidden-by-default { 
     display: none; 
 } 
-
-/* REMOVED: #language-selection, #user-info, #results-container h1/p/label/form styles */
-
-/* REMOVED: All quiz-related styles: #user-info input, #quiz-container, #quiz-stats, .quiz-page, @keyframes fadeIn, .quiz-page h2/hr/etc., #navigation-container styles */
-
-/* REMOVED: All certificate styles: .certificate-container, .certificate, .certificate-header, .certificate-body, .certificate-footer, .grade-display, .serif */
 
 .text-green-600 { color: var(--nm-success) !important; }
 
@@ -1050,8 +1110,8 @@ body.light-theme .modal-content {
 #useful-information-nav {
     grid-template-columns: 1fr;
     max-width: 100%;
-    /* Added to space the buttons out */
     gap: 15px; 
+    justify-content: initial; /* Override centering for this specific grid */
 }
 /* Apply pill shape to the list of articles inside the Useful Information modal */
 #useful-information-nav .app-icon {
@@ -1074,16 +1134,47 @@ span.sub-item {
 
 
 /* =================================================================
-   DESKTOP & WIDE SCREEN STYLES
+   TABLET & WIDER SCREEN STYLES
    ================================================================= */
 @media (min-width: 768px) {
-    .home-screen {
-        max-width: 1200px; 
-        margin: 0 auto;
+    .phone-container {
+        width: 95%;
+        max-width: 1400px;
+        height: 90vh;
+        border-radius: 40px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        border: 4px solid var(--nm-darkest);
+    }
+
+    .search-container,
+    .hero-section,
+    .grid-heading,
+    .app-grid {
+        max-width: 700px;
     }
 
     .app-grid {
-        grid-template-columns: repeat(6, 1fr);
-        max-width: none; 
+        grid-template-columns: repeat(6, max-content);
+    }
+
+    .main-header-container h1 {
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+    }
+}
+
+/* =================================================================
+   LARGE DESKTOP STYLES
+   ================================================================= */
+@media (min-width: 1200px) {
+    .search-container,
+    .hero-section,
+    .grid-heading,
+    .app-grid {
+        max-width: 900px;
+    }
+
+    .app-grid {
+        grid-template-columns: repeat(8, max-content);
     }
 }
