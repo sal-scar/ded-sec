@@ -66,6 +66,11 @@
                         <span class="app-label" data-en="Digital Self-Defense Toolkit" data-gr="Εργαλειοθήκη Ψηφιακής Αυτοάμυνας">Digital Self-Defense Toolkit</span>
                     </button>
 
+                    <button class="app-wrapper" data-modal="portable-laptop">
+                        <div class="app-icon"><i class="fas fa-laptop"></i></div>
+                        <span class="app-label" data-en="Portable Laptop" data-gr="Φορητός Υπολογιστής">Portable Laptop</span>
+                    </button>
+
                     <button class="app-wrapper" data-modal="useful-information">
                         <div class="app-icon"><i class="fas fa-lightbulb"></i></div>
                         <span class="app-label" data-en="Useful Information" data-gr="Χρήσιμες Πληροφορίες">Useful Information</span>
@@ -222,6 +227,98 @@
             <div class="modal-body hidden-by-default" data-lang-section="gr">
                 <h3>Απαιτήσεις</h3><ul><li><b>Συσκευή:</b> Android με εγκατεστημένο το <a href="https://f-droid.org/" target="_blank">Termux</a>.</li><li><b>Αποθηκευτικός Χώρος:</b> Ελάχιστος <b>3GB</b> ελεύθερος.<span class="sub-item">(Η λειτουργία του Ραδιοφώνου απαιτεί περισσότερο χώρο. Οι εικόνες και οι ηχογραφήσεις καταναλώνουν επίσης χώρο.)</span></li><li><b>RAM:</b> Ελάχ. <b>2GB</b>.</li></ul><h3>Βήμα-Βήμα Εγκατάσταση</h3><ol><li><b>Εγκατάσταση του Termux & Πρόσθετων</b><div class="tip"><p><b>Σημείωση:</b> Για την εγκατάσταση APKs (π.χ. F-Droid), βεβαιωθείτε ότι έχετε:<br/>- Ενεργοποίηση άγνωστων πηγών (Ρυθμίσεις > Ασφάλεια > <b>Εγκατάσταση άγνωστων εφαρμογών</b>).<br/>- Κατεβάστε το F-Droid και, στη συνέχεια, εγκαταστήστε το Termux μέσω του <a href="https://f- droid.org/">F-Droid</a>.<br/>- Επιτρέψτε τη διαδικασία <code>fdroid</code> όταν σας ζητηθεί.</p></div></li><li><b>Εκτελέστε τις εντολές εγκατάστασης</b><div class="note note-warning"><b>Σημαντικό:</b> Ανοίξτε την εφαρμογή Termux στη συσκευή σας πριν αντιγράψετε και επικολλήσετε τις παρακάτω εντολές.</div><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'gr1')">Αντιγραφή</button><code id="gr1">termux-setup-storage && pkg update -y && pkg upgrade -y && pkg install aapt clang cloudflared curl ffmpeg fzf git jq libffi libffi-dev libxml2 libxslt nano ncurses nodejs openssh openssl openssl-tool proot python rust unzip wget zip -y</code></div><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'gr2')">Αντιγραφή</button><code id="gr2">pip install blessed bs4 cryptography flask flask-socketio geopy mutagen phonenumbers pycountry pydub pycryptodome requests werkzeug</code></div><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'gr3')">Αντιγραφή</button><code id="gr3">pkg install termux-api</code></div></li><li><b>Κλωνοποιήστε το αποθετήριο</b><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'gr4')">Αντιγραφή</button><code id="gr4">git clone https://github.com/dedsec1121fk/DedSec</code></div><div class="tip"><p><b>Συμβουλή:</b> Αν λάβετε σφάλμα "ModuleNotFoundError: No module named 'requests'", χρησιμοποιήστε την ακόλουθη εντολή και προσπαθήστε ξανά:</p><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'pip_requests_gr')">Αντιγραφή</button><code id="pip_requests_gr">pip install requests</code></div></div></li><li><b>Επιλέξτε στυλ μενού</b><div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'gr5')">Αντιγραφή</button><code id="gr5">cd DedSec/Scripts && python Settings.py</code></div><div class="tip"><p><b>Συμβουλή:</b> Μπορείτε να ανοίξετε το μενού αργότερα πληκτρολογώντας <code>m</code> στο Termux.</p></div></li></ol>
                 <div class="modal-disclaimer"><p><strong>Νομική Αποποίηση Ευθύνης:</strong> Όλα τα εργαλεία και οι πληροφορίες που παρουσιάζονται εδώ προορίζονται αποκλειστικά για εκπαιδευτικούς και ηθικούς ερευνητικούς σκοπούς. Χρησιμοποιήστε τα αποκλειστικά σε συστήματα που σας ανήκουν ή για τα οποία έχετε ρητή, γραπτή άδεια να δοκιμάσετε. Η μη εξουσιοδοτημένη χρήση είναι παράνομη. Ο χρήστης είναι αποκλειστικά υπεύθυνος για όλες τις ενέργειες που πραγματοποιεί, και οι δημιουργοί αυτού του έργου δεν αναλαμβάνουν καμία ευθύνη για οποιαδήποτε κακή χρήση ή ζημία.</p><p><strong>Αποποίηση Ευθύνης Εμπορικού Σήματος:</strong> Το όνομα και το λογότυπο "DedSec" που χρησιμοποιούνται σε αυτό το έργο είναι μόνο για θεματικούς και εμπνευστικούς σκοπούς. Αυτό είναι ένα ανεξάρτητο, fan-made έργο που δημιουργήθηκε για εκπαιδευτικούς σκοπούς και δεν έχει καμία επίσημη σχέση με το franchise "Watch Dogs". Δεν συνδέεται, δεν υποστηρίζεται από, ούτε σχετίζεται με την Ubisoft Entertainment S.A. Όλα τα εμπορικά σήματα και τα πνευματικά δικαιώματα για το "Watch Dogs" και το "DedSec" όπως απεικονίζονται στα παιχνίδια ανήκουν στους αντίστοιχους κατόχους τους, την Ubisoft Entertainment S.A.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="portable-laptop-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header"><h2 data-en="Portable Laptop" data-gr="Φορητός Υπολογιστής">Portable Laptop</h2><button class="close-modal" aria-label="Close">×</button></div>
+            <div class="modal-body" data-lang-section="en">
+                <p>Follow these instructions to turn your Android device into a portable Linux laptop with a full graphical interface.</p>
+                <hr class="modal-divider">
+                <h3>Master Command #1: Complete Desktop Setup</h3>
+                <div class="tip"><p><b>Note:</b> This command does everything to set up your base desktop. It will take 20-50 minutes and requires a stable Wi-Fi connection.</p></div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyToClipboard(this, 'laptop_setup1_en')">Copy</button>
+                    <code id="laptop_setup1_en">pkg update -y && pkg upgrade -y && pkg install proot-distro -y && proot-distro install debian && proot-distro login debian -- "apt update && apt upgrade -y && apt install xfce4 xfce4-goodies tigervnc-standalone-server nano -y"</code>
+                </div>
+                <hr class="modal-divider">
+                <h3>Step-by-Step System Setup</h3>
+                <ol>
+                    <li>
+                        <b>Set VNC Password (One-Time Only)</b>
+                        <p>After Master Command #1 finishes, run these commands in Termux:</p>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_setup2_en')">Copy</button><code id="laptop_setup2_en">proot-distro login debian</code></div>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_setup3_en')">Copy</button><code id="laptop_setup3_en">vncserver</code></div>
+                        <p class="sub-item">Enter a 6-8 character password. Type 'n' for the view-only password.</p>
+                    </li>
+                    <li>
+                        <b>Configure VNC Server (One-Time Only)</b>
+                        <p>Still inside Debian, run these commands:</p>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_setup4_en')">Copy</button><code id="laptop_setup4_en">vncserver -kill :1</code></div>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_setup5_en')">Copy</button><code id="laptop_setup5_en">nano ~/.vnc/xstartup</code></div>
+                        <p class="sub-item">Delete all text in the file and replace it with:<br><code>#!/bin/bash</code><br><code>startxfce4 &</code><br>Save with <b>Ctrl+X</b>, then <b>Y</b>, then <b>Enter</b>.</p>
+                    </li>
+                    <li>
+                        <b>Start & Stop Your Desktop</b>
+                        <p>To <b>START</b>, run this inside Debian:</p>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_start_en')">Copy</button><code id="laptop_start_en">vncserver -geometry 1280x720</code></div>
+                        <p class="sub-item">Then connect with a VNC Viewer app to <code>localhost:1</code>.</p>
+                        <p>To <b>STOP</b>, run this inside Debian:</p>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_stop_en')">Copy</button><code id="laptop_stop_en">vncserver -kill :1</code></div>
+                    </li>
+                </ol>
+                <hr class="modal-divider">
+                <h3>Master Command #2: Install All Laptop Software</h3>
+                <div class="tip"><p>After starting your desktop, open the Terminal Emulator inside it and run this command to install a full suite of useful applications.</p></div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyToClipboard(this, 'laptop_apps_en')">Copy</button>
+                    <code id="laptop_apps_en">sudo apt update && sudo apt install synaptic firefox-esr libreoffice gimp vlc geany htop thunderbird pidgin transmission-gtk zim evince foliate inkscape scribus pinta engrampa baobab gufw -y</code>
+                </div>
+            </div>
+            <div class="modal-body hidden-by-default" data-lang-section="gr">
+                <p>Ακολουθήστε αυτές τις οδηγίες για να μετατρέψετε τη συσκευή σας Android σε φορητό υπολογιστή Linux με πλήρες γραφικό περιβάλλον.</p>
+                <hr class="modal-divider">
+                <h3>Κύρια Εντολή #1: Πλήρης Εγκατάσταση Επιφάνειας Εργασίας</h3>
+                <div class="tip"><p><b>Σημείωση:</b> Αυτή η εντολή κάνει τα πάντα για να ρυθμίσει τη βασική σας επιφάνεια εργασίας. Θα διαρκέσει 20-50 λεπτά και απαιτεί σταθερή σύνδεση Wi-Fi.</p></div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyToClipboard(this, 'laptop_setup1_gr')">Αντιγραφή</button>
+                    <code id="laptop_setup1_gr">pkg update -y && pkg upgrade -y && pkg install proot-distro -y && proot-distro install debian && proot-distro login debian -- "apt update && apt upgrade -y && apt install xfce4 xfce4-goodies tigervnc-standalone-server nano -y"</code>
+                </div>
+                <hr class="modal-divider">
+                <h3>Βήμα-Βήμα Ρύθμιση Συστήματος</h3>
+                <ol>
+                    <li>
+                        <b>Ορισμός Κωδικού Πρόσβασης VNC (Μόνο για μία φορά)</b>
+                        <p>Αφού ολοκληρωθεί η Κύρια Εντολή #1, εκτελέστε αυτές τις εντολές στο Termux:</p>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_setup2_gr')">Αντιγραφή</button><code id="laptop_setup2_gr">proot-distro login debian</code></div>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_setup3_gr')">Αντιγραφή</button><code id="laptop_setup3_gr">vncserver</code></div>
+                        <p class="sub-item">Εισαγάγετε έναν κωδικό πρόσβασης 6-8 χαρακτήρων. Πληκτρολογήστε 'n' για τον κωδικό μόνο για προβολή.</p>
+                    </li>
+                    <li>
+                        <b>Διαμόρφωση του VNC Server (Μόνο για μία φορά)</b>
+                        <p>Όντας ακόμα μέσα στο Debian, εκτελέστε αυτές τις εντολές:</p>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_setup4_gr')">Αντιγραφή</button><code id="laptop_setup4_gr">vncserver -kill :1</code></div>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_setup5_gr')">Αντιγραφή</button><code id="laptop_setup5_gr">nano ~/.vnc/xstartup</code></div>
+                        <p class="sub-item">Διαγράψτε όλο το κείμενο στο αρχείο και αντικαταστήστε το με:<br><code>#!/bin/bash</code><br><code>startxfce4 &</code><br>Αποθηκεύστε με <b>Ctrl+X</b>, μετά <b>Y</b>, και μετά <b>Enter</b>.</p>
+                    </li>
+                    <li>
+                        <b>Εκκίνηση & Τερματισμός της Επιφάνειας Εργασίας σας</b>
+                        <p>Για <b>ΕΚΚΙΝΗΣΗ</b>, εκτελέστε αυτό μέσα στο Debian:</p>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_start_gr')">Αντιγραφή</button><code id="laptop_start_gr">vncserver -geometry 1280x720</code></div>
+                        <p class="sub-item">Στη συνέχεια, συνδεθείτε με μια εφαρμογή VNC Viewer στη διεύθυνση <code>localhost:1</code>.</p>
+                        <p>Για <b>ΤΕΡΜΑΤΙΣΜΟ</b>, εκτελέστε αυτό μέσα στο Debian:</p>
+                        <div class="code-container"><button class="copy-btn" onclick="copyToClipboard(this, 'laptop_stop_gr')">Αντιγραφή</button><code id="laptop_stop_gr">vncserver -kill :1</code></div>
+                    </li>
+                </ol>
+                <hr class="modal-divider">
+                <h3>Κύρια Εντολή #2: Εγκατάσταση Όλου του Λογισμικού</h3>
+                <div class="tip"><p>Αφού ξεκινήσετε την επιφάνεια εργασίας σας, ανοίξτε τον Εξομοιωτή Τερματικού (Terminal Emulator) μέσα σε αυτήν και εκτελέστε αυτήν την εντολή για να εγκαταστήσετε μια πλήρη σουίτα χρήσιμων εφαρμογών.</p></div>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyToClipboard(this, 'laptop_apps_gr')">Αντιγραφή</button>
+                    <code id="laptop_apps_gr">sudo apt update && sudo apt install synaptic firefox-esr libreoffice gimp vlc geany htop thunderbird pidgin transmission-gtk zim evince foliate inkscape scribus pinta engrampa baobab gufw -y</code>
+                </div>
             </div>
         </div>
     </div>
