@@ -7,8 +7,8 @@
     <style>
         /* General styling for a dark theme */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #1A1A1A; /* Dark background */
+            font-family: Arial, sans-serif; /* Changed from Orbitron for main body text */
+            background-color: #1A1A1A; /* Dark background from PC build guide */
             color: #FFFFFF; /* Light text */
             padding: 20px;
         }
@@ -16,7 +16,7 @@
             max-width: 900px;
             margin: auto;
         }
-        /* Adjusted H3 to a standard size, closer to the other document's structure */
+        /* Adjusted H3 to be slightly smaller and match the boldness/size of the main title in the other document */
         h3 {
             color: #FFFFFF;
             border-bottom: 1px solid #3A4A5E;
@@ -24,10 +24,10 @@
             margin-top: 1rem;
             margin-bottom: 1rem;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.875rem; /* Reverting to a more standard large title size */
-            font-weight: bold;
+            font-size: 1.875rem; /* Standard title size */
+            font-weight: 800; /* Bold weight for main title */
         }
-        /* Adjusted H4 to a standard size, closer to the other document's structure */
+        /* Adjusted H4 to match the size/color of Chapter titles in the other document */
         h4 {
             color: #9966FF; /* Purple for Chapter titles */
             border-bottom: 1px solid #3A4A5E;
@@ -35,8 +35,8 @@
             margin-top: 1.5rem;
             margin-bottom: 1rem;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.25rem; /* Reverting to a more standard chapter title size */
-            font-weight: bold;
+            font-size: 1.25rem; /* Standard chapter title size */
+            font-weight: 700; /* Standard bold weight */
         }
         .chapter-title {
             border-bottom: 1px solid #3A4A5E;
@@ -82,7 +82,7 @@
             border-radius: 0.25rem;
             font-size: 0.875rem;
         }
-        /* List Item Styling utility classes kept for structure but simplified where possible */
+        /* List Item Styling */
         .p-4 { padding: 1rem; }
         .bg-gray-800 { background-color: #2D3748; } /* Darker background for problem sections */
         .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
@@ -96,7 +96,10 @@
         .bg-blue-900 { background-color: #1E3A8A; } /* Used for the final word box (dark blue) */
         .text-blue-200 { color: #BFDBFE; } /* Light blue text for the final word box */
 
-        /* Removed the specific, restrictive override on problem titles to make them more prominent */
+        /* REMOVED: .p-4 b.text-lg { font-size: 1.0em; }
+           This rule was explicitly forcing the problem titles to be small,
+           which created the "oversized text" feeling in the headings.
+           Removing it allows b.text-lg (default text-lg) to be the standard size. */
     </style>
     <script>
         // Minimal script left for language switching functionality
@@ -636,7 +639,7 @@
                 <p class="mt-3"><b>Λύση: Διάγνωση και Επιδιόρθωση DNS</b></p>
                  <ol class="list-decimal list-inside ml-4 space-y-1">
                     <li><b>Ελέγξτε τη βασική συνδεσιμότητα:</b> `ping 8.8.8.8`. Αν αυτό αποτύχει, η συσκευή σας δεν έχει σύνδεση στο διαδίκτυο.</li>
-                    <li><b>Ελέγξτε την ανάλυση DNS:</b> `ping google.com`. Αν το προηγούμενο βήμα λειτούργησε αλλά αυτό αποτυγχάνει, είναι πρόβλημα DNS.</li>
+                    <li><b>Ελέξτε την ανάλυση DNS:</b> `ping google.com`. Αν το προηγούμενο βήμα λειτούργησε αλλά αυτό αποτυγχάνει, είναι πρόβλημα DNS.</li>
                     <li><b>Επιβολή Google DNS</b> (Πιο Αξιόπιστη Διόρθωση):
                         <div class="code-block">rm $PREFIX/etc/resolv.conf && echo "nameserver 8.8.8.8" > $PREFIX/etc/resolv.conf</div>
                     </li>
@@ -738,212 +741,212 @@
 
         <hr class="border-gray-700 my-8">
 
-        <h4>Κεφάλαιο 5: Οθόνη Τερματικού και Διαμόρφωση</h4>
-        <p class="section-intro">Διόρθωση οπτικών σφαλμάτων, ζητημάτων εκκίνησης κελύφους και προβλημάτων πληκτρολογίου.</p>
+        <h4>Chapter 5: Terminal Display and Configuration</h4>
+        <p class="section-intro">Fixing visual errors, shell startup issues, and keyboard problems.</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Οι αλλαγές σε `.bashrc` ή `.zshrc` αγνοούνται μέχρι να επανεκκινήσω το Termux.</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Τα αρχεία διαμόρφωσης του κελύφους πρέπει να "πηγάζονται" (sourced) χειροκίνητα για να εφαρμοστούν οι αλλαγές άμεσα.</p>
-                <p class="mt-3"><b>Λύση: Χειροκίνητη επαναφόρτωση της διαμόρφωσης:</b></p>
-                <div class="code-block">source ~/.bashrc (ή source ~/.zshrc)</div>
+                <b class="text-lg text-yellow-400">Problem: Changes to `.bashrc` or `.zshrc` are ignored until I restart Termux.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Shell configuration files must be manually "sourced" to apply changes immediately.</p>
+                <p class="mt-3"><b>Solution: Manually reload the configuration:</b></p>
+                <div class="code-block">source ~/.bashrc (or source ~/.zshrc)</div>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Μη αναγνώσιμοι χαρακτήρες ή ελλείποντα σύμβολα κατά την επεξεργασία αρχείων (Κωδικοποίηση Κειμένου).</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το περιβάλλον τερματικού δεν έχει ρυθμιστεί σωστά για Unicode (UTF-8).</p>
-                <p class="mt-3"><b>Λύση: Ορίστε τη σωστή μεταβλητή περιβάλλοντος στη διαμόρφωση του κελύφους σας (`~/.bashrc`):</b></p>
+                <b class="text-lg text-yellow-400">Problem: Unreadable characters or missing symbols when editing files (Text Encoding).</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> The terminal environment is not configured for Unicode (UTF-8) correctly.</p>
+                <p class="mt-3"><b>Solution: Set the correct environment variable in your shell config (`~/.bashrc`):</b></p>
                 <div class="code-block">export LANG=en_US.UTF-8</div>
-                <p class="text-xs text-gray-500 mt-1">Στη συνέχεια, επαναφορτώστε το κέλυφος με `source ~/.bashrc`.</p>
+                <p class="text-xs text-gray-500 mt-1">Then reload the shell with `source ~/.bashrc`.</p>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Δεν μπορώ να πληκτρολογήσω εύκολα ειδικά πλήκτρα (όπως F-keys, Esc, ή Ctrl+C).</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Termux χρησιμοποιεί τα πλήκτρα έντασης και swipes για ειδικούς χαρακτήρες.</p>
-                <p class="mt-3"><b>Λύση: Χρησιμοποιήστε τους ενσωματωμένους συνδυασμούς πλήκτρων και την προβολή επιπλέον πλήκτρων:</b></p>
+                <b class="text-lg text-yellow-400">Problem: I can't type special keys (like F-keys, Esc, or Ctrl+C) easily.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Termux uses volume keys and swipes for special characters.</p>
+                <p class="mt-3"><b>Solution: Use built-in key combinations and the extra keys view:</b></p>
                 <ol class="list-disc list-inside ml-4 space-y-1">
-                    <li><b>`CTRL` Key:</b> Πατήστε το πλήκτρο **Μείωσης Έντασης** (Volume Down) και στη συνέχεια το πλήκτρο χαρακτήρα (π.χ., `Vol Down` + `C` για Ctrl+C).</li>
-                    <li><b>`ESC` Key:</b> Πατήστε το πλήκτρο **Αύξησης Έντασης** (Volume Up) και στη συνέχεια το πλήκτρο `E`.</li>
-                    <li><b>Προσαρμογή Επιπλέον Πλήκτρων:</b> Δημιουργήστε/επεξεργαστείτε το αρχείο `~/.termux/termux.properties`. Προσθέστε προσαρμοσμένα πλήκτρα όπως: `extra-keys = [['ESC','/','-','HOME','UP','END'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT']]`. Επαναφορτώστε με `termux-reload-settings`.</li>
+                    <li><b>`CTRL` Key:</b> Press the **Volume Down** button and then the character key (e.g., `Vol Down` + `C` for Ctrl+C).</li>
+                    <li><b>`ESC` Key:</b> Press the **Volume Up** button and then the `E` key.</li>
+                    <li><b>Customize Extra Keys:</b> Create/edit the file `~/.termux/termux.properties`. Add custom keys like this: `extra-keys = [['ESC','/','-','HOME','UP','END'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT']]`. Reload with `termux-reload-settings`.</li>
                 </ol>
             </li>
         </ul>
 
         <hr class="border-gray-700 my-8">
 
-        <h4>Κεφάλαιο 6: Σύνθετο Περιβάλλον και Εκτέλεση</h4>
-        <p class="section-intro">Κατανόηση του Termux sandbox, της μοναδικής δομής καταλόγων του και των προηγμένων βοηθητικών προγραμμάτων εκτέλεσης.</p>
+        <h4>Chapter 6: Advanced Environment and Execution</h4>
+        <p class="section-intro">Understanding the Termux sandbox, its unique directory structure, and advanced execution utilities.</p>
 
         <div class="p-4 bg-gray-700 rounded-lg shadow-md mb-6">
-            <h5 class="text-lg font-bold text-cyan-300 mb-2">Βασικές Μεταβλητές Περιβάλλοντος Termux</h5>
-            <p class="text-gray-400 mb-2">Το Termux είναι ένα ισχυρό περιβάλλον user-space χωρίς root. Όλα τα εργαλεία είναι εγκατεστημένα σε μια συγκεκριμένη θέση που διαφέρει από ένα τυπικό σύστημα Linux.</p>
+            <h5 class="text-lg font-bold text-cyan-300 mb-2">Termux Key Environment Variables</h5>
+            <p class="text-gray-400 mb-2">Termux is a non-root user-space environment. All tools are installed in a specific location that differs from a standard Linux system.</p>
             <ul class="list-disc list-inside ml-4 space-y-1 text-sm">
-                <li><b>`$PREFIX`</b>: Η ρίζα εγκατάστασης του Termux (`/data/data/com.termux/files/usr`). Όλα τα binaries και οι βιβλιοθήκες βρίσκονται εδώ.</li>
-                <li><b>`$HOME`</b>: Ο αρχικός κατάλογος του χρήστη (`/data/data/com.termux/files/home`). Όλα τα προσωπικά αρχεία και τα εργαλεία που εγκαθιστά ο χρήστης πρέπει να βρίσκονται εδώ.</li>
+                <li><b>`$PREFIX`</b>: The Termux installation root (`/data/data/com.termux/files/usr`). All binaries and libraries are found here.</li>
+                <li><b>`$HOME`</b>: The user's home directory (`/data/data/com.termux/files/home`). All personal files and user-installed tools should live here.</li>
             </ul>
         </div>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Σφάλμα: `sudo: command not found` ή ανάγκη για δικαιώματα root.</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Termux δεν είναι περιβάλλον rooted από προεπιλογή και δεν μπορεί να χρησιμοποιήσει εντολές superuser.</p>
-                <p class="mt-3"><b>Λύση: Χρήση Proot-Distro για ένα πλήρες περιβάλλον Linux:</b></p>
+                <b class="text-lg text-yellow-400">Error: `sudo: command not found` or need for root permissions.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Termux is not a rooted environment by default and cannot use superuser commands.</p>
+                <p class="mt-3"><b>Solution: Use Proot-Distro for a full Linux environment:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Εγκατάσταση του proot-distro και μιας διανομής Linux:</b>
+                    <li><b>Install proot-distro and a Linux distribution:</b>
                         <div class="code-block">pkg install proot-distro && proot-distro install ubuntu</div>
                     </li>
-                    <li><b>Σύνδεση στη διανομή:</b>
+                    <li><b>Login to the distro:</b>
                         <div class="code-block">proot-distro login ubuntu</div>
                     </li>
-                     <li><b>Μέσα στη διανομή,</b> μπορείτε να χρησιμοποιήσετε τον εγγενή διαχειριστή πακέτων της ως root:
+                     <li><b>Inside the distro,</b> you can use its native package manager as root:
                         <div class="code-block">apt update && apt install neofetch</div>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Το πρόγραμμα αποτυγχάνει με `CANNOT LINK EXECUTABLE... "..." is 32-bit instead of 64-bit` ή θέματα `LD_PRELOAD`.</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Ανάμειξη πακέτων από διαφορετικές πηγές ή προσπάθεια εκτέλεσης ενός τυπικού δυαδικού αρχείου Linux που δεν είναι συμβατό με τον linker του Android (`/system/bin/linker`).</p>
-                <p class="mt-3"><b>Λύση: Χρήση `termux-exec`:</b></p>
+                <b class="text-lg text-yellow-400">Problem: Program fails with `CANNOT LINK EXECUTABLE... "..." is 32-bit instead of 64-bit` or `LD_PRELOAD` issues.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Mixing packages from different sources or trying to run a standard Linux binary that is not compatible with Android's linker (`/system/bin/linker`).</p>
+                <p class="mt-3"><b>Solution: Use `termux-exec`:</b></p>
                 <div class="code-block">pkg install termux-exec && termux-elf-cleaner /path/to/binary</div>
-                <p class="text-xs text-gray-500 mt-1">Το `termux-exec` ξαναγράφει αυτόματα τα shebangs και διαχειρίζεται τις διαδρομές του linker. Το `termux-elf-cleaner` μπορεί να διορθώσει ορισμένα προβλήματα επικεφαλίδας ELF σε μη συμβατά binaries.</p>
+                <p class="text-xs text-gray-500 mt-1">`termux-exec` automatically rewrites shebangs and handles linker paths. `termux-elf-cleaner` can fix some ELF header issues on incompatible binaries.</p>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Το πρόγραμμα ξεκινά και αποτυγχάνει αμέσως σιωπηλά (ή `No such file or directory`).</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το πρόγραμμα μπορεί να επιχειρεί μια κλήση συστήματος που είναι μπλοκαρισμένη, λείπει μια εξάρτηση, ή ψάχνει για ένα αρχείο σε λάθος διαδρομή.</p>
-                <p class="mt-3"><b>Λύση: Παρακολούθηση Κλήσεων Συστήματος με `strace`:</b></p>
+                <b class="text-lg text-yellow-400">Problem: Program starts and immediately fails silently (or `No such file or directory`).</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> The program may be attempting a system call that is blocked, missing a dependency, or looking for a file in the wrong path.</p>
+                <p class="mt-3"><b>Solution: Trace System Calls with `strace`:</b></p>
                 <div class="code-block">pkg install strace && strace -f &lt;failing-command&gt;</div>
-                <p class="text-xs text-gray-500 mt-1">Το `strace` θα εμφανίσει ένα αρχείο καταγραφής όλων των αλληλεπιδράσεων του συστήματος, αποκαλύπτοντας συχνά το ακριπρό "Permission denied" ή σφάλμα διαδρομής που προκάλεσε το crash.</p>
+                <p class="text-xs text-gray-500 mt-1">`strace` will print a log of all system interactions, often revealing the exact "Permission denied" or path error that caused the crash.</p>
             </li>
         </ul>
 
         <hr class="border-gray-700 my-8">
 
-        <h4>Κεφάλαιο 7: Προσαρμογή και Γραφικό Περιβάλλον (X11/VNC)</h4>
-        <p class="section-intro">Εγκατάσταση εναλλακτικών κελυφών και ρύθμιση ενός γραφικού desktop για εφαρμογές X-Window ή VNC.</p>
+        <h4>Chapter 7: Customization and Graphical Environment (X11/VNC)</h4>
+        <p class="section-intro">Installing alternative shells and setting up a graphical desktop for X-Window or VNC applications.</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Θέλω καλύτερες λειτουργίες και προσαρμογή από το προεπιλεγμένο κέλυφος Bash.</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το Bash είναι το πρότυπο, αλλά κελύφη όπως το Zsh και το Fish προσφέρουν προηγμένη αυτόματη συμπλήρωση, επισήμανση σύνταξης και επεκτασιμότητα.</p>
-                <p class="mt-3"><b>Λύση: Εγκαταστήστε το Zsh/Fish και Αλλάξτε Κέλυφος:</b></p>
+                <b class="text-lg text-yellow-400">Problem: I want better features and customization than the default Bash shell.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Bash is standard, but shells like Zsh and Fish offer advanced autocompletion, syntax highlighting, and extensibility.</p>
+                <p class="mt-3"><b>Solution: Install Zsh/Fish and Switch Shells:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Εγκαταστήστε το πακέτο:</b> `pkg install zsh` ή `pkg install fish`</li>
-                    <li><b>Αλλάξτε το προεπιλεγμένο κέλυφος:</b>
-                        <div class="code-block">chsh -s zsh (ή chsh -s fish)</div>
-                        <p class="text-xs text-gray-500">Πρέπει να κάνετε επανεκκίνηση του Termux για να τεθεί σε ισχύ αυτή η αλλαγή.</p>
+                    <li><b>Install the package:</b> `pkg install zsh` or `pkg install fish`</li>
+                    <li><b>Switch your default shell:</b>
+                        <div class="code-block">chsh -s zsh (or chsh -s fish)</div>
+                        <p class="text-xs text-gray-500">You must restart Termux for this change to take effect.</p>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Χρειάζεται να εκτελέσω μια γραφική εφαρμογή Linux (X-Window).</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Οι γραφικές εφαρμογές απαιτούν έναν X Server να εκτελείται στη συσκευή Android για να αποδώσει την έξοδο.</p>
-                <p class="mt-3"><b>Λύση: Ρύθμιση Περιβάλλοντος X11:</b></p>
+                <b class="text-lg text-yellow-400">Problem: I need to run a graphical (X-Window) Linux application.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Graphical applications require an X Server running on the Android device to render the output.</p>
+                <p class="mt-3"><b>Solution: Setup X11 Environment:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Εγκαταστήστε το αποθετήριο X11 και πακέτα:</b>
+                    <li><b>Install X11 repository and packages:</b>
                         <div class="code-block">pkg install x11-repo && pkg install termux-x11-nightly fluxbox</div>
                     </li>
-                    <li><b>Εγκαταστήστε την ξεχωριστή εφαρμογή Termux:X11</b> από το F-Droid ή το GitHub.</li>
-                    <li><b>Διαμόρφωση και εκτέλεση:</b> Ανοίξτε την εφαρμογή Termux:X11. Στο Termux, εκτελέστε:
+                    <li><b>Install the separate Termux:X11 app</b> from F-Droid or GitHub.</li>
+                    <li><b>Configure and run:</b> Open the Termux:X11 app. In Termux, run:
                         <div class="code-block">export DISPLAY=':0' && termux-x11 & && sleep 3 && fluxbox &</div>
-                        <p class="text-xs text-gray-500">Αυτό ξεκινά τον διακομιστή X11 και τον διαχειριστή παραθύρων Fluxbox. Τώρα μπορείτε να εκτελέσετε γραφικές εφαρμογές όπως το `xterm`.</p>
+                        <p class="text-xs text-gray-500">This starts the X11 server and the Fluxbox window manager. You can now run graphical apps like `xterm`.</p>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Εναλλακτική: Θέλω ένα πιο σταθερό, μόνιμο γραφικό περιβάλλον εργασίας.</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Το X11 μπορεί να είναι εύθραυστο. Το VNC (Virtual Network Computing) παρέχει ένα πιο ανθεκτικό εικονικό περιβάλλον εργασίας που παραμένει ενεργό ακόμα και αν η εφαρμογή-πελάτης αποσυνδεθεί.</p>
-                <p class="mt-3"><b>Λύση: Ρύθμιση ενός VNC Server:</b></p>
+                <b class="text-lg text-yellow-400">Alternative: I want a more stable, persistent graphical desktop.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> X11 can be fragile. VNC (Virtual Network Computing) provides a more robust virtual desktop that persists even if the client app disconnects.</p>
+                <p class="mt-3"><b>Solution: Setup a VNC Server:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Εγκατάσταση του TigerVNC και ενός διαχειριστή παραθύρων:</b>
+                    <li><b>Install TigerVNC and a window manager:</b>
                         <div class="code-block">pkg install tigervnc fluxbox</div>
                     </li>
-                    <li><b>Εκκίνηση του VNC server:</b>
+                    <li><b>Start the VNC server:</b>
                         <div class="code-block">vncserver -localhost no</div>
-                        <p class="text-xs text-gray-500">Ορίστε έναν κωδικό πρόσβασης την πρώτη φορά. Αυτό ξεκινά έναν διακομιστή στη θύρα 5901.</p>
+                        <p class="text-xs text-gray-500">Set a password on the first run. This starts a server on port 5901.</p>
                     </li>
-                    <li><b>Σύνδεση με έναν client:</b> Εγκαταστήστε μια εφαρμογή VNC Viewer στο Android (όπως το AVNC από το F-Droid), και συνδεθείτε στο `127.0.0.1:5901`.</li>
+                    <li><b>Connect with a client:</b> Install a VNC Viewer app on Android (like AVNC from F-Droid), and connect to `127.0.0.1:5901`.</li>
                 </ol>
             </li>
         </ul>
         
         <hr class="border-gray-700 my-8">
 
-        <h4>Κεφάλαιο 8: Ανάκτηση Δεδομένων και Κατεστραμμένες Εγκαταστάσεις</h4>
-        <p class="section-intro">Βήματα έσχατης ανάγκης για τη διόρθωση επίμονων ζητημάτων ή την ανάκτηση μιας συνεδρίας Termux.</p>
+        <h4>Chapter 8: Data Recovery and Corrupted Installs</h4>
+        <p class="section-intro">Last resort steps for fixing persistent issues or recovering a Termux session.</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Το Termux είναι εντελώς χαλασμένο, ή οι εντολές `pkg` και `apt` αποτυγχάνουν αμέσως (Κατεστραμμένο Prefix).</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Κρίσιμα αρχεία στον κατάλογο `$PREFIX` (`/usr`) είναι κατεστραμμένα, συχνά από κακά scripts ή βίαιο τερματισμό κατά τη διάρκεια μιας αναβάθμισης.</p>
-                <p class="mt-3"><b>Λύση: Δημιουργία αντιγράφων ασφαλείας και Επαναφορά:</b></p>
+                <b class="text-lg text-yellow-400">Problem: Termux is completely broken, or `pkg` and `apt` commands immediately fail (Corrupted Prefix).</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Critical files in the `$PREFIX` directory (`/usr`) are corrupted, often by bad scripts or a force-kill during an upgrade.</p>
+                <p class="mt-3"><b>Solution: Backup and Reset:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Βήμα 1: Δημιουργία αντιγράφου ασφαλείας του αρχικού σας καταλόγου.</b> Εκτελέστε πρώτα `termux-setup-storage`. Στη συνέχεια, δημιουργήστε ένα συμπιεσμένο αρχείο:
+                    <li><b>Step 1: Backup your Home Directory.</b> Run `termux-setup-storage` first. Then create a compressed archive:
                         <div class="code-block">tar -czvf /sdcard/termux-backup.tar.gz -C $HOME .</div>
-                        <p class="text-xs text-gray-500">Αυτό αποθηκεύει τα πάντα στον αρχικό σας κατάλογο σε ένα ενιαίο αρχείο στον εσωτερικό χώρο αποθήκευσης του τηλεφώνου σας.</p>
+                        <p class="text-xs text-gray-500">This saves everything in your home directory to a single file in your phone's internal storage.</p>
                     </li>
-                    <li><b>Βήμα 2: Εκκαθάριση Δεδομένων Εφαρμογής.</b> Πηγαίνετε στις Ρυθμίσεις Android -> Εφαρμογές -> Termux -> Αποθηκευτικός χώρος και "Εκκαθάριση δεδομένων". Αυτό εκτελεί μια πλήρη εργοστασιακή επαναφορά του Termux.</li>
-                    <li><b>Βήμα 3: Επαναφορά των δεδομένων σας.</b> Αφού ανοίξετε ξανά το Termux, εκτελέστε ξανά το `termux-setup-storage` και στη συνέχεια αποσυμπιέστε το αντίγραφο ασφαλείας σας:
+                    <li><b>Step 2: Clear App Data.</b> Go to Android Settings -> Apps -> Termux -> Storage and "Clear data". This performs a complete factory reset of Termux.</li>
+                    <li><b>Step 3: Restore your data.</b> After re-opening Termux, run `termux-setup-storage` again and then extract your backup:
                         <div class="code-block">tar -xzvf /sdcard/termux-backup.tar.gz -C $HOME</div>
                     </li>
                 </ol>
             </li>
         </ul>
 
-         <hr class="border-gray-700 my-8">
+        <hr class="border-gray-700 my-8">
 
-        <h4>Κεφάλαιο 9: Scripting και Αυτοματισμός</h4>
-        <p class="section-intro">Αξιοποίηση των plugins του Termux για την αυτοματοποίηση εργασιών και την ενσωμάτωση με το σύστημα Android.</p>
+        <h4>Chapter 9: Scripting and Automation</h4>
+        <p class="section-intro">Leveraging Termux plugins to automate tasks and integrate with the Android system.</p>
 
         <ul class="space-y-6">
-            <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Θέλω να έχω πρόσβαση στη συνεδρία μου στο Termux από τον υπολογιστή μου.</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Από προεπιλογή, το Termux δεν εκτελεί διακομιστή SSH για απομακρυσμένη πρόσβαση.</p>
-                <p class="mt-3"><b>Λύση: Ρύθμιση του διακομιστή OpenSSH:</b></p>
+             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
+                <b class="text-lg text-yellow-400">Problem: I want to access my Termux session from my computer.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> By default, Termux does not run an SSH server for remote access.</p>
+                <p class="mt-3"><b>Solution: Set up the OpenSSH server:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Εγκατάσταση του OpenSSH:</b> `pkg install openssh`</li>
-                    <li><b>Ορισμός κωδικού πρόσβασης:</b> Εκτελέστε `passwd` για να ορίσετε έναν κωδικό πρόσβασης για τον χρήστη σας. Αυτό θα χρησιμοποιήσετε για να συνδεθείτε.</li>
-                    <li><b>Εκκίνηση του διακομιστή SSH:</b> `sshd`</li>
-                    <li><b>Εύρεση της διεύθυνσης IP της συσκευής σας:</b> `ifconfig` (αναζητήστε τη διεύθυνση `inet` κάτω από το `wlan0`).</li>
-                    <li><b>Σύνδεση από άλλον υπολογιστή:</b> Χρησιμοποιήστε έναν πελάτη SSH για να συνδεθείτε. Ο προεπιλεγμένος χρήστης είναι `termux` και η προεπιλεγμένη θύρα είναι `8022`.
+                    <li><b>Install OpenSSH:</b> `pkg install openssh`</li>
+                    <li><b>Set a password:</b> Run `passwd` to set a password for your user. This is what you'll use to log in.</li>
+                    <li><b>Start the SSH server:</b> `sshd`</li>
+                    <li><b>Find your device's IP address:</b> `ifconfig` (look for the `inet` address under `wlan0`).</li>
+                    <li><b>Connect from another computer:</b> Use an SSH client to connect. The default user is `termux` and the default port is `8022`.
                         <div class="code-block">ssh termux@&lt;your-phone-ip&gt; -p 8022</div>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Θέλω να εκτελέσω ένα script κατά την εκκίνηση της συσκευής μου.</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Απαιτεί τη συνοδευτική εφαρμογή `Termux:Boot` για να συνδεθεί με το συμβάν εκκίνησης του Android.</p>
-                <p class="mt-3"><b>Λύση: Χρήση του Termux:Boot:</b></p>
+                <b class="text-lg text-yellow-400">Problem: I want to run a script when my device boots up.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> Requires the `Termux:Boot` companion app to hook into Android's boot event.</p>
+                <p class="mt-3"><b>Solution: Use Termux:Boot:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Εγκαταστήστε την εφαρμογή Termux:Boot</b> από το F-Droid.</li>
-                    <li><b>Δημιουργήστε τον κατάλογο εκκίνησης:</b> `mkdir -p ~/.termux/boot/`</li>
-                    <li><b>Δημιουργήστε το script σας:</b> Δημιουργήστε ένα νέο αρχείο όπως `~/.termux/boot/start-sshd`. Κάντε το εκτελέσιμο με `chmod +x`.
+                    <li><b>Install the Termux:Boot app</b> from F-Droid.</li>
+                    <li><b>Create the startup directory:</b> `mkdir -p ~/.termux/boot/`</li>
+                    <li><b>Create your script:</b> Create a new file like `~/.termux/boot/start-sshd`. Make it executable with `chmod +x`.
                         <div class="code-block">#!/data/data/com.termux/files/usr/bin/bash<br>termux-wake-lock<br>sshd</div>
-                        <p class="text-xs text-gray-500">Οποιοδήποτε εκτελέσιμο script τοποθετηθεί σε αυτόν τον κατάλογο θα εκτελείται κατά την εκκίνηση.</p>
+                        <p class="text-xs text-gray-500">Any executable script placed in this directory will run on boot.</p>
                     </li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Θέλω να εκτελώ scripts από την αρχική οθόνη του Android.</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Αυτό απαιτεί τη συνοδευτική εφαρμογή `Termux:Widget`.</p>
-                <p class="mt-3"><b>Λύση: Χρήση του Termux:Widget:</b></p>
+                <b class="text-lg text-yellow-400">Problem: I want to run scripts from my Android home screen.</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> This requires the `Termux:Widget` companion app.</p>
+                <p class="mt-3"><b>Solution: Use Termux:Widget:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li><b>Εγκαταστήστε την εφαρμογή Termux:Widget</b> από το F-Droid.</li>
-                    <li><b>Δημιουργήστε τον κατάλογο συντομεύσεων:</b> `mkdir -p ~/.shortcuts/`</li>
-                    <li><b>Τοποθετήστε τα scripts σας εκεί:</b> Δημιουργήστε ένα script όπως `~/.shortcuts/update-all`. Το script θα εκτελεστεί από το widget. Για παράδειγμά:
-                        <div class="code-block">#!/data/data/com.termux/files/usr/bin/bash<br>pkg update && pkg upgrade -y<br>termux-toast "Οι ενημερώσεις ολοκληρώθηκαν!"</div>
+                    <li><b>Install the Termux:Widget app</b> from F-Droid.</li>
+                    <li><b>Create the shortcuts directory:</b> `mkdir -p ~/.shortcuts/`</li>
+                    <li><b>Place your scripts there:</b> Create a script like `~/.shortcuts/update-all`. The script will be run by the widget. For example:
+                        <div class="code-block">#!/data/data/com.termux/files/usr/bin/bash<br>pkg update && pkg upgrade -y<br>termux-toast "Updates complete!"</div>
                     </li>
-                     <li>Προσθέτετε το Termux Widget στην αρχική σας οθόνη. Θα εμφανίσει όλα τα εκτελέσιμα scripts από τον κατάλογο `.shortcuts`.</li>
+                     <li>Add the Termux Widget to your home screen. It will list all executable scripts from the `.shortcuts` directory.</li>
                 </ol>
             </li>
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
-                <b class="text-lg text-yellow-400">Πρόβλημα: Πώς μπορούν τα scripts μου να αλληλεπιδράσουν με το Android (π.χ., αποστολή ειδοποίησης, ανάγνωση κατάστασης μπαταρίας);</b>
-                <p class="text-gray-400 mt-2"><b>Αιτία:</b> Αυτό απαιτεί το πακέτο και την εφαρμογή `Termux:API`, τα οποία εκθέτουν τη λειτουργικότητα του Android σε εντολές κελύφους.</p>
-                <p class="mt-3"><b>Λύση: Χρήση εντολών Termux:API:</b></p>
+                <b class="text-lg text-yellow-400">Problem: How can my scripts interact with Android (e.g., send a notification, read battery status)?</b>
+                <p class="text-gray-400 mt-2"><b>Cause:</b> This requires the `Termux:API` package and app, which expose Android functionality to shell commands.</p>
+                <p class="mt-3"><b>Solution: Use Termux:API commands:</b></p>
                 <ol class="list-decimal list-inside ml-4 space-y-1">
-                    <li>Βεβαιωθείτε ότι τόσο το πακέτο `termux-api` όσο και η εφαρμογή `Termux:API` είναι εγκατεστημένα από το F-Droid.</li>
-                    <li><b>Παράδειγμα 1: Εμφάνιση ειδοποίησης από ένα script:</b>
-                        <div class="code-block">termux-notification --title "Το αντίγραφο ασφαλείας ολοκληρώθηκε" --content "Το script αντιγράφων ασφαλείας σας ολοκληρώθηκε."</div>
+                    <li>Ensure both the `termux-api` package and `Termux:API` app are installed from F-Droid.</li>
+                    <li><b>Example 1: Show a notification from a script:</b>
+                        <div class="code-block">termux-notification --title "Backup Complete" --content "Your backup script has finished."</div>
                     </li>
-                    <li><b>Παράδειγμα 2: Λήψη επιπέδου μπαταρίας και εμφάνιση μηνύματος toast:</b>
-                        <div class="code-block">battery=$(termux-battery-status | grep -oP '(?<="percentage": )[0-9]+')<br>termux-toast "Η μπαταρία είναι στο $battery%"</div>
+                    <li><b>Example 2: Get battery level and show a toast message:</b>
+                        <div class="code-block">battery=$(termux-battery-status | grep -oP '(?<="percentage": )[0-9]+')<br>termux-toast "Battery is at $battery%"</div>
                     </li>
                 </ol>
             </li>
