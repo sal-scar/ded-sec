@@ -4,22 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How To Protect Your Privacy</title>
+    <style>
+        /* General styling for a dark theme to match the PC build guide */
+        body {
+            background-color: #1A1A1A; /* Dark background */
+            color: #FFFFFF; /* White text for main body */
+        }
+        /* Styles derived from How_To_Build_A_PC_From_Scratch for specific elements */
+        h3 {
+            color: #FFFFFF;
+            border-bottom: 1px solid #3A4A5E;
+            padding-bottom: 8px;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        h4 {
+            color: #9966FF; /* Purple for Chapter titles, using the PC guide's accent color */
+            border-bottom: 1px solid #3A4A5E;
+            padding-bottom: 8px;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .section-intro {
+            font-style: italic;
+            color: #7A8899; /* Muted gray for intro text */
+            margin-bottom: 1.5rem;
+            font-size: 1.0em;
+            border-left: 3px solid #3A4A5E; /* Dark border on the left */
+            padding-left: 1rem;
+        }
+        .modal-divider {
+            border-color: #3A4A5E; /* Dark border color */
+        }
+        .note-danger {
+            /* CRITICAL WARNING styling */
+            border-radius: 20px;
+            border-left: 4px solid #FF0000; /* Red border for warnings */
+            background: rgba(255, 0, 0, 0.1); /* Light red background */
+            padding: 15px;
+            color: #FF0000; /* Red text for warning header */
+        }
+        .os-path {
+            font-size: 0.9em;
+            margin-top: 5px;
+            padding-left: 10px;
+            border-left: 2px solid #3A4A5E; /* Dark border on the left for OS path boxes */
+            color: #7A8899; /* Muted gray text for OS path details */
+        }
+        li {
+            color: #FFFFFF; /* Ensure list item text is visible */
+        }
+        ul li {
+            color: #FFFFFF;
+        }
+        ul li ul li {
+            color: #FFFFFF; /* Ensure nested list items are also white */
+        }
+    </style>
 </head>
 <body>
 
 <div data-lang-section="en">
-    <h3 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">How To Protect Your Privacy</h3>
+    <h3>How To Protect Your Privacy</h3>
 
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Chapter 0: The Privacy Mindset</h4>
+    <h4>Chapter 0: The Privacy Mindset</h4>
     
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Privacy is not about having something to hide; it's about having something to protect. In the digital age, your data is your most valuable asset. This guide will teach you how to protect it, moving beyond simple device security to a holistic privacy strategy for both iOS and Android, covering your digital and physical worlds.</p>
+    <p class="section-intro">Privacy is not about having something to hide; it's about having something to protect. In the digital age, your data is your most valuable asset. This guide will teach you how to protect it, moving beyond simple device security to a holistic privacy strategy for both iOS and Android, covering your digital and physical worlds.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Security vs. Privacy:</b> Understand the difference. Security is the lock on your door, preventing unauthorized access (hackers). Privacy is control over who has a key and what they can do inside (corporations, data brokers). You need both.</li>
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>The Principle of Data Minimization:</b> The most private data is data that is never collected in the first place. Your primary goal should be to reduce the amount of personal information you generate and share.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Permission Audit:</b> Does a simple game really need your contacts and location? Scrutinize every request.
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> Review permissions by category in `Settings` → `Privacy & Security`.</div>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android:</b> Use the `Permission manager` in `Settings` → `Security & privacy` → `Privacy`.</div>
+                    <div class="os-path"><b>iOS:</b> Review permissions by category in `Settings` → `Privacy & Security`.</div>
+                    <div class="os-path"><b>Android:</b> Use the `Permission manager` in `Settings` → `Security & privacy` → `Privacy`.</div>
                 </li>
             </ul>
         </li>
@@ -29,8 +88,8 @@
     
     <hr class="modal-divider">
 
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Chapter 1: Hardening Your Devices (The Foundation)</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Your devices are the gateways to your digital life. Before you can control your data online, you must ensure these gateways are locked down tight. These are foundational, non-negotiable steps.</p>
+    <h4>Chapter 1: Hardening Your Devices (The Foundation)</h4>
+    <p class="section-intro">Your devices are the gateways to your digital life. Before you can control your data online, you must ensure these gateways are locked down tight. These are foundational, non-negotiable steps.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>A Strong, Biometric-Protected Screen Lock:</b> Your primary defense against physical access.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -41,8 +100,8 @@
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Enable Two-Factor Authentication (2FA) Everywhere:</b> The single most effective tool against account takeovers.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Secure Your Core Account (Apple/Google):</b> This is the key to your kingdom.
-                     <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> `Settings` → `[Your Name]` → `Sign-In & Security` → `Two-Factor Authentication`.</div>
-                     <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android:</b> `Settings` → `Google` → `Manage your Google Account` → `Security` → `2-Step Verification`.</div>
+                     <div class="os-path"><b>iOS:</b> `Settings` → `[Your Name]` → `Sign-In & Security` → `Two-Factor Authentication`.</div>
+                     <div class="os-path"><b>Android:</b> `Settings` → `Google` → `Manage your Google Account` → `Security` → `2-Step Verification`.</div>
                 </li>
                 <li><b>Use Authenticator Apps:</b> Prioritize an authenticator app (e.g., Authy, Google Authenticator) over SMS-based 2FA, which is vulnerable to SIM swapping.</li>
             </ul>
@@ -56,18 +115,18 @@
              <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>What to Use:</b> Services like Quad9 (9.9.9.9) or Cloudflare (1.1.1.1) offer free, private DNS.</li>
                 <li><b>How to Set Up:</b>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> `Settings` → `Wi-Fi` → tap the `(i)` next to your network → `Configure DNS` → `Manual`. Add one of the servers.</div>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android:</b> `Settings` → `Network & internet` → `Private DNS`. Select `Private DNS provider hostname` and enter `one.one.one.one` (for Cloudflare) or `dns.quad9.net` (for Quad9).</div>
+                    <div class="os-path"><b>iOS:</b> `Settings` → `Wi-Fi` → tap the `(i)` next to your network → `Configure DNS` → `Manual`. Add one of the servers.</div>
+                    <div class="os-path"><b>Android:</b> `Settings` → `Network & internet` → `Private DNS`. Select `Private DNS provider hostname` and enter `one.one.one.one` (for Cloudflare) or `dns.quad9.net` (for Quad9).</div>
                 </li>
             </ul>
         <b>Why:</b> This prevents your ISP from logging and selling your browsing history. It's a simple and powerful privacy enhancement.</li>
          <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Use High-Security Modes When Needed:</b> For situations where you feel you might be specifically targeted.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Lockdown Mode (iOS):</b> This is an extreme, optional protection that severely restricts apps and features, greatly reducing the attack surface for highly targeted spyware.
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> `Settings` → `Privacy & Security` → `Lockdown Mode`.</div>
+                    <div class="os-path"><b>iOS:</b> `Settings` → `Privacy & Security` → `Lockdown Mode`.</div>
                 </li>
                 <li><b>Maintenance/Repair Mode (Android):</b> Many Android phones now offer this mode, which creates a temporary, separate user profile, protecting your personal data when your phone is being serviced.
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android (Samsung):</b> `Settings` → `Battery and device care` → `Maintenance mode`.</div>
+                    <div class="os-path"><b>Android (Samsung):</b> `Settings` → `Battery and device care` → `Maintenance mode`.</div>
                 </li>
             </ul>
         <b>Why:</b> These specialized modes offer an extra layer of protection for your data during vulnerable situations, such as crossing a border or handing your device over for repair.</li>
@@ -75,9 +134,9 @@
 
     <hr class="modal-divider">
     
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Chapter 2: Controlling Your Data Flow (Daily Habits)</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Privacy is not a setting, but a habit. Your daily choices about which services you use and how you use them have the biggest impact on your privacy.</p>
-    <div class="note note-danger" style="border-radius: 20px;"><b>CRITICAL WARNING: PUBLIC WI-FI IS A HOSTILE NETWORK!</b> Treat any Wi-Fi you don't control as compromised. Use a reputable VPN to encrypt your connection and hide your activity from snoops on the network.</div>
+    <h4>Chapter 2: Controlling Your Data Flow (Daily Habits)</h4>
+    <p class="section-intro">Privacy is not a setting, but a habit. Your daily choices about which services you use and how you use them have the biggest impact on your privacy.</p>
+    <div class="note note-danger"><b>CRITICAL WARNING: PUBLIC WI-FI IS A HOSTILE NETWORK!</b> Treat any Wi-Fi you don't control as compromised. Use a reputable VPN to encrypt your connection and hide your activity from snoops on the network.</div>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Choose Privacy-Conscious Services:</b> Opt for services that are designed to protect your privacy, not exploit your data.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -98,8 +157,8 @@
 
     <hr class="modal-divider">
 
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Chapter 3: Managing Your Digital Footprint</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Your digital footprint is the trail of data you leave behind online. A smaller footprint means less data that can be tracked, breached, or sold. This is a proactive process of digital hygiene.</p>
+    <h4>Chapter 3: Managing Your Digital Footprint</h4>
+    <p class="section-intro">Your digital footprint is the trail of data you leave behind online. A smaller footprint means less data that can be tracked, breached, or sold. This is a proactive process of digital hygiene.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Use Aliases and Disposable Emails:</b> You don't need to use your real identity for every service.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -122,9 +181,9 @@
     </ul>
 
     <hr class="modal-divider">
-    
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Chapter 4: Advanced Privacy Techniques</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">For those seeking a higher level of privacy, these techniques offer stronger protections against sophisticated tracking and surveillance.</p>
+
+    <h4>Chapter 4: Advanced Privacy Techniques</h4>
+    <p class="section-intro">For those seeking a higher level of privacy, these techniques offer stronger protections against sophisticated tracking and surveillance.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Compartmentalization: Don't Mix Your Identities:</b> Use different tools for different aspects of your life to prevent cross-contamination of data.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -147,8 +206,8 @@
 
     <hr class="modal-divider">
 
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Chapter 5: Threat Modeling & Real-World Scenarios</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Privacy is not one-size-fits-all. Your personal "threat model" helps you decide how much protection you really need. This section also covers plans for specific, high-stakes situations.</p>
+    <h4>Chapter 5: Threat Modeling & Real-World Scenarios</h4>
+    <p class="section-intro">Privacy is not one-size-fits-all. Your personal "threat model" helps you decide how much protection you really need. This section also covers plans for specific, high-stakes situations.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Define Your Threat Model:</b> Ask yourself three simple questions:
             <ol style="padding-left: 20px; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -160,26 +219,26 @@
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Defending Against SIM Swapping:</b> An attack where a hacker steals your phone number.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>The Best Defense: A SIM PIN.</b> Set a PIN for your physical SIM card.
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> `Settings` → `Cellular` → `SIM PIN`.</div>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android:</b> `Settings` → `Security & privacy` → `More security & privacy` → `Set up SIM card lock`.</div>
+                    <div class="os-path"><b>iOS:</b> `Settings` → `Cellular` → `SIM PIN`.</div>
+                    <div class="os-path"><b>Android:</b> `Settings` → `Security & privacy` → `More security & privacy` → `Set up SIM card lock`.</div>
                 </li>
             </ul>
         <b>Why:</b> A SIM PIN is a hardware-level defense that stops a hacker even if they successfully trick your mobile carrier's support staff.</li>
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Plan for a Lost or Stolen Phone:</b> Enable your phone's remote tracking and wiping capabilities *before* it's lost.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Enable Find My Services:</b>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> Ensure `Settings` → `[Your Name]` → `Find My` → `Find My iPhone` is ON.</div>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android:</b> Ensure `Settings` → `Security & privacy` → `Find My Device` is ON.</div>
+                    <div class="os-path"><b>iOS:</b> Ensure `Settings` → `[Your Name]` → `Find My` → `Find My iPhone` is ON.</div>
+                    <div class="os-path"><b>Android:</b> Ensure `Settings` → `Security & privacy` → `Find My Device` is ON.</div>
                 </li>
                 <li><b>What to Do:</b> Immediately use a browser to go to `icloud.com/find` (iOS) or `google.com/android/find` (Android) to locate, lock, or erase the device.</li>
             </ul>
         <b>Why:</b> This feature is your only way to reclaim control after physical loss and protect your data.</li>
     </ul>
-    
+
     <hr class="modal-divider">
 
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Chapter 6: Privacy in the Physical World & Smart Home</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Digital privacy is meaningless if you leak data in the physical world. Your smart devices and public habits are an often-overlooked part of your privacy footprint.</p>
+    <h4>Chapter 6: Privacy in the Physical World & Smart Home</h4>
+    <p class="section-intro">Digital privacy is meaningless if you leak data in the physical world. Your smart devices and public habits are an often-overlooked part of your privacy footprint.</p>
      <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Secure Your Smart Home (IoT):</b> Every "smart" device is a potential listening device or data sensor connected to the internet.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -199,8 +258,8 @@
 
     <hr class="modal-divider">
     
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Chapter 7: The Privacy Journey</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Privacy is not a destination you arrive at; it's a continuous journey. Technology and threats evolve, and so should your practices. Stay informed, be deliberate in your choices, and make privacy a conscious part of your digital life.</p>
+    <h4>Chapter 7: The Privacy Journey</h4>
+    <p class="section-intro">Privacy is not a destination you arrive at; it's a continuous journey. Technology and threats evolve, and so should your practices. Stay informed, be deliberate in your choices, and make privacy a conscious part of your digital life.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Start Small and Be Consistent:</b> You don't have to do everything on this list today. Start with the basics in Chapter 1. Then, next week, switch your browser. The week after, clean up three old accounts. Small, consistent steps lead to massive long-term improvements.</li>
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Stay Informed:</b> Follow privacy-focused news sources or blogs to stay aware of new threats and tools. Knowledge is your best defense against the ever-changing landscape of digital surveillance.</li>
@@ -209,17 +268,17 @@
 </div>
 
 <div data-lang-section="gr" style="display:none;">
-    <h3 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Πώς Να Προστατεύσετε Το Απόρρητό Σας</h3>
+    <h3>Πώς Να Προστατεύσετε Το Απόρρητό Σας</h3>
 
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Κεφάλαιο 0: Η Νοοτροπία του Απορρήτου</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Το απόρρητο δεν αφορά το να έχεις κάτι να κρύψεις· αφορά το να έχεις κάτι να προστατεύσεις. Στην ψηφιακή εποχή, τα δεδομένα σας είναι το πολυτιμότερο περιουσιακό σας στοιχείο. Αυτός ο οδηγός θα σας διδάξει πώς να το προστατεύσετε, προχωρώντας πέρα από την απλή ασφάλεια συσκευών σε μια ολιστική στρατηγική απορρήτου για iOS και Android, καλύπτοντας τον ψηφιακό και φυσικό σας κόσμο.</p>
+    <h4>Κεφάλαιο 0: Η Νοοτροπία του Απορρήτου</h4>
+    <p class="section-intro">Το απόρρητο δεν αφορά το να έχεις κάτι να κρύψεις· αφορά το να έχεις κάτι να προστατεύσεις. Στην ψηφιακή εποχή, τα δεδομένα σας είναι το πολυτιμότερο περιουσιακό σας στοιχείο. Αυτός ο οδηγός θα σας διδάξει πώς να το προστατεύσετε, προχωρώντας πέρα από την απλή ασφάλεια συσκευών σε μια ολιστική στρατηγική απορρήτου για iOS και Android, καλύπτοντας τον ψηφιακό και φυσικό σας κόσμο.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Ασφάλεια vs. Απόρρητο:</b> Κατανοήστε τη διαφορά. Η ασφάλεια είναι η κλειδαριά στην πόρτα σας, που εμποδίζει τη μη εξουσιοδοτημένη πρόσβαση (χάκερ). Το απόρρητο είναι ο έλεγχος του ποιος έχει κλειδί και τι μπορεί να κάνει μέσα (εταιρείες, μεσίτες δεδομένων). Χρειάζεστε και τα δύο.</li>
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Η Αρχή της Ελαχιστοποίησης Δεδομένων:</b> Τα πιο ιδιωτικά δεδομένα είναι αυτά που δεν συλλέγονται ποτέ. Ο πρωταρχικός σας στόχος πρέπει να είναι η μείωση του όγκου των προσωπικών πληροφοριών που δημιουργείτε και μοιράζεστε.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Έλεγχος Δικαιωμάτων:</b> Χρειάζεται πραγματικά ένα απλό παιχνίδι τις επαφές και την τοποθεσία σας; Εξετάστε κριτικά κάθε αίτημα.
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> Ελέγξτε τα δικαιώματα ανά κατηγορία στις `Ρυθμίσεις` → `Απόρρητο & Ασφάλεια`.</div>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android:</b> Χρησιμοποιήστε τον `Διαχειριστή αδειών` στις `Ρυθμίσεις` → `Ασφάλεια και απόρρητο` → `Απόρρητο`.</div>
+                    <div class="os-path"><b>iOS:</b> Ελέγξτε τα δικαιώματα ανά κατηγορία στις `Ρυθμίσεις` → `Απόρρητο & Ασφάλεια`.</div>
+                    <div class="os-path"><b>Android:</b> Χρησιμοποιήστε τον `Διαχειριστή αδειών` στις `Ρυθμίσεις` → `Ασφάλεια και απόρρητο` → `Απόρρητο`.</div>
                 </li>
             </ul>
         </li>
@@ -229,8 +288,8 @@
 
     <hr class="modal-divider">
     
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Κεφάλαιο 1: Θωράκιση των Συσκευών Σας (Το Θεμέλιο)</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Οι συσκευές σας είναι οι πύλες προς την ψηφιακή σας ζωή. Πριν μπορέσετε να ελέγξετε τα δεδομένα σας στο διαδίκτυο, πρέπει να βεβαιωθείτε ότι αυτές οι πύλες είναι καλά κλειδωμένες. Αυτά είναι θεμελιώδη, αδιαπραγμάτευτα βήματα.</p>
+    <h4>Κεφάλαιο 1: Θωράκιση των Συσκευών Σας (Το Θεμέλιο)</h4>
+    <p class="section-intro">Οι συσκευές σας είναι οι πύλες προς την ψηφιακή σας ζωή. Πριν μπορέσετε να ελέγξετε τα δεδομένα σας στο διαδίκτυο, πρέπει να βεβαιωθείτε ότι αυτές οι πύλες είναι καλά κλειδωμένες. Αυτά είναι θεμελιώδη, αδιαπραγμάτευτα βήματα.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Ισχυρό Κλείδωμα Οθόνης με Βιομετρική Προστασία:</b> Η κύρια άμυνά σας έναντι της φυσικής πρόσβασης.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -241,8 +300,8 @@
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Ενεργοποίηση Ελέγχου Ταυτότητας Δύο Παραγόντων (2FA) Παντού:</b> Το πιο αποτελεσματικό εργαλείο ενάντια στην κατάληψη λογαριασμών.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Ασφαλίστε τον Κύριο Λογαριασμό σας (Apple/Google):</b> Αυτό είναι το κλειδί για το βασίλειό σας.
-                     <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> `Ρυθμίσεις` → `[Το Όνομά σας]` → `Σύνδεση και ασφάλεια` → `Έλεγχος ταυτότητας δύο παραγόντων`.</div>
-                     <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android:</b> `Ρυθμίσεις` → `Google` → `Διαχείριση του Λογαριασμού σας Google` → `Ασφάλεια` → `Επαλήθευση σε 2 βήματα`.</div>
+                     <div class="os-path"><b>iOS:</b> `Ρυθμίσεις` → `[Το Όνομά σας]` → `Σύνδεση και ασφάλεια` → `Έλεγχος ταυτότητας δύο παραγόντων`.</div>
+                     <div class="os-path"><b>Android:</b> `Ρυθμίσεις` → `Google` → `Διαχείριση του Λογαριασμού σας Google` → `Ασφάλεια` → `Επαλήθευση σε 2 βήματα`.</div>
                 </li>
                 <li><b>Χρήση Εφαρμογών Authenticator:</b> Δώστε προτεραιότητα σε μια εφαρμογή authenticator (π.χ., Authy, Google Authenticator) έναντι του 2FA που βασίζεται σε SMS, το οποίο είναι ευάλωτο σε SIM swapping.</li>
             </ul>
@@ -256,28 +315,28 @@
              <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Τι να χρησιμοποιήσετε:</b> Υπηρεσίες όπως το Quad9 (9.9.9.9) ή το Cloudflare (1.1.1.1) προσφέρουν δωρεάν, ιδιωτικό DNS.</li>
                 <li><b>Πώς να το ρυθμίσετε:</b>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> `Ρυθμίσεις` → `Wi-Fi` → πατήστε το `(i)` δίπλα στο δίκτυό σας → `Διαμόρφωση DNS` → `Χειροκίνητα`. Προσθέστε έναν από τους διακομιστές.</div>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android:</b> `Ρυθμίσεις` → `Δίκτυο και διαδίκτυο` → `Ιδιωτικό DNS`. Επιλέξτε `Όνομα κεντρικού υπολογιστή παρόχου ιδιωτικού DNS` και εισαγάγετε `one.one.one.one` (για το Cloudflare) ή `dns.quad9.net` (για το Quad9).</div>
+                    <div class="os-path"><b>iOS:</b> `Ρυθμίσεις` → `Wi-Fi` → πατήστε το `(i)` δίπλα στο δίκτυό σας → `Διαμόρφωση DNS` → `Χειροκίνητα`. Προσθέστε έναν από τους διακομιστές.</div>
+                    <div class="os-path"><b>Android:</b> `Ρυθμίσεις` → `Δίκτυο και διαδίκτυο` → `Ιδιωτικό DNS`. Επιλέξτε `Όνομα κεντρικού υπολογιστή παρόχου ιδιωτικού DNS` και εισαγάγετε `one.one.one.one` (για το Cloudflare) ή `dns.quad9.net` (για το Quad9).</div>
                 </li>
             </ul>
         <b>Γιατί:</b> Αυτό εμποδίζει τον ISP σας από την καταγραφή και πώληση του ιστορικού περιήγησής σας. Είναι μια απλή και ισχυρή βελτίωση του απορρήτου.</li>
          <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Χρήση Λειτουργιών Υψηλής Ασφάλειας Όταν Χρειάζεται:</b> Για καταστάσεις όπου αισθάνεστε ότι μπορεί να στοχοποιηθείτε συγκεκριμένα.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Λειτουργία Απομόνωσης (iOS):</b> Αυτή είναι μια ακραία, προαιρετική προστασία που περιορίζει σοβαρά τις εφαρμογές και τις λειτουργίες, μειώνοντας σημαντικά την επιφάνεια επίθεσης για εξαιρετικά στοχευμένο spyware.
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> `Ρυθμίσεις` → `Απόρρητο & Ασφάλεια` → `Λειτουργία Απομόνωσης`.</div>
+                    <div class="os-path"><b>iOS:</b> `Ρυθμίσεις` → `Απόρρητο & Ασφάλεια` → `Λειτουργία Απομόνωσης`.</div>
                 </li>
                 <li><b>Λειτουργία Συντήρησης (Android):</b> Πολλά τηλέφωνα Android προσφέρουν τώρα αυτή τη λειτουργία, η οποία δημιουργεί ένα προσωρινό, ξεχωριστό προφίλ χρήστη, προστατεύοντας τα προσωπικά σας δεδομένα όταν το τηλέφωνό σας επισκευάζεται.
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android (Samsung):</b> `Ρυθμίσεις` → `Φροντίδα μπαταρίας και συσκευής` → `Λειτουργία συντήρησης`.</div>
+                    <div class="os-path"><b>Android (Samsung):</b> `Ρυθμίσεις` → `Φροντίδα μπαταρίας και συσκευής` → `Λειτουργία συντήρησης`.</div>
                 </li>
             </ul>
-        <b>Γιατί:</b> Αυτές οι εξειδικεμένες λειτουργίες προσφέρουν ένα επιπλέον επίπεδο προστασίας για τα δεδομένα σας κατά τη διάρκεια ευάλωτων καταστάσεων, όπως η διέλευση συνόρων ή η παράδοση της συσκευής σας για επισκευή.</li>
+        <b>Γιατί:</b> Αυτές οι εξειδικευμένες λειτουργίες προσφέρουν ένα επιπλέον επίπεδο προστασίας για τα δεδομένα σας κατά τη διάρκεια ευάλωτων καταστάσεων, όπως η διέλευση συνόρων ή η παράδοση της συσκευής σας για επισκευή.</li>
     </ul>
 
     <hr class="modal-divider">
     
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Κεφάλαιο 2: Έλεγχος της Ροής Δεδομένων Σας (Καθημερινές Συνήθειες)</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Το απόρρητο δεν είναι μια ρύθμιση, αλλά μια συνήθεια. Οι καθημερινές σας επιλογές σχετικά με τις υπηρεσίες που χρησιμοποιείτε και πώς τις χρησιμοποιείτε έχουν τον μεγαλύτερο αντίκτυπο στο απόρρητό σας.</p>
-    <div class="note note-danger" style="border-radius: 20px;"><b>ΚΡΙΣΙΜΗ ΠΡΟΕΙΔΟΠΟΙΗΣΗ: ΤΟ ΔΗΜΟΣΙΟ WI-FI ΕΙΝΑΙ ΕΧΘΡΙΚΟ ΔΙΚΤΥΟ!</b> Αντιμετωπίστε οποιοδήποτε Wi-Fi δεν ελέγχετε ως παραβιασμένο. Χρησιμοποιήστε ένα αξιόπιστο VPN για να κρυπτογραφήσετε τη σύνδεσή σας και να κρύψετε τη δραστηριότητά σας από τους κατασκόπους του δικτύου.</div>
+    <h4>Κεφάλαιο 2: Έλεγχος της Ροής Δεδομένων Σας (Καθημερινές Συνήθειες)</h4>
+    <p class="section-intro">Το απόρρητο δεν είναι μια ρύθμιση, αλλά μια συνήθεια. Οι καθημερινές σας επιλογές σχετικά με τις υπηρεσίες που χρησιμοποιείτε και πώς τις χρησιμοποιείτε έχουν τον μεγαλύτερο αντίκτυπο στο απόρρητό σας.</p>
+    <div class="note note-danger"><b>ΚΡΙΣΙΜΗ ΠΡΟΕΙΔΟΠΟΙΗΣΗ: ΤΟ ΔΗΜΟΣΙΟ WI-FI ΕΙΝΑΙ ΕΧΘΡΙΚΟ ΔΙΚΤΥΟ!</b> Αντιμετωπίστε οποιοδήποτε Wi-Fi δεν ελέγχετε ως παραβιασμένο. Χρησιμοποιήστε ένα αξιόπιστο VPN για να κρυπτογραφήσετε τη σύνδεσή σας και να κρύψετε τη δραστηριότητά σας από τους κατασκόπους του δικτύου.</div>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Επιλέξτε Υπηρεσίες που Σέβονται το Απόρρητο:</b> Προτιμήστε υπηρεσίες που έχουν σχεδιαστεί για να προστατεύουν το απόρρητό σας, όχι για να εκμεταλλεύονται τα δεδομένα σας.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -298,8 +357,8 @@
 
     <hr class="modal-divider">
 
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Κεφάλαιο 3: Διαχείριση του Ψηφιακού σας Αποτυπώματος</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Το ψηφιακό σας αποτύπωμα είναι το ίχνος των δεδομένων που αφήνετε πίσω σας στο διαδίκτυο. Ένα μικρότερο αποτύπωμα σημαίνει λιγότερα δεδομένα που μπορούν να παρακολουθηθούν, να παραβιαστούν ή να πωληθούν. Αυτή είναι μια προληπτική διαδικασία ψηφιακής υγιεινής.</p>
+    <h4>Κεφάλαιο 3: Διαχείριση του Ψηφιακού σας Αποτυπώματος</h4>
+    <p class="section-intro">Το ψηφιακό σας αποτύπωμα είναι το ίχνος των δεδομένων που αφήνετε πίσω σας στο διαδίκτυο. Ένα μικρότερο αποτύπωμα σημαίνει λιγότερα δεδομένα που μπορούν να παρακολουθηθούν, να παραβιαστούν ή να πωληθούν. Αυτή είναι μια προληπτική διαδικασία ψηφιακής υγιεινής.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Χρήση Ψευδωνύμων και Email μιας Χρήσης:</b> Δεν χρειάζεται να χρησιμοποιείτε την πραγματική σας ταυτότητα για κάθε υπηρεσία.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -323,8 +382,8 @@
 
     <hr class="modal-divider">
     
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Κεφάλαιο 4: Προηγμένες Τεχνικές Απορρήτου</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Για όσους αναζητούν υψηλότερο επίπεδο απορρήτου, αυτές οι τεχνικές προσφέρουν ισχυρότερη προστασία έναντι εξελιγμένης παρακολούθησης και επιτήρησης.</p>
+    <h4>Κεφάλαιο 4: Προηγμένες Τεχνικές Απορρήτου</h4>
+    <p class="section-intro">Για όσους αναζητούν υψηλότερο επίπεδο απορρήτου, αυτές οι τεχνικές προσφέρουν ισχυρότερη προστασία έναντι εξελιγμένης παρακολούθησης και επιτήρησης.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Διαμερισματοποίηση: Μην Αναμειγνύετε τις Ταυτότητές σας:</b> Χρησιμοποιήστε διαφορετικά εργαλεία για διαφορετικές πτυχές της ζωή σας για να αποτρέψετε τη διασταυρούμενη μόλυνση δεδομένων.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -347,8 +406,8 @@
 
     <hr class="modal-divider">
 
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Κεφάλαιο 5: Μοντελοποίηση Απειλών & Σενάρια Πραγματικού Κόσμου</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Το απόρρητο δεν είναι ένα μέγεθος που ταιριάζει σε όλους. Το προσωπικό σας "μοντέλο απειλών" σας βοηθά να αποφασίσετε πόση προστασία χρειάζεστε πραγματικά. Αυτή η ενότητα καλύπτει επίσης σχέδια για συγκεκριμένες, υψηλού κινδύνου καταστάσεις.</p>
+    <h4>Κεφάλαιο 5: Μοντελοποίηση Απειλών & Σενάρια Πραγματικού Κόσμου</h4>
+    <p class="section-intro">Το απόρρητο δεν είναι ένα μέγεθος που ταιριάζει σε όλους. Το προσωπικό σας "μοντέλο απειλών" σας βοηθά να αποφασίσετε πόση προστασία χρειάζεστε πραγματικά. Αυτή η ενότητα καλύπτει επίσης σχέδια για συγκεκριμένες, υψηλού κινδύνου καταστάσεις.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Καθορίστε το Μοντέλο Απειλών σας:</b> Ρωτήστε τον εαυτό σας τρεις απλές ερωτήσεις:
             <ol style="padding-left: 20px; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -360,16 +419,16 @@
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Άμυνα έναντι του SIM Swapping:</b> Μια επίθεση όπου ένας χάκερ κλέβει τον αριθμό του τηλεφώνου σας.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Η Καλύτερη Άμυνα: Ένα PIN SIM.</b> Ορίστε ένα PIN για τη φυσική σας κάρτα SIM.
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> `Ρυθμίσεις` → `Κινητά δεδομένα` → `PIN SIM`.</div>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android:</b> `Ρυθμίσεις` → `Ασφάλεια και απόρρητο` → `Περισσότερη ασφάλεια και απόρρητο` → `Ρύθμιση κλειδώματος κάρτας SIM`.</div>
+                    <div class="os-path"><b>iOS:</b> `Ρυθμίσεις` → `Κινητά δεδομένα` → `PIN SIM`.</div>
+                    <div class="os-path"><b>Android:</b> `Ρυθμίσεις` → `Ασφάλεια και απόρρητο` → `Περισσότερη ασφάλεια και απόρρητο` → `Ρύθμιση κλειδώματος κάρτας SIM`.</div>
                 </li>
             </ul>
         <b>Γιατί:</b> Ένα PIN SIM είναι μια άμυνα σε επίπεδο υλικού που σταματά έναν χάκερ ακόμα κι αν καταφέρει να ξεγελάσει το προσωπικό υποστήριξης του παρόχου κινητής τηλεφωνίας σας.</li>
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Σχέδιο για Χαμένο ή Κλεμμένο Τηλέφωνο:</b> Ενεργοποιήστε τις δυνατότητες απομακρυσμένου εντοπισμού και διαγραφής του τηλεφώνου σας *πριν* χαθεί.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Ενεργοποίηση Υπηρεσιών Εύρεσης:</b>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>iOS:</b> Βεβαιωθείτε ότι το `Ρυθμίσεις` → `[Το Όνομά σας]` → `Εύρεση` → `Εύρεση iPhone` είναι ΕΝΕΡΓΟ.</div>
-                    <div class="os-path" style="font-size: 0.9em; margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--nm-border); color: var(--nm-text-muted);"><b>Android:</b> Βεβαιωθείτε ότι το `Ρυθμίσεις` → `Ασφάλεια και απόρρητο` → `Εύρεση της συσκευής μου` είναι ΕΝΕΡΓΟ.</div>
+                    <div class="os-path"><b>iOS:</b> Βεβαιωθείτε ότι το `Ρυθμίσεις` → `[Το Όνομά σας]` → `Εύρεση` → `Εύρεση iPhone` είναι ΕΝΕΡΓΟ.</div>
+                    <div class="os-path"><b>Android:</b> Βεβαιωθείτε ότι το `Ρυθμίσεις` → `Ασφάλεια και απόρρητο` → `Εύρεση της συσκευής μου` είναι ΕΝΕΡΓΟ.</div>
                 </li>
                 <li><b>Τι να Κάνετε:</b> Χρησιμοποιήστε αμέσως έναν περιηγητή για να μεταβείτε στο `icloud.com/find` (iOS) ή `google.com/android/find` (Android) για να εντοπίσετε, να κλειδώσετε ή να διαγράψετε τη συσκευή.</li>
             </ul>
@@ -378,8 +437,8 @@
 
     <hr class="modal-divider">
 
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Κεφάλαιο 6: Απόρρητο στον Φυσικό Κόσμο & το Έξυπνο Σπίτι</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Το ψηφιακό απόρρητο δεν έχει νόημα αν διαρρέετε δεδομένα στον φυσικό κόσμο. Οι έξυπνες συσκευές σας και οι δημόσιες συνήθειές σας αποτελούν ένα συχνά παραμελημένο μέρος του αποτυπώματος του απορρήτου σας.</p>
+    <h4>Κεφάλαιο 6: Απόρρητο στον Φυσικό Κόσμο & το Έξυπνο Σπίτι</h4>
+    <p class="section-intro">Το ψηφιακό απόρρητο δεν έχει νόημα αν διαρρέετε δεδομένα στον φυσικό κόσμο. Οι έξυπνες συσκευές σας και οι δημόσιες συνήθειές σας αποτελούν ένα συχνά παραμελημένο μέρος του αποτυπώματος του απορρήτου σας.</p>
      <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Ασφαλίστε το Έξυπνο Σπίτι σας (IoT):</b> Κάθε «έξυπνη» συσκευή είναι μια πιθανή συσκευή ακρόασης ή αισθητήρας δεδομένων συνδεδεμένος στο διαδίκτυο.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
@@ -399,8 +458,8 @@
 
     <hr class="modal-divider">
     
-    <h4 style="color: var(--nm-text); border-bottom: 1px solid var(--nm-border); padding-bottom: 8px; margin-top: 1.5rem; margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;">Κεφάλαιο 7: Το Ταξίδι του Απορρήτου</h4>
-    <p class="section-intro" style="font-style: italic; color: var(--nm-text-muted); margin-bottom: 1.5rem; font-size: 1.0em; border-left: 3px solid var(--nm-border); padding-left: 1rem;">Το απόρρητο δεν είναι ένας προορισμός στον οποίο φτάνεις· είναι ένα συνεχές ταξίδι. Η τεχνολογία και οι απειλές εξελίσσονται, και το ίδιο πρέπει να κάνουν και οι πρακτικές σας. Μείνετε ενημερωμένοι, να είστε σκόπιμοι στις επιλογές σας και να κάνετε το απόρρητο ένα συνειδητό μέρος της ψηφιακής σας ζωής.</p>
+    <h4>Κεφάλαιο 7: Το Ταξίδι του Απορρήτου</h4>
+    <p class="section-intro">Το απόρρητο δεν είναι ένας προορισμός στον οποίο φτάνεις· είναι ένα συνεχές ταξίδι. Η τεχνολογία και οι απειλές εξελίσσονται, και το ίδιο πρέπει να κάνουν και οι πρακτικές σας. Μείνετε ενημερωμένοι, να είστε σκόπιμοι στις επιλογές σας και να κάνετε το απόρρητο ένα συνειδητό μέρος της ψηφιακής σας ζωής.</p>
     <ul style="list-style-type: none; padding-left: 0;">
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Ξεκινήστε από τα Μικρά και με Συνέπεια:</b> Δεν χρειάζεται να τα κάνετε όλα από αυτή τη λίστα σήμερα. Ξεκινήστε με τα βασικά στο Κεφάλαιο 1. Την επόμενη εβδομάδα, αλλάξτε τον περιηγητή σας. Την εβδομάδα μετά, καθαρίστε τρεις παλιούς λογαριασμούς. Μικρά, συνεπή βήματα οδηγούν σε τεράστιες μακροπρόθεσμες βελτιώσεις.</li>
         <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Μείνετε Ενημερωμένοι:</b> Ακολουθήστε πηγές ειδήσεων ή ιστολόγια που εστιάζουν στο απόρρητο για να παραμένετε ενήμεροι για νέες απειλές και εργαλεία. Η γνώση είναι η καλύτερη άμυνά σας έναντι του συνεχώς μεταβαλλόμενου τοπίου της ψηφιακής επιτήρησης.</li>
