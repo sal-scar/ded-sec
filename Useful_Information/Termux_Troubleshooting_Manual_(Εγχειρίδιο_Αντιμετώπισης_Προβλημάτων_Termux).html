@@ -7,8 +7,8 @@
     <style>
         /* General styling for a dark theme */
         body {
-            font-family: Arial, sans-serif; /* Changed from Orbitron for main body text */
-            background-color: #1A1A1A; /* Dark background from PC build guide */
+            font-family: Arial, sans-serif;
+            background-color: #1A1A1A; /* Dark background */
             color: #FFFFFF; /* Light text */
             padding: 20px;
         }
@@ -16,7 +16,7 @@
             max-width: 900px;
             margin: auto;
         }
-        /* Adjusted H3 to a smaller size */
+        /* Adjusted H3 to a standard size, closer to the other document's structure */
         h3 {
             color: #FFFFFF;
             border-bottom: 1px solid #3A4A5E;
@@ -24,10 +24,10 @@
             margin-top: 1rem;
             margin-bottom: 1rem;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem; /* Reduced size (was 1.875rem) */
-            font-weight: bold; /* Reduced weight (was 800) */
+            font-size: 1.875rem; /* Reverting to a more standard large title size */
+            font-weight: bold;
         }
-        /* Adjusted H4 to a smaller size */
+        /* Adjusted H4 to a standard size, closer to the other document's structure */
         h4 {
             color: #9966FF; /* Purple for Chapter titles */
             border-bottom: 1px solid #3A4A5E;
@@ -35,8 +35,8 @@
             margin-top: 1.5rem;
             margin-bottom: 1rem;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.15rem; /* Reduced size (was 1.25rem) */
-            font-weight: bold; /* Reduced weight (was 700) */
+            font-size: 1.25rem; /* Reverting to a more standard chapter title size */
+            font-weight: bold;
         }
         .chapter-title {
             border-bottom: 1px solid #3A4A5E;
@@ -82,7 +82,7 @@
             border-radius: 0.25rem;
             font-size: 0.875rem;
         }
-        /* List Item Styling */
+        /* List Item Styling utility classes kept for structure but simplified where possible */
         .p-4 { padding: 1rem; }
         .bg-gray-800 { background-color: #2D3748; } /* Darker background for problem sections */
         .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
@@ -96,10 +96,7 @@
         .bg-blue-900 { background-color: #1E3A8A; } /* Used for the final word box (dark blue) */
         .text-blue-200 { color: #BFDBFE; } /* Light blue text for the final word box */
 
-        /* Reduced font size for problem titles specifically */
-        .p-4 b.text-lg {
-            font-size: 1.0em; /* Reduced size to be more inline with body text */
-        }
+        /* Removed the specific, restrictive override on problem titles to make them more prominent */
     </style>
     <script>
         // Minimal script left for language switching functionality
@@ -581,7 +578,7 @@
         <hr class="border-gray-700 my-8">
 
         <h4>Κεφάλαιο 1: Εκτέλεση, Εντολές και Δικαιώματα Αρχείων</h4>
-        <p class="section-intro">Όταν κάτι δεν εκτελείται, ελέγξτε τα τρία Π: **Πακέτο**, **Διαδρομή** (Path), και **Πρόσβαση** (Permissions).</p>
+        <p class="section-intro">Όταν κάτι δεν εκτετίλεται, ελέγξτε τα τρία Π: **Πακέτο**, **Διαδρομή** (Path), και **Πρόσβαση** (Permissions).</p>
 
         <ul class="space-y-6">
             <li class="p-4 bg-gray-800 rounded-lg shadow-md">
