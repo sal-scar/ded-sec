@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termux Troubleshooting Manual (Εγχειρίδιο Αντιμετώπισης Προβλημάτων Termux)</title>
     <style>
-        /* General styling for a dark theme to match the PC build guide */
+        /* General styling for a dark theme */
         body {
-            font-family: 'Orbitron', sans-serif; /* Use Orbitron for titles/bolding */
+            font-family: Arial, sans-serif; /* Changed from Orbitron for main body text */
             background-color: #1A1A1A; /* Dark background from PC build guide */
             color: #FFFFFF; /* Light text */
             padding: 20px;
@@ -16,7 +16,7 @@
             max-width: 900px;
             margin: auto;
         }
-        /* Style H3 to match PC build guide */
+        /* Adjusted H3 to a smaller size */
         h3 {
             color: #FFFFFF;
             border-bottom: 1px solid #3A4A5E;
@@ -24,10 +24,10 @@
             margin-top: 1rem;
             margin-bottom: 1rem;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.875rem; /* Equivalent to text-3xl */
-            font-weight: 800; /* Equivalent to font-extrabold */
+            font-size: 1.5rem; /* Reduced size (was 1.875rem) */
+            font-weight: bold; /* Reduced weight (was 800) */
         }
-        /* Style H4 to match PC build guide */
+        /* Adjusted H4 to a smaller size */
         h4 {
             color: #9966FF; /* Purple for Chapter titles */
             border-bottom: 1px solid #3A4A5E;
@@ -35,13 +35,13 @@
             margin-top: 1.5rem;
             margin-bottom: 1rem;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.25rem; /* Equivalent to text-xl */
-            font-weight: 700; /* Equivalent to font-bold */
+            font-size: 1.15rem; /* Reduced size (was 1.25rem) */
+            font-weight: bold; /* Reduced weight (was 700) */
         }
         .chapter-title {
             border-bottom: 1px solid #3A4A5E;
         }
-        /* Style P Intro to match PC build guide */
+        /* Style P Intro */
         .section-intro {
             font-style: italic;
             color: #7A8899; /* Muted gray from PC build guide */
@@ -51,7 +51,7 @@
             padding: 1rem;
             border-radius: 0.5rem;
         }
-        /* CRITICAL WARNING style from PC build guide */
+        /* CRITICAL WARNING style */
         .note-critical {
             background-color: rgba(255, 0, 0, 0.1); /* Light red background */
             border-left: 4px solid #FF0000;
@@ -95,6 +95,11 @@
         .text-cyan-300 { color: #67E8F9; } /* Highlight color for env variable headers */
         .bg-blue-900 { background-color: #1E3A8A; } /* Used for the final word box (dark blue) */
         .text-blue-200 { color: #BFDBFE; } /* Light blue text for the final word box */
+
+        /* Reduced font size for problem titles specifically */
+        .p-4 b.text-lg {
+            font-size: 1.0em; /* Reduced size to be more inline with body text */
+        }
     </style>
     <script>
         // Minimal script left for language switching functionality
@@ -925,7 +930,7 @@
                 <ol class="list-decimal list-inside ml-4 space-y-1">
                     <li><b>Εγκαταστήστε την εφαρμογή Termux:Widget</b> από το F-Droid.</li>
                     <li><b>Δημιουργήστε τον κατάλογο συντομεύσεων:</b> `mkdir -p ~/.shortcuts/`</li>
-                    <li><b>Τοποθετήστε τα scripts σας εκεί:</b> Δημιουργήστε ένα script όπως `~/.shortcuts/update-all`. Το script θα εκτελεστεί από το widget. Για παράδειγμα:
+                    <li><b>Τοποθετήστε τα scripts σας εκεί:</b> Δημιουργήστε ένα script όπως `~/.shortcuts/update-all`. Το script θα εκτελεστεί από το widget. Για παράδειγμά:
                         <div class="code-block">#!/data/data/com.termux/files/usr/bin/bash<br>pkg update && pkg upgrade -y<br>termux-toast "Οι ενημερώσεις ολοκληρώθηκαν!"</div>
                     </li>
                      <li>Προσθέτετε το Termux Widget στην αρχική σας οθόνη. Θα εμφανίσει όλα τα εκτελέσιμα scripts από τον κατάλογο `.shortcuts`.</li>
