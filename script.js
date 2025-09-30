@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!modalBody) return;
             
             const allElements = modalBody.querySelectorAll('h3, h4, p, li, b, code, span, .note, .tip, .modal-disclaimer');
-            const targetElement = Array.from(allElements).find(el => el.textContent.trim().includes(text.trim()));
+            const targetElement = Array.from(allElements).find(el => el.textContent.trim().replace(/\s\s+/g, ' ') === text.trim());
 
             if (targetElement) {
                 modalBody.scrollTo({ top: targetElement.offsetTop - 50, behavior: 'smooth' });
@@ -303,10 +303,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function buildUsefulInfoSearchIndex(progressBar, progressText) {
         if (isUsefulInfoIndexBuilt || usefulInfoFiles.length === 0) return;
-
+    
         let filesLoaded = 0;
         const totalFiles = usefulInfoFiles.length;
-
+    
         const indexPromises = usefulInfoFiles.map(async (file) => {
             try {
                 const response = await fetch(file.download_url);
@@ -314,13 +314,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 const htmlContent = await response.text();
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = htmlContent;
-
-                const articleTitle = file.name.replace(/\.html$/, '').replace(/^\d+_/, '').replace(/_/g, ' ');
-
+    
+                let fallbackTitleEN = file.name.replace(/\.html$/, '').replace(/^\d+_/, '').replace(/_/g, ' ');
+                let fallbackTitleGR = fallbackTitleEN;
+    
+                const titleRegex = /(.+?)_\((.+?)\)/;
+                const match = file.name.match(titleRegex);
+    
+                if (match && match[1] && match[2]) {
+                    fallbackTitleEN = match[1].replace(/_/g, ' ').trim();
+                    fallbackTitleGR = match[2].replace(/_/g, ' ').trim();
+                }
+    
+                const titlesContainer = tempDiv.querySelector('#article-titles');
+                const titleEN = titlesContainer?.querySelector('[data-lang="en"]')?.textContent.trim() || fallbackTitleEN;
+                const titleGR = titlesContainer?.querySelector('[data-lang="gr"]')?.textContent.trim() || fallbackTitleGR;
+    
                 tempDiv.querySelectorAll('[data-lang-section]').forEach(section => {
                     const lang = section.dataset.langSection;
+                    const articleTitle = lang === 'gr' ? titleGR : titleEN;
                     section.querySelectorAll('h3, h4, p, li, b, code').forEach(el => {
-                        const text = el.textContent.trim();
+                        // --- FIX: Ensure consistent text processing by removing extra spaces ---
+                        const text = el.textContent.trim().replace(/\s\s+/g, ' ');
                         if (text.length > 5) {
                             usefulInfoSearchIndex.push({
                                 lang, title: articleTitle, text, url: file.download_url,
@@ -338,9 +353,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 progressText.textContent = `${Math.round(progress)}%`;
             }
         });
-
+    
         await Promise.all(indexPromises);
         isUsefulInfoIndexBuilt = true;
+    }
+
+    function updateUsefulInfoButtonTitles() {
+        const titleMap = new Map();
+
+        usefulInfoSearchIndex.forEach(item => {
+            if (!titleMap.has(item.url)) {
+                titleMap.set(item.url, {});
+            }
+            const langTitles = titleMap.get(item.url);
+            if (!langTitles[item.lang]) {
+                langTitles[item.lang] = item.title;
+            }
+        });
+
+        document.querySelectorAll('#useful-information-nav .app-icon[data-url]').forEach(button => {
+            const url = button.dataset.url;
+            const titles = titleMap.get(url);
+            if (titles) {
+                const buttonSpan = button.querySelector('span');
+                if(buttonSpan) {
+                   buttonSpan.setAttribute('data-en', titles.en || '');
+                   buttonSpan.setAttribute('data-gr', titles.gr || titles.en || '');
+                   buttonSpan.textContent = (currentLanguage === 'gr' ? titles.gr : titles.en) || titles.en || buttonSpan.textContent;
+                }
+            }
+        });
     }
 
 
@@ -381,6 +423,8 @@ document.addEventListener('DOMContentLoaded', () => {
             progressBar.style.width = '0%';
 
             await buildUsefulInfoSearchIndex(progressBar, progressText);
+            
+            updateUsefulInfoButtonTitles();
 
             setTimeout(() => {
                 progressBarContainer.style.display = 'none';
@@ -449,11 +493,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             usefulInfoFiles.forEach(file => {
-                const articleTitle = file.name.replace(/\.html$/, '').replace(/^\d+_/, '').replace(/_/g, ' ');
+                let titleEN = file.name.replace(/\.html$/, '').replace(/^\d+_/, '').replace(/_/g, ' ');
+                let titleGR = titleEN; 
+    
+                const titleRegex = /(.+?)_\((.+?)\)/;
+                const match = file.name.match(titleRegex);
+    
+                if (match && match[1] && match[2]) {
+                    titleEN = match[1].replace(/_/g, ' ').trim();
+                    titleGR = match[2].replace(/_/g, ' ').trim();
+                }
+    
                 const button = document.createElement('button');
                 button.className = 'app-icon';
-                button.innerHTML = `<i class="fas fa-book-open"></i><span>${articleTitle}</span>`;
-                button.addEventListener('click', () => loadInformationContent(file.download_url, articleTitle));
+                button.dataset.url = file.download_url;
+                
+                const initialTitle = currentLanguage === 'gr' ? titleGR : titleEN;
+                button.innerHTML = `<i class="fas fa-book-open"></i><span data-en="${titleEN}" data-gr="${titleGR}">${initialTitle}</span>`;
+                
+                button.addEventListener('click', () => {
+                    const span = button.querySelector('span');
+                    const modalTitle = (currentLanguage === 'gr' ? span.getAttribute('data-gr') : span.getAttribute('data-en')) || titleEN;
+                    loadInformationContent(file.download_url, modalTitle);
+                });
                 navContainer.appendChild(button);
             });
             usefulInformationLoaded = true;
@@ -486,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const modalBody = modalOverlay.querySelector('.modal-body');
                 const allElements = modalBody.querySelectorAll('p, li, h3, h4, b, code, .tip, .note');
-                const targetElement = Array.from(allElements).find(el => el.textContent.trim().includes(textToHighlight.trim()));
+                const targetElement = Array.from(allElements).find(el => el.textContent.trim().replace(/\s\s+/g, ' ') === textToHighlight.trim());
                 if (targetElement) {
                     modalBody.scrollTo({ top: targetElement.offsetTop - 50, behavior: 'smooth' });
                     targetElement.classList.add('content-highlight');
@@ -499,7 +561,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modalOverlay.classList.remove('visible');
             modalOverlay.addEventListener('transitionend', () => modalOverlay.remove(), { once: true });
             
-            // --- FIX: Reset the underlying modal's state when closing an article ---
             const searchInput = document.getElementById('useful-info-search-input');
             if (searchInput) searchInput.value = '';
             
