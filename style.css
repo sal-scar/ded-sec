@@ -361,7 +361,7 @@ body.light-theme ::-webkit-scrollbar-thumb {
 
 #main-search-input {
     width: 100%;
-    padding: 10px 15px;
+    padding: 10px 45px;
     background-color: var(--nm-darkest);
     border: 2px solid var(--nm-search-green); /* Set to nm-accent */
     color: var(--nm-text);
@@ -380,6 +380,12 @@ body.light-theme ::-webkit-scrollbar-thumb {
     background-color: var(--nm-dark);
 }
 
+/* *
+* === THIS IS THE FIX ===
+* The two lines below were added to make the suggestions box appear correctly.
+*
+*/
+#search-suggestions-container,
 #search-results-container,
 #useful-info-results-container {
     position: absolute;
@@ -397,6 +403,7 @@ body.light-theme ::-webkit-scrollbar-thumb {
     border-radius: 20px;
 }
 
+#search-suggestions-container .search-result-item,
 #search-results-container .search-result-item,
 #useful-info-results-container .search-result-item {
     padding: 12px 15px;
@@ -405,11 +412,13 @@ body.light-theme ::-webkit-scrollbar-thumb {
     transition: all 0.2s ease;
     border-bottom: 1px solid var(--nm-border);
 }
+#search-suggestions-container .search-result-item:last-child,
 #search-results-container .search-result-item:last-child,
 #useful-info-results-container .search-result-item:last-child {
     border-bottom: none;
 }
 
+#search-suggestions-container .search-result-item:hover,
 #search-results-container .search-result-item:hover,
 #useful-info-results-container .search-result-item:hover {
     background-color: var(--nm-accent); 
@@ -1107,7 +1116,7 @@ body.light-theme .modal-content {
 
 .modal-search-container input {
     width: 100%;
-    padding: 10px 15px;
+    padding: 10px 15px 10px 45px;
     background-color: var(--nm-darkest);
     border: 2px solid var(--nm-search-green); /* Set to nm-accent */
     color: var(--nm-text);
@@ -1125,6 +1134,40 @@ body.light-theme .modal-content {
     outline: none;
     background-color: var(--nm-dark);
 }
+
+/* --- ADDED: Search Bar Icons --- */
+.search-container::before,
+.search-container::after,
+.modal-search-container::before {
+    /* This assumes Font Awesome is linked in the HTML */
+    font-family: 'Font Awesome 5 Free', 'FontAwesome';
+    font-weight: 900; /* Use solid icons */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--nm-text-muted);
+    z-index: 2;
+    pointer-events: none; /* Allows clicking through the icon to the input */
+}
+
+/* Magnifying Glass Icon (Left) for Main Search */
+.search-container::before {
+    content: '\f002'; /* fa-search */
+    left: 20px;
+}
+
+/* Globe Icon (Right) for Main Search */
+.search-container::after {
+    content: '\f0ac'; /* fa-globe */
+    right: 20px;
+}
+
+/* Magnifying Glass Icon (Left) for Modal Search */
+.modal-search-container::before {
+    content: '\f002'; /* fa-search */
+    left: 20px;
+}
+/* --- END: Search Bar Icons --- */
 
 /* --- Styles from removed inline attributes --- */
 #expanded-img {
