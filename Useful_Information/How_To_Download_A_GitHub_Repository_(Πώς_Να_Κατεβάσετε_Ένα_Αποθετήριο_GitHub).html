@@ -5,71 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How To Download A GitHub Repository</title>
     <style>
-        /* General styling for a dark theme to match the PC build guide */
-        body {
-            background-color: #1A1A1A; /* Dark background */
-            color: #FFFFFF; /* White text for main body */
+        /* Light theme variables */
+        body.light-theme {
+            --nm-bg: #ffffff;
+            --nm-text: #000000;
+            --nm-text-muted: #555555;
+            --nm-accent: #9966FF;
+            --nm-border: #cccccc;
+            --nm-code-bg: #f0f0f0;
+            --nm-code-text: #000000;
         }
-        /* Styles derived from How_To_Build_A_PC_From_Scratch for specific elements */
+
+        /* Dark theme variables */
+        body.dark-theme {
+            --nm-bg: #01040a;
+            --nm-text: #FFFFFF;
+            --nm-text-muted: #7A8899;
+            --nm-accent: #9966FF;
+            --nm-border: #3A4A5E;
+            --nm-code-bg: #1F2A38;
+            --nm-code-text: #FFFFFF;
+        }
+
+        /* General styles using variables */
+        body {
+            background-color: var(--nm-bg);
+            color: var(--nm-text);
+            font-family: sans-serif;
+        }
+
         h3 {
-            color: #FFFFFF;
-            border-bottom: 1px solid #3A4A5E;
+            color: var(--nm-text);
+            border-bottom: 1px solid var(--nm-border);
             padding-bottom: 8px;
             margin-top: 1rem;
             margin-bottom: 1rem;
             font-family: 'Orbitron', sans-serif;
         }
+
         h4 {
-            /* Using the h4 color from the PC guide for chapter titles */
-            color: #9966FF; 
-            /* Added a placeholder border since the original didn't have one but h4 should have one for consistency */
-            border-bottom: 1px solid #3A4A5E; 
+            color: var(--nm-accent);
+            border-bottom: 1px solid var(--nm-border);
             padding-bottom: 8px;
             margin-top: 1.5rem;
             margin-bottom: 1rem;
             font-family: 'Orbitron', sans-serif;
             text-align: left;
         }
+
         p {
-             /* Using the muted gray text color from the PC guide intro */
-            color: #7A8899; 
+            color: var(--nm-text-muted);
         }
+
+        ol {
+            padding-left: 25px;
+            margin-bottom: 1rem;
+        }
+        
+        ol ol {
+             margin-top: 0.5rem; 
+             padding-left: 20px;
+        }
+
         code {
             display: block;
-            background-color: #3A4A5E; /* Dark background for code block */
-            color: #FFFFFF;
+            background-color: var(--nm-code-bg);
+            color: var(--nm-code-text);
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
         }
+
         .code-container {
             position: relative;
             margin-top: 5px;
             margin-bottom: 15px;
         }
+
         .copy-btn {
             position: absolute;
             top: 5px;
             right: 5px;
-            background-color: #9966FF; /* Accent color for button */
+            background-color: var(--nm-accent);
             color: #FFFFFF;
             border: none;
             padding: 5px 10px;
             border-radius: 3px;
             cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
         }
     </style>
+    <script>
+        function copyToClipboard(button, elementId) {
+            const codeElement = document.getElementById(elementId);
+            const textToCopy = codeElement.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.innerText;
+                button.innerText = 'Copied!';
+                setTimeout(() => {
+                    button.innerText = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
 </head>
-<body>
-
-<div data-lang-section="en">
+<body class="dark-theme"> <div data-lang-section="en">
     <h3>How To Download A GitHub Repository</h3>
     <p>Here are the primary methods for downloading a project from GitHub onto your computer or Android device.</p>
 
     <h4>On PC / Desktop</h4>
-    <ol style="padding-left: 25px; margin-bottom: 1rem;">
+    <ol>
         <li><b>Using Git (Recommended):</b> This is the best method if you plan to get updates. You need to have Git installed on your system.
-            <ol style="margin-top: 0.5rem; padding-left: 20px;">
+            <ol>
                 <li>Go to the GitHub repository page.</li>
                 <li>Click the green 'Code' button.</li>
                 <li>Copy the HTTPS URL provided.</li>
@@ -81,7 +132,7 @@
             </div>
         </li>
         <li><b>Downloading the ZIP file:</b> This method is simpler but won't allow you to easily update the project later.
-            <ol style="margin-top: 0.5rem; padding-left: 20px;">
+            <ol>
                 <li>Go to the GitHub repository page.</li>
                 <li>Click the green 'Code' button.</li>
                 <li>Click 'Download ZIP'.</li>
@@ -91,9 +142,9 @@
     </ol>
 
     <h4>On Android</h4>
-    <ol style="padding-left: 25px; margin-bottom: 1rem;">
+    <ol>
         <li><b>Using Termux (Recommended):</b> This method allows for easy updates using Git.
-            <ol style="margin-top: 0.5rem; padding-left: 20px;">
+            <ol>
                 <li>First, install Git in Termux:
                     <div class="code-container">
                         <button class="copy-btn" onclick="copyToClipboard(this, 'install_git_termux')">Copy</button>
@@ -109,7 +160,7 @@
             </ol>
         </li>
         <li><b>Downloading the ZIP file (Simple Method):</b> Use this method if you do not have Termux.
-            <ol style="margin-top: 0.5rem; padding-left: 20px;">
+            <ol>
                 <li>Open a web browser on your Android device and go to the GitHub repository page.</li>
                 <li>Click the green 'Code' button, then click 'Download ZIP'.</li>
                 <li>Your browser will download the file, usually to your 'Downloads' folder.</li>
@@ -125,9 +176,9 @@
     <p>Παρακάτω είναι οι κύριες μέθοδοι για να κατεβάσετε ένα έργο από το GitHub στον υπολογιστή σας ή στη συσκευή σας Android.</p>
 
     <h4>Σε PC / Desktop</h4>
-    <ol style="padding-left: 25px; margin-bottom: 1rem;">
+    <ol>
         <li><b>Με χρήση Git (Προτείνεται):</b> Αυτή είναι η καλύτερη μέθοδος αν σκοπεύετε να λαμβάνετε ενημερώσεις. Πρέπει να έχετε εγκατεστημένο το Git στο σύστημά σας.
-            <ol style="margin-top: 0.5rem; padding-left: 20px;">
+            <ol>
                 <li>Πηγαίνετε στη σελίδα του αποθετηρίου στο GitHub.</li>
                 <li>Κάντε κλικ στο πράσινο κουμπί 'Code'.</li>
                 <li>Αντιγράψτε το HTTPS URL που παρέχεται.</li>
@@ -139,7 +190,7 @@
             </div>
         </li>
         <li><b>Λήψη αρχείου ZIP:</b> Αυτή η μέθοδος είναι απλούστερη αλλά δεν σας επιτρέπει να ενημερώσετε εύκολα το έργο αργότερα.
-            <ol style="margin-top: 0.5rem; padding-left: 20px;">
+            <ol>
                 <li>Πηγαίνετε στη σελίδα του αποθετηρίου στο GitHub.</li>
                 <li>Κάντε κλικ στο πράσινο κουμπί 'Code'.</li>
                 <li>Κάντε κλικ στο 'Download ZIP'.</li>
@@ -149,9 +200,9 @@
     </ol>
 
     <h4>Σε Android</h4>
-    <ol style="padding-left: 25px; margin-bottom: 1rem;">
+    <ol>
         <li><b>Με χρήση Termux (Προτείνεται):</b> Αυτή η μέθοδος επιτρέπει εύκολες ενημερώσεις μέσω του Git.
-            <ol style="margin-top: 0.5rem; padding-left: 20px;">
+            <ol>
                 <li>Πρώτα, εγκαταστήστε το Git στο Termux:
                     <div class="code-container">
                         <button class="copy-btn" onclick="copyToClipboard(this, 'install_git_termux_gr')">Αντιγραφή</button>
@@ -166,8 +217,8 @@
                 </li>
             </ol>
         </li>
-        <li><b>Λήψη αρχείου ZIP (Απλή Μέθοδος):</b> Χρησιμοποιήστε αυτή τη μέθοδο αν δεν έχετε το Termux.
-            <ol style="margin-top: 0.5rem; padding-left: 20px;">
+        <li><b>Λήψη αρχείου ZIP (Απλή Μέθοδος):</b> Χρησιμοποιήστε αυτή τη μέθοodo αν δεν έχετε το Termux.
+            <ol>
                 <li>Ανοίξτε έναν περιηγητή ιστού στη συσκευή σας Android και πηγαίνajte στη σελίδα του αποθετηρίου στο GitHub.</li>
                 <li>Κάντε κλικ στο πράσινο κουμπί 'Code' και στη συνέχεια στο 'Download ZIP'.</li>
                 <li>Ο περιηγητής σας θα κατεβάσει το αρχείο, συνήθως στον φάκελο 'Λήψεις'.</li>
