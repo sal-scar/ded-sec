@@ -625,8 +625,8 @@ body.light-theme ::-webkit-scrollbar-thumb {
     padding: 25px 15px 0 15px;
     box-sizing: border-box;
     /* FIX: Center the container */
-    margin-left: auto;
-    margin-right: auto;
+    /* REMOVED: margin-left: auto; */
+    /* REMOVED: margin-right: auto; */
 }
 
 /* --- REMOVED: .header-logo container since we are using .screen::after --- */
@@ -817,7 +817,7 @@ body.light-theme ::-webkit-scrollbar-thumb {
 
 .app-grid {
     display: grid;
-    grid-template-columns: repeat(4, max-content);
+    grid-template-columns: repeat(3, max-content); /* <-- THIS IS THE FIX */
     justify-content: center;
     gap: 35px; /* MODIFIED: Set to 35px */
     width: 100%;
