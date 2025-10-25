@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         
         adUnitContainer.innerHTML = `
-            <!-- Display Ads -->
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-6091474574080213"
@@ -280,6 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Prevent closing the disclaimer modal by clicking outside
+        // This listener is still useful to stop propagation if needed,
+        // but the main closing logic is now handled in initializeModals()
         disclaimerModal?.addEventListener('click', (e) => {
             if (e.target === disclaimerModal) {
                 // Don't allow closing by clicking outside - force user to make a choice
@@ -633,7 +634,9 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             
             modal.addEventListener('click', e => {
-                if (e.target === modal) {
+                // Check if the target is the modal overlay itself
+                // AND if the modal is NOT the disclaimer modal
+                if (e.target === modal && modal.id !== 'disclaimer-modal') {
                     closeModal();
                 }
             });
