@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- AUTO-INJECT ADSENSE CODE ---
+    function injectAdSense() {
+        const adSenseScript = document.createElement('script');
+        adSenseScript.async = true;
+        adSenseScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6091474574080213';
+        adSenseScript.crossOrigin = 'anonymous';
+        document.head.appendChild(adSenseScript);
+        
+        console.log('AdSense code injected successfully');
+    }
+
+    // Call the function to inject AdSense
+    injectAdSense();
+
     // --- GLOBAL STATE ---
     let currentLanguage = 'en';
     let usefulInfoSearchIndex = [];
