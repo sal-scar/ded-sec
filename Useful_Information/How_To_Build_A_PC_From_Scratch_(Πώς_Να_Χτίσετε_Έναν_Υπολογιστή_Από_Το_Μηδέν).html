@@ -4,72 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How To Build A PC From Scratch | Πώς Να Χτίσετε Έναν Υπολογιστή Από Το Μηδέν</title>
-    <style>
-        /* Light theme variables */
-        body.light-theme {
-            --nm-text: #000000;
-            --nm-accent: #9966FF;
-            --nm-border: #cccccc;
-            --nm-text-muted: #555555;
-            --nm-danger-bg: rgba(255, 0, 0, 0.1);
-            --nm-danger-text: #FF0000;
-            --nm-danger-border: #FF0000;
-        }
-
-        /* Dark theme variables */
-        body.dark-theme {
-            --nm-text: #FFFFFF;
-            --nm-accent: #9966FF;
-            --nm-border: #3A4A5E;
-            --nm-text-muted: #7A8899;
-            --nm-danger-bg: rgba(255, 0, 0, 0.1);
-            --nm-danger-text: #FF0000;
-            --nm-danger-border: #FF0000;
-        }
-
-        /* General styles */
-        h3 {
-            color: var(--nm-text);
-            border-bottom: 1px solid var(--nm-border);
-            padding-bottom: 8px;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        h4 {
-            color: var(--nm-accent);
-            border-bottom: 1px solid var(--nm-border);
-            padding-bottom: 8px;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .section-intro {
-            font-style: italic;
-            color: var(--nm-text-muted);
-            margin-bottom: 1.5rem;
-            font-size: 1.0em;
-            border-left: 3px solid var(--nm-border);
-            padding-left: 1rem;
-        }
-
-        .note-danger {
-            border-radius: 20px;
-            border-left: 4px solid var(--nm-danger-border);
-            background: var(--nm-danger-bg);
-            padding: 15px;
-        }
-
-        .note-danger b span {
-            color: var(--nm-danger-text);
-        }
-
-        hr.modal-divider {
-            border-color: var(--nm-border);
-        }
-    </style>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
 </head>
 <body class="dark-theme"> <div data-lang-section="en">
     <h3>How To Build A PC From Scratch</h3>
@@ -204,7 +144,7 @@
     </ul>
 
     <hr class="modal-divider">
-    
+
     <h4>Chapter 5: Final Touches & The Road Ahead</h4>
     <p class="section-intro">Your PC is fully functional! Now it's time to make sure it's stable, install your software, and learn the habits that will keep it running great for years.</p>
     <ul style="list-style-type: none; padding-left: 0;">
@@ -314,7 +254,7 @@
                 <li><b>Λίστα Ελέγχου:</b>
                     <ol style="padding-left: 20px;">
                     <li>Είναι το καλώδιο τροφοδοσίας του PSU συνδεδεμένο με ασφάλεια στον τοίχο και στο PSU;</li>
-                    <li>Είναι ο διακόπτης στο πίσω μέρος του PSU γυρισμένος στη θέση 'I' (On); Αυτό είναι το #1 πιο συνηθισμένο λάθος.</li>
+                    <li>Είναι ο διακόπτης στο πίσω μέρος του PSU γυρισμένος στη θέση 'I' (On) position? Αυτό είναι το #1 πιο συνηθισμένο λάθος.</li>
                     <li>Είναι οι μικροσκοπικοί σύνδεσμοι του διακόπτη ενεργοποίησης του μπροστινού πίνακα (<code>POWER SW</code>) στις σωστές ακίδες της μητρικής; Ελέγξτε το διάγραμμα του εγχειριδίου σας.</li>
                     <li>Είναι τα καλώδια τροφοδοσίας 24-pin της μητρικής και 8-pin της CPU πλήρως τοποθετημένα;</li>
                     </ol>
@@ -357,7 +297,7 @@
     </ul>
 
     <hr class="modal-divider">
-    
+
     <h4>Κεφάλαιο 5: Τελικές Πινελιές & Ο Δρόμος Μπροστά</h4>
     <p class="section-intro">Ο Η/Υ σας είναι πλήρως λειτουργικός! Τώρα είναι η ώρα να βεβαιωθείτε ότι είναι σταθερός, να εγκαταστήσετε το λογισμικό σας και να μάθετε τις συνήθειες που θα τον κρατήσουν να λειτουργεί άψογα για χρόνια.</p>
     <ul style="list-style-type: none; padding-left: 0;">
@@ -365,17 +305,17 @@
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Για CPU:</b> Τρέξτε ένα εργαλείο όπως το <code>Cinebench</code> μερικές φορές στη σειρά. Είναι μια γρήγορη και ασφαλής δοκιμή της απόδοσης της CPU σας και της αποτελεσματικότητας της ψύκτρας σας.</li>
                 <li><b>Για GPU:</b> Τρέξτε ένα δωρεάν εργαλείο benchmarking όπως το <code>Unigine Heaven</code> ή το <code>3DMark Time Spy</code> (μια δωρεάν έκδοση είναι διαθέσιμη στο Steam). Αφήστε το να τρέξει για 15-20 λεπτά.</li>
-                <li><b>Παρακολούθηση:</b> Ενώ αυτές οι δοκιμές τρέχουν, χρησιμοποιήστε ένα εργαλείο όπως το <code>HWMonitor</code> για να παρακολουθείτε τις θερμοκρασίες της CPU και της GPU σας. Οτιδήποτε σταθερά κάτω από 85-90°C υπό πλήρες φορτίο θεωρείται γενικά ασφαλές.</li>
+                <li><b>Παρακολούθηση:</b> Ενώ αυτές οι δοκιμές τρέχουν, χρησιμοποιήστε ένα εργαλείο όπως το <code>HWMonitor</code> για να παρακολουθείτε τις θερμοκρατούρες της CPU και της GPU σας. Οτιδήποτε σταθερά κάτω από 85-90°C υπό πλήρες φορτίο θεωρείται γενικά ασφαλές.</li>
             </ul>
         <b>Γιατί να κάνετε δοκιμή αντοχής;</b> Επιβεβαιώνει ότι η σύνθεσή σας είναι σταθερή και η ψύξη σας επαρκής. Είναι καλύτερο να ανακαλύψετε ένα πρόβλημα σταθερότητας τώρα, παρά στη μέση ενός σημαντικού παιχνιδιού ή έργου.</li>
-        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Βασικό Λογισμικό & Εξατομίκευση:</b> Ο Η/Υ σας είναι τώρα ένας λευκός καμβάς.
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Βασικό Λογισμικό & Εξατομίκευση:</b> Ο Η/Υ σας είναι τώρα ένας λευκός καμβά.
             <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
                 <li><b>Περιηγητής Web:</b> Εγκαταστήστε τον περιηγητή της επιλογής σας (Chrome, Firefox, κ.λπ.).</li>
                 <li><b>Ασφάλεια:</b> Ο Windows Defender είναι αρκετά καλός, αλλά βεβαιωθείτε ότι λειτουργεί και είναι ενημερωμένος.</li>
                 <li><b>Πλατφόρμες Gaming:</b> Εγκαταστήστε το Steam, το Epic Games Store, κ.λπ.</li>
                 <li><b>Εξατομίκευση:</b> Ορίστε το φόντο της επιφάνειας εργασίας σας, οργανώστε τα εικονίδιά σας και εγκαταστήστε τις αγαπημένες σας εφαρμογές παραγωγικότητας. Απολαύστε τη δημιουργία σας!</li>
             </ul>
-        <b>Γιατί αυτό είναι το καλύτερο μέρος:</b> Έχετε κάνει τη δύσκολη δουλειά. Τώρα μπορείτε να κάνετε τον Η/Υ πραγματικά δικό σας. Τον χτίσατε, τον διαμορφώσατε, και τώρα μπορείτε να τον χρησιμοποιήσετε ακριβώς για αυτό που προορίζατε.</li>
+        <b>Γιατί αυτό είναι το καλύτερο μέρος:</b> Έχετε κάνει τη δύσκολη δουργά. Τώρα μπορείτε να κάνετε τον Η/Υ πραγματικά δικό σας. Τον χτίσατε, τον διαμορφώσατε, και τώρα μπορείτε να τον χρησιμοποιήσετε ακριβώς για αυτό που προορίζατε.</li>
     </ul>
 </div>
 
