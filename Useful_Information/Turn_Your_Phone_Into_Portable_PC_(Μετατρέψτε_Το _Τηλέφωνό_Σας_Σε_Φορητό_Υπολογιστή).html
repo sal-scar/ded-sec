@@ -42,20 +42,20 @@
 
     <h5>Step 1: Termux Setup and Debian Installation</h5>
     <p><b>1. Update Termux's packages:</b> This ensures you have the latest versions of Termux's core utilities. Think of this as 'Windows Update' for Termux itself.</p>
-    <div><button onclick="copyCode(this, 'cmd1-en', 'Copied!', 'Copy')">Copy</button><code id="cmd1-en">pkg update -y && pkg upgrade -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd1-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd1-en">pkg update -y && pkg upgrade -y</code></div>
 
     <p><b>2. Install the proot-distro utility:</b> This is the special tool that lets Termux manage and run entire Linux distributions (like Debian) safely.</p>
-    <div><button onclick="copyCode(this, 'cmd2-en', 'Copied!', 'Copy')">Copy</button><code id="cmd2-en">pkg install proot-distro -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd2-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd2-en">pkg install proot-distro -y</code></div>
 
     <p><b>3. Install the Debian operating system:</b> This command will download the base Debian filesystem (the core OS) and extract it. (This can take 5-15 minutes).</p>
-    <div><button onclick="copyCode(this, 'cmd3-en', 'Copied!', 'Copy')">Copy</button><code id="cmd3-en">proot-distro install debian</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd3-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd3-en">proot-distro install debian</code></div>
     
     <h5>Step 2: Desktop Environment Setup (Inside Debian)</h5>
     <p><b>1. Log into Debian for the first time:</b> Use this command to 'step inside' the Debian environment. Your command prompt will change (e.g., to `root@localhost:~#`), showing you are now giving commands to Debian, not Termux.</p>
-    <div><button onclick="copyCode(this, 'cmd4-en', 'Copied!', 'Copy')">Copy</button><code id="cmd4-en">proot-distro login debian</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd4-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd4-en">proot-distro login debian</code></div>
 
     <p><b>2. Inside Debian, update its package lists:</b> This is similar to Step 1, but now you are updating the software lists *inside* your new Debian OS. (Note: `apt` is Debian's package manager, while `pkg` was Termux's).</p>
-    <div><button onclick="copyCode(this, 'cmd5-en', 'Copied!', 'Copy')">Copy</button><code id="cmd5-en">apt update && apt upgrade -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd5-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd5-en">apt update && apt upgrade -y</code></div>
 
     <p><b>3. Install the XFCE desktop, VNC server, and a text editor:</b> This is the biggest download. It installs all the necessary components:
         <ul>
@@ -64,26 +64,26 @@
             <li><b>nano</b>: A simple, beginner-friendly text editor for the command line.</li>
         </ul>
     </p>
-    <div><button onclick="copyCode(this, 'cmd6-en', 'Copied!', 'Copy')">Copy</button><code id="cmd6-en">apt install xfce4 xfce4-goodies tigervnc-standalone-server nano -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd6-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd6-en">apt install xfce4 xfce4-goodies tigervnc-standalone-server nano -y</code></div>
 
     <h5>Step 3: VNC Configuration</h5>
     <ol>
         <li>
             <b>Set VNC Password</b>
             <p>While still logged into Debian, run this command to set your access password. This only needs to be done once.</p>
-            <div><button onclick="copyCode(this, 'cmd7-en', 'Copied!', 'Copy')">Copy</button><code id="cmd7-en">vncserver</code></div>
+            <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd7-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd7-en">vncserver</code></div>
             <span>You will be prompted to enter a password. <b>Write this down!</b> You'll need it to connect. (Note: Your typing will be invisible for security). It must be 6-8 characters. When asked for a 'view-only password', just type '<b>n</b>' and press <b>Enter</b>.</span>
         </li>
         <li>
             <b>Configure VNC Server</b>
             <p>First, stop the temporary VNC server that was just started (on display `:1`).</p>
-            <div><button onclick="copyCode(this, 'cmd8-en', 'Copied!', 'Copy')">Copy</button><code id="cmd8-en">vncserver -kill :1</code></div>
+            <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd8-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd8-en">vncserver -kill :1</code></div>
             <p>Next, edit the startup file. This file tells the VNC server what to do when it starts (i.e., "launch the XFCE desktop").
                 <ul><li>`nano` opens the text editor.</li><li>`~/.vnc/xstartup` is the path to the configuration file. `~` is your home directory.</li></ul>
             </p>
-            <div><button onclick="copyCode(this, 'cmd9-en', 'Copied!', 'Copy')">Copy</button><code id="cmd9-en">nano ~/.vnc/xstartup</code></div>
+            <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd9-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd9-en">nano ~/.vnc/xstartup</code></div>
             <span>An editor will open. Delete *all* text in the file (use backspace) and replace it with *only* these two lines:</span>
-            <div><button onclick="copyCode(this, 'cmd10-en', 'Copied!', 'Copy')">Copy</button><code id="cmd10-en">#!/bin/bash
+            <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd10-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd10-en">#!/bin/bash
 startxfce4 &</code></div>
             <span><b>To Save and Exit:</b> Press <b>Ctrl+X</b>. It will ask "Save modified buffer?". Type <b>Y</b> (for Yes). It will then ask "File Name to Write...". Just press <b>Enter</b> to confirm.</span>
         </li>
@@ -133,11 +133,11 @@ startxfce4 &</code></div>
 
     <h5>Start Desktop Session (Landscape/Horizontal Mode)</h5>
     <p>Use this command for a wide, horizontal screen (1280x720 resolution) optimized for most tasks.</p>
-    <div><button onclick="copyCode(this, 'cmd11-en', 'Copied!', 'Copy')">Copy</button><code id="cmd11-en">vncserver -geometry 1280x720</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd11-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd11-en">vncserver -geometry 1280x720</code></div>
     
     <h5>Start Desktop Session (Portrait/Vertical Mode)</h5>
     <p>Use this command if you prefer holding your phone vertically (720x1280 resolution).</p>
-    <div><button onclick="copyCode(this, 'cmd12-en', 'Copied!', 'Copy')">Copy</button><code id="cmd12-en">vncserver -geometry 720x1280</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd12-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd12-en">vncserver -geometry 720x1280</code></div>
     
     <p><b>Step 3. Connect with VNC Viewer:</b><br>
     Open your <b>VNC Viewer</b> app.
@@ -155,7 +155,7 @@ startxfce4 &</code></div>
 
     <h5>Stop Desktop Session</h5>
     <p>To <b>STOP</b> the server and save battery, run this command *inside the Debian terminal* (not the graphical one, but the one you used to start it).</p>
-    <div><button onclick="copyCode(this, 'cmd13-en', 'Copied!', 'Copy')">Copy</button><code id="cmd13-en">vncserver -kill :1</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd13-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd13-en">vncserver -kill :1</code></div>
     <p>After this, you can type `exit` to leave the Debian environment and then close the Termux app.</p>
 
     <hr>
@@ -164,28 +164,28 @@ startxfce4 &</code></div>
     <p>After starting your desktop and connecting via VNC, open the <b>Terminal Emulator</b> from the desktop's Start Menu (Applications -> System -> Terminal Emulator) to install software. You can install almost any Debian software.</p>
     
     <div><p>Before installing, it's always good practice to update your package list. The `sudo` command gives you administrator rights for installing.</p>
-        <div><button onclick="copyCode(this, 'cmd14-en', 'Copied!', 'Copy')">Copy</button><code id="cmd14-en">sudo apt update</code></div>
+        <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd14-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd14-en">sudo apt update</code></div>
     </div>
     
     <h5>Core System & Management Tools</h5>
     <p>Includes a graphical app store (Synaptic), a task manager (htop), an archive manager (engrampa), a disk usage viewer (baobab), and a firewall manager (gufw).</p>
-    <div><button onclick="copyCode(this, 'cmd15-en', 'Copied!', 'Copy')">Copy</button><code id="cmd15-en">sudo apt install synaptic htop engrampa baobab gufw -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd15-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd15-en">sudo apt install synaptic htop engrampa baobab gufw -y</code></div>
 
     <h5>Web & Communication Suite</h5>
     <p>Includes the Firefox web browser (ESR is the 'Extended Support Release', which is very stable), Thunderbird email client, Pidgin multi-messenger, and Transmission for torrents.</p>
-    <div><button onclick="copyCode(this, 'cmd16-en', 'Copied!', 'Copy')">Copy</button><code id="cmd16-en">sudo apt install firefox-esr thunderbird pidgin transmission-gtk -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd16-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd16-en">sudo apt install firefox-esr thunderbird pidgin transmission-gtk -y</code></div>
 
     <h5>Office & Productivity Suite</h5>
     <p>Includes the full LibreOffice suite (like a free Microsoft Office), Zim personal wiki, Evince PDF reader, and Foliate e-book reader.</p>
-    <div><button onclick="copyCode(this, 'cmd17-en', 'Copied!', 'Copy')">Copy</button><code id="cmd17-en">sudo apt install libreoffice zim evince foliate -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd17-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd17-en">sudo apt install libreoffice zim evince foliate -y</code></div>
 
     <h5>Creative & Graphics Suite</h5>
     <p>Includes GIMP (like a free Photoshop), Inkscape (for vector graphics, like Adobe Illustrator), Pinta (simple drawing), and Scribus (for desktop publishing).</p>
-    <div><button onclick="copyCode(this, 'cmd18-en', 'Copied!', 'Copy')">Copy</button><code id="cmd18-en">sudo apt install gimp inkscape pinta scribus -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd18-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd18-en">sudo apt install gimp inkscape pinta scribus -y</code></div>
 
     <h5>Development & Media</h5>
     <p>Includes the Geany lightweight code editor/IDE and the versatile VLC media player, which can play almost any video or audio file.</p>
-    <div><button onclick="copyCode(this, 'cmd19-en', 'Copied!', 'Copy')">Copy</button><code id="cmd19-en">sudo apt install geany vlc -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd19-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd19-en">sudo apt install geany vlc -y</code></div>
 
     <hr>
 
@@ -196,25 +196,25 @@ startxfce4 &</code></div>
     <p>Unlock the true power of a portable PC by connecting peripherals. Your phone can serve as the "brain" (like a PC tower) of a complete workstation.</p>
     <ul>
         <li><b>Docking Station Experience:</b> By using a <b>USB-C hub</b> (if your phone supports video-out), you can connect a full-sized keyboard, a mouse, and an external monitor simultaneously. Start the VNC server with a resolution matching your monitor:
-            <div><button onclick="copyCode(this, 'cmd20-en', 'Copied!', 'Copy')">Copy</button><code id="cmd20-en">vncserver -geometry 1920x1080</code></div>
+            <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd20-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd20-en">vncserver -geometry 1920x1080</code></div>
         </li>
         <li><b>On-the-Go Productivity:</b> For a lighter setup, a <b>Bluetooth foldable keyboard</b> and a small <b>travel mouse</b> can turn any coffee shop table into a productive workspace. Your phone connects to them directly.</li>
     </ul>
 
     <h5>The Ultimate Developer's Toolkit</h5>
     <p>Install Git for version control to manage your code repositories.</p>
-    <div><button onclick="copyCode(this, 'cmd21-en', 'Copied!', 'Copy')">Copy</button><code id="cmd21-en">sudo apt install git -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd21-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd21-en">sudo apt install git -y</code></div>
     <p>Install a full web server stack (a 'LAMP' server: Linux, Apache, MariaDB, PHP) to develop and test entire websites (like WordPress sites) locally on your phone.</p>
-    <div><button onclick="copyCode(this, 'cmd22-en', 'Copied!', 'Copy')">Copy</button><code id="cmd22-en">sudo apt install apache2 mariadb-server php libapache2-mod-php -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd22-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd22-en">sudo apt install apache2 mariadb-server php libapache2-mod-php -y</code></div>
     <p>Install compilers and interpreters for other popular languages like Python and Node.js (for web development).</p>
-    <div><button onclick="copyCode(this, 'cmd23-en', 'Copied!', 'Copy')">Copy</button><code id="cmd23-en">sudo apt install python3-pip nodejs npm -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd23-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd23-en">sudo apt install python3-pip nodejs npm -y</code></div>
 
     <h5>An Academic and Research Powerhouse</h5>
     <p>Install a LaTeX distribution to write beautifully formatted academic papers and reports.</p>
     <div><p><b>Note:</b> <code>texlive-full</code> is a <b>very large</b> installation (over 5GB). For basic use, start with <code>texlive-base</code> or <code>texlive-latex-recommended</code> to save space.</p></div>
-    <div><button onclick="copyCode(this, 'cmd24-en', 'Copied!', 'Copy')">Copy</button><code id="cmd24-en">sudo apt install texlive-full -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd24-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd24-en">sudo apt install texlive-full -y</code></div>
     <p>Use Python with libraries like NumPy, SciPy, and Matplotlib for data analysis, scientific computing, and data visualization.</p>
-    <div><button onclick="copyCode(this, 'cmd25-en', 'Copied!', 'Copy')">Copy</button><code id="cmd25-en">sudo apt install python3-numpy python3-scipy python3-matplotlib -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd25-en')" data-en="Copy" data-gr="Αντιγραφή">Copy</button><code id="cmd25-en">sudo apt install python3-numpy python3-scipy python3-matplotlib -y</code></div>
 
 </div>
 
@@ -254,20 +254,20 @@ startxfce4 &</code></div>
 
     <h5>Βήμα 1: Ρύθμιση Termux και Εγκατάσταση Debian</h5>
     <p><b>1. Ενημερώστε τα πακέτα του Termux:</b> Αυτό διασφαλίζει ότι έχετε τις τελευταίες εκδόσεις των βασικών εργαλείων του Termux. Σκεφτείτε το σαν «Windows Update» για το ίδιο το Termux.</p>
-    <div><button onclick="copyCode(this, 'cmd1-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd1-gr">pkg update -y && pkg upgrade -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd1-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd1-gr">pkg update -y && pkg upgrade -y</code></div>
 
     <p><b>2. Εγκαταστήστε το εργαλείο proot-distro:</b> Αυτό είναι το ειδικό εργαλείο που επιτρέπει στο Termux να διαχειρίζεται και να εκτελεί ολόκληρες διανομές Linux (όπως το Debian) με ασφάλεια.</p>
-    <div><button onclick="copyCode(this, 'cmd2-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd2-gr">pkg install proot-distro -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd2-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd2-gr">pkg install proot-distro -y</code></div>
 
     <p><b>3. Εγκαταστήστε το λειτουργικό σύστημα Debian:</b> Αυτή η εντολή θα κατεβάσει το βασικό σύστημα αρχείων του Debian (τον πυρήνα του λειτουργικού συστήματος) και θα το αποσυμπιέσει. (Μπορεί να διαρκέσει 5-15 λεπτά).</p>
-    <div><button onclick="copyCode(this, 'cmd3-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd3-gr">proot-distro install debian</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd3-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd3-gr">proot-distro install debian</code></div>
     
     <h5>Βήμα 2: Ρύθμιση Περιβάλλοντος Επιφάνειας Εργασίας (Μέσα στο Debian)</h5>
     <p><b>1. Συνδεθείτε στο Debian για πρώτη φορά:</b> Χρησιμοποιήστε αυτήν την εντολή για να «μπείτε μέσα» στο περιβάλλον Debian. Η γραμμή εντολών σας θα αλλάξει (π.χ., σε `root@localhost:~#`), δείχνοντας ότι τώρα δίνετε εντολές στο Debian, όχι στο Termux.</p>
-    <div><button onclick="copyCode(this, 'cmd4-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd4-gr">proot-distro login debian</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd4-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd4-gr">proot-distro login debian</code></div>
 
     <p><b>2. Μέσα στο Debian, ενημερώστε τις λίστες πακέτων του:</b> Αυτό είναι παρόμοιο με το Βήμα 1, αλλά τώρα ενημερώνετε τις λίστες λογισμικού *μέσα* στο νέο σας λειτουργικό σύστημα Debian. (Σημείωση: το `apt` είναι ο διαχειριστής πακέτων του Debian, ενώ το `pkg` ήταν του Termux).</p>
-    <div><button onclick="copyCode(this, 'cmd5-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd5-gr">apt update && apt upgrade -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd5-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd5-gr">apt update && apt upgrade -y</code></div>
 
     <p><b>3. Εγκαταστήστε την επιφάνεια εργασίας XFCE, τον VNC server και έναν επεξεργαστή κειμένου:</b> Αυτή είναι η μεγαλύτερη λήψη. Εγκαθιστά όλα τα απαραίτητα στοιχεία:
         <ul>
@@ -276,26 +276,26 @@ startxfce4 &</code></div>
             <li><b>nano</b>: Ένας απλός, φιλικός προς αρχάριους επεξεργαστής κειμένου για τη γραμμή εντολών.</li>
         </ul>
     </p>
-    <div><button onclick="copyCode(this, 'cmd6-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd6-gr">apt install xfce4 xfce4-goodies tigervnc-standalone-server nano -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd6-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd6-gr">apt install xfce4 xfce4-goodies tigervnc-standalone-server nano -y</code></div>
 
     <h5>Βήμα 3: Διαμόρφωση του VNC</h5>
     <ol>
         <li>
             <b>Ορισμός Κωδικού Πρόσβασης VNC</b>
             <p>Ενώ είστε ακόμα συνδεδεμένοι στο Debian, εκτελέστε αυτήν την εντολή για να ορίσετε τον κωδικό πρόσβασής σας. Αυτό χρειάζεται να γίνει μόνο μία φορά.</p>
-            <div><button onclick="copyCode(this, 'cmd7-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd7-gr">vncserver</code></div>
+            <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd7-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd7-gr">vncserver</code></div>
             <span>Θα σας ζητηθεί να εισαγάγετε έναν κωδικό πρόσβασης. <b>Σημειώστε τον!</b> Θα τον χρειαστείτε για να συνδεθείτε. (Σημείωση: Αυτό που πληκτρολογείτε θα είναι αόρατο για λόγους ασφαλείας). Πρέπει να είναι 6-8 χαρακτήρες. Όταν ερωτηθείτε για 'view-only password', απλώς πληκτρολογήστε '<b>n</b>' (όχι) και πατήστε <b>Enter</b>.</span>
         </li>
         <li>
             <b>Διαμόρφωση του VNC Server</b>
             <p>Πρώτα, σταματήστε τον προσωρινό VNC server που μόλις ξεκίνησε (στην οθόνη `:1`).</p>
-            <div><button onclick="copyCode(this, 'cmd8-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd8-gr">vncserver -kill :1</code></div>
+            <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd8-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd8-gr">vncserver -kill :1</code></div>
             <p>Στη συνέχεια, επεξεργαστείτε το αρχείο εκκίνησης. Αυτό το αρχείο λέει στον VNC server τι να κάνει όταν ξεκινά (δηλαδή, "ξεκίνα την επιφάνεια εργασίας XFCE").
                 <ul><li>`nano` ανοίγει τον επεξεργαστή κειμένου.</li><li>`~/.vnc/xstartup` είναι η διαδρομή προς το αρχείο ρυθμίσεων. Το `~` είναι ο αρχικός σας κατάλογος (home directory).</li></ul>
             </p>
-            <div><button onclick="copyCode(this, 'cmd9-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd9-gr">nano ~/.vnc/xstartup</code></div>
+            <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd9-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd9-gr">nano ~/.vnc/xstartup</code></div>
             <span>Θα ανοίξει ένας επεξεργαστής. Διαγράψτε *όλο* το κείμενο στο αρχείο (χρησιμοποιήστε το backspace) και αντικαταστήστε το με *μόνο* αυτές τις δύο γραμμές:</span>
-            <div><button onclick="copyCode(this, 'cmd10-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd10-gr">#!/bin/bash
+            <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd10-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd10-gr">#!/bin/bash
 startxfce4 &</code></div>
             <span><b>Για Αποθήκευση και Έξοδο:</b> Πατήστε <b>Ctrl+X</b>. Θα ερωτηθείτε "Save modified buffer?". Πληκτρολογήστε <b>Y</b> (για Yes/Ναι). Στη συνέχεια, θα ερωτηθείτε "File Name to Write...". Απλώς πατήστε <b>Enter</b> για επιβεβαίωση.</span>
         </li>
@@ -345,11 +345,11 @@ startxfce4 &</code></div>
     
     <h5>Εκκίνηση της Συνεδρίας Επιφάνειας Εργασίας (Οριζόντια Λειτουργία)</h5>
     <p>Χρησιμοποιήστε αυτήν την εντολή για μια ευρεία, οριζόντια οθόνη (ανάλυση 1280x720) βελτιστοποιημένη για τις περισσότερες εργασίες.</p>
-    <div><button onclick="copyCode(this, 'cmd11-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd11-gr">vncserver -geometry 1280x720</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd11-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd11-gr">vncserver -geometry 1280x720</code></div>
 
     <h5>Εκκίνηση της Συνεδρίας Επιφάνειας Εργασίας (Κάθετη Λειτουργία)</h5>
     <p>Χρησιμοποιήστε αυτήν την εντολή εάν προτιμάτε να κρατάτε το τηλέφωνό σας κάθετα (ανάλυση 720x1280).</p>
-    <div><button onclick="copyCode(this, 'cmd12-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd12-gr">vncserver -geometry 720x1280</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd12-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd12-gr">vncserver -geometry 720x1280</code></div>
     
     <p><b>Βήμα 3. Συνδεθείτε με το VNC Viewer:</b><br>
     Ανοίξτε την εφαρμογή <b>VNC Viewer</b>.
@@ -367,7 +367,7 @@ startxfce4 &</code></div>
 
     <h5>Τερματισμός της Συνεδρίας Επιφάνειας Εργασίας</h5>
     <p>Για <b>ΤΕΡΜΑΤΙΣΜΟ</b> του server και εξοικονόμηση μπαταρίας, εκτελέστε αυτήν την εντολή *μέσα στο τερματικό του Debian* (όχι στο γραφικό, αλλά σε αυτό που χρησιμοποιήσατε για να τον ξεκινήσετε).</p>
-    <div><button onclick="copyCode(this, 'cmd13-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd13-gr">vncserver -kill :1</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd13-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd13-gr">vncserver -kill :1</code></div>
     <p>Μετά από αυτό, μπορείτε να πληκτρολογήσετε `exit` για να φύγετε από το περιβάλλον Debian και στη συνέχεια να κλείσετε την εφαρμογή Termux.</p>
 
     <hr>
@@ -376,28 +376,28 @@ startxfce4 &</code></div>
     <p>Αφού ξεκινήσετε την επιφάνεια εργασίας σας και συνδεθείτε μέσω VNC, ανοίξτε τον <b>Εξομοιωτή Τερματικού (Terminal Emulator)</b> από το Μενού Έναρξης της επιφάνειας εργασίας (Applications -> System -> Terminal Emulator) για να εγκαταστήσετε εφαρμογές. Μπορείτε να εγκαταστήσετε σχεδόν οποιοδήποτε λογισμικό του Debian.</p>
     
     <div><p>Πριν την εγκατάσταση, είναι πάντα καλή πρακτική να ενημερώνετε τη λίστα πακέτων σας. Η εντολή `sudo` σας δίνει δικαιώματα διαχειριστή για την εγκατάσταση.</p>
-        <div><button onclick="copyCode(this, 'cmd14-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd14-gr">sudo apt update</code></div>
+        <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd14-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd14-gr">sudo apt update</code></div>
     </div>
     
     <h5>Βασικά Εργαλεία Συστήματος & Διαχείρισης</h5>
     <p>Περιλαμβάνει ένα γραφικό app store (Synaptic), διαχειριστή εργασιών (htop), διαχειριστή αρχείων συμπίεσης (engrampa), προβολέα χρήσης δίσκου (baobab) και διαχειριστή τείχους προστασίας (gufw).</p>
-    <div><button onclick="copyCode(this, 'cmd15-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd15-gr">sudo apt install synaptic htop engrampa baobab gufw -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd15-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd15-gr">sudo apt install synaptic htop engrampa baobab gufw -y</code></div>
 
     <h5>Σουίτα Ιστού & Επικοινωνίας</h5>
     <p>Περιλαμβάνει τον περιηγητή Firefox (ESR είναι η 'Έκδοση Εκτεταμένης Υποστήριξης', η οποία είναι πολύ σταθερή), τον πελάτη email Thunderbird, τον πολυ-αγγελιοφόρο Pidgin και το Transmission για torrents.</p>
-    <div><button onclick="copyCode(this, 'cmd16-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd16-gr">sudo apt install firefox-esr thunderbird pidgin transmission-gtk -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd16-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd16-gr">sudo apt install firefox-esr thunderbird pidgin transmission-gtk -y</code></div>
 
     <h5>Σουίτα Γραφείου & Παραγωγικότητας</h5>
     <p>Περιλαμβάνει την πλήρη σουίτα LibreOffice (σαν ένα δωρεάν Microsoft Office), το προσωπικό wiki Zim, τον αναγνώστη PDF Evince και τον αναγνώστη e-book Foliate.</p>
-    <div><button onclick="copyCode(this, 'cmd17-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd17-gr">sudo apt install libreoffice zim evince foliate -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd17-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd17-gr">sudo apt install libreoffice zim evince foliate -y</code></div>
 
     <h5>Δημιουργική & Γραφιστική Σουίτα</h5>
     <p>Περιλαμβάνει το GIMP (σαν ένα δωρεάν Photoshop), το Inkscape (για διανυσματικά γραφικά, όπως το Adobe Illustrator), το Pinta (απλή ζωγραφική) και το Scribus (για επιτραπέζια δημοσίευση).</p>
-    <div><button onclick="copyCode(this, 'cmd18-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd18-gr">sudo apt install gimp inkscape pinta scribus -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd18-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd18-gr">sudo apt install gimp inkscape pinta scribus -y</code></div>
 
     <h5>Ανάπτυξη & Πολυμέσα</h5>
     <p>Περιλαμβάνει τον ελαφρύ επεξεργαστή κώδικα/IDE Geany και το ευέλικτο πρόγραμμα αναπαραγωγής πολυμέσων VLC, που μπορεί να παίξει σχεδόν οποιοδήποτε αρχείο βίντεο ή ήχου.</p>
-    <div><button onclick="copyCode(this, 'cmd19-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd19-gr">sudo apt install geany vlc -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd19-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd19-gr">sudo apt install geany vlc -y</code></div>
 
     <hr>
 
@@ -408,25 +408,25 @@ startxfce4 &</code></div>
     <p>Ξεκλειδώστε την πραγματική δύναμη ενός φορητού υπολογιστή συνδέοντας περιφερειακά. Το τηλέφωνό σας μπορεί να χρησιμεύσει ως ο «εγκέφαλος» (όπως ένας πύργος Η/Υ) ενός πλήρους σταθμού εργασίας.</p>
     <ul>
         <li><b>Εμπειρία Docking Station:</b> Χρησιμοποιώντας έναν <b>USB-C hub</b> (εάν το τηλέφωνό σας υποστηρίζει έξοδο βίντεο), μπορείτε να συνδέσετε ταυτόχρονα ένα πληκτρολόγιο πλήρους μεγέθους, ένα ποντίκι και μια εξωτερική οθόνη. Ξεκινήστε τον VNC server με ανάλυση που ταιριάζει στην οθόνη σας:
-            <div><button onclick="copyCode(this, 'cmd20-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd20-gr">vncserver -geometry 1920x1080</code></div>
+            <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd20-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd20-gr">vncserver -geometry 1920x1080</code></div>
         </li>
         <li><b>Παραγωγικότητα εν Κινήσει:</b> Για μια ελαφρύτερη ρύθμιση, ένα <b>πτυσσόμενο πληκτρολόγιο Bluetooth</b> και ένα μικρό <b>ποντίκι ταξιδίου</b> μπορούν να μετατρέψουν οποιοδήποτε τραπέζι καφετέριας σε παραγωγικό χώρο εργασίας. Το τηλέφωνό σας συνδέεται απευθείας με αυτά.</li>
     </ul>
 
     <h5>Το Απόλυτο Εργαλείο για Προγραμματιστές</h5>
     <p>Εγκαταστήστε το Git για έλεγχο εκδόσεων (version control) για να διαχειρίζεστε τα αποθετήρια κώδικα σας.</p>
-    <div><button onclick="copyCode(this, 'cmd21-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd21-gr">sudo apt install git -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd21-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd21-gr">sudo apt install git -y</code></div>
     <p>Εγκαταστήστε μια πλήρη στοίβα web server (ένας 'LAMP' server: Linux, Apache, MariaDB, PHP) για να αναπτύξετε και να δοκιμάσετε ολόκληρες ιστοσελίδες (όπως sites WordPress) τοπικά στο τηλέφωνό σας.</p>
-    <div><button onclick="copyCode(this, 'cmd22-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd22-gr">sudo apt install apache2 mariadb-server php libapache2-mod-php -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd22-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd22-gr">sudo apt install apache2 mariadb-server php libapache2-mod-php -y</code></div>
     <p>Εγκαταστήστε μεταγλωττιστές και διερμηνείς για άλλες δημοφιλείς γλώσσες όπως Python και Node.js (για web development).</p>
-    <div><button onclick="copyCode(this, 'cmd23-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd23-gr">sudo apt install python3-pip nodejs npm -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd23-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd23-gr">sudo apt install python3-pip nodejs npm -y</code></div>
 
     <h5>Ένα Κέντρο Ακαδημαϊκής και Ερευνητικής Ισχύος</h5>
     <p>Εγκαταστήστε μια διανομή LaTeX για να γράψετε όμορφα μορφοποιημένες ακαδημαϊκές εργασίες και αναφορές.</p>
     <div><p><b>Σημείωση:</b> Το <code>texlive-full</code> είναι μια <b>πολύ μεγάλη</b> εγκατάσταση (πάνω από 5GB). Για βασική χρήση, ξεκινήστε με το <code>texlive-base</code> ή το <code>texlive-latex-recommended</code> για εξοικονόμηση χώρου.</p></div>
-    <div><button onclick="copyCode(this, 'cmd24-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd24-gr">sudo apt install texlive-full -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd24-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd24-gr">sudo apt install texlive-full -y</code></div>
     <p>Χρησιμοποιήστε Python με βιβλιοθήκες όπως NumPy, SciPy και Matplotlib για ανάλυση δεδομένων, επιστημονικούς υπολογισμούς και οπτικοποίηση δεδομένων.</p>
-    <div><button onclick="copyCode(this, 'cmd25-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd25-gr">sudo apt install python3-numpy python3-scipy python3-matplotlib -y</code></div>
+    <div class="code-container"><button class="copy-btn" onclick="window.copyToClipboard(this, 'cmd25-gr')" data-en="Copy" data-gr="Αντιγραφή">Αντιγραφή</button><code id="cmd25-gr">sudo apt install python3-numpy python3-scipy python3-matplotlib -y</code></div>
 
 </div>
 
