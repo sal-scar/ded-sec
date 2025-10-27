@@ -91,26 +91,29 @@
 
             const codeToCopy = codeElement.textContent || codeElement.innerText;
 
-            // Use the modern Clipboard API
+            const resetText = () => {
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            };
+
+            // 1. Use the modern Clipboard API (preferred and most reliable)
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(codeToCopy).then(() => {
                     // Success feedback
                     btn.textContent = successText;
-                    setTimeout(() => {
-                        btn.textContent = originalText;
-                    }, 2000);
+                    resetText();
                 }).catch(err => {
                     console.error('Copy failed (modern API):', err);
-                    btn.textContent = 'Error';
-                    setTimeout(() => {
-                        btn.textContent = originalText;
-                    }, 2000);
+                    btn.textContent = 'Error (Security Blocked)';
+                    resetText();
                 });
             } else {
-                // Fallback for older browsers (using document.execCommand)
+                // 2. Fallback for older browsers or insecure contexts
                 const textArea = document.createElement("textarea");
                 textArea.value = codeToCopy;
-                textArea.style.position = "fixed"; // Prevents scrolling
+                // Make the textarea invisible and outside the viewport
+                textArea.style.cssText = "position:fixed; top:-9999px; left:-9999px; opacity:0;"; 
                 document.body.appendChild(textArea);
                 textArea.focus();
                 textArea.select();
@@ -119,9 +122,6 @@
                     const successful = document.execCommand('copy');
                     if (successful) {
                         btn.textContent = successText;
-                        setTimeout(() => {
-                            btn.textContent = originalText;
-                        }, 2000);
                     } else {
                          console.error('Fallback: Copying text command failed.');
                          btn.textContent = 'Error';
@@ -132,9 +132,8 @@
                 }
                 
                 document.body.removeChild(textArea);
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
+                // Ensure the button text resets after the message, whether successful or error
+                resetText(); 
             }
         }
     </script>
@@ -379,7 +378,7 @@ startxfce4 &</code></div>
     <div><button onclick="copyCode(this, 'cmd3-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd3-gr">proot-distro install debian</code></div>
     
     <h5>Βήμα 2: Ρύθμιση Περιβάλλοντος Desktop (Μέσα στο Debian)</h5>
-    <p><b>1. Συνδεθείτε στο Debian για πρώτη φορά:</b> Χρησιμοποιήστε αυτήν την εντολή για να 'μπείτε μέσα' στο περιβάλλον Debian. Η προτροπή εντολών σας θα αλλάγει (π.χ., σε `root@localhost:~#`), δείχνοντας ότι τώρα δίνετε εντολές στο Debian, όχι στο Termux.</p>
+    <p><b>1. Συνδεθείτε στο Debian για πρώτη φορά:</b> Χρησιμοποιήστε αυτήν την εντολή για να 'μπείτε μέσα' στο περιβάλλον Debian. Η προτροπή εντολών σας θα αλλάζει (π.χ., σε `root@localhost:~#`), δείχνοντας ότι τώρα δίνετε εντολές στο Debian, όχι στο Termux.</p>
     <div><button onclick="copyCode(this, 'cmd4-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd4-gr">proot-distro login debian</code></div>
 
     <p><b>2. Μέσα στο Debian, ενημερώστε τις λίστες πακέτων του:</b> Αυτό είναι παρόμοιο με το Βήμα 1, αλλά τώρα ενημερώνετε τις λίστες λογισμικού *μέσα* στο νέο σας λειτουργικό σύστημα Debian. (Σημείωση: το `apt` είναι ο διαχειριστής πακέτων του Debian, ενώ το `pkg` ήταν του Termux).</p>
@@ -410,7 +409,7 @@ startxfce4 &</code></div>
                 <ul><li>Το `nano` ανοίγει τον επεξεργαστή κειμένου.</li><li>Το `~/.vnc/xstartup` είναι η διαδρομή προς το αρχείο ρυθμίσεων. Το `~` είναι ο αρχικός σας κατάλογος.</li></ul>
             </p>
             <div><button onclick="copyCode(this, 'cmd9-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd9-gr">nano ~/.vnc/xstartup</code></div>
-            <span>Θα ανοίξει ένας επεξεργαστής. Διαγράψτε *όλο* το κείμενο στο αρχείο (χρησιμοποιήστε το backspace) και αντικαταστήστε το με *μόνο* αυτές τις δύο γραμμές:</span>
+            <span>Θα ανοίξει ένας επεξεργαστής. Διαγράψτε *όλο* το κείσιμο στο αρχείο (χρησιμοποιήστε το backspace) και αντικαταστήστε το με *μόνο* αυτές τις δύο γραμμές:</span>
             <div><button onclick="copyCode(this, 'cmd10-gr', 'Αντιγράφηκε!', 'Αντιγραφή')">Αντιγραφή</button><code id="cmd10-gr">#!/bin/bash
 startxfce4 &</code></div>
             <span><b>Για Αποθήκευση και Έξοδο:</b> Πατήστε <b>Ctrl+X</b>. Θα ρωτήσει "Save modified buffer?". Πληκτρολογήστε <b>Y</b> (για Ναι). Στη συνέχεια, θα ρωτήσει "File Name to Write...". Απλώς πατήστε <b>Enter</b> για επιβεβαίωση.</span>
