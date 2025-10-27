@@ -2,10 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://ded-sec.space/</loc>
+    <loc>https://www.ded-sec.space/</loc>
     <lastmod>2025-09-04</lastmod>
     <priority>1.0</priority>
   </url>
 
-</urlset>
+  <url>
+    <loc>https://www.ded-sec.space/Pages/learn-about-the-tools.html</loc>
+    <lastmod>2025-10-27</lastmod>
+    <priority>0.8</priority>
+  </url>
 
+  <url>
+    <loc>https://www.ded-sec.space/Pages/guide-for-installation.html</loc>
+    <lastmod>2025-10-27</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ded-sec.space/Pages/useful-information.html</loc>
+    <lastmod>2025-10-27</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ded-sec.space/Pages/collaborations.html</loc>
+    <lastmod>2025-10-27</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ded-sec.space/Pages/portfolio-github-info.html</loc>
+    <lastmod>2025-10-27</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ded-sec.space/Pages/contact-credits.html</loc>
+    <lastmod>2025-10-27</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.ded-sec.space/Pages/privacy-policy.html</loc>
+    <lastmod>2025-10-27</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
