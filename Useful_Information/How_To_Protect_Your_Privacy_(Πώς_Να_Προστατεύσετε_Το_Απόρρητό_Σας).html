@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How To Protect Your Privacy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic styling for readability */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .dark-theme {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: #4da6ff;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+        p.section-intro {
+            font-size: 1.1em;
+            font-style: italic;
+            color: #b0b0b0;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 15px;
+        }
+        .os-path {
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 8px 12px;
+            margin: 8px 0;
+            font-family: monospace;
+            font-size: 0.95em;
+            color: #c7c7c7;
+        }
+        .os-path b {
+            color: #68b6ff;
+        }
+        .modal-divider {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(60, 60, 60, 0), rgba(80, 80, 80, 0.75), rgba(60, 60, 60, 0));
+        }
+        .note {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 5px solid;
+        }
+        .note-danger {
+            background-color: #3f1d1d;
+            border-color: #e57373;
+            color: #f7dada;
+        }
+        .note-danger span {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        blockquote {
+            border-left: 4px solid #555;
+            padding-left: 15px;
+            margin-left: 0;
+            font-style: italic;
+            color: #ccc;
+        }
+    </style>
+    
+</head>
+<body class="dark-theme"> <div data-lang-section="en">
+    <h3>How To Protect Your Privacy</h3>
+
+    <h4>Chapter 0: The Privacy Mindset</h4>
+    
+    <p class="section-intro">Privacy is not about having something to hide; it's about having something to protect. In the digital age, your data is your most valuable asset. This guide will teach you how to protect it, moving beyond simple device security to a holistic privacy strategy for both iOS and Android, covering your digital and physical worlds.</p>
+    <ul>
+        <li><b>Security vs. Privacy:</b> Understand the difference. This is the most important concept.
+            <blockquote>
+                <b>Security</b> is the <b>lock on your door</b>. It stops intruders (hackers) from breaking in.
+                <br>
+                <b>Privacy</b> is the <b>guest list for your house</b>. It's your control over who has a key (corporations, apps, data brokers) and what they're allowed to see or do inside.
+            </blockquote>
+            You need both. A strong lock doesn't matter if you give keys to everyone, and a strict guest list doesn't matter if your lock is broken.
+        </li>
+        <li><b>The Principle of Data Minimization:</b> The most private data is data that is never collected in the first place. Your primary goal should be to reduce the amount of personal information you generate and share.
+            <ul>
+                <li><b>Permission Audit:</b> Does a simple flashlight app really need your contacts and location? No. It's like a cashier asking for your home address just so you can buy milk—it's unnecessary, irrelevant, and risky. Scrutinize every request.
+                    <div class="os-path"><b>iOS:</b> Review permissions by category in `Settings` → `Privacy & Security`.</div>
+                    <div class="os-path"><b>Android:</b> Use the `Permission manager` in `Settings` → `Security & privacy` → `Privacy`.</div>
+                </li>
+            </ul>
+        </li>
+         <li><b>Data as a Liability:</b> Every piece of data you entrust to a company is a potential risk. Think of your data like a toxic substance: the less you have lying around, the safer you are. That company could be hacked, sold, or change its policies. The less data you have scattered across the internet, the smaller your "attack surface" is.
+        <br><b>Why:</b> Adopting this mindset changes your behavior from reactive (cleaning up a breach) to proactive (preventing the data from being available for a breach).</li>
+    </ul>
+    
+    <hr class="modal-divider">
+
+    <h4>Chapter 1: Hardening Your Devices (The Foundation)</h4>
+    <p class="section-intro">Your devices are the gateways to your digital life. Before you can control your data online, you must ensure these gateways are locked down tight. These are foundational, non-negotiable steps.</p>
+    <ul>
+        <li><b>A Strong, Biometric-Protected Screen Lock:</b> Your primary defense against physical access.
+            <ul>
+                <li>Use Face ID/Touch ID (iOS) or Fingerprint/Face Unlock (Android) backed by a strong **alphanumeric passcode** (uses letters *and* numbers), not just a 4 or 6-digit PIN.
+                <blockquote>
+                    <b>Food for thought:</b> A 6-digit PIN has 1 million combinations. A 6-character alphanumeric passcode (letters + numbers) has over **2 billion** combinations. It's dramatically harder to guess.
+                </blockquote>
+                </li>
+                <li>Set the auto-lock time to `1 Minute` or less.</li>
+            </ul>
+        <b>Why:</b> An unlocked phone is an open vault. A strong passcode and quick lock time are the most effective deterrents if your device is physically stolen.</li>
+        <li><b>Enable Two-Factor Authentication (2FA) Everywhere:</b> The single most effective tool against account takeovers.
+            <ul>
+                <li><b>Secure Your Core Account (Apple/Google):</b> This is the key to your kingdom. If a hacker gets this, they can reset all your other passwords.
+                     <div class="os-path"><b>iOS:</b> `Settings` → `[Your Name]` → `Sign-In & Security` → `Two-Factor Authentication`.</div>
+                     <div class="os-path"><b>Android:</b> `Settings` → `Google` → `Manage your Google Account` → `Security` → `2-Step Verification`.</div>
+                </li>
+                <li><b>Use Authenticator Apps (Not SMS!):</b> Prioritize an authenticator app (e.g., Authy, Google Authenticator) over SMS-based 2FA.
+                <blockquote>
+                    <b>What is an authenticator app?</b> It's a simple app on your phone that generates a new, temporary 6-digit code every 30 seconds for each of your accounts. It's like a digital key that is constantly changing, and it stays securely on your device.
+                    <br><br>
+                    <b>Why is SMS bad?</b> It's vulnerable to "SIM Swapping." This is an attack where a hacker calls your phone provider (e.g., T-Mobile, Verizon) and tricks them into transferring *your* phone number to *their* SIM card. Then, the hacker gets all your SMS 2FA codes and can lock you out of your own life.
+                </blockquote>
+                </li>
+            </ul>
+        <b>Why:</b> Passwords can be stolen. 2FA means that even with your password, a hacker cannot get in without your physical device.</li>
+        <li><b>Automate Your Updates:</b> Updates patch security and privacy vulnerabilities.
+            <ul>
+                <li>Enable automatic OS and app updates in your device's settings. This is your digital immune system.
+                <blockquote>
+                    <b>Analogy:</b> Running outdated software is like walking around with a hole in your armor. Hackers *know* where that hole is. An update is a free patch that fixes the hole before you get attacked.
+                </blockquote>
+                </li>
+            </ul>
+        <b>Why:</b> It's the most common way malware spreads. Don't make it easy for the bad guys.</li>
+        <li><b>Use a Secure DNS:</b> By default, your Internet Service Provider (ISP) can see every website you visit. A private DNS encrypts this traffic.
+             <ul>
+                <li><b>What to Use:</b> Services like Quad9 (9.9.9.9) or Cloudflare (1.1.1.1) offer free, private DNS.
+                <blockquote>
+                    <b>Analogy:</b> Your ISP is like an old-fashioned telephone operator who keeps a log of *every number* you call (every website you visit). A Secure DNS is like a private, automated operator who connects you *without* writing anything down.
+                </blockquote>
+                </li>
+                <li><b>How to Set Up:</b>
+                    <div class="os-path"><b>iOS:</b> `Settings` → `Wi-Fi` → tap the `(i)` next to your network → `Configure DNS` → `Manual`. Add one of the servers.</div>
+                    <div class="os-path"><b>Android:</b> `Settings` → `Network & internet` → `Private DNS`. Select `Private DNS provider hostname` and enter `one.one.one.one` (for Cloudflare) or `dns.quad9.net` (for Quad9).</div>
+                </li>
+            </ul>
+        <b>Why:</b> This prevents your ISP from logging and selling your browsing history. It's a simple and powerful privacy enhancement.</li>
+         <li><b>Use High-Security Modes When Needed:</b> For situations where you feel you might be specifically targeted.
+            <ul>
+                <li><b>Lockdown Mode (iOS):</b> This is an extreme, optional protection that severely restricts apps and features (like message attachments and complex web technologies).
+                <blockquote><b>When to use it:</b> This is not for everyday use. It's designed for people at high risk, like journalists, activists, or politicians who might be targeted by powerful, expensive spyware.</blockquote>
+                    <div class="os-path"><b>iOS:</b> `Settings` → `Privacy & Security` → `Lockdown Mode`.</div>
+                </li>
+                <li><b>Maintenance/Repair Mode (Android):</b> Many Android phones now offer this mode. It creates a temporary, separate user profile, protecting your personal data when your phone is being serviced.
+                <blockquote><b>When to use it:</b> This is for a very common situation! Use this *every time* you hand your phone to a repair shop technician. It hides all your photos, messages, banking apps, and contacts.</blockquote>
+                    <div class="os-path"><b>Android (Samsung):</b> `Settings` → `Battery and device care` → `Maintenance mode`.</div>
+                </li>
+            </ul>
+        <b>Why:</b> These specialized modes offer an extra layer of protection for your data during vulnerable situations, such as crossing a border or handing your device over for repair.</li>
+    </ul>
+
+    <hr class="modal-divider">
+    
+    <h4>Chapter 2: Controlling Your Data Flow (Daily Habits)</h4>
+    <p class="section-intro">Privacy is not a setting, but a habit. Your daily choices about which services you use and how you use them have the biggest impact on your privacy.</p>
+    <div class="note note-danger"><b><span>CRITICAL WARNING: PUBLIC WI-FI IS A HOSTILE NETWORK!</span></b> Treat any Wi-Fi you don't control (at a cafe, airport, or hotel) as compromised.
+    <blockquote>
+        <b>Analogy:</b> Using public Wi-Fi is like shouting your credit card number across a crowded, noisy room. Anyone nearby can "overhear" your unencrypted data. A **VPN (Virtual Private Network)** builds a private, soundproof tunnel through that room, encrypting your connection and hiding your activity from snoops.
+    </blockquote>
+    Use a reputable VPN to stay safe.
+    </div>
+    <ul>
+        <li><b>Choose Privacy-Conscious Services:</b> Opt for services that are designed to protect your privacy, not exploit your data.
+            <ul>
+                <li><b>Messaging:</b> Use an end-to-end encrypted (E2EE) messenger like **Signal** instead of traditional SMS or Facebook Messenger.
+                <blockquote><b>What is E2EE?</b> It means the message is "locked" in a box on your phone, and only the person you send it to has the "key" to unlock and read it. Not even the company (like Signal) can see what you're saying. SMS is like a postcard—everyone who handles it can read it.</blockquote>
+                </li>
+                <li><b>Email:</b> For sensitive communications, use an E2EE email provider like **ProtonMail** or **Tutanota** instead of services that scan your emails for advertising data.</li>
+                <li><b>Web Browser:</b> Use **Brave** or **Firefox Focus**, which have strong, built-in tracking protection. On desktop, Firefox with the uBlock Origin extension is excellent.</li>
+                <li><b>Search Engine:</b> Use **DuckDuckGo** or **Brave Search**, which don't create a profile of your search history.
+                <blockquote><b>Why is this different from Google?</b> Google Search watches everything you look for and builds a detailed profile of your interests, health concerns, and beliefs to sell targeted ads. DuckDuckGo is like a search engine with amnesia—it answers your question and immediately forgets you ever asked it.</blockquote>
+                </li>
+            </ul>
+        <b>Why:</b> The business model of many free services *is* your data. Choosing alternatives with privacy-focused business models fundamentally changes who is in control.</li>
+        <li><b>App Scrutiny: Be The Gatekeeper:</b> Every app you install is a potential data leak.
+            <ul>
+                <li><b>Read Privacy Labels:</b> Before downloading, review the App Privacy "nutrition label" on the App Store or the "Data safety" section on Google Play. Pay close attention to "Data shared with third parties" or "Data used to track you."</li>
+                <li><b>Stick to Official Stores:</b> "Sideloading" apps (installing them from a website, not the official App/Play Store) dramatically increases your risk.
+                <blockquote><b>Analogy:</b> Sideloading is like finding a random, unlabeled bottle on the street and drinking it. It's incredibly risky. Stick to the official stores, which are (mostly) policed for malware.</blockquote>
+                </li>
+                <li><b>Be Wary of QR Codes:</b> A QR code is just a hidden link. A scammer can easily put their *own* malicious QR code sticker on top of a real one at a parking meter or restaurant. Always check the URL preview your phone shows before visiting.</li>
+            </ul>
+        <b>Why?</b> Understanding what data an app will collect *before* you install it is one of the most powerful privacy choices you can make.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Chapter 3: Managing Your Digital Footprint</h4>
+    <p class="section-intro">Your digital footprint is the trail of data you leave behind online. A smaller footprint means less data that can be tracked, breached, or sold. This is a proactive process of digital hygiene.</p>
+    <ul>
+        <li><b>Use Aliases and Disposable Emails:</b> You don't need to use your real identity for every service.
+            <ul>
+                <li><b>Email Aliases:</b> Use services like **SimpleLogin** or **AnonAddy** (or DuckDuckGo's email protection) to create a unique email alias for every online service.
+                <blockquote><b>Analogy:</b> This is like having a separate P.O. Box for every store and newsletter. If "P.O. Box 123-ShoeStore" starts getting spam, you know *exactly* who sold your data, and you can instantly close that P.O. Box without affecting your real, primary email address.</blockquote>
+                </li>
+                <li><b>When to Use Your Real Name:</b> Only use your real, primary identity for official, high-trust services like banking, government, and employment. For everything else (social media, newsletters, online shopping), an alias is better.</li>
+            </ul>
+        <b>Why:</b> This prevents companies from building a unified profile on you across different services and protects your primary email from spam and phishing attacks.</li>
+        <li><b>Audit and Delete Old Accounts:</b> That old social media profile or forum account you haven't used in a decade is a security liability.
+            <ul>
+                <li><b>Find Old Accounts:</b> Search your email archives for phrases like "welcome to," "your new account," or "verify your email."</li>
+                <li><b>Delete Them:</b> Use a resource like `JustDelete.me`, which provides direct links to delete your account on hundreds of services.
+                <blockquote><b>Why is this a risk?</b> That old, forgotten account from 2008 probably uses a password you've reused elsewhere. It might also contain answers to common security questions ("What was your first pet's name?"). It's a goldmine for hackers.</blockquote>
+                </li>
+            </ul>
+        <b>Why:</b> Old, forgotten accounts are prime targets for hackers. Deleting them removes that risk.</li>
+        <li><b>Remove Yourself from Data Brokers:</b> Data brokers are companies that buy and sell your personal information without your knowledge.
+            <ul>
+                <li><b>What are they?</b> These are "invisible" companies you've never heard of. They scrape public records, buy your credit card transaction history, and track your web browsing to build a massive profile on you (your income, health, political beliefs) and then sell it to *anyone* who will pay—advertisers, scammers, etc.</li>
+                <li><b>The Process:</b> This is a challenging, ongoing process. You must visit each data broker's site and go through their manual opt-out procedure.</li>
+                <li><b>Tools to Help:</b> In some regions (like the US), services like `Optery` or `DeleteMe` can automate this process for a fee.</li>
+            </ul>
+        <b>Why:</b> This is one of the most direct ways to reduce spam calls, junk mail, and the amount of your personal information available to advertisers, scammers, and anyone else who wants to buy it.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Chapter 4: Advanced Privacy Techniques</h4>
+    <p class="section-intro">For those seeking a higher level of privacy, these techniques offer stronger protections against sophisticated tracking and surveillance.</p>
+    <ul>
+        <li><b>Compartmentalization: Don't Mix Your Identities:</b> Use different tools for different aspects of your life to prevent cross-contamination of data.
+            <ul>
+                <li><b>Browser Profiles:</b> Use separate browser profiles (or different browsers entirely) for your work, personal life, and anonymous browsing. Don't log into your personal Google account in your work browser.
+                <blockquote><b>Analogy:</b> Don't "cross the streams." If you use one browser profile logged into Google for work, personal searches, and hobbies, Google can link it all together. Using separate profiles is like having a different wallet, set of keys, and ID card for your job versus your home life.</blockquote>
+                </li>
+                <li><b>Dedicated Devices:</b> For extremely sensitive work, some professionals use a dedicated laptop or phone that is never used for personal activities.</li>
+            </ul>
+        <b>Why:</b> This makes it much harder for advertisers and data collectors to link your different identities and build a complete picture of who you are.</li>
+        <li><b>Combatting Browser Fingerprinting:</b> This is a technique where sites create a unique ID for you based on your browser, fonts, screen resolution, and other settings.
+            <ul>
+                <li><b>How to Fight It:</b> Privacy-focused browsers like **Brave** and **Tor Browser** include built-in randomizing techniques to resist fingerprinting. Standard browsers in "private mode" do very little to stop this.
+                <blockquote><b>What is this?</b> Even if you block cookies, a site can identify you by your device's unique "fingerprint"—a combination of your screen size, installed fonts, browser version, and dozens of other tiny details. Brave and Tor "smudge" this fingerprint by making you look the same as all their other users.</blockquote>
+                </li>
+            </ul>
+        <b>Why:</b> Fingerprinting allows sites to track you across the web even if you clear your cookies or use a VPN.</li>
+        <li><b>Achieving Anonymity with Tor:</b> For situations where you need to protect not just your data but your identity itself.
+            <ul>
+                <li><b>What it is:</b> The **Tor Browser** routes your internet traffic through a volunteer network of relays, making it extremely difficult for anyone to trace your activity back to you.</li>
+                <li><b>When to use it:</b> For sensitive research, journalism, or accessing information in a country with censorship. It is not for everyday browsing, as it can be slow.
+                <blockquote><b>VPN vs. Tor:</b> With a **VPN**, your ISP can't see your traffic, but your VPN provider *can* (you are trusting them). With **Tor**, your traffic is bounced between 3 random "relays" (volunteer computers). The 1st relay knows who you are, but not where you're going. The 3rd relay knows where you're going, but not who you are. No single point in the network knows the full story.</blockquote>
+                </li>
+            </ul>
+        <b>Why:</b> While a VPN protects your data from your ISP, the VPN provider can still see your activity. Tor is designed so that no single point in the network knows both who you are and where you are going.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Chapter 5: Threat Modeling & Real-World Scenarios</h4>
+    <p class="section-intro">Privacy is not one-size-fits-all. Your personal "threat model" helps you decide how much protection you really need. This section also covers plans for specific, high-stakes situations.</p>
+    <ul>
+        <li><b>Define Your Threat Model:</b> Ask yourself three simple questions:
+            <ol>
+                <li><b>What do I want to protect?</b> (e.g., my location, my financial data, my private conversations)</li>
+                <li><b>Who do I want to protect it from?</b> (e.g., advertisers, scammers, a nosy ex-partner, government agencies)</li>
+                <li><b>How likely is it that I will need to protect it?</b> (Are you a regular person, a journalist, a political activist?)</li>
+            </ol>
+        <b>Why:</b> Answering these questions helps you focus your efforts. A regular person needs to worry about data brokers and scammers (a "low" threat model). A journalist reporting on corruption needs a much higher level of protection (a "high" threat model), like using Tor and Signal. Don't burn yourself out trying to implement protections you don't need.</li>
+        <li><b>Defending Against SIM Swapping: A SIM PIN:</b> An attack where a hacker steals your phone number.
+            <ul>
+                <li><b>The Best Defense: A SIM PIN.</b> This is a PIN for your physical SIM card, separate from your phone's screen lock.
+                    <div class="os-path"><b>iOS:</b> `Settings` → `Cellular` → `SIM PIN`.</div>
+                    <div class="os-path"><b>Android:</b> `Settings` → `Security & privacy` → `More security & privacy` → `Set up SIM card lock`.</div>
+                </li>
+            </ul>
+        <b>Why:</b> A hacker tricks your mobile carrier's support staff and they transfer your number to the hacker's SIM card. **BUT**, if you have a SIM PIN, that SIM card is *useless* to the hacker. When they activate it, the phone will demand the SIM PIN, which they don't know. This hardware-level defense stops them cold.</li>
+        <li><b>Plan for a Lost or Stolen Phone:</b> Enable your phone's remote tracking and wiping capabilities *before* it's lost.
+            <ul>
+                <li><b>Enable Find My Services:</b>
+                    <div class="os-path"><b>iOS:</b> Ensure `Settings` → `[Your Name]` → `Find My` → `Find My iPhone` is ON.</div>
+                    <div class="os-path"><b>Android:</b> Ensure `Settings` → `Security & privacy` → `Find My Device` is ON.</div>
+                </li>
+                <li><b>What to Do:</b> If your phone is gone, *immediately* use any web browser to go to `icloud.com/find` (iOS) or `google.com/android/find` (Android). From there you can locate it, lock it (and display a "please return" message), or as a last resort, remotely erase all your data.</li>
+            </ul>
+        <b>Why:</b> This feature is your only way to reclaim control after physical loss. If you wait until it's lost, it's too late to turn it on.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Chapter 6: Privacy in the Physical World & Smart Home</h4>
+    <p class="section-intro">Digital privacy is meaningless if you leak data in the physical world. Your smart devices and public habits are an often-overlooked part of your privacy footprint.</p>
+     <ul>
+        <li><b>Secure Your Smart Home (IoT):</b> Every "smart" device is a potential listening device or data sensor connected to the internet.
+            <ul>
+                <li><b>Isolate IoT Devices on a "Guest Network":</b> If your router supports it, create a "Guest" Wi-Fi network and connect all of your smart devices (TVs, speakers, lights, cameras) to it. Keep your phone, laptops, and main computers on the primary network.
+                <blockquote><b>Why?</b> Your "Guest" network acts like a digital firewall. If a hacker breaks into your cheap smart plug (which is on the guest network), that firewall prevents them from "seeing" or attacking your important laptop (which is on the main network).</blockquote>
+                </li>
+                <li><b>Manage Microphones:</b> Mute the microphone on your smart speakers and smart TV when not in use. Be aware that they are *always* listening for a "wake word."</li>
+                <li><b>Research Before You Buy:</b> Before buying a new smart device, research the manufacturer's privacy policy and security track record.</li>
+            </ul>
+        </li>
+        <li><b>Practice Physical Privacy Hygiene:</b> Your actions in public matter.
+            <ul>
+                <li><b>Guard Against "Shoulder Surfing":</b> Be aware of your surroundings when entering PINs or passwords. Use a privacy screen protector on your phone and laptop when in public spaces like airplanes or cafes.</li>
+                <li><b>Avoid Public USB Charging Ports:</b> A compromised public USB port can install malware on your device in an attack called "Juice Jacking."
+                <blockquote><b>What is Juice Jacking?</b> A hacker can hide a tiny computer *inside* a public USB charging port (like at an airport). When you plug in, the "data pins" in the cable are used to secretly install malware or steal files. Always use your own AC power adapter and plug into a wall outlet, or use a "USB data blocker" (a small, cheap adapter that physically blocks the data pins, allowing only power to flow).</blockquote>
+                </li>
+                <li><b>Biometrics vs. Passcodes:</b> Understand the legal differences. In some jurisdictions, law enforcement may be able to compel you to unlock a device with your face or fingerprint, but cannot compel you to reveal a memorized passcode (as it's "in your mind").</li>
+            </ul>
+            <b>Why:</b> Strong digital defenses can be completely bypassed if an attacker can simply watch you type your password or gain access through a compromised charging port.</li>
+    </ul>
+
+    <hr class="modal-divider">
+    
+    <h4>Chapter 7: The Privacy Journey</h4>
+    <p class="section-intro">Privacy is not a destination you arrive at; it's a continuous journey. Technology and threats evolve, and so should your practices. Stay informed, be deliberate in your choices, and make privacy a conscious part of your digital life.</p>
+    <ul>
+        <li><b>Start Small and Be Consistent:</b> You don't have to do everything on this list today. Don't get overwhelmed. This isn't a test.
+        <blockquote><b>Take Action:</b> Just do *one thing* this week. Go enable 2FA on your main email account. That's a huge win. Next week, delete three old accounts. Small, consistent steps lead to massive long-term improvements. Privacy is a marathon, not a sprint.</blockquote>
+        </li>
+        <li><b>Stay Informed:</b> Follow privacy-focused news sources or blogs to stay aware of new threats and tools. Knowledge is your best defense against the ever-changing landscape of digital surveillance.</li>
+        <li><b>Share Your Knowledge:</b> The more people who value and practice good privacy, the more companies will be forced to offer privacy-respecting services. Help your friends and family secure their accounts. A more private society benefits everyone.</li>
+    </ul>
+</div>
+
+<div data-lang-section="gr" style="display:none;">
+    <h3>Πώς Να Προστατεύσετε Το Απόρρητό Σας</h3>
+
+    <h4>Κεφάλαιο 0: Η Νοοτροπία του Απορρήτου</h4>
+    <p class="section-intro">Το απόρρητο δεν αφορά το να έχεις κάτι να κρύψεις· αφορά το να έχεις κάτι να προστατεύσεις. Στην ψηφιακή εποχή, τα δεδομένα σας είναι το πολυτιμότερο περιουσιακό σας στοιχείο. Αυτός ο οδηγός θα σας διδάξει πώς να το προστατεύσετε, προχωρώντας πέρα από την απλή ασφάλεια συσκευών σε μια ολιστική στρατηγική απορρήτου για iOS και Android, καλύπτοντας τον ψηφιακό και φυσικό σας κόσμο.</p>
+    <ul>
+        <li><b>Ασφάλεια vs. Απόρρητο:</b> Κατανοήστε τη διαφορά. Αυτή είναι η πιο σημαντική έννοια.
+            <blockquote>
+                <b>Ασφάλεια</b> είναι η <b>κλειδαριά στην πόρτα σας</b>. Σταματά τους εισβολείς (χάκερ) από το να μπουν μέσα.
+                <br>
+                <b>Απόρρητο</b> είναι η <b>λίστα καλεσμένων για το σπίτι σας</b>. Είναι ο έλεγχός σας για το ποιος έχει κλειδί (εταιρείες, εφαρμογές, μεσίτες δεδομένων) και τι του επιτρέπεται να δει ή να κάνει μέσα.
+            </blockquote>
+            Χρειάζεστε και τα δύο. Μια δυνατή κλειδαριά δεν έχει σημασία αν δίνετε κλειδιά σε όλους, και μια αυστηρή λίστα καλεσμένων δεν έχει σημασία αν η κλειδαριά σας είναι σπασμένη.
+        </li>
+        <li><b>Η Αρχή της Ελαχιστοποίησης Δεδομένων:</b> Τα πιο ιδιωτικά δεδομένα είναι αυτά που δεν συλλέγονται ποτέ. Ο πρωταρχικός σας στόχος πρέπει να είναι η μείωση του όγκου των προσωπικών πληροφοριών που δημιουργείτε και μοιράζεστε.
+            <ul>
+                <li><b>Έλεγχος Δικαιωμάτων:</b> Χρειάζεται πραγματικά μια απλή εφαρμογή φακού τις επαφές και την τοποθεσία σας; Όχι. Είναι σαν να σας ζητάει ο ταμίας τη διεύθυνση του σπιτιού σας για να αγοράσετε γάλα - είναι περιττό, άσχετο και ριψοκίνδυνο. Εξετάστε κριτικά κάθε αίτημα.
+                    <div class="os-path"><b>iOS:</b> Ελέγξτε τα δικαιώματα ανά κατηγορία στις `Ρυθμίσεις` → `Απόρρητο & Ασφάλεια`.</div>
+                    <div class="os-path"><b>Android:</b> Χρησιμοποιήστε τον `Διαχειριστή αδειών` στις `Ρυθμίσεις` → `Ασφάλεια και απόρρητο` → `Απόρρητο`.</div>
+                </li>
+            </ul>
+        </li>
+         <li><b>Τα Δεδομένα ως Παθητικό:</b> Κάθε κομμάτι δεδομένων που εμπιστεύεστε σε μια εταιρεία αποτελεί πιθανό κίνδυνο. Σκεφτείτε τα δεδομένα σας σαν μια τοξική ουσία: όσο λιγότερα έχετε να κείτονται τριγύρω, τόσο ασφαλέστεροι είστε. Αυτή η εταιρεία θα μπορούσε να παραβιαστεί, να πωληθεί ή να αλλάξει τις πολιτικές της. Όσο λιγότερα δεδομένα έχετε διάσπαρτα στο διαδίκτυο, τόσο μικρότερη είναι η «επιφάνεια επίθεσής» σας.
+        <br><b>Γιατί:</b> Η υιοθέτηση αυτής της νοοτροπίας αλλάζει τη συμπεριφορά σας από αντιδραστική (καθαρισμός μετά από μια παραβίαση) σε προληπτική (αποτροπή της διαθεσιμότητας των δεδομένων για παραβίαση).</li>
+    </ul>
+
+    <hr class="modal-divider">
+    
+    <h4>Κεφάλαιο 1: Θωράκιση των Συσκευών Σας (Το Θεμέλιο)</h4>
+    <p class="section-intro">Οι συσκευές σας είναι οι πύλες προς την ψηφιακή σας ζωή. Πριν μπορέσετε να ελέγξετε τα δεδομένα σας στο διαδίκτυο, πρέπει να βεβαιωθείτε ότι αυτές οι πύλες είναι καλά κλειδωμένες. Αυτά είναι θεμελιώδη, αδιαπραγμάτευτα βήματα.</p>
+    <ul>
+        <li><b>Ισχυρό Κλείδωμα Οθόνης με Βιομετρική Προστασία:</b> Η κύρια άμυνά σας έναντι της φυσικής πρόσβασης.
+            <ul>
+                <li>Χρησιμοποιήστε Face ID/Touch ID (iOS) ή Δακτυλικό Αποτύπωμα/Ξεκλείδωμα με Πρόσωπο (Android) που υποστηρίζεται από έναν ισχυρό **αλφαριθμητικό κωδικό πρόσβασης** (χρησιμοποιεί γράμματα *και* αριθμούς), όχι απλώς ένα 4-ψήφιο ή 6-ψήφιο PIN.
+                <blockquote>
+                    <b>Τροφή για σκέψη:</b> Ένα 6-ψήφιο PIN έχει 1 εκατομμύριο συνδυασμούς. Ένας 6-ψήφιος αλφαριθμητικός κωδικός (γράμματα + αριθμοί) έχει πάνω από **2 δισεκατομμύρια** συνδυασμούς. Είναι δραματικά πιο δύσκολο να τον μαντέψει κανείς.
+                </blockquote>
+                </li>
+                <li>Ορίστε τον χρόνο αυτόματου κλειδώματος σε `1 Λεπτό` ή λιγότερο.</li>
+            </ul>
+        <b>Γιατί:</b> Ένα ξεκλείδωτο τηλέφωνο είναι ένα ανοιχτό θησαυροφυλάκιο. Ένας ισχυρός κωδικός και ο γρήγορος χρόνος κλειδώματος είναι τα πιο αποτελεσματικά αποτρεπτικά μέσα εάν η συσκευή σας κλαπεί.</li>
+        <li><b>Ενεργοποίηση Ελέγχου Ταυτότητας Δύο Παραγόντων (2FA) Παντού:</b> Το πιο αποτελεσματικό εργαλείο ενάντια στην κατάληψη λογαριασμών.
+            <ul>
+                <li><b>Ασφαλίστε τον Κύριο Λογαριασμό σας (Apple/Google):</b> Αυτό είναι το κλειδί για το βασίλειό σας. Αν ένας χάκερ το αποκτήσει, μπορεί να επαναφέρει όλους τους άλλους κωδικούς σας.
+                     <div class="os-path"><b>iOS:</b> `Ρυθμίσεις` → `[Το Όνομά σας]` → `Σύνδεση και ασφάλεια` → `Έλεγχος ταυτότητας δύο παραγόντων`.</div>
+                     <div class="os-path"><b>Android:</b> `Ρυθμίσεις` → `Google` → `Διαχείριση του Λογαριασμού σας Google` → `Ασφάλεια` → `Επαλήθευση σε 2 βήματα`.</div>
+                </li>
+                <li><b>Χρήση Εφαρμογών Authenticator (Όχι SMS!):</b> Δώστε προτεραιότητα σε μια εφαρμογή authenticator (π.χ., Authy, Google Authenticator) έναντι του 2FA που βασίζεται σε SMS.
+                <blockquote>
+                    <b>Τι είναι μια εφαρμογή authenticator;</b> Είναι μια απλή εφαρμογή στο τηλέφωνό σας που δημιουργεί έναν νέο, προσωρινό 6-ψήφιο κωδικό κάθε 30 δευτερόλεπτα για κάθε λογαριασμό σας. Είναι σαν ένα ψηφιακό κλειδί που αλλάζει συνεχώς και παραμένει ασφαλές στη συσκευή σας.
+                    <br><br>
+                    <b>Γιατί είναι κακό το SMS;</b> Είναι ευάλωτο στο "SIM Swapping". Αυτή είναι μια επίθεση όπου ένας χάκερ τηλεφωνεί στον πάροχό σας (π.χ. Cosmote, Vodafone) και τον ξεγελά ώστε να μεταφέρει τον *δικό σας* αριθμό τηλεφώνου στη *δική του* κάρτα SIM. Τότε, ο χάκερ λαμβάνει όλους τους κωδικούς 2FA SMS και μπορεί να σας κλειδώσει έξω από τη ζωή σας.
+                </blockquote>
+                </li>
+            </ul>
+        <b>Γιατί:</b> Οι κωδικοί πρόσβασης μπορούν να κλαπούν. Το 2FA σημαίνει ότι ακόμη και με τον κωδικό σας, ένας χάκερ δεν μπορεί να εισέλθει χωρίς τη φυσική σας συσκευή.</li>
+        <li><b>Αυτοματοποιήστε τις Ενημερώσεις σας:</b> Οι ενημερώσεις διορθώνουν ευπάθειες ασφάλειας και απορρήτου.
+            <ul>
+                <li>Ενεργοποιήστε τις αυτόματες ενημερώσεις ΛΣ και εφαρμογών στις ρυθμίσεις της συσκευής σας. Αυτό είναι το ψηφιακό σας ανοσοποιητικό σύστημα.
+                <blockquote>
+                    <b>Παρομοίωση:</b> Η χρήση μη ενημερωμένου λογισμικού είναι σαν να κυκλοφορείτε με μια τρύπα στην πανοπλία σας. Οι χάκερ *ξέρουν* πού είναι αυτή η τρύπα. Μια ενημέρωση είναι μια δωρεάν επιδιόρθωση που κλείνει την τρύπα πριν δεχτείτε επίθεση.
+                </blockquote>
+                </li>
+            </ul>
+        <b>Γιατί:</b> Είναι ο πιο συνηθισμένος τρόπος εξάπλωσης κακόβουλου λογισμικού. Μην το κάνετε εύκολο για τους κακούς.</li>
+        <li><b>Χρήση Ασφαλούς DNS:</b> Από προεπιλογή, ο Πάροχος Υπηρεσιών Διαδικτύου (ISP) μπορεί να δει κάθε ιστότοπο που επισκέπτεστε. Ένα ιδιωτικό DNS κρυπτογραφεί αυτή την κίνηση.
+             <ul>
+                <li><b>Τι να χρησιμοποιήσετε:</b> Υπηρεσίες όπως το Quad9 (9.9.9.9) ή το Cloudflare (1.1.1.1) προσφέρουν δωρεάν, ιδιωτικό DNS.
+                <blockquote>
+                    <b>Παρομοίωση:</b> Ο ISP σας είναι σαν ένας παλιομοδίτικος τηλεφωνητής που κρατάει αρχείο με *κάθε νούμερο* που καλείτε (κάθε ιστότοπο που επισκέπτεστε). Ένα Ασφαλές DNS είναι σαν ένας ιδιωτικός, αυτοματοποιημένος τηλεφωνητής που σας συνδέει *χωρίς* να γράφει τίποτα.
+                </blockquote>
+                </li>
+                <li><b>Πώς να το ρυθμίσετε:</b>
+                    <div class="os-path"><b>iOS:</b> `Ρυθμίσεις` → `Wi-Fi` → πατήστε το `(i)` δίπλα στο δίκτυό σας → `Διαμόρφωση DNS` → `Χειροκίνητα`. Προσθέστε έναν από τους διακομιστές.</div>
+                    <div class="os-path"><b>Android:</b> `Ρυθμίσεις` → `Δίκτυο και διαδίκτυο` → `Ιδιωτικό DNS`. Επιλέξτε `Όνομα κεντρικού υπολογιστή παρόχου ιδιωτικού DNS` και εισαγάγετε `one.one.one.one` (για το Cloudflare) ή `dns.quad9.net` (για το Quad9).</div>
+                </li>
+            </ul>
+        <b>Γιατί:</b> Αυτό εμποδίζει τον ISP σας από την καταγραφή και πώληση του ιστορικού περιήγησής σας. Είναι μια απλή και ισχυρή βελτίωση του απορρήτου.</li>
+         <li><b>Χρήση Λειτουργιών Υψηλής Ασφάλειας Όταν Χρειάζεται:</b> Για καταστάσεις όπου αισθάνεστε ότι μπορεί να στοχοποιηθείτε συγκεκριμένα.
+            <ul>
+                <li><b>Λειτουργία Απομόνωσης (iOS):</b> Αυτή είναι μια ακραία, προαιρετική προστασία που περιορίζει σοβαρά τις εφαρμογές και τις λειτουργίες (όπως τα συνημμένα σε μηνύματα και πολύπλοκες τεχνολογίες web).
+                <blockquote><b>Πότε να τη χρησιμοποιήσετε:</b> Δεν είναι για καθημερινή χρήση. Είναι σχεδιασμένη για άτομα υψηλού κινδύνου, όπως δημοσιογράφους, ακτιβιστές ή πολιτικούς που μπορεί να στοχοποιηθούν από ισχυρό, ακριβό spyware.</blockquote>
+                    <div class="os-path"><b>iOS:</b> `Ρυθμίσεις` → `Απόρρητο & Ασφάλεια` → `Λειτουργία Απομόνωσης`.</div>
+                </li>
+                <li><b>Λειτουργία Συντήρησης (Android):</b> Πολλά τηλέφωνα Android προσφέρουν τώρα αυτή τη λειτουργία. Δημιουργεί ένα προσωρινό, ξεχωριστό προφίλ χρήστη, προστατεύοντας τα προσωπικά σας δεδομένα όταν το τηλέφωνό σας επισκευάζεται.
+                <blockquote><b>Πότε να τη χρησιμοποιήσετε:</b> Αυτό είναι για μια πολύ συνηθισμένη κατάσταση! Χρησιμοποιήστε το *κάθε φορά* που δίνετε το τηλέφωνό σας σε τεχνικό σε κατάστημα επισκευής. Κρύβει όλες τις φωτογραφίες, τα μηνύματα, τις τραπεζικές εφαρμογές και τις επαφές σας.</blockquote>
+                    <div class="os-path"><b>Android (Samsung):</b> `Ρυθμίσεις` → `Φροντίδα μπαταρίας και συσκευής` → `Λειτουργία συντήρησης`.</div>
+                </li>
+            </ul>
+        <b>Γιατί:</b> Αυτές οι εξειδικευμένες λειτουργίες προσφέρουν ένα επιπλέον επίπεδο προστασίας για τα δεδομένα σας κατά τη διάρκεια ευάλωτων καταστάσεων, όπως η διέλευση συνόρων ή η παράδοση της συσκευής σας για επισκευή.</li>
+    </ul>
+
+    <hr class="modal-divider">
+    
+    <h4>Κεφάλαιο 2: Έλεγχος της Ροής Δεδομένων Σας (Καθημερινές Συνήθειες)</h4>
+    <p class="section-intro">Το απόρρητο δεν είναι μια ρύθμιση, αλλά μια συνήθεια. Οι καθημερινές σας επιλογές σχετικά με τις υπηρεσίες που χρησιμοποιείτε και πώς τις χρησιμοποιείτε έχουν τον μεγαλύτερο αντίκτυπο στο απόρρητό σας.</p>
+    <div class="note note-danger"><b><span>ΚΡΙΣΙΜΗ ΠΡΟΕΙΔΟΠΟΙΗΣΗ: ΤΟ ΔΗΜΟΣΙΟ WI-FI ΕΙΝΑΙ ΕΧΘΡΙΚΟ ΔΙΚΤΥΟ!</span></b> Αντιμετωπίστε οποιοδήποτε Wi-Fi δεν ελέγχετε (σε καφετέρια, αεροδρόμιο ή ξενοδοχείο) ως παραβιασμένο.
+    <blockquote>
+        <b>Παρομοίωση:</b> Η χρήση δημόσιου Wi-Fi είναι σαν να φωνάζετε τον αριθμό της πιστωτικής σας κάρτας σε ένα γεμάτο, θορυβώδες δωμάτιο. Οποιοσδήποτε κοντά μπορεί να "ακούσει" τα μη κρυπτογραφημένα δεδομένα σας. Ένα **VPN (Εικονικό Ιδιωτικό Δίκτυο)** χτίζει ένα ιδιωτικό, ηχομονωμένο τούνελ μέσα από αυτό το δωμάτιο, κρυπτογραφώντας τη σύνδεσή σας και κρύβοντας τη δραστηριότητά σας από τους κατασκόπους.
+    </blockquote>
+    Χρησιμοποιήστε ένα αξιόπιστο VPN για να παραμείνετε ασφαλείς.
+    </div>
+    <ul>
+        <li><b>Επιλέξτε Υπηρεσίες που Σέβονται το Απόρρητο:</b> Προτιμήστε υπηρεσίες που έχουν σχεδιαστεί για να προστατεύουν το απόρρητό σας, όχι για να εκμεταλλεύονται τα δεδομένα σας.
+            <ul>
+                <li><b>Ανταλλαγή Μηνυμάτων:</b> Χρησιμοποιήστε έναν κρυπτογραφημένο από άκρο σε άκρο (E2EE) messenger όπως το **Signal** αντί για τα παραδοσιακά SMS ή το Facebook Messenger.
+                <blockquote><b>Τι είναι το E2EE;</b> Σημαίνει ότι το μήνυμα "κλειδώνεται" σε ένα κουτί στο τηλέφωνό σας, και μόνο το άτομο στο οποίο το στέλνετε έχει το "κλειδί" για να το ξεκλειδώσει και να το διαβάσει. Ούτε καν η εταιρεία (όπως η Signal) δεν μπορεί να δει τι λέτε. Το SMS είναι σαν μια ταχυδρομική κάρτα—όποιος το χειρίζεται μπορεί να το διαβάσει.</blockquote>
+                </li>
+                <li><b>Email:</b> Για ευαίσθητες επικοινωνίες, χρησιμοποιήστε έναν πάροχο email E2EE όπως το **ProtonMail** ή το **Tutanota** αντί για υπηρεσίες που σαρώνουν τα email σας για διαφημιστικά δεδομένα.</li>
+                <li><b>Πρόγραμμα Περιήγησης:</b> Χρησιμοποιήστε τον **Brave** ή τον **Firefox Focus**, που έχουν ισχυρή, ενσωματωμένη προστασία από την παρακολούθηση. Στον υπολογιστή, ο Firefox με την επέκταση uBlock Origin είναι εξαιρετικός.</li>
+                <li><b>Μηχανή Αναζήτησης:</b> Χρησιμοποιήστε το **DuckDuckGo** ή το **Brave Search**, τα οποία δεν δημιουργούν προφίλ του ιστορικού αναζήτησής σας.
+                <blockquote><b>Γιατί διαφέρει από τη Google;</b> Η Αναζήτηση Google παρακολουθεί ό,τι ψάχνετε και χτίζει ένα λεπτομερές προφίλ των ενδιαφερόντων, των ανησυχιών για την υγεία και των πεποιθήσεών σας για να πουλήσει στοχευμένες διαφημίσεις. Το DuckDuckGo είναι σαν μια μηχανή αναζήτησης με αμνησία - απαντά στην ερώτησή σας και ξεχνά αμέσως ότι ρωτήσατε ποτέ.</blockquote>
+                </li>
+            </ul>
+        <b>Γιατί:</b> Το επιχειρηματικό μοντέλο πολλών δωρεάν υπηρεσιών *είναι* τα δεδομένα σας. Η επιλογή εναλλακτικών με επιχειρηματικά μοντέλα που εστιάζουν στο απόρρητο αλλάζει θεμελιωδώς το ποιος έχει τον έλεγχο.</li>
+        <li><b>Έλεγχος Εφαρμογών: Γίνετε ο Πορτιέρης:</b> Κάθε εφαρμογή που εγκαθιστάτε είναι μια πιθανή διαρροή δεδομένων.
+            <ul>
+                <li><b>Διαβάστε τις Ετικέτες Απορρήτου:</b> Πριν από τη λήψη, ελέγξτε την ετικέτα απορρήτου "διατροφικού τύπου" στο App Store ή την ενότητα "Ασφάλεια δεδομένων" στο Google Play. Δώστε ιδιαίτερη προσοχή στα "Δεδομένα που κοινοποιούνται σε τρίτους" ή "Δεδομένα που χρησιμοποιούνται για την παρακολούθησή σας".</li>
+                <li><b>Μείνετε στα Επίσημα Καταστήματα:</b> Η «πλευρική φόρτωση» (sideloading) εφαρμογών (η εγκατάστασή τους από έναν ιστότοπο, όχι από το επίσημο App/Play Store) αυξάνει δραματικά τον κίνδυνο.
+                <blockquote><b>Παρομοίωση:</b> Το Sideloading είναι σαν να βρίσκεις ένα τυχαίο, χωρίς ετικέτα μπουκάλι στο δρόμο και να πίνεις από αυτό. Είναι απίστευτα ριψοκίνδυνο. Μείνετε στα επίσημα καταστήματα, τα οποία (ως επί το πλείστον) ελέγχονται για κακόβουλο λογισμικό.</blockquote>
+                </li>
+                <li><b>Να είστε Επιφυλακτικοί με τους Κωδικούς QR:</b> Ένας κωδικός QR είναι απλώς ένας κρυμμένος σύνδεσμος. Ένας απατεώνας μπορεί εύκολα να βάλει το δικό του κακόβουλο αυτοκόλλητο QR πάνω από ένα αληθινό σε ένα παρκόμετρο ή εστιατόριο. Πάντα ελέγχετε την προεπισκόπηση του URL που δείχνει το τηλέφωνό σας πριν τον επισκεφθείτε.</li>
+            </ul>
+        <b>Γιατί;</b> Η κατανόηση του ποια δεδομένα θα συλλέξει μια εφαρμογή *πριν* την εγκαταστήσετε είναι μια από τις πιο ισχυρές επιλογές απορρήτου που μπορείτε να κάνετε.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Κεφάλαιο 3: Διαχείριση του Ψηφιακού σας Αποτυπώματος</h4>
+    <p class="section-intro">Το ψηφιακό σας αποτύπωμα είναι το ίχνος των δεδομένων που αφήνετε πίσω σας στο διαδίκτυο. Ένα μικρότερο αποτύπωμα σημαίνει λιγότερα δεδομένα που μπορούν να παρακολουθηθούν, να παραβιαστούν ή να πωληθούν. Αυτή είναι μια προληπτική διαδικασία ψηφιακής υγιεινής.</p>
+    <ul>
+        <li><b>Χρήση Ψευδωνύμων και Email μιας Χρήσης:</b> Δεν χρειάζεται να χρησιμοποιείτε την πραγματική σας ταυτότητα για κάθε υπηρεσία.
+            <ul>
+                <li><b>Ψευδώνυμα Email:</b> Χρησιμοποιήστε υπηρεσίες όπως το **SimpleLogin** ή το **AnonAddy** (ή την προστασία email του DuckDuckGo) για να δημιουργήσετε ένα μοναδικό ψευδώνυμο email για κάθε διαδικτυακή υπηρεσία.
+                <blockquote><b>Παρομοίωση:</b> Αυτό είναι σαν να έχετε μια ξεχωριστή ταχυδρομική θυρίδα (P.O. Box) για κάθε κατάστημα και newsletter. Αν η "P.O. Box 123-ShoeStore" αρχίσει να λαμβάνει spam, ξέρετε *ακριβώς* ποιος πούλησε τα δεδομένα σας, και μπορείτε αμέσως να κλείσετε αυτήν την ταχυδρομική θυρίδα χωρίς να επηρεαστεί το πραγματικό, κύριο email σας.</blockquote>
+                </li>
+                <li><b>Πότε να Χρησιμοποιείτε το Πραγματικό σας Όνομα:</b> Χρησιμοποιήστε την πραγματική, κύρια ταυτότητά σας μόνο για επίσημες υπηρεσίες υψηλής εμπιστοσύνης όπως τράπεζες, κυβερνητικές υπηρεσίες και εργασία. Για όλα τα άλλα (social media, newsletters, online αγορές), ένα ψευδώνυμο είναι καλύτερο.</li>
+            </ul>
+        <b>Γιατί:</b> Αυτό εμποδίζει τις εταιρείες να δημιουργήσουν ένα ενοποιημένο προφίλ για εσάς σε διάφορες υπηρεσίες και προστατεύει το κύριο email σας από spam και επιθέσεις phishing.</li>
+        <li><b>Ελέγξτε και Διαγράψτε Παλιούς Λογαριασμούς:</b> Αυτό το παλιό προφίλ κοινωνικής δικτύωσης ή ο λογαριασμός σε φόρουμ που δεν έχετε χρησιμοποιήσει εδώ και μια δεκαετία είναι μια ευθύνη ασφαλείας.
+            <ul>
+                <li><b>Βρείτε Παλιούς Λογαριασμούς:</b> Αναζητήστε στα αρχεία του email σας για φράσεις όπως "καλώς ήρθατε στο," "ο νέος σας λογαριασμός," ή "επαληθεύστε το email σας."</li>
+                <li><b>Διαγράψτε τους:</b> Χρησιμοποιήστε μια πηγή όπως το `JustDelete.me`, το οποίο παρέχει απευθείας συνδέσμους για τη διαγραφή του λογαριασμού σας σε εκατοντάδες υπηρεσίες.
+                <blockquote><b>Γιατί είναι αυτό κίνδυνος;</b> Αυτός ο παλιός, ξεχασμένος λογαριασμός από το 2008 πιθανότατα χρησιμοποιεί έναν κωδικό πρόσβασης που έχετε επαναχρησιμοποιήσει αλλού. Μπορεί επίσης να περιέχει απαντήσεις σε κοινές ερωτήσεις ασφαλείας ("Ποιο ήταν το όνομα του πρώτου σας κατοικίδιου;"). Είναι ένα χρυσωρυχείο για τους χάκερ.</blockquote>
+                </li>
+            </ul>
+        <b>Γιατί:</b> Οι παλιοί, ξεχασμένοι λογαριασμοί είναι πρωταρχικοί στόχοι για τους χάκερ. Η διαγραφή τους εξαλείφει αυτόν τον κίνδυνο.</li>
+        <li><b>Αφαιρέστε τον Εαυτό σας από τους Μεσίτες Δεδομένων:</b> Οι μεσίτες δεδομένων (data brokers) είναι εταιρείες που αγοράζουν και πωλούν τις προσωπικές σας πληροφορίες χωρίς τη γνώση σας.
+            <ul>
+                <li><b>Τι είναι αυτοί;</b> Είναι "αόρατες" εταιρείες που δεν έχετε ακούσει ποτέ. Συλλέγουν δημόσια αρχεία, αγοράζουν το ιστορικό συναλλαγών της πιστωτικής σας κάρτας και παρακολουθούν την περιήγησή σας στο διαδίκτυο για να χτίσουν ένα τεράστιο προφίλ για εσάς (το εισόδημά σας, την υγεία, τις πολιτικές πεποιθήσεις) και στη συνέχεια το πωλούν σε *οποιονδήποτε* πληρώσει—διαφημιστές, απατεώνες, κ.λπ.</li>
+                <li><b>Η Διαδικασία:</b> Αυτή είναι μια δύσκολη, συνεχής διαδικασία. Πρέπει να επισκεφθείτε τον ιστότοπο κάθε μεσίτη δεδομένων και να ακολουθήσετε τη χειροκίνητη διαδικασία εξαίρεσης.</li>
+                <li><b>Εργαλεία που Βοηθούν:</b> Σε ορισμένες περιοχές (όπως οι ΗΠΑ), υπηρεσίες όπως το `Optery` ή το `DeleteMe` μπορούν να αυτοματοποιήσουν αυτή τη διαδικασία έναντι αμοιβής.</li>
+            </ul>
+        <b>Γιατί:</b> Αυτός είναι ένας από τους πιο άμεσους τρόπους για να μειώσετε τις ανεπιθύμητες κλήσεις, την ανεπιθύμητη αλληλογραφία και τον όγκο των προσωπικών σας πληροφοριών που είναι διαθέσιμες σε διαφημιστές, απατεώνες και οποιονδήποτε άλλον θέλει να τις αγοράσει.</li>
+    </ul>
+
+    <hr class="modal-divider">
+    
+    <h4>Κεφάλαιο 4: Προηγμένες Τεχνικές Απορρήτου</h4>
+    <p class="section-intro">Για όσους αναζητούν υψηλότερο επίπεδο απορρήτου, αυτές οι τεχνικές προσφέρουν ισχυρότερη προστασία έναντι εξελιγμένης παρακολούθησης και επιτήρησης.</p>
+    <ul>
+        <li><b>Διαμερισματοποίηση: Μην Αναμειγνύετε τις Ταυτότητές σας:</b> Χρησιμοποιήστε διαφορετικά εργαλεία για διαφορετικές πτυχές της ζωή σας για να αποτρέψετε τη διασταυρούμενη μόλυνση δεδομένων.
+            <ul>
+                <li><b>Προφίλ Περιηγητή:</b> Χρησιμοποιήστε ξεχωριστά προφίλ περιηγητή (ή εντελώς διαφορετικούς περιηγητές) για την εργασία, την προσωπική σας ζωή και την ανώνυμη περιήγηση. Μη συνδέεστε στον προσωπικό σας λογαριασμό Google στον περιηγητή της εργασίας σας.
+                <blockquote><b>Παρομοίωση:</b> Μην "διασταυρώνετε τα ρεύματα". Εάν χρησιμοποιείτε ένα προφίλ περιηγητή συνδεδεμένο στη Google για εργασία, προσωπικές αναζητήσεις και χόμπι, η Google μπορεί να τα συνδέσει όλα μαζί. Η χρήση ξεχωριστών προφίλ είναι σαν να έχετε διαφορετικό πορτοφόλι, διαφορετικά κλειδιά και διαφορετική ταυτότητα για τη δουλειά σας έναντι της προσωπικής σας ζωής.</blockquote>
+                </li>
+                <li><b>Αποκλειστικές Συσκευές:</b> Για εξαιρετικά ευαίσθητη εργασία, ορισμένοι επαγγελματίες χρησιμοποιούν έναν αποκλειστικό φορητό υπολογιστή ή τηλέφωνο που δεν χρησιμοποιείται ποτέ για προσωπικές δραστηριότητες.</li>
+            </ul>
+        <b>Γιατί:</b> Αυτό καθιστά πολύ πιο δύσκολο για τους διαφημιστές και τους συλλέκτες δεδομένων να συνδέσουν τις διαφορετικές σας ταυτότητες και να δημιουργήσουν μια πλήρη εικόνα του ποιοι είστε.</li>
+        <li><b>Καταπολέμηση της Δακτυλοσκόπησης Περιηγητή (Browser Fingerprinting):</b> Αυτή είναι μια τεχνική όπου οι ιστότοποι δημιουργούν ένα μοναδικό αναγνωριστικό για εσάς με βάση τον περιηγητή σας, τις γραμματοσειρές, την ανάλυση οθόνης και άλλες ρυθμίσεις.
+            <ul>
+                <li><b>Πώς να το Καταπολεμήσετε:</b> Οι περιηγητές που εστιάζουν στο απόρρητο, όπως ο **Brave** και ο **Tor Browser**, περιλαμβάνουν ενσωματωμένες τεχνικές τυχαιοποίησης για την αντίσταση στη δακτυλοσκόπηση. Οι τυπικοί περιηγητές σε "ιδιωτική λειτουργία" κάνουν πολύ λίγα για να το σταματήσουν.
+                <blockquote><b>Τι είναι αυτό;</b> Ακόμα κι αν αποκλείσετε τα cookies, ένας ιστότοπος μπορεί να σας αναγνωρίσει από το μοναδικό "δακτυλικό αποτύπωμα" της συσκευής σας - έναν συνδυασμό του μεγέθους της οθόνης σας, των εγκατεστημένων γραμματοσειρών, της έκδοσης του προγράμματος περιήγησής σας και δεκάδων άλλων μικρών λεπτομερειών. Ο Brave και ο Tor "θολώνουν" αυτό το αποτύπωμα κάνοντάς σας να φαίνεστε ίδιοι με όλους τους άλλους χρήστες τους.</blockquote>
+                </li>
+            </ul>
+        <b>Γιατί:</b> Η δακτυλοσκόπηση επιτρέπει στους ιστότοποι να σας παρακολουθούν σε όλο τον ιστό, ακόμη κι αν καθαρίζετε τα cookies σας ή χρησιμοποιείτε VPN.</li>
+        <li><b>Επίτευξη Ανωνυμίας με το Tor:</b> Για καταστάσεις όπου πρέπει να προστατεύσετε όχι μόνο τα δεδομένα σας αλλά και την ίδια την ταυτότητά σας.
+            <ul>
+                <li><b>Τι είναι:</b> Ο **Tor Browser** δρομολογεί την κίνηση του διαδικτύου σας μέσω ενός εθελοντικού δικτύου αναμεταδοτών (relays), καθιστώντας εξαιρετικά δύσκολο για οποιονδήποτε να ανιχνεύσει τη δραστηριότητά σας πίσω σε εσάς.</li>
+                <li><b>Πότε να το χρησιμοποιήσετε:</b> Για ευαίσθητη έρευνα, δημοσιογραφία ή πρόσβαση σε πληροφορίες σε μια χώρα με λογοκρισία. Δεν είναι για καθημερινή περιήγηση, καθώς μπορεί να είναι αργό.
+                <blockquote><b>VPN vs. Tor:</b> Με ένα **VPN**, ο ISP σας δεν μπορεί να δει την κίνησή σας, αλλά ο πάροχος VPN *μπορεί* (τον εμπιστεύεστε). Με το **Tor**, η κίνησή σας αναπηδά μεταξύ 3 τυχαίων "αναμεταδοτών" (εθελοντικοί υπολογιστές). Ο 1ος αναμεταδότης ξέρει ποιοι είστε, αλλά όχι πού πηγαίνετε. Ο 3ος αναμεταδότης ξέρει πού πηγαίνετε, αλλά όχι ποιοι είστε. Κανένα μεμονωμένο σημείο στο δίκτυο δεν γνωρίζει ολόκληρη την ιστορία.</blockquote>
+                </li>
+            </ul>
+        <b>Γιατί:</b> Ενώ ένα VPN προστατεύει τα δεδομένα σας από τον ISP σας, ο πάροχος VPN μπορεί ακόμα να δει τη δραστηριότητά σας. Το Tor είναι σχεδιασμένο έτσι ώστε κανένα μεμονωμένο σημείο στο δίκτυο να μην γνωρίζει ταυτόχρονα ποιοι είστε και πού πηγαίνετε.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Κεφάλαιο 5: Μοντελοποίηση Απειλών & Σενάρια Πραγματικού Κόσμου</h4>
+    <p class="section-intro">Το απόρρητο δεν είναι ένα μέγεθος που ταιριάζει σε όλους. Το προσωπικό σας "μοντέλο απειλών" σας βοηθά να αποφασίσετε πόση προστασία χρειάζεστε πραγματικά. Αυτή η ενότητα καλύπτει επίσης σχέδια για συγκεκριμένες, υψηλού κινδύνου καταστάσεις.</p>
+    <ul>
+        <li><b>Καθορίστε το Μοντέλο Απειλών σας:</b> Ρωτήστε τον εαυτό σας τρεις απλές ερωτήσεις:
+            <ol>
+                <li><b>Τι θέλω να προστατεύσω;</b> (π.χ., την τοποθεσία μου, τα οικονομικά μου δεδομένα, τις ιδιωτικές μου συνομιλίες)</li>
+                <li><b>Από ποιον θέλω να το προστατεύσω;</b> (π.χ., διαφημιστές, απατεώνες, έναν περίεργο πρώην σύντροφο, κυβερνητικές υπηρεσίες)</li>
+                <li><b>Πόσο πιθανό είναι ότι θα χρειαστεί να το προστατεύσω;</b> (Είστε ένας απλός πολίτης, δημοσιογράφος, πολιτικός ακτιβιστής;)</li>
+            </ol>
+        <b>Γιατί:</b> Η απάντηση σε αυτές τις ερωτήσεις σας βοηθά να εστιάσετε τις προσπάθειές σας. Ένας απλός πολίτης πρέπει να ανησυχεί για τους μεσίτες δεδομένων και τους απατεώνες (ένα "χαμηλό" μοντέλο απειλής). Ένας δημοσιογράφος που καλύπτει τη διαφθορά χρειάζεται πολύ υψηλότερο επίπεδο προστασίας (ένα "υψηλό" μοντέλο απειλής), όπως η χρήση του Tor και του Signal. Μην εξαντλείστε προσπαθώντας να εφαρμόσετε προστασίες που δεν χρειάζεστε.</li>
+        <li><b>Άμυνα έναντι του SIM Swapping: Ένα PIN SIM:</b> Μια επίθεση όπου ένας χάκερ κλέβει τον αριθμό του τηλεφώνου σας.
+            <ul>
+                <li><b>Η Καλύτερη Άμυνα: Ένα PIN SIM.</b> Αυτό είναι ένα PIN για τη φυσική σας κάρτα SIM, ξεχωριστό από το κλείδωμα οθόνης του τηλεφώνου σας.
+                    <div class="os-path"><b>iOS:</b> `Ρυθμίσεις` → `Κινητά δεδομένα` → `PIN SIM`.</div>
+                    <div class="os-path"><b>Android:</b> `Ρυθμίσεις` → `Ασφάλεια και απόρρητο` → `Περισσότερη ασφάλεια και απόρρητο` → `Ρύθμιση κλειδώματος κάρτας SIM`.</div>
+                </li>
+            </ul>
+        <b>Γιατί:</b> Ένας χάκερ ξεγελά το προσωπικό υποστήριξης του παρόχου κινητής τηλεφωνίας σας και μεταφέρουν τον αριθμό σας στην κάρτα SIM του χάκερ. **ΟΜΩΣ**, αν έχετε PIN SIM, αυτή η κάρτα SIM είναι *άχρηστη* για τον χάκερ. Όταν την ενεργοποιήσει, το τηλέφωνο θα ζητήσει το PIN SIM, το οποίο δεν γνωρίζει. Αυτή η άμυνα σε επίπεδο υλικού τον σταματά αμέσως.</li>
+        <li><b>Σχέδιο για Χαμένο ή Κλεμμένο Τηλέφωνο:</b> Ενεργοποιήστε τις δυνατότητες απομακρυσμένου εντοπισμού και διαγραφής του τηλεφώνου σας *πριν* χαθεί.
+            <ul>
+                <li><b>Ενεργοποίηση Υπηρεσιών Εύρεσης:</b>
+                    <div class="os-path"><b>iOS:</b> Βεβαιωθείτε ότι το `Ρυθμίσεις` → `[Το Όνομά σας]` → `Εύρεση` → `Εύρεση iPhone` είναι ΕΝΕΡΓΟ.</div>
+                    <div class="os-path"><b>Android:</b> Βεβαιωθείτε ότι το `Ρυθμίσεις` → `Ασφάλεια και απόρρητο` → `Εύρεση της συσκευής μου` είναι ΕΝΕΡΓΟ.</div>
+                </li>
+                <li><b>Τι να Κάνετε:</b> Εάν το τηλέφωνό σας χαθεί, *αμέσως* χρησιμοποιήστε οποιονδήποτε περιηγητή για να μεταβείτε στο `icloud.com/find` (iOS) ή `google.com/android/find` (Android). Από εκεί μπορείτε να το εντοπίσετε, να το κλειδώσετε (και να εμφανίσετε ένα μήνυμα "παρακαλώ επιστρέψτε") ή, ως έσχατη λύση, να διαγράψετε εξ αποστάσεως όλα τα δεδομένα σας.</li>
+            </ul>
+        <b>Γιατί:</b> Αυτή η λειτουργία είναι ο μόνος τρόπος για να ανακτήσετε τον έλεγχο μετά από φυσική απώλεια. Εάν περιμένετε μέχρι να χαθεί, είναι πολύ αργά για να την ενεργοποιήσετε.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Κεφάλαιο 6: Απόρρητο στον Φυσικό Κόσμο & το Έξυπνο Σπίτι</h4>
+    <p class="section-intro">Το ψηφιακό απόρρητο δεν έχει νόημα αν διαρρέετε δεδομένα στον φυσικό κόσμο. Οι έξυπνες συσκευές σας και οι δημόσιες συνήθειές σας αποτελούν ένα συχνά παραμελημένο μέρος του αποτυπώματος του απορρήτου σας.</p>
+     <ul>
+        <li><b>Ασφαλίστε το Έξυπνο Σπίτι σας (IoT):</b> Κάθε «έξυπνη» συσκευή είναι μια πιθανή συσκευή ακρόασης ή αισθητήρας δεδομένων συνδεδεμένος στο διαδίκτυο.
+            <ul>
+                <li><b>Απομονώστε τις Συσκευές IoT σε ένα "Δίκτυο Επισκεπτών":</b> Εάν ο δρομολογητής σας το υποστηρίζει, δημιουργήστε ένα δίκτυο Wi-Fi "Επισκεπτών" (Guest Network) και συνδέστε όλες τις έξυπνες συσκευές σας (τηλεοράσεις, ηχεία, λάμπες, κάμερες) σε αυτό. Κρατήστε το τηλέφωνο, τους φορητούς υπολογιστές και τους κύριους υπολογιστές σας στο κύριο δίκτυο.
+                <blockquote><b>Γιατί;</b> Το "Δίκτυο Επισκεπτών" σας λειτουργεί σαν ένα ψηφιακό τείχος προστασίας (firewall). Εάν ένας χάκερ παραβιάσει τη φθηνή έξυπνη πρίζα σας (που βρίσκεται στο δίκτυο επισκεπτών), αυτό το τείχος προστασίας τον εμποδίζει να "δει" ή να επιτεθεί στον σημαντικό φορητό υπολογιστή σας (που βρίσκεται στο κύριο δίκτυο).</blockquote>
+                </li>
+                <li><b>Διαχειριστείτε τα Μικρόφωνα:</b> Σιγάστε το μικρόφωνο στα έξυπνα ηχεία και την έξυπνη τηλεόρασή σας όταν δεν τα χρησιμοποιείτε. Να γνωρίζετε ότι *πάντα* ακούνε για μια «λέξη αφύπνισης».</li>
+                <li><b>Έρευνα Πριν την Αγορά:</b> Πριν αγοράσετε μια νέα έξυπνη συσκευή, ερευνήστε την πολιτική απορρήτου του κατασκευαστή και το ιστορικό ασφαλείας του.</li>
+            </ul>
+        </li>
+        <li><b>Εφαρμόστε Υγιεινή Φυσικού Απορρήτου:</b> Οι πράξεις σας δημοσίως έχουν σημασία.
+            <ul>
+                <li><b>Προστατευτείτε από το "Shoulder Surfing" (Κοίταγμα πάνω από τον ώμο):</b> Να έχετε επίγνωση του περιβάλλοντός σας όταν εισάγετε PIN ή κωδικούς. Χρησιμοποιήστε ένα προστατευτικό οθόνης απορρήτου στο τηλέφωνο και τον φορητό υπολογιστή σας όταν βρίσκεστε σε δημόσιους χώρους όπως αεροπλάνα ή καφετέριες.</li>
+                <li><b>Αποφύγετε τις Δημόσιες Θύρες Φόρτισης USB:</b> Μια παραβιασμένη δημόσια θύρα USB μπορεί να εγκαταστήσει κακόβουλο λογισμικό στη συσκευή σας σε μια επίθεση που ονομάζεται "Juice Jacking".
+                <blockquote><b>Τι είναι το Juice Jacking;</b> Ένας χάκερ μπορεί να κρύψει έναν μικροσκοπικό υπολογιστή *μέσα* σε μια δημόσια θύρα φόρτισης USB (όπως σε ένα αεροδρόμιο). Όταν συνδέετε το καλώδιο, οι "ακίδες δεδομένων" (data pins) στο καλώδιο χρησιμοποιούνται για να εγκαταστήσουν κρυφά κακόβουλο λογισμικό ή να κλέψουν τα αρχεία σας. Πάντα να χρησιμοποιείτε τον δικό σας μετασχηματιστή AC και να συνδέεστε σε πρίζα τοίχου, ή να χρησιμοποιείτε έναν "USB data blocker" (έναν μικρό, φθηνό προσαρμογέα που μπλοκάρει φυσικά τις ακίδες δεδομένων, επιτρέποντας μόνο στο ρεύμα να περάσει).</blockquote>
+                </li>
+                <li><b>Βιομετρικά vs. Κωδικοί:</b> Κατανοήστε τις νομικές διαφορές. Σε ορισμένες δικαιοδοσίες, οι αρχές επιβολής του νόμου μπορεί να σας αναγκάσουν να ξεκλειδώσετε μια συσκευή με το πρόσωπο ή το δακτυλικό σας αποτύπωμα, αλλά δεν μπορούν να σας αναγκάσουν να αποκαλύψετε έναν απομνημονευμένο κωδικό (καθώς είναι "στο μυαλό σας").</li>
+            </ul>
+            <b>Γιατί:</b> Ισχυρές ψηφιακές άμυνες μπορούν να παρακαμφθούν πλήρως εάν ένας εισβολέας μπορεί απλά να σας παρακολουθήσει να πληκτρολογείτε τον κωδικό σας ή να αποκτήσει πρόσβαση μέσω μιας παραβιασμένης θύρας φόρτισης.</li>
+    </ul>
+
+    <hr class="modal-divider">
+    
+    <h4>Κεφάλαιο 7: Το Ταξίδι του Απορρήτου</h4>
+    <p class="section-intro">Το απόρρητο δεν είναι ένας προορισμός στον οποίο φτάνεις· είναι ένα συνεχές ταξίδι. Η τεχνολογία και οι απειλές εξελίσσονται, και το ίδιο πρέπει να κάνουν και οι πρακτικές σας. Μείνετε ενημερωμένοι, να είστε σκόπιμοι στις επιλογές σας και να κάνετε το απόρρητο ένα συνειδητό μέρος της ψηφιακής σας ζωής.</p>
+    <ul>
+        <li><b>Ξεκινήστε από τα Μικρά και με Συνέπεια:</b> Δεν χρειάζεται να τα κάνετε όλα από αυτή τη λίστα σήμερα. Μην αγχώνεστε. Αυτό δεν είναι τεστ.
+        <blockquote><b>Αναλάβετε Δράση:</b> Απλώς κάντε *ένα πράγμα* αυτή την εβδομάδα. Πηγαίνετε και ενεργοποιήστε το 2FA στον κύριο λογαριασμό email σας. Αυτή είναι μια τεράστια νίκη. Την επόμενη εβδομάδα, διαγράψτε τρεις παλιούς λογαριασμούς. Μικρά, συνεπή βήματα οδηγούν σε τεράστιες μακροπρόθεσμες βελτιώσεις. Το απόρρητο είναι μαραθώνιος, όχι σπριντ.</blockquote>
+        </li>
+        <li><b>Μείνετε Ενημερωμένοι:</b> Ακολουθήστε πηγές ειδήσεων ή ιστολόγια που εστιάζουν στο απόρρητο για να παραμένετε ενήμεροι για νέες απειλές και εργαλεία. Η γνώση είναι η καλύτερη άμυνά σας έναντι του συνεχώς μεταβαλλόμενου τοπίου της ψηφιακής επιτήρησης.</li>
+        <li><b>Μοιραστείτε τις Γνώσεις σας:</b> Όσο περισσότεροι άνθρωποι εκτιμούν και εφαρμόζουν καλές πρακτικές απορρήτου, τόσο περισσότερο οι εταιρείες θα αναγκάζονται να προσφέρουν υπηρεσίες που σέβονται το απόρρητο. Βοηθήστε τους φίλους και την οικογένειά σας να ασφαλίσουν τους λογαριασμούς τους. Μια πιο ιδιωτική κοινωνία ωφελεί όλους.</li>
+    </ul>
+</div>
+
+</body>
+</html>
