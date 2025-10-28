@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How To Download A GitHub Repository</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        function copyToClipboard(button, elementId) {
+            const codeElement = document.getElementById(elementId);
+            const textToCopy = codeElement.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = button.innerText;
+                button.innerText = 'Copied!';
+                setTimeout(() => {
+                    button.innerText = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</head>
+<body class="dark-theme"> <div data-lang-section="en">
+    <h3>How To Download A GitHub Repository</h3>
+    <p>Here are the primary methods for downloading a project from GitHub onto your computer or Android device.</p>
+
+    <h4>On PC / Desktop</h4>
+    <ol>
+        <li><b>Using Git (Recommended):</b> This is the best method if you plan to get updates. You need to have Git installed on your system.
+            <ol>
+                <li>Go to the GitHub repository page.</li>
+                <li>Click the green 'Code' button.</li>
+                <li>Copy the HTTPS URL provided.</li>
+                <li>Open a terminal or command prompt and run the following command:</li>
+            </ol>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyToClipboard(this, 'clone_repo_en_pc')">Copy</button>
+                <code id="clone_repo_en_pc">git clone COPIED_URL_HERE</code>
+            </div>
+        </li>
+        <li><b>Downloading the ZIP file:</b> This method is simpler but won't allow you to easily update the project later.
+            <ol>
+                <li>Go to the GitHub repository page.</li>
+                <li>Click the green 'Code' button.</li>
+                <li>Click 'Download ZIP'.</li>
+                <li>Save the file and then extract it to your desired location.</li>
+            </ol>
+        </li>
+    </ol>
+
+    <h4>On Android</h4>
+    <ol>
+        <li><b>Using Termux (Recommended):</b> This method allows for easy updates using Git.
+            <ol>
+                <li>First, install Git in Termux:
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'install_git_termux')">Copy</button>
+                        <code id="install_git_termux">pkg install git</code>
+                    </div>
+                </li>
+                <li>Then, clone the repository using its URL:
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'clone_repo_en_termux')">Copy</button>
+                        <code id="clone_repo_en_termux">git clone COPIED_URL_HERE</code>
+                    </div>
+                </li>
+            </ol>
+        </li>
+        <li><b>Downloading the ZIP file (Simple Method):</b> Use this method if you do not have Termux.
+            <ol>
+                <li>Open a web browser on your Android device and go to the GitHub repository page.</li>
+                <li>Click the green 'Code' button, then click 'Download ZIP'.</li>
+                <li>Your browser will download the file, usually to your 'Downloads' folder.</li>
+                <li>Use a file manager app (e.g., Files by Google) to find the downloaded ZIP file.</li>
+                <li>Tap on the ZIP file to extract its contents.</li>
+            </ol>
+        </li>
+    </ol>
+</div>
+
+<div data-lang-section="gr" style="display:none;">
+    <h3>Πώς να Κατεβάσετε Ένα Αποθετήριο GitHub</h3>
+    <p>Παρακάτω είναι οι κύριες μέθοδοι για να κατεβάσετε ένα έργο από το GitHub στον υπολογιστή σας ή στη συσκευή σας Android.</p>
+
+    <h4>Σε PC / Desktop</h4>
+    <ol>
+        <li><b>Με χρήση Git (Προτείνεται):</b> Αυτή είναι η καλύτερη μέθοδος αν σκοπεύετε να λαμβάνετε ενημερώσεις. Πρέπει να έχετε εγκατεστημένο το Git στο σύστημά σας.
+            <ol>
+                <li>Πηγαίνετε στη σελίδα του αποθετηρίου στο GitHub.</li>
+                <li>Κάντε κλικ στο πράσινο κουμπί 'Code'.</li>
+                <li>Αντιγράψτε το HTTPS URL που παρέχεται.</li>
+                <li>Ανοίξτε ένα τερματικό ή γραμμή εντολών και εκτελέστε την παρακάτω εντολή:</li>
+            </ol>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyToClipboard(this, 'clone_repo_gr_pc')">Αντιγραφή</button>
+                <code id="clone_repo_gr_pc">git clone ΑΝΤΙΓΡΑΜΜΕΝΟ_URL_ΕΔΩ</code>
+            </div>
+        </li>
+        <li><b>Λήψη αρχείου ZIP:</b> Αυτή η μέθοδος είναι απλούστερη αλλά δεν σας επιτρέπει να ενημερώσετε εύκολα το έργο αργότερα.
+            <ol>
+                <li>Πηγαίνετε στη σελίδα του αποθετηρίου στο GitHub.</li>
+                <li>Κάντε κλικ στο πράσινο κουμπί 'Code'.</li>
+                <li>Κάντε κλικ στο 'Download ZIP'.</li>
+                <li>Αποθηκεύστε το αρχείο και στη συνέχεια αποσυμπιέστε το στην τοποθεσία που επιθυμείτε.</li>
+            </ol>
+        </li>
+    </ol>
+
+    <h4>Σε Android</h4>
+    <ol>
+        <li><b>Με χρήση Termux (Προτείνεται):</b> Αυτή η μέθοδος επιτρέπει εύκολες ενημερώσεις μέσω του Git.
+            <ol>
+                <li>Πρώτα, εγκαταστήστε το Git στο Termux:
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'install_git_termux_gr')">Αντιγραφή</button>
+                        <code id="install_git_termux_gr">pkg install git</code>
+                    </div>
+                </li>
+                <li>Στη συνέχεια, κλωνοποιήστε το αποθετήριο χρησιμοποιώντας το URL του:
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'clone_repo_gr_termux')">Αντιγραφή</button>
+                        <code id="clone_repo_gr_termux">git clone ΑΝΤΙΓΡΑΜΜΕΝΟ_URL_ΕΔΩ</code>
+                    </div>
+                </li>
+            </ol>
+        </li>
+        <li><b>Λήψη αρχείου ZIP (Απλή Μέθοδος):</b> Χρησιμοποιήστε αυτή τη μέθοodo αν δεν έχετε το Termux.
+            <ol>
+                <li>Ανοίξτε έναν περιηγητή ιστού στη συσκευή σας Android και πηγαίνajte στη σελίδα του αποθετηρίου στο GitHub.</li>
+                <li>Κάντε κλικ στο πράσινο κουμπί 'Code' και στη συνέχεια στο 'Download ZIP'.</li>
+                <li>Ο περιηγητής σας θα κατεβάσει το αρχείο, συνήθως στον φάκελο 'Λήψεις'.</li>
+                <li>Χρησιμοποιήστε μια εφαρμογή διαχείρισης αρχείων (π.χ., Files by Google) για να βρείτε το αρχείο ZIP που κατεβάσατε.</li>
+                <li>Πατήστε πάνω στο αρχείο ZIP για να αποσυμπιέσετε τα περιεχόμενά του.</li>
+            </ol>
+        </li>
+    </ol>
+</div>
+
+</body>
+</html>

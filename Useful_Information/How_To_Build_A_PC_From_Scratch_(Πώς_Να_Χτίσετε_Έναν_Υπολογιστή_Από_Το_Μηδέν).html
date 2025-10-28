@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How To Build A PC From Scratch | Πώς Να Χτίσετε Έναν Υπολογιστή Από Το Μηδέν</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic styling for readability */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .dark-theme {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: #4da6ff;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+        p.section-intro {
+            font-size: 1.1em;
+            font-style: italic;
+            color: #b0b0b0;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 15px;
+        }
+        .os-path {
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 8px 12px;
+            margin: 8px 0;
+            font-family: monospace;
+            font-size: 0.95em;
+            color: #c7c7c7;
+        }
+        .os-path b {
+            color: #68b6ff;
+        }
+        .modal-divider {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(60, 60, 60, 0), rgba(80, 80, 80, 0.75), rgba(60, 60, 60, 0));
+        }
+        .note {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 5px solid;
+        }
+        .note-danger {
+            background-color: #3f1d1d;
+            border-color: #e57373;
+            color: #f7dada;
+        }
+        .note-danger span {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        blockquote {
+            border-left: 4px solid #555;
+            padding-left: 15px;
+            margin-left: 0;
+            font-style: italic;
+            color: #ccc;
+        }
+    </style>
+    
+</head>
+<body class="dark-theme"> <div data-lang-section="en">
+    <h3>How To Build A PC From Scratch</h3>
+
+    <h4>Chapter 0: Before You Begin - Tools & Workspace</h4>
+    
+    <p class="section-intro">Preparation prevents panic. Gathering your tools and setting up a proper workspace is a non-negotiable first step. Building a PC is not difficult, but it requires patience and organization. Think of it as adult Lego, but with a few more rules.</p>
+    
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Essential Toolkit:</b> You don't need a massive toolbox. 99% of a PC build can be done with just one tool. 
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>#2 Phillips Head Screwdriver:</b> This is your main tool. A magnetic tip is a true lifesaver, helping you guide screws into tight places without dropping them.
+                <blockquote><b>Pro-Tip:</b> Do NOT use a powered screwdriver or drill. You can easily overtighten and crack your components. This build is hands-only.</blockquote>
+                </li>
+                <li><b>Cable/Zip Ties or Velcro Straps:</b> For cable management. Your case and motherboard will likely include some, but having extra is always useful.</li>
+                <li><b>Flush Cutters or Scissors:</b> To trim the ends of zip ties.</li>
+                <li><b>Flashlight (or your phone):</b> Cases are dark. You'll need light to see tiny labels.</li>
+            </ul>
+        <b>Why:</b> Having the right tools ready prevents you from getting stuck or, worse, stripping a screw because you used the wrong size screwdriver. It turns a potentially frustrating search into a smooth process.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Workspace Setup:</b> Where you build is as important as how.
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Large, Flat, Non-Conductive Surface:</b> A large wooden or plastic desk is perfect. Avoid building on carpet at all costs to minimize static electricity risk.</li>
+                <li><b>Good Lighting:</b> You need to see tiny labels and pins. Build in a well-lit room.</li>
+                <li><b>Small Bowls or Trays:</b> Use them to hold the dozens of different screws you'll encounter. Do not mix them up! The motherboard manual and case manual will tell you which screw is for what.</li>
+            </ul>
+        <b>Why:</b> An organized workspace leads to an organized build. Keeping screws sorted prevents you from using the wrong one and potentially damaging a component, like using a long screw that punctures the motherboard.</li>
+    </ul>
+    
+    <hr class="modal-divider">
+
+    <h4>Chapter 1: The Blueprint Phase (Component Selection & Compatibility)</h4>
+    <p class="section-intro">This is the most important phase. Smart choices here save money and ensure a balanced, powerful system. Rushing leads to mismatched parts. Plan your build, check it twice, then buy.</p>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Define Your Goal & Budget:</b> First, answer this: What is this PC for? 1080p gaming? 4K video editing? Basic office work? Your answer determines where your budget should go.
+        <blockquote>
+            <b>Analogy:</b> You don't buy a Ferrari just to go grocery shopping, and you don't buy a smart car for a racetrack. For a gaming PC, the Graphics Card (GPU) is the "engine" and should take up the largest portion of your budget. For a video editing PC, the CPU (brain) and RAM (short-term memory) are more critical.
+        </blockquote>
+        <b>Why:</b> Establishing a clear goal prevents you from overspending on parts you don't need or underspending on the parts that matter most.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>CPU & Motherboard Pairing:</b> The CPU is the brain; the Motherboard is the body and nervous system. They have to match perfectly.
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Socket:</b> This is the physical connection, like a key for a specific lock. An AMD CPU with an <code>AM5</code> socket MUST go into a motherboard with an <code>AM5</code> socket. An Intel <code>LGA1700</code> CPU needs an <code>LGA1700</code> motherboard. This is non-negotiable.</li>
+                <li><b>Chipset:</b> This determines the motherboard's features (like how many USB ports or fast storage slots it has). For a basic build, a base-level chipset (like B760) is fine. For overclocking, you'll need a higher-end one (like Z790).</li>
+                <li><b>Form Factor:</b> This is the physical size. <code>ATX</code> (standard), <code>Micro-ATX</code> (shorter), and <code>Mini-ITX</code> (tiny). A tiny Mini-ITX motherboard will fit in a giant ATX case (but look silly), but a big ATX motherboard will *not* physically fit in a Mini-ITX case.</li>
+            </ul>
+        <b>Why:</b> Getting this pairing wrong means your PC will not even turn on. The form factor choice dictates the size of your entire computer.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Power Supply (PSU) Deep Dive:</b> The PSU is the heart of your system. Do not cheap out on it.
+            <blockquote>
+                <b>Analogy:</b> This is the heart *and* the digestive system. It takes raw power from the wall and delivers clean, stable "blood" to every single component. A cheap PSU is like feeding your PC junk food; it might work for a while, but it's unhealthy and can lead to a catastrophic failure.
+            </blockquote>
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Wattage:</b> Use a PSU calculator online to estimate your needs, then add 100W-150W for safety and future upgrades. A 750W-850W PSU is a safe bet for most builds.</li>
+                <li><b>Efficiency Rating:</b> Look for an <code>80 Plus</code> rating. <code>Bronze</code> is the minimum. <code>Gold</code> is the sweet spot for quality and price. This means less electricity is wasted as heat.</li>
+                <li><b>Modularity:</b> <code>Fully Modular</code> is like a Lego set, letting you attach only the cables you need. <code>Non-Modular</code> has a permanent "octopus" of cables, which is harder to manage. <code>Semi-Modular</code> is a good middle ground.</li>
+            </ul>
+            <b>Why:</b> A high-quality PSU delivers stable power, increasing the lifespan of your components. A bad PSU can be inefficient, noisy, and in the worst-case scenario, it can fail and destroy your entire PC.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>The Final Check with PCPartPicker.com:</b> This is your single most important step. Before you spend a single dollar, create a list with all your chosen parts on this website. It is your ultimate safety net. It checks for socket compatibility, RAM compatibility, and physical clearances (e.g., "Will this giant CPU cooler fit in this case?"). Read all the notes and warnings it generates. <b>Why:</b> This free tool has saved countless builders from costly and heartbreaking mistakes. Do not skip this. *Do not skip this.*</li>
+    </ul>
+
+    <hr class="modal-divider">
+    
+    <h4>Chapter 2: The Assembly Line (Step-by-Step Building)</h4>
+    <p class="section-intro">The parts have arrived. Time for the most exciting part. Work slowly, be gentle, and keep your manuals open. We will build the core components on the motherboard first, test them, then move everything into the case.</p>
+    <div class="note note-danger"><b><span>CRITICAL WARNING: STATIC ELECTRICITY!</span></b> Static electricity is the invisible, silent killer of PC components. A small shock you can't even feel (a "zap") can permanently damage your parts.
+        <ul style="list-style-type: disc; padding-left: 20px;">
+            <li><b>DO NOT</b> build on a carpet.</li>
+            <li><b>HOW TO BE SAFE:</b> Before you unwrap or touch *any* component (like your CPU or RAM), just touch the bare metal of your (unplugged) PC case. This instantly "grounds" you and makes you safe. Do this periodically throughout the build.</li>
+        </ul>
+        This is the most important rule of PC building.</div>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Step 1: Motherboard Preparation (Out of Case):</b> Place the motherboard on top of the cardboard box it came in. This is your static-free workstation.
+            <ol style="padding-left: 20px; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Install the CPU:</b> Lift the retention arm on the CPU socket. Notice the small triangle on one corner of the CPU and a matching one on the socket. Align them perfectly. Gently place the CPU into the socket—it should fall into place with *zero force*. DO NOT PUSH. If it doesn't fall in, it's not aligned. Lower the retention arm. It will require some firm pressure, which is normal.</li>
+                <li><b>Install the RAM:</b> Open the clips on the RAM slots. Align the notch on the bottom of the RAM stick with the notch in the slot (it only goes in one way). Push down firmly on both ends of the stick until both clips *click* shut. This requires more force than you think! For two sticks, consult your manual for the correct slots (usually slots A2 and B2, which are the 2nd and 4th from the CPU).</li>
+                <li><b>Install the M.2 SSD:</b> Locate the M.2 slot (it's a tiny slot for your "gumstick" drive). Unscrew the tiny standoff screw. Insert the M.2 drive at an angle, then gently push it down and secure it with the standoff screw. Don't overtighten.</li>
+            </ol>
+        <b>Why do this first?</b> These are the most delicate components and are much easier to install with the motherboard out in the open rather than cramped inside a case.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Step 2: The 'Breadboard' Test Build:</b> This is your pre-flight check or "test launch." With the motherboard still on its box, install the CPU cooler (follow its instructions). Install the GPU into the top long PCIe slot. Connect the main 24-pin and 8-pin power cables from the PSU to the motherboard. Plug the monitor into the GPU. Briefly touch the two 'Power SW' pins on the motherboard *at the same time* with a metal screwdriver to turn it on.
+        <blockquote><b>What is a successful boot?</b> If you see a logo or the BIOS screen, congratulations! This is called a "POST" (Power-On Self-Test). It means your core parts (CPU, RAM, GPU, Mobo) work. Now, unplug everything for the final assembly.</blockquote>
+        <b>Why:</b> Finding a dead component now takes 5 minutes. Finding it after the PC is fully built and cable-managed takes hours and is immensely frustrating.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Step 3: In-Case Assembly:</b> Prepare your case.
+            <ol style="padding-left: 20px; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li>Install the I/O Shield (the sharp, metal plate for your motherboard's ports). It's a rite of passage to forget this. Don't be that person.</li>
+                <li>Install the motherboard standoffs (the brass screws that the motherboard sits on) in the case, matching the holes on your motherboard.</li>
+                <li>Carefully lower your fully assembled motherboard into the case and screw it in.</li>
+                <li>Install the PSU and the GPU.</li>
+            </ol>
+        <b>Why the specific order?</b> The standoffs are CRITICAL. They prevent the motherboard from touching the metal case and shorting out, which would kill it.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Step 4: Connecting All The Wires:</b> The final frontier. This looks like spaghetti. It's okay. Take it one cable at a time. Your manuals are your best friends here.
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Main Power:</b> Connect the large 24-pin cable to the motherboard and the 8-pin (sometimes 4+4) CPU power cable, usually at the top-left of the motherboard.</li>
+                <li><b>GPU Power:</b> Most GPUs need one or more 6+2 pin PCIe power cables from the PSU.</li>
+                <li><b>Case Fans & USB:</b> Connect your fan cables to the <code>SYS_FAN</code> headers and your case's USB cable to the USB header on the motherboard.</li>
+                <li><b>Front Panel Connectors:</b> These are the tiny, annoying ones for your power button (<code>POWER SW</code>), reset button (<code>RESET SW</code>), and LEDs. Consult your motherboard manual for the exact pin layout. They are tiny and frustrating, but you only do this once.</li>
+            </ul>
+        <b>Why it's daunting but important:</b> This step takes patience, but correct connections are vital. A forgotten CPU power cable is one of the most common reasons a new build won't POST.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Chapter 3: The Debugging Bay (Troubleshooting & First Boot)</h4>
+    <p class="section-intro">You press the power button on your fully built PC. This is the "first-time builder panic" moment. Don't panic if nothing happens. 99% of issues are simple, fixable, and *not* a dead part. This is the final exam.</p>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Symptom: Absolutely Nothing Happens (No Fans, No Lights):</b>
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Most Likely Cause:</b> Power is not reaching the motherboard.</li>
+                <li><b>Checklist:</b> 
+                    <ol style="padding-left: 20px;">
+                    <li>Is the PSU power cable plugged securely into the wall and the PSU?</li>
+                    <li>Is the switch on the back of the PSU flipped to the 'I' (On) position? This is the #1 most common mistake. Yes, really. Go check it. We'll wait.</li>
+                    <li>Are the tiny front panel power switch connectors (<code>POWER SW</code>) on the correct pins?</li>
+                    <li>Are the 24-pin motherboard and 8-pin CPU power cables fully seated? (Unplug and replug them).</li>
+                    </ol>
+                </li>
+            </ul></li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Symptom: Fans Spin, Lights Turn On, But No Image on Monitor:</b>
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Most Likely Cause:</b> A core component is not properly seated, or a simple monitor error. This is *the* most common "problem."</li>
+                <li><b>The Big Three Checks:</b> 
+                    <ol style="padding-left: 20px;">
+                    <li><b>Monitor Check:</b> Is the monitor plugged into the **GPU**, not the motherboard's HDMI/DisplayPort? (This is the #2 all-time mistake). Is the monitor turned on and set to the correct input?</li>
+                    <li><b>RAM Check:</b> Power down completely. Reseat your RAM. This means take it out, and push it back in firmly until *both* clips click. This solves the problem 50% of the time.</li>
+                    <li><b>GPU Check:</b> Is the GPU fully seated in its PCIe slot? Did you connect the PCIe power cables from the PSU to it?</li>
+                    </ol>
+                </li>
+            </ul></li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Chapter 4: The Command Center (BIOS, OS, and Drivers)</h4>
+    <p class="section-intro">Your hardware is alive! Now it's time to give it a brain (Operating System) and teach it how to use its muscles (Drivers). This stage is where you unlock the performance you paid for.</p>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Step 1: First BIOS Visit:</b> Power on the PC and repeatedly tap the <code>DEL</code> or <code>F2</code> key to enter the BIOS/UEFI.
+        <blockquote><b>What is this?</b> This is your motherboard's "engine room" or control panel that runs *before* Windows loads. It's where you control the hardware directly.</blockquote>
+            <ol style="padding-left: 20px; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Verify Components:</b> The main screen should show your CPU model, amount of RAM, and connected storage drives. This is a great confirmation that everything is detected.</li>
+                <li><b>Enable XMP/EXPO:</b> Find the setting for 'Extreme Memory Profile' (XMP) or 'Extended Profiles for Overclocking' (EXPO). It might be on the main page. Enable it.</li>
+                <li><b>Set Boot Priority:</b> You'll need to do this after creating your installation USB. Find the 'Boot' menu and set your USB drive as the #1 priority.</li>
+            </ol>
+        <b>Why is XMP/EXPO so important?</b> Without it, your fast 6000MHz RAM will only run at a slow 4800MHz default speed. You paid for fast RAM; this is the "on" switch to get the speed you paid for.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Step 2: OS & Driver Installation:</b> On another computer, use the official Microsoft Media Creation Tool to create a bootable Windows installation USB drive (8GB+). Plug it into your new PC, set it as the boot priority in BIOS, and follow the on-screen prompts to install Windows on your fast M.2 SSD. Once you're at the desktop, you must install drivers.
+            <ol style="padding-left: 20px; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Connect to Internet:</b> Use an Ethernet cable first.</li>
+                <li><b>Chipset Driver:</b> Go to your motherboard's website (e.g., ASUS, Gigabyte) and download the 'Chipset' driver for your model. Install it and restart. This is the "language" your OS needs to talk to the motherboard.</li>
+                <li><b>GPU Driver:</b> Go to NVIDIA or AMD's website and download the correct driver for your graphics card. This is the "brain" for your GPU. Install it and restart.</li>
+                <li><b>Everything Else:</b> Use Windows Update to grab most other drivers.</li>
+            </ol>
+        <b>Why this order?</b> The chipset driver is the most important. Installing it first ensures everything else installs correctly on a stable foundation.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Chapter 5: Final Touches & The Road Ahead</h4>
+    <p class="section-intro">Your PC is fully functional! Now it's time to make sure it's stable, install your software, and learn the habits that will keep it running great for years.</p>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Stress Testing & Benchmarking:</b> Now that drivers are installed, it's time to "test drive" it. A 'stress test' pushes your components to 100% load.
+        <blockquote><b>Analogy:</b> This is like taking your newly built car on a test track to make sure the engine doesn't overheat or the wheels don't fall off at high speed.</blockquote>
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>For CPU:</b> Run a tool like <code>Cinebench</code> a few times in a row.</li>
+                <li><b>For GPU:</b> Run a free benchmarking tool like <code>Unigine Heaven</code> or <code>3DMark Time Spy</code>. Let it run for 15-20 minutes.</li>
+                <li><b>Monitoring:</b> While these tests run, use a tool like <code>HWMonitor</code> to watch your CPU and GPU temperatures. Anything consistently below 85-90°C under full load is generally considered safe.</li>
+            </ul>
+        <b>Why stress test?</b> It confirms your build is stable and your cooling is adequate. It's better to find out about a stability problem now, rather than in the middle of an important game.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Essential Software & Personalization:</b> Your PC is now a blank canvas.
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Web Browser:</b> Install your browser of choice.</li>
+                <li><b>Security:</b> Windows Defender is quite good, but ensure it's running.</li>
+                <li><b>Gaming Platforms:</b> Install Steam, Epic Games Store, etc.</li>
+                <li><b>Personalize:</b> Set your desktop background, organize your icons, and install your favorite apps.</li>
+            </ul>
+        <b>Why this is the best part:</b> You've done it! You've built a PC from scratch. It's a hugely rewarding skill. Now you get to make the PC truly yours. Enjoy your creation!</li>
+    </ul>
+</div>
+
+<div data-lang-section="gr" style="display:none;">
+    <h3>Πώς Να Χτίσετε Έναν Υπολογιστή Από Το Μηδέν</h3>
+    
+    <h4>Κεφάλαιο 0: Πριν Ξεκινήσετε - Εργαλεία & Χώρος Εργασίας</h4>
+    <p class="section-intro">Η προετοιμασία αποτρέπει τον πανικό. Η συγκέντρωση των εργαλείων σας και η διαμόρφωση ενός κατάλληλου χώρου εργασίας είναι ένα αδιαπραγμάτευτο πρώτο βήμα. Η συναρμολόγηση ενός Η/Υ δεν είναι δύσκολη, αλλά απαιτεί υπομονή και οργάνωση. Σκεφτείτε το σαν Lego για ενήλικες, αλλά με μερικούς κανόνες παραπάνω.</p>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Βασική Εργαλειοθήκη:</b> Δεν χρειάζεστε μια τεράστια εργαλειοθήκη. Το 99% της συναρμολόγησης ενός Η/Υ μπορεί να γίνει με ένα μόνο εργαλείο.
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Κατσαβίδι Phillips #2:</b> Αυτό είναι το κύριο εργαλείο σας. Μια μαγνητική μύτη είναι μια πραγματική σωτηρία, βοηθώντας σας να καθοδηγείτε τις βίδες σε στενά σημεία χωρίς να τις ρίχνετε.
+                <blockquote><b>Επαγγελματική Συμβουλή:</b> ΜΗΝ χρησιμοποιείτε ηλεκτρικό κατσαβίδι ή δραπανοκατσάβιδο. Μπορείτε εύκολα να σφίξετε υπερβολικά και να ραγίσετε τα εξαρτήματά σας. Αυτή η συναρμολόγηση γίνεται μόνο με τα χέρια.</blockquote>
+                </li>
+                <li><b>Δεματικά Καλωδίων (Zip Ties) ή Ιμάντες Velcro:</b> Για τη διαχείριση των καλωδίων. Το κουτί και η μητρική σας πιθανότατα θα περιλαμβάνουν μερικά, αλλά το να έχετε επιπλέον είναι πάντα χρήσιμο.</li>
+                <li><b>Κόφτης ή Ψαλίδι:</b> Για να κόψετε τις άκρες των zip ties.</li>
+                <li><b>Φακός (ή το τηλέφωνό σας):</b> Τα κουτιά είναι σκοτεινά. Θα χρειαστείτε φως για να βλέπετε τι κάνετε.</li>
+            </ul>
+        <b>Γιατί:</b> Το να έχετε έτοιμα τα σωστά εργαλείο σας αποτρέπει από το να κολλήσετε ή, χειρότερα, να καταστρέψετε μια βίδα επειδή χρησιμοποιήσατε λάθος μέγεθος κατσαβιδιού. Μετατρέπει μια πιθανώς απογοητευτική αναζήτηση σε μια ομαλή διαδικασία.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Διαμόρφωση Χώρου Εργασίας:</b> Το πού χτίζετε είναι εξίσου σημαντικό με το πώς.
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Μεγάλη, Επίπεδη, Μη-Αγώγιμη Επιφάνεια:</b> Ένα μεγάλο ξύλινο ή πλαστικό γραφείο είναι τέλειο. Αποφύγετε να χτίζετε πάνω σε χαλί με κάθε κόστος για να ελαχιστοποιήσετε τον κίνδυνο στατικού ηλεκτρισμού.</li>
+                <li><b>Καλός Φωτισμός:</b> Πρέπει να βλέπετε μικροσκοπικές ετικέτες και ακίδες. Χτίστε σε ένα καλά φωτισμένο δωμάτιο.</li>
+                <li><b>Μικρά Μπολ ή Δίσκοι:</b> Χρησιμοποιήστε τα για να κρατάτε τις δεκάδες διαφορετικές βίδες που θα συναντήσετε. Μην τις ανακατεύετε! Το εγχειρίδιο της μητρικής και του κουτιού θα σας πουν ποια βίδα είναι για τι.</li>
+            </ul>
+        <b>Γιατί:</b> Ένας οργανισμός χώρος εργασίας οδηγεί σε μια οργανωμένη συναρμολόγηση. Η διατήρηση των βιδών ταξινομημένων σας αποτρέπει από τη χρήση της λάθος βίδας και την πιθανή πρόκληση ζημιάς σε ένα εξάρτημα, όπως η χρήση μιας μακριάς βίδας που τρυπά τη μητρική πλακέτα.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Κεφάλαιο 1: Η Φάση του Σχεδίου (Επιλογή Εξαρτημάτων & Συμβατότητα)</h4>
+    <p class="section-intro">Αυτή είναι η πιο σημαντική φάση. Οι έξυπνες επιλογές εδώ εξοικονομούν χρήματα και εξασφαλίζουν ένα ισορροπημένο, ισχυρό σύστημα. Η βιασύνη οδηγεί σε αταίριαστα εξαρτήματα. Σχεδιάστε το σύστημά σας, ελέγξτε το δύο φορές, και μετά αγοράστε.</p>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Καθορίστε τον Στόχο & τον Προϋπολογισμό σας:</b> Πρώτα, απαντήστε σε αυτό: Για τι προορίζεται αυτός ο Η/Υ; Για gaming σε 1080p; Για επεξεργασία βίντεο σε 4K; Για βασική εργασία γραφείου;
+        <blockquote>
+            <b>Παρομοίωση:</b> Δεν αγοράζετε μια Ferrari μόνο για να πηγαίνετε για ψώνια, και δεν αγοράζετε ένα αυτοκίνητο πόλης για μια πίστα αγώνων. Για έναν gaming Η/Υ, η Κάρτα Γραφικών (GPU) είναι η "μηχανή" και θα πρέπει να καταλαμβάνει το μεγαλύτερο μέρος του προϋπολογισμού σας. Για έναν Η/Υ επεξεργασίας βίντεο, η CPU (εγκέφαλος) και η RAM (βραχυπρόθεσμη μνήμη) είναι πιο κρίσιμες.
+        </blockquote>
+        <b>Γιατί:</b> Η θέσπιση ενός σαφούς στόχου σας αποτρέπει από το να ξοδέψετε υπερβολικά σε εξαρτήματα που δεν χρειάζεστε ή να ξοδέψετε λιγότερα στα εξαρτήματα που έχουν τη μεγαλύτερη σημασία.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Συνδυασμός CPU & Μητρικής:</b> Η CPU είναι ο εγκέφαλος. η Μητρική είναι το σώμα και το νευρικό σύστημα. Πρέπει να ταιριάζουν απόλυτα.
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Υποδοχή (Socket):</b> Αυτή είναι η φυσική σύνδεση, σαν ένα κλειδί για μια συγκεκριμένη κλειδαριά. Μια CPU της AMD με υποδοχή <code>AM5</code> ΠΡΕΠΕΙ να μπει σε μια μητρική με υποδοχή <code>AM5</code>. Μια CPU της Intel <code>LGA1700</code> χρειάζεται μια μητρική <code>LGA1700</code>. Αυτό είναι αδιαπραγμάτευτο.</li>
+                <li><b>Chipset:</b> Αυτό καθορίζει τις δυνατότητες της μητρικής (όπως πόσες θύρες USB ή γρήγορες υποδοχές αποθήκευσης έχει). Για μια βασική σύνθεση, ένα chipset αρχικού επιπέδου (όπως το B760) είναι εντάξει. Για overclocking, θα χρειαστείτε ένα υψηλότερης κατηγορίας (όπως το Z790).</li>
+                <li><b>Μέγεθος (Form Factor):</b> Αυτό είναι το φυσικό μέγεθος. <code>ATX</code> (κανονικό), <code>Micro-ATX</code> (πιο κοντό), και <code>Mini-ITX</code> (πολύ μικρό). Μια μικροσκοπική μητρική Mini-ITX θα χωρέσει σε ένα τεράστιο κουτί ATX (αλλά θα φαίνεται αστεία), αλλά μια μεγάλη μητρική ATX *δεν* θα χωρέσει φυσικά σε ένα κουτί Mini-ITX.</li>
+            </ul>
+        <b>Γιατί:</b> Ένας λάθος συνδυασμός εδώ σημαίνει ότι ο Η/Υ σας δεν θα ανάψει καν. Η επιλογή του μεγέθους καθορίζει το μέγεθος ολόκληρου του υπολογιστή σας.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Αναλυτική Ματιά στο Τροφοδοτικό (PSU):</b> Το PSU είναι η καρδιά του συστήματός σας. Μην κάνετε οικονομία σε αυτό.
+            <blockquote>
+                <b>Παρομοίωση:</b> Αυτό είναι η καρδιά *και* το πεπτικό σύστημα. Παίρνει ακατέργαστη ενέργεια από τον τοίχο και παρέχει καθαρό, σταθερό "αίμα" σε κάθε εξάρτημα. Ένα φθηνό PSU είναι σαν να ταΐζετε τον Η/Υ σας "πρόχειρο φαγητό"· μπορεί να λειτουργεί για λίγο, αλλά είναι ανθυγιεινό και μπορεί να οδηγήσει σε καταστροφική βλάβη.
+            </blockquote>
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Ισχύς (Wattage):</b> Χρησιμοποιήστε έναν υπολογιστή PSU online για να εκτιμήσετε τις ανάγκες σας, και μετά προσθέστε 100W-150W για ασφάλεια και μελλοντικές αναβαθμίσεις. Ένα PSU 750W-850W είναι μια ασφαλής επιλογή για τις περισσότερες συνθέσεις.</li>
+                <li><b>Βαθμονόμηση Απόδοσης:</b> Αναζητήστε μια βαθμονόμηση <code>80 Plus</code>. Το <code>Bronze</code> είναι το ελάχιστο. Το <code>Gold</code> είναι το ιδανικό σημείο για ποιότητα και τιμή. Αυτό σημαίνει ότι λιγότερη ηλεκτρική ενέργεια σπαταλάται ως θερμότητα.</li>
+                <li><b>Τμηματικότητα (Modularity):</b> Το <code>Fully Modular</code> είναι σαν ένα σετ Lego, επιτρέποντάς σας να συνδέσετε μόνο τα καλώδια που χρειάζεστε. Το <code>Non-Modular</code> έχει ένα μόνιμο "χταπόδι" καλωδίων, το οποίο είναι πιο δύσκολο στη διαχείριση. Το <code>Semi-Modular</code> είναι μια καλή μέση λύση.</li>
+            </ul>
+            <b>Γιατί:</b> Ένα υψηλής ποιότητας PSU παρέχει σταθερή ισχύ, αυξάνοντας τη διάρκεια ζωής των εξαρτημάτων σας. Ένα κακό PSU μπορεί να είναι αναποτελεσματικό, θορυβώδες, και στη χειρότερη περίπτωση, μπορεί να αποτύχει και να καταστρέψει ολόκληρο τον Η/Υ σας.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Ο Τελικός Έλεγχος με το PCPartPicker.com:</b> Αυτό είναι το πιο σημαντικό σας βήμα. Πριν ξοδέψετε έστω και ένα ευρώ, δημιουργήστε μια λίστα με όλα τα επιλεγμένα σας εξαρτήματα σε αυτόν τον ιστότοπο. Είναι το απόλυτο δίχτυ ασφαλείας σας. Ελέγχει για συμβατότητα υποδοχής, συμβατότητα RAM, και φυσικές διαστάσεις (π.χ., "Θα χωρέσει αυτή η γιγαντιαία ψύκτρα σε αυτό το κουτί;"). Διαβάστε όλες τις σημειώσεις και τις προειδοποιήσεις που δημιουργεί. <b>Γιατί:</b> Αυτό το δωρεάν εργαλείο έχει σώσει αμέτρητους κατασκευαστές από δαπανηρά και οδυνηρά λάθη. Μην το παραλείψετε. *Μην το παραλείψετε.*</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Κεφάλαιο 2: Η Γραμμή Συναρμολόγησης (Συναρμολόγηση Βήμα-Βήμα)</h4>
+    <p class="section-intro">Τα εξαρτήματα έφτασαν. Ώρα για το πιο συναρπαστικό μέρος. Εργαστείτε αργά, να είστε απαλοί, και κρατήστε τα εγχειριδιά σας ανοιχτά. Θα συναρμολογήσουμε πρώτα τα βασικά εξαρτήματα πάνω στη μητρική, θα τα δοκιμάσουμε, και μετά θα μεταφέρουμε τα πάντα μέσα στο κουτί.</p>
+    <div class="note note-danger"><b><span>ΚΡΙΣΙΜΗ ΠΡΟΕΙΔΟΠΟΙΗΣΗ: ΣΤΑΤΙΚΟΣ ΗΛΕΚΤΡΙΣΜΟΣ!</span></b> Ο στατικός ηλεκτρισμός είναι ο αόρατος, σιωπηλός δολοφόνος των εξαρτημάτων του Η/Υ. Ένα μικρό σοκ που δεν μπορείτε καν να νιώσετε (ένα "τσικ") μπορεί να προκαλέσει μόνιμη βλάβη στα εξαρτήματά σας.
+        <ul style="list-style-type: disc; padding-left: 20px;">
+            <li><b>ΜΗΝ</b> χτίζετε πάνω σε χαλί.</li>
+            <li><b>ΠΩΣ ΝΑ ΕΙΣΤΕ ΑΣΦΑΛΕΙΣ:</b> Πριν βγάλετε από τη συσκευασία ή αγγίξετε *οποιοδήποτε* εξάρτημα (όπως η CPU ή η RAM), απλώς αγγίξτε το γυμνό μέταλλο του (αποσυνδεδεμένου) κουτιού του Η/Υ σας. Αυτό σας "γειώνει" αμέσως και σας καθιστά ασφαλείς. Κάντε το αυτό περιοδικά καθ' όλη τη διάρκεια της συναρμολόγησης.</li>
+        </ul>
+        Αυτός είναι ο πιο σημαντικός κανόνας της συναρμολόγησης Η/Υ.</div>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Βήμα 1: Προετοιμασία Μητρικής (Εκτός Κουτιού):</b> Τοποθετήστε τη μητρική πάνω στο χαρτόκουτο στο οποίο ήρθε. Αυτός είναι ο σταθμός εργασίας σας χωρίς στατικό ηλεκτρισμό.
+            <ol style="padding-left: 20px; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Εγκατάσταση CPU:</b> Σηκώστε το μοχλό συγκράτησης στην υποδοχή της CPU. Παρατηρήστε το μικρό τρίγωνο σε μια γωνία της CPU και ένα αντίστοιχο στην υποδοχή. Ευθυγραμμίστε τα τέλεια. Τοποθετήστε απαλά την CPU στην υποδοχή—θα πρέπει να πέσει στη θέση της με *μηδενική δύναμη*. ΜΗΝ ΠΙΕΖΕΤΕ. Αν δεν πέφτει μέσα, δεν είναι ευθυγραμμισμένη. Κατεβάστε το μοχλό συγκράτησης. Θα απαιτήσει κάποια σταθερή πίεση, πράγμα που είναι φυσιολογικό.</li>
+                <li><b>Εγκατάσταση RAM:</b> Ανοίξτε τα κλιπ στις υποδοχές RAM. Ευθυγραμμίστε την εγκοπή στο κάτω μέρος του stick της RAM με την εγκοπή στην υποδοχή (μπαίνει μόνο με έναν τρόπο). Πιέστε σταθερά και στα δύο άκρα του stick μέχρι και τα δύο κλιπ να *κλείσουν με ένα κλικ*. Αυτό απαιτεί περισσότερη δύναμη από ό,τι νομίζετε! Για δύο sticks, συμβουλευτείτε το εγχειριδιό σας για τις σωστές υποδοχές (συνήθως οι υποδοχές A2 και B2, δηλαδή η 2η και η 4η από την CPU).</li>
+                <li><b>Εγκατάσταση M.2 SSD:</b> Εντοπίστε την υποδοχή M.2 (είναι μια μικροσκοπική υποδοχή για τον δίσκο σας σε μέγεθος "τσίχλας"). Ξεβιδώστε τη μικροσκοπική βίδα του αποστάτη. Τοποθετήστε τον M.2 δίσκο υπό γωνία, και μετά πιέστε τον απαλά προς τα κάτω και ασφαλίστε τον με τη βίδα του αποστάτη. Μην σφίγγετε υπερβολικά.</li>
+            </ol>
+        <b>Γιατί να το κάνετε αυτό πρώτα;</b> Αυτά είναι τα πιο ευαίσθητα εξαρτήματα και είναι πολύ πιο εύκολο να εγκατασταθούν με τη μητρική έξω στον ανοιχτό χώρο παρά στριμωγμένα μέσα σε ένα κουτί.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Βήμα 2: Η Δοκιμαστική Συναρμολόγηση 'Breadboard':</b> Αυτός είναι ο προ-πτήσης έλεγχός σας ή η "δοκιμαστική εκτόξευση". Με τη μητρική ακόμα στο κουτί της, εγκαταστήστε την ψύκτρα της CPU. Εγκαταστήστε την GPU στην πάνω μακριά υποδοχή PCIe. Συνδέστε τα κύρια καλώδια τροφοδοσίας 24-pin και 8-pin από το PSU στη μητρική. Συνδέστε την οθόνη στην GPU. Αγγίξτε για λίγο τις δύο ακίδες 'Power SW' στη μητρική *ταυτόχρονα* με ένα μεταλλικό κατσαβίδι για να την ενεργοποιήσετε.
+        <blockquote><b>Τι είναι μια επιτυχής εκκίνηση;</b> Αν δείτε ένα λογότυπο ή την οθόνη του BIOS, συγχαρητήρια! Αυτό ονομάζεται "POST" (Power-On Self-Test). Σημαίνει ότι τα βασικά σας εξαρτήματα (CPU, RAM, GPU, Mobo) λειτουργούν. Τώρα, αποσυνδέστε τα πάντα για την τελική συναρμολόγηση.</blockquote>
+        <b>Γιατί:</b> Η εύρεση ενός ελαττωματικού εξαρτήματος τώρα παίρνει 5 λεπτά. Η εύρεσή του αφού ο Η/Υ είναι πλήρως συναρμολογημένος παίρνει ώρες και είναι εξαιρετικά απογοητευτικό.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Βήμα 3: Συναρμολόγηση εντός Κουτιού:</b> Προετοιμάστε το κουτί σας.
+            <ol style="padding-left: 20px; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li>Εγκαταστήστε την Ασπίδα I/O (το κοφτερό, μεταλλικό πλακίδιο για τις θύρες της μητρικής σας). Είναι κλασικό λάθος να το ξεχάσετε. Μην είστε αυτό το άτομο. Είναι και κοφτερό!</li>
+                <li>Εγκαταστήστε τους αποστάτες της μητρικής (τις ορειχάλκινες βίδες) στο κουτί, ώστε να ταιριάζουν με τις τρύπες της μητρικής σας.</li>
+                <li>Χαμηλώστε προσεκτικά την πλήρως συναρμολογημένη μητρική σας μέσα στο κουτί και βιδώστε την.</li>
+                <li>Εγκαταστήστε το PSU και την GPU.</li>
+            </ol>
+        <b>Γιατί αυτή η συγκεκριμένη σειρά;</b> Οι αποστάτες είναι ΚΡΙΣΙΜΟΙ. Εμποδίζουν τη μητρική από το να αγγίξει το μεταλλικό κουτί και να βραχυκυκλώσει, πράγμα που θα την κατέστρεφε.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Βήμα 4: Σύνδεση Όλων των Καλωδίων:</b> Το τελικό σύνορο. Μοιάζει με μακαρονάδα. Είναι εντάξει. Πάρτε το ένα καλώδιο τη φορά. Τα εγχειρίδιά σας είναι οι καλύτεροί σας φίλοι εδώ.
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Κύρια Τροφοδοσία:</b> Συνδέστε το μεγάλο καλώδιο 24-pin στη μητρική και το καλώδιο τροφοδοσίας CPU 8-pin (μερικές φορές 4+4), συνήθως στο πάνω αριστερό μέρος της μητρικής.</li>
+                <li><b>Τροφοδοσία GPU:</b> Οι περισσότερες GPUs χρειάζονται ένα ή περισσότερα καλώδια τροφοδοσίας PCIe 6+2 pin από το PSU.</li>
+                <li><b>Ανεμιστήρες Κουτιού & USB:</b> Συνδέστε τα καλώδια των ανεμιστήρων σας στις κεφαλίδες <code>SYS_FAN</code> και το καλώδιο USB του κουτιού σας στην κεφαλίδα USB της μητρικής.</li>
+                <li><b>Συνδέσεις Μπροστινού Πίνακα:</b> Αυτές είναι οι μικροσκοπικές, ενοχλητικές συνδέσεις για το κουμπί ενεργοποίησης (<code>POWER SW</code>), το κουμπί επαναφοράς (<code>RESET SW</code>), και τα LED. Συμβουλευτείτε το εγχειρίδιο της μητρικής σας για την ακριβή διάταξη. Είναι μικροσκοπικά και εκνευριστικά, αλλά το κάνετε μόνο μια φορά.</li>
+            </ul>
+        <b>Γιατί είναι τρομακτικό αλλά σημαντικό:</b> Αυτό το βήμα απαιτεί υπομονή, αλλά οι σωστές συνδέσεις είναι ζωτικής σημασίας. Ένα ξεχασμένο καλώδιο τροφοδοσίας CPU είναι ένας από τους πιο συνηθισμένους λόγους που μια νέα σύνθεση δεν κάνει POST.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Κεφάλαιο 3: Ο Χώρος Αντιμετώπισης Προβλημάτων & Πρώτης Εκκίνησης</h4>
+    <p class="section-intro">Πατάτε το κουμπί ενεργοποίησης στον πλήρως συναρμολογημένο Η/Υ σας. Αυτή είναι η στιγμή "πανικού του αρχάριου". Μην πανικοβάλλεστε αν δεν συμβεί τίποτα. Το 99% των προβλημάτων είναι απλά, επιλύσιμα, και *όχι* ένα καμένο εξάρτημα. Αυτή είναι η τελική εξέταση.</p>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Σύμπτωμα: Δεν Συμβαίνει Απολύτως Τίποτα (Ούτε Ανεμιστήρες, Ούτε Φώτα):</b>
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Πιθανότερη Αιτία:</b> Η τροφοδοσία δεν φτάνει στη μητρική.</li>
+                <li><b>Λίστα Ελέγχου:</b>
+                    <ol style="padding-left: 20px;">
+                    <li>Είναι το καλώδιο τροφοδοσίας του PSU συνδεδεμένο με ασφάλεια στον τοίχο και στο PSU;</li>
+                    <li>Είναι ο διακόπτης στο πίσω μέρος του PSU γυρισμένος στη θέση 'I' (On); Αυτό είναι το #1 πιο συνηθισμένο λάθος. Ναι, αλήθεια. Πήγαινε να το ελέγξεις. Θα περιμένουμε.</li>
+                    <li>Είναι οι μικροσκοπικοί σύνδεσμοι του διακόπτη ενεργοποίησης (<code>POWER SW</code>) στις σωστές ακίδες;</li>
+                    <li>Είναι τα καλώδια τροφοδοσίας 24-pin της μητρικής και 8-pin της CPU πλήρως τοποθετημένα; (Βγάλτε τα και ξαναβάλτε τα).</li>
+                    </ol>
+                </li>
+            </ul></li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Σύμπτωμα: Οι Ανεμιστήρες Γυρίζουν, τα Φώτα Ανάβουν, αλλά Δεν υπάρχει Εικόνα στην Οθόνη:</b>
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Πιθανότερη Αιτία:</b> Ένα βασικό εξάρτημα δεν είναι σωστά τοποθετημένο, ή ένα απλό λάθος της οθόνης. Αυτό είναι το *πιο* συνηθισμένο "πρόβλημα".</li>
+                <li><b>Οι Τρεις Μεγάλοι Έλεγχοι:</b>
+                    <ol style="padding-left: 20px;">
+                    <li><b>Έλεγχος Οθόνης:</b> Είναι η οθόνη συνδεδεμένη στην **GPU**, όχι στο HDMI/DisplayPort της μητρικής; (Αυτό είναι το #2 πιο συνηθισμένο λάθος). Είναι η οθόνη ενεργοποιημένη και ρυθμισμένη στη σωστή είσοδο;</li>
+                    <li><b>Έλεγχος RAM:</b> Απενεργοποιήστε πλήρως. Επανατοποθετήστε τη RAM σας. Αυτό σημαίνει βγάλε την, και ξαναβάλ' την πιέζοντας σταθερά μέχρι *και τα δύο* κλιπ να κάνουν κλικ. Αυτό λύνει το πρόβλημα στο 50% των περιπτώσεων.</li>
+                    <li><b>Έλεγχος GPU:</b> Είναι η GPU πλήρως τοποθετημένη στην υποδοχή PCIe της; Συνδέσατε τα καλώδια τροφοδοσίας PCIe από το PSU σε αυτήν;</li>
+                    </ol>
+                </li>
+            </ul></li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Κεφάλαιο 4: Το Κέντρο Ελέγχου (BIOS, ΛΣ και Οδηγοί)</h4>
+    <p class="section-intro">Το υλικό σας είναι ζωντανό! Τώρα είναι η ώρα να του δώσετε έναν εγκέφαλο (Λειτουργικό Σύστημα) και να του μάθετε πώς να χρησιμοποιεί τους μύες του (Οδηγούς). Σε αυτό το στάδιο ξεκλειδώνετε την απόδοση για την οποία πληρώσατε.</p>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Βήμα 1: Πρώτη Επίσκεψη στο BIOS:</b> Ενεργοποιήστε τον Η/Υ και πατήστε επανειλημμένα το πλήκτρο <code>DEL</code> ή <code>F2</code> για να μπείτε στο BIOS/UEFI.
+        <blockquote><b>Τι είναι αυτό;</b> Αυτό είναι το "μηχανοστάσιο" ή ο "πίνακας ελέγχου" της μητρικής σας που τρέχει *πριν* φορτώσουν τα Windows. Είναι εκεί όπου ελέγχετε απευθείας το υλικό.</blockquote>
+            <ol style="padding-left: 20px; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Επαλήθευση Εξαρτημάτων:</b> Η κύρια οθόνη θα πρέπει να δείχνει το μοντέλο της CPU σας, την ποσότητα της RAM και τους συνδεδεμένους δίσκους αποθήκευσης. Αυτή είναι μια εξαιρετική επιβεβαίωση ότι όλα ανιχνεύονται.</li>
+                <li><b>Ενεργοποίηση XMP/EXPO:</b> Βρείτε τη ρύθμιση για το 'Extreme Memory Profile' (XMP) ή το 'Extended Profiles for Overclocking' (EXPO). Μπορεί να βρίσκεται στην κύρια σελίδα. Ενεργοποιήστε το.</li>
+                <li><b>Ορισμός Προτεραιότητας Εκκίνησης:</b> Θα χρειαστεί να το κάνετε αυτό αφού δημιουργήσετε το USB εγκατάστασης. Βρείτε το μενού 'Boot' και ορίστε το USB drive σας ως #1 προτεραιότητα.</li>
+            </ol>
+        <b>Γιατί είναι τόσο σημαντικό το XMP/EXPO;</b> Χωρίς αυτό, η γρήγορη RAM σας των 6000MHz θα λειτουργεί μόνο σε μια αργή προεπιλεγμένη ταχύτητα 4800MHz. Πληρώσατε για γρήγορη RAM· αυτός είναι ο διακόπτης "on" για να πάρετε την ταχύτητα για την οποία πληρώσατε.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Βήμα 2: Εγκατάσταση ΛΣ & Οδηγών:</b> Σε έναν άλλο υπολογιστή, χρησιμοποιήστε το επίσημο Microsoft Media Creation Tool για να δημιουργήσετε ένα εκκινήσιμο USB εγκατάστασης των Windows (8GB+). Συνδέστε το στον νέο σας Η/Υ, ορίστε το ως προτεραιότητα εκκίνησης στο BIOS, και ακολουθήστε τις οδηγίες στην οθόνη για να εγκαταστήσετε τα Windows στον γρήγορο M.2 SSD σας. Μόλις φτάσετε στην επιφάνεια εργασίας, πρέπει να εγκαταστήσετε τους οδηγούς.
+            <ol style="padding-left: 20px; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Σύνδεση στο Internet:</b> Χρησιμοποιήστε πρώτα ένα καλώδιο Ethernet.</li>
+                <li><b>Οδηγός Chipset:</b> Πηγαίνετε στον ιστότοπο του κατασκευαστή της μητρικής σας (π.χ., ASUS, Gigabyte) και κατεβάστε τον οδηγό 'Chipset' για το μοντέλο σας. Εγκαταστήστε τον και επανεκκινήστε. Αυτή είναι η "γλώσσα" που χρειάζεται το ΛΣ σας για να μιλήσει στη μητρική.</li>
+                <li><b>Οδηγός GPU:</b> Πηγαίνετε στον ιστότοπο της NVIDIA ή της AMD και κατεβάστε τον σωστό οδηγό για την κάρτα γραφικών σας. Αυτός είναι ο "εγκέφαλος" για την GPU σας. Εγκαταστήστε τον και επανεκκινήστε.</li>
+                <li><b>Όλα τα άλλα:</b> Χρησιμοποιήστε το Windows Update για να λάβετε τους περισσότερους άλλους οδηγούς.</li>
+            </ol>
+        <b>Γιατί αυτή η σειρά;</b> Ο οδηγός του chipset είναι ο πιο σημαντικός. Η εγκατάστασή του πρώτα διασφαλίζει ότι όλα τα άλλα θα εγκατασταθούν σωστά σε μια σταθερή βάση.</li>
+    </ul>
+
+    <hr class="modal-divider">
+
+    <h4>Κεφάλαιο 5: Τελικές Πινελιές & Ο Δρόμος Μπροστά</h4>
+    <p class="section-intro">Ο Η/Υ σας είναι πλήρως λειτουργικός! Τώρα είναι η ώρα να βεβαιωθείτε ότι είναι σταθερός, να εγκαταστήσετε το λογισμικό σας και να μάθετε τις συνήθειες που θα τον κρατήσουν να λειτουργεί άψογα για χρόνια.</p>
+    <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Δοκιμές Αντοχής & Benchmarking:</b> Τώρα που οι οδηγοί είναι εγκατεστημένοι, είναι ώρα να το "δοκιμάσετε". Μια 'δοκιμή αντοχής' ωθεί τα εξαρτήματά σας σε 100% φορτίο.
+        <blockquote><b>Παρομοίωση:</b> Αυτό είναι σαν να πηγαίνετε το νεόκτιστο αυτοκίνητό σας σε μια πίστα δοκιμών για να βεβαιωθείτε ότι ο κινητήρας δεν υπερθερμαίνεται ή οι τροχοί δεν φεύγουν σε υψηλή ταχύτητα.</blockquote>
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Για CPU:</b> Τρέξτε ένα εργαλείο όπως το <code>Cinebench</code> μερικές φορές στη σειρά.</li>
+                <li><b>Για GPU:</b> Τρέξτε ένα δωρεάν εργαλείο benchmarking όπως το <code>Unigine Heaven</code> ή το <code>3DMark Time Spy</code>. Αφήστε το να τρέξει για 15-20 λεπτά.</li>
+                <li><b>Παρακολούθηση:</b> Ενώ αυτές οι δοκιμές τρέχουν, χρησιμοποιήστε ένα εργαλείο όπως το <code>HWMonitor</code> για να παρακολουθείτε τις θερμοκρατούρες της CPU και της GPU σας. Οτιδήποτε σταθερά κάτω από 85-90°C υπό πλήρες φορτίο θεωρείται γενικά ασφαλές.</li>
+            </ul>
+        <b>Γιατί να κάνετε δοκιμή αντοχής;</b> Επιβεβαιώνει ότι η σύνθεσή σας είναι σταθερή και η ψύξη σας επαρκής. Είναι καλύτερο να ανακαλύψετε ένα πρόβλημα σταθερότητας τώρα, παρά στη μέση ενός σημαντικού παιχνιδιού.</li>
+        <li style="margin-bottom: 1.5rem; padding-left: 2rem; position: relative;"><b>Βασικό Λογισμικό & Εξατομίκευση:</b> Ο Η/Υ σας είναι τώρα ένας λευκός καμβάς.
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <li><b>Περιηγητής Web:</b> Εγκαταστήστε τον περιηγητή της επιλογής σας.</li>
+                <li><b>Ασφάλεια:</b> Ο Windows Defender είναι αρκετά καλός, αλλά βεβαιωθείτε ότι λειτουργεί.</li>
+                <li><b>Πλατφόρμες Gaming:</b> Εγκαταστήστε το Steam, το Epic Games Store, κ.λπ.</li>
+                <li><b>Εξατομίκευση:</b> Ορίστε το φόντο της επιφάνειας εργασίας σας, οργανώστε τα εικονίδιά σας και εγκαταστήστε τις αγαπημένες σας εφαρμογές.</li>
+            </ul>
+        <b>Γιατί αυτό είναι το καλύτερο μέρος:</b> Τα καταφέρατε! Χτίσατε έναν υπολογιστή από το μηδέν. Είναι μια εξαιρετικά ικανοποιητική δεξιότητα. Τώρα μπορείτε να κάνετε τον Η/Υ πραγματικά δικό σας. Απολαύστε τη δημιουργία σας!</li>
+    </ul>
+</div>
+
+</body>
+</html>
