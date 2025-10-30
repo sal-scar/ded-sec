@@ -87,13 +87,25 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--nm-abyss-blue);
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Inter', sans-serif; /* <-- OPTIMIZED: Changed for readability */
     color: var(--nm-text);
     transition: background-color 0.3s ease, color 0.3s ease;
     position: relative;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+/* --- OPTIMIZED: Keep specific elements monospaced --- */
+.code-container code,
+.nav-action-btn,
+.form-group input,
+#main-search-input,
+.contact-grid .app-icon,
+.copy-btn,
+#useful-information-nav .app-icon { /* Added useful info buttons */
+    font-family: 'Roboto Mono', monospace;
+}
+/* --- End optimization --- */
 
 /* ADDED: Custom scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -507,88 +519,6 @@ body.light-theme .tool-card {
     animation: fadeIn 0.5s 0.1s var(--ease-out-cubic) backwards;
 }
 
-/* Anniversary Banner */
-.anniversary-banner {
-    background: linear-gradient(135deg, var(--nm-accent), var(--nm-accent-hover));
-    border: 2px solid var(--nm-accent);
-    border-radius: 20px;
-    padding: 20px;
-    margin: 15px auto;
-    max-width: 480px;
-    width: 100%;
-    opacity: 0.85;
-    box-shadow: 0 4px 15px rgba(153, 102, 255, 0.3);
-    position: relative;
-    z-index: 5;
-    box-sizing: border-box;
-    /* MODIFIED: Premium transition */
-    transition: transform 0.25s var(--ease-out-cubic), border-color 0.25s ease, box-shadow 0.25s var(--ease-out-cubic);
-    will-change: transform, box-shadow;
-}
-.anniversary-banner:hover {
-    transform: translateY(-3px);
-    border-color: #FFD700;
-    box-shadow: 0 4px 15px rgba(153, 102, 255, 0.3), var(--shadow-glow-accent);
-}
-
-.anniversary-content {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-.anniversary-icon { font-size: 2rem; color: var(--nm-text); flex-shrink: 0; }
-.anniversary-text h3 {
-    margin: 0 0 10px 0;
-    color: var(--nm-text);
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.2rem;
-    text-align: center;
-    white-space: nowrap;
-}
-.anniversary-text p {
-    margin: 0;
-    color: var(--nm-text);
-    font-size: 0.9rem;
-    line-height: 1.4;
-    text-align: left;
-}
-
-.certificate-btn {
-    width: 100%;
-    background: linear-gradient(135deg, #FFD700, #FF6B6B);
-    border: 2px solid #FFD700;
-    color: #000000;
-    padding: 12px 20px;
-    border-radius: 20px;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    opacity: 0.85;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-    /* MODIFIED: Premium transition */
-    transition: transform 0.25s var(--ease-out-cubic), background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s var(--ease-out-cubic), border-color 0.25s ease;
-    will-change: transform, box-shadow;
-}
-
-.certificate-btn:hover {
-    background: linear-gradient(135deg, #FF6B6B, #FFD700);
-    border-color: #FF6B6B;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
-}
-
-/* ADDED: Premium "press" effect */
-.certificate-btn:active {
-    transform: translateY(0px) scale(0.97);
-    transition-duration: 0.1s;
-}
-
 /* Certificate Form Styles */
 .certificate-form-container { max-width: 500px; margin: 0 auto; }
 .form-group { margin-bottom: 20px; }
@@ -620,38 +550,6 @@ body.light-theme .tool-card {
 }
 
 .form-actions { text-align: center; margin-top: 30px; }
-
-#generate-certificate {
-    background: linear-gradient(135deg, var(--nm-success), #00CC00);
-    border: 2px solid var(--nm-success);
-    color: #000000;
-    padding: 15px 30px;
-    border-radius: 20px;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 0 auto;
-    /* MODIFIED: Premium transition */
-    transition: transform 0.25s var(--ease-out-cubic), background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s var(--ease-out-cubic), border-color 0.25s ease;
-    will-change: transform, box-shadow;
-}
-
-#generate-certificate:hover {
-    background: linear-gradient(135deg, #00CC00, var(--nm-success));
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 255, 0, 0.3), var(--shadow-glow-success);
-}
-
-/* ADDED: Premium "press" effect */
-#generate-certificate:active {
-    transform: translateY(0px) scale(0.97);
-    transition-duration: 0.1s;
-}
 
 /* Search Styles */
 .main-header-container {
@@ -781,8 +679,10 @@ body.light-theme #search-suggestions-container .search-result-item {
     width: 100%;
     height: 100%;
     background: rgba(1, 8, 17, 0.8);
-    -webkit-backdrop-filter: blur(10px); 
-    backdrop-filter: blur(10px); 
+    /* --- OPTIMIZED: Removed performance-heavy blur --- */
+    /* -webkit-backdrop-filter: blur(10px); */
+    /* backdrop-filter: blur(10px); */
+    /* --- End optimization --- */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1501,6 +1401,7 @@ body.light-theme #useful-info-results-container .search-result-item {
         margin: 0;
     }
     .modal-overlay {
+        /* --- OPTIMIZED: Removed blur on mobile, using solid fallback --- */
         -webkit-backdrop-filter: none; 
         backdrop-filter: none; 
         background: rgba(1, 8, 17, 0.95);
@@ -1552,4 +1453,96 @@ body.light-theme #useful-info-results-container .search-result-item {
     body { font-size: 17px; }
     .page-header h1 { font-size: 3rem; }
     .content-section { padding: 40px; }
+}
+
+/*
+    =================================================================
+    ACCESSIBILITY (USER-FRIENDLY)
+    =================================================================
+*/
+
+/* Add a visible focus ring that matches your theme */
+a:focus-visible,
+button:focus-visible,
+.nav-link:focus-visible,
+.nav-action-btn:focus-visible,
+.contact-grid .app-icon:focus-visible,
+#useful-information-nav .app-icon:focus-visible {
+    outline: 2px solid var(--nm-accent) !important;
+    outline-offset: 2px;
+    box-shadow: var(--shadow-glow-accent);
+}
+
+/* For inputs, we can just enhance the existing style */
+#main-search-input:focus-visible,
+.form-group input:focus-visible {
+    outline: none;
+}
+
+/*
+    =================================================================
+    DESKTOP NAVIGATION (USER-FRIENDLY)
+    =================================================================
+*/
+
+@media (min-width: 992px) {
+    /* Hide the burger menu */
+    .burger-menu {
+        display: none;
+    }
+
+    /* Re-style the nav menu for desktop */
+    .nav-menu {
+        position: static;
+        transform: none;
+        height: auto;
+        width: auto;
+        max-width: none;
+        flex-direction: row;
+        background: none;
+        box-shadow: none;
+        padding: 0;
+        overflow-y: visible;
+        gap: 5px; /* Spacing between links */
+        margin-left: auto; /* Pushes menu to the right */
+    }
+
+    /* This positions your nav menu to the right of the centered title,
+       and the nav actions to the right of the nav menu.
+    */
+    .nav-container {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+    }
+    
+    .nav-title {
+        /* This stays the same - centered */
+        position: static;
+        transform: none;
+        grid-column: 2 / 3;
+        text-align: center;
+    }
+
+    .nav-menu {
+        grid-column: 3 / 4;
+        justify-self: end;
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .nav-link {
+        width: auto; /* Let links be their natural width */
+        font-size: 0.85rem;
+    }
+    
+    /* Re-style the actions to be horizontal */
+    .nav-actions {
+        flex-direction: row;
+        margin-top: 0;
+        width: auto;
+        margin-left: 15px; /* Space between links and actions */
+        border-left: 1px solid var(--nm-border);
+        padding-left: 15px;
+    }
 }
