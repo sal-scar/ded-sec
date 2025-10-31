@@ -208,9 +208,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Disclaimer accepted');
         });
 
-        // Handle decline button - go back
+        // Handle decline button - go to google.com
         declineBtn?.addEventListener('click', () => {
-            window.history.back(); // <-- OPTIMIZED: Changed from Google redirect
+            // OPTIMIZED: Changed from window.history.back() to Google redirect
+            window.location.href = 'https://www.google.com/'; 
         });
 
         // Prevent closing the disclaimer modal by clicking outside
