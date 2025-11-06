@@ -10,7 +10,8 @@ Allow: /Pages/guide-for-installation.html
 Allow: /Pages/collaborations.html
 Allow: /Pages/portfolio-github-info.html
 Allow: /Pages/contact-credits.html
-Allow: /Pages/privacy-policy.html
+Allow: /Pages.html
+Allow: /Pages/store.html
 
 # Disallow indexing of specific assets or paths you might add later
 # Disallow: /admin/
