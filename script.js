@@ -196,6 +196,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.href = newLink;
             }
         });
+
+        // NEW: Update trust indicators
+        document.querySelectorAll('.trust-item span').forEach(el => {
+            const text = el.getAttribute(`data-${lang}`) || el.textContent;
+            if (el.getAttribute('data-en')) {
+                el.textContent = text;
+            }
+        });
+
+        // NEW: Update hero badge
+        document.querySelectorAll('.hero-badge span').forEach(el => {
+            const text = el.getAttribute(`data-${lang}`) || el.textContent;
+            if (el.getAttribute('data-en')) {
+                el.textContent = text;
+            }
+        });
+
+        // NEW: Update hero CTA buttons
+        document.querySelectorAll('.hero-cta').forEach(el => {
+            const text = el.getAttribute(`data-${lang}`) || el.textContent;
+            if (el.getAttribute('data-en')) {
+                el.textContent = text;
+            }
+        });
+
+        // NEW: Update community cards
+        document.querySelectorAll('.community-card span').forEach(el => {
+            const text = el.getAttribute(`data-${lang}`) || el.textContent;
+            if (el.getAttribute('data-en')) {
+                el.textContent = text;
+            }
+        });
     };
 
     // --- DISCLAIMER FUNCTIONALITY ---
@@ -218,15 +250,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 10);
         }
 
-        // Handle accept button
+        // Handle accept button with smoother animation
         acceptBtn?.addEventListener('click', () => {
-            localStorage.setItem('disclaimerAccepted', 'true');
-            if (disclaimerModal) {
-                // MODIFICATION: Remove 'visible' and 'banner-style' classes
-                disclaimerModal.classList.remove('visible');
-                disclaimerModal.classList.remove('banner-style');
-            }
-            console.log('Disclaimer accepted');
+            // Add closing animation
+            disclaimerModal.classList.add('closing');
+            
+            // Use a slightly longer timeout for smoother animation
+            setTimeout(() => {
+                localStorage.setItem('disclaimerAccepted', 'true');
+                if (disclaimerModal) {
+                    // MODIFICATION: Remove 'visible' and 'banner-style' classes
+                    disclaimerModal.classList.remove('visible');
+                    disclaimerModal.classList.remove('banner-style');
+                    disclaimerModal.classList.remove('closing');
+                }
+                console.log('Disclaimer accepted');
+            }, 400); // Increased from 300ms to 400ms for smoother close
         });
 
         // Handle decline button - go to google.com

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>DedSec Project</title>
+    <title>DedSec Project - Cybersecurity Toolkit for Android</title>
 
     <meta name="description" content="DedSec Project: The ultimate, no-root, Termux-based cybersecurity toolkit for Android. Access 40+ open-source tools for ethical hacking, OSINT, and security research. Explore tools, guides, and security articles.">
     <meta name="keywords" content="DedSec, DedSec Project, Cybersecurity, Ethical Hacking, Hacking Tools">
@@ -104,15 +104,52 @@
             <main class="home-screen">
 
                 <div class="hero-section">
-                    <h2 data-en="Welcome to the DedSec Project" data-gr="Καλώς ήρθατε στο DedSec Project" style="font-family: 'Orbitron', sans-serif; font-size: 2.2rem; color: var(--nm-text-accent); text-shadow: 0 0 8px var(--nm-accent-hover); margin-top: 0; margin-bottom: 20px;">Welcome to the DedSec Project</h2>
+                    <div class="hero-badge" data-en="Trusted by Cybersecurity Enthusiasts" data-gr="Αξιόπιστη από Ενθουσιώδεις Κυβερνοασφαλείας">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Trusted by Cybersecurity Enthusiasts</span>
+                    </div>
+                    <h2 data-en="Welcome to the DedSec Project" data-gr="Καλώς ήρθατε στο DedSec Project">Welcome to the DedSec Project</h2>
                     <p class="hero-text" data-en="Unlock your Android's potential. The DedSec Project delivers 40+ powerful, open-source security tools via Termux, no root required. Built for ethical hacking, OSINT, and education. Explore a toolkit built on transparency and community trust." 
                        data-gr="Ξεκλειδώστε τις δυνατότητες του Android σας. Το DedSec Project παρέχει 40+ ισχυρά εργαλεία ασφαλείας ανοιχτού κώδικα μέσω του Termux, χωρίς root. Σχεδιασμένο για ηθικό hacking, OSINT και εκπαίδευση. Εξερευνήστε μια εργαλειοθήκη που βασίζεται στη διαφάνεια και την εμπιστοσύνη της κοινότητας.">
                        Unlock your Android's potential. The DedSec Project delivers 40+ powerful, open-source security tools via Termux, no root required. Built for ethical hacking, OSINT, and education. Explore a toolkit built on transparency and community trust.
                     </p>
+                    
+                    <div class="trust-indicators">
+                        <div class="trust-item">
+                            <i class="fas fa-lock"></i>
+                            <span data-en="No Root Required" data-gr="Χωρίς Root">No Root Required</span>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fab fa-github"></i>
+                            <span data-en="Open Source" data-gr="Ανοιχτού Κώδικα">Open Source</span>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span data-en="Educational Focus" data-gr="Εκπαιδευτικό Focus">Educational Focus</span>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span data-en="Ethical Use Only" data-gr="Μόνο Ηθική Χρήση">Ethical Use Only</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-actions">
+                        <a href="Pages/guide-for-installation.html" class="hero-cta primary" data-en="Get Started Now" data-gr="Ξεκινήστε Τώρα">
+                            <i class="fas fa-rocket"></i>
+                            Get Started Now
+                        </a>
+                        <a href="Pages/learn-about-the-tools.html" class="hero-cta primary" data-en="Explore Tools" data-gr="Εξερευνήστε Εργαλεία">
+                            <i class="fas fa-tools"></i>
+                            Explore Tools
+                        </a>
+                    </div>
                 </div>
+
                 <div class="features-grid">
                     <a href="Pages/guide-for-installation.html" class="feature-card">
-                        <i class="fas fa-download feature-icon"></i>
+                        <div class="feature-icon-wrapper">
+                            <i class="fas fa-download feature-icon"></i>
+                        </div>
                         <h3 class="feature-title" data-en="Quick Installation" data-gr="Γρήγορη Εγκατάσταση">Quick Installation</h3>
                         <p class="feature-description" data-en="Get started in minutes with our automated setup process. Works on any Android device with Termux." 
                            data-gr="Ξεκινήστε σε λίγα λεπτά με την αυτοματοποιημένη διαδικασία εγκατάστασής μας. Λειτουργεί σε οποιαδήποτε συσκευή Android με Termux.">
@@ -124,7 +161,9 @@
                     </a>
 
                     <a href="Pages/learn-about-the-tools.html" class="feature-card">
-                        <i class="fas fa-tools feature-icon"></i>
+                        <div class="feature-icon-wrapper">
+                            <i class="fas fa-tools feature-icon"></i>
+                        </div>
                         <h3 class="feature-title" data-en="Powerful Tools" data-gr="Ισχυρά Εργαλεία">Powerful Tools</h3>
                         <p class="feature-description" data-en="Access 40+ specialized tools for network analysis, OSINT, security testing, and digital forensics." 
                            data-gr="Προσπελάστε 40+ εξειδικευμένα εργαλεία για ανάλυση δικτύου, OSINT, δοκιμές ασφαλείας και ψηφιακή εγκληματολογία.">
@@ -136,7 +175,9 @@
                     </a>
 
                     <a href="Pages/portfolio-github-info.html" class="feature-card">
-                        <i class="fab fa-github feature-icon"></i>
+                        <div class="feature-icon-wrapper">
+                            <i class="fab fa-github feature-icon"></i>
+                        </div>
                         <h3 class="feature-title" data-en="Open Source" data-gr="Ανοιχτού Κώδικα">Open Source</h3>
                         <p class="feature-description" data-en="Completely free and open source. Contribute, customize, or learn from our codebase on GitHub." 
                            data-gr="Πλήρως δωρεάν και ανοιχτού κώδικα. Συμβάλλετε, προσαρμόστε ή μάθετε από τον κώδικά μας στο GitHub.">
@@ -148,7 +189,9 @@
                     </a>
 
                     <a href="Pages/store.html" class="feature-card">
-                        <i class="fas fa-shopping-cart feature-icon"></i>
+                        <div class="feature-icon-wrapper">
+                            <i class="fas fa-shopping-cart feature-icon"></i>
+                        </div>
                         <h3 class="feature-title" data-en="Premium Services" data-gr="Προχωρημένες Υπηρεσίες">Premium Services</h3>
                         <p class="feature-description" data-en="Professional web development services and custom Python scripts for Termux. Get exactly what you need." 
                            data-gr="Επαγγελματικές υπηρεσίες ανάπτυξης ιστοσελίδων και προσαρμοσμένα σενάρια Python για Termux. Αποκτήστε ακριβώς αυτό που χρειάζεστε.">
@@ -160,16 +203,34 @@
                     </a>
                 </div>
 
-                <div class="content-section" style="text-align: center; margin-top: 40px;">
+                <div class="content-section community-section">
+                    <h2 data-en="Join Our Community" data-gr="Γίνετε Μέλος της Κοινότητάς Μας">Join Our Community</h2>
+                    <p data-en="Connect with other cybersecurity enthusiasts, get help, share knowledge, and contribute to the project."
+                       data-gr="Συνδεθείτε με άλλους ενθουσιώδεις κυβερνοασφαλείας, λάβετε βοήθεια, μοιραστείτε γνώσεις και συμβάλλετε στο έργο.">
+                       Connect with other cybersecurity enthusiasts, get help, share knowledge, and contribute to the project.
+                    </p>
+                    <div class="community-grid">
+                        <a href="https://github.com/dedsec1121fk/DedSec" target="_blank" class="community-card">
+                            <i class="fab fa-github"></i>
+                            <span data-en="GitHub Repository" data-gr="Αποθετήριο GitHub">GitHub Repository</span>
+                        </a>
+                        <a href="Pages/contact-credits.html" class="community-card">
+                            <i class="fas fa-comments"></i>
+                            <span data-en="Get Support" data-gr="Λάβετε Υποστήριξη">Get Support</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="content-section support-section">
                     <h2 data-en="Support Our Project" data-gr="Υποστηρίξτε το Έργο Μας">Support Our Project</h2>
                     <p data-en="Help us continue developing and maintaining our open-source tools by sponsoring us on GitHub."
                        data-gr="Βοηθήστε μας να συνεχίσουμε να αναπτύσσουμε και να συντηρούμε τα εργαλεία ανοιχτού κώδικα μας υποστηρίζοντάς μας στο GitHub.">
                        Help us continue developing and maintaining our open-source tools by sponsoring us on GitHub.
                     </p>
-                    <div class="contact-grid" style="max-width: 300px; margin: 20px auto;">
-                        <a href="https://github.com/sponsors/dedsec1121fk" target="_blank" class="app-icon">
+                    <div class="contact-grid">
+                        <a href="https://github.com/sponsors/dedsec1121fk" target="_blank" class="app-icon sponsor-btn">
                             <i class="fas fa-heart"></i>
-                            <span data-en="Sponsor Us" data-gr="Υποστηρίξτε μας">Sponsor Us</span>
+                            <span data-en="Sponsor Us on GitHub" data-gr="Υποστηρίξτε μας στο GitHub">Sponsor Us on GitHub</span>
                         </a>
                     </div>
                 </div>
