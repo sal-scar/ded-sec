@@ -949,6 +949,19 @@ body.light-theme .tool-card {
     margin: 0 auto;
 }
 
+/* =================================================================
+    START OF CHANGE: Added rule to fix sponsor button icon color
+    =================================================================
+*/
+.sponsor-btn i {
+    color: var(--nm-text-on-accent) !important;
+}
+/*
+    =================================================================
+    END OF CHANGE
+    =================================================================
+*/
+
 .sponsor-btn:hover {
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 10px 25px rgba(var(--glow-rgb), 0.4) !important;
