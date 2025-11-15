@@ -5,8 +5,8 @@ Allow: /
 
 # Allow indexing of main pages
 Allow: /index.html
-Allow: /Pages/learn-about-the-tools.html
 Allow: /Pages/guide-for-installation.html
+Allow: /Pages/learn-about-the-tools.html
 Allow: /Pages/collaborations.html
 Allow: /Pages/portfolio-github-info.html
 Allow: /Pages/contact-credits.html
