@@ -360,23 +360,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- TOOL CATEGORIES FUNCTIONALITY ---
-    function initializeToolCategories() {
-        console.log('Initializing tool categories...');
+    function initializeToolCategories(containerSelector) {
+        const container = document.querySelector(containerSelector);
+        if (!container) return;
+
+        console.log(`Initializing tool categories for ${containerSelector}...`);
         
         // Close all categories and tool items by default
-        document.querySelectorAll('.category, .tool-item').forEach(item => {
+        container.querySelectorAll('.category, .tool-item').forEach(item => {
             item.classList.remove('active');
         });
         
         // Category toggle functionality
-        document.querySelectorAll('.category-header').forEach(header => {
+        container.querySelectorAll('.category-header').forEach(header => {
             header.addEventListener('click', function() {
                 console.log('Category header clicked');
                 const category = this.parentElement;
                 const wasActive = category.classList.contains('active');
                 
                 // Close all categories first
-                document.querySelectorAll('.category').forEach(otherCategory => {
+                container.querySelectorAll('.category').forEach(otherCategory => {
                     otherCategory.classList.remove('active');
                 });
                 
@@ -388,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // Tool item toggle functionality
-        document.querySelectorAll('.tool-header').forEach(header => {
+        container.querySelectorAll('.tool-header').forEach(header => {
             header.addEventListener('click', function(e) {
                 console.log('Tool header clicked');
                 // Prevent the category from closing when clicking on a tool
@@ -465,11 +468,13 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeDisclaimer();
         initializeStorePage();
 
-        // Initialize tool categories if on the tools page
-        if (document.querySelector('.categories-container')) {
-            console.log('Tools page detected, initializing tool categories...');
-            initializeToolCategories();
-        }
+        // Initialize tool categories
+        // This targets the main tools page
+        initializeToolCategories('.categories-container');
+        
+        // This targets the FAQ section on the homepage
+        initializeToolCategories('#faq-container');
+
 
         // Set initial language - default to English
         const savedLanguage = localStorage.getItem('language') || 'en';
