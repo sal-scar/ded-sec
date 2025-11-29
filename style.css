@@ -596,7 +596,7 @@ body.light-theme .page-header h1 {
 
 .hero-section h2 {
     font-family: var(--font-secondary);
-    font-size: 2.5rem;
+    font-size: 2.1rem; /* MODIFIED: Was 2.5rem */
     color: var(--nm-text-accent);
     text-shadow: none;
     margin: 0 0 25px 0;
@@ -661,7 +661,7 @@ body.light-theme .page-header h1 {
 }
 
 .hero-actions {
-    display: flex;
+    display: none; /* MODIFIED: Was 'flex', hidden as requested */
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
@@ -781,7 +781,7 @@ body.light-theme .page-header h1 {
     background: var(--nm-darkest);
     border: 1px solid var(--nm-border);
     border-radius: var(--radius-pill);
-    padding: 30px 25px;
+    padding: 20px; /* MODIFIED: Was 30px 25px */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -804,15 +804,15 @@ body.light-theme .page-header h1 {
 }
 
 .feature-icon-wrapper {
-    width: 70px;
-    height: 70px;
+    width: 50px; /* MODIFIED: Was 70px */
+    height: 50px; /* MODIFIED: Was 70px */
     background: transparent;
     border: 1px solid var(--nm-border);
     border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* MODIFIED: Was 20px */
     transition: all 0.3s var(--ease-out-cubic);
 }
 
@@ -823,7 +823,7 @@ body.light-theme .page-header h1 {
 }
 
 .feature-icon {
-    font-size: 2.2rem;
+    font-size: 1.8rem; /* MODIFIED: Was 2.2rem */
     color: var(--nm-accent);
     transition: all 0.3s var(--ease-out-cubic);
 }
@@ -835,16 +835,16 @@ body.light-theme .page-header h1 {
 
 .feature-title {
     font-family: var(--font-secondary);
-    font-size: 1.4rem;
+    font-size: 1.2rem; /* MODIFIED: Was 1.4rem */
     color: var(--nm-text-accent);
-    margin: 0 0 15px 0;
+    margin: 0 0 10px 0; /* MODIFIED: Was 0 0 15px 0 */
     transition: color 0.3s ease;
 }
 
 .feature-description {
-    font-size: 1rem;
+    font-size: 0.9rem; /* MODIFIED: Was 1rem */
     color: var(--nm-text-muted);
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* MODIFIED: Was 20px */
     line-height: 1.6;
     flex-grow: 1;
 }
@@ -1971,7 +1971,7 @@ body.light-theme .github-stat-dark { display: none; }
     }
 
     .hero-section h2 {
-        font-size: 2rem;
+        font-size: 1.7rem; /* MODIFIED: Was 2rem */
     }
 
     .hero-text {
@@ -2147,7 +2147,7 @@ body.light-theme .github-stat-dark { display: none; }
     }
     
     .hero-section h2 {
-        font-size: 3rem;
+        font-size: 2.5rem; /* MODIFIED: Was 3rem */
     }
     
     .hero-text {
@@ -2197,7 +2197,7 @@ body.light-theme .github-stat-dark { display: none; }
     }
     
     .feature-card {
-        padding: 40px 35px;
+        padding: 25px; /* MODIFIED: Was 40px 35px */
     }
     
     .hero-section {
@@ -2205,7 +2205,7 @@ body.light-theme .github-stat-dark { display: none; }
     }
     
     .hero-section h2 {
-        font-size: 3.5rem;
+        font-size: 3rem; /* MODIFIED: Was 3.5rem */
     }
     
     .hero-text {
