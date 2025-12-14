@@ -7,21 +7,28 @@
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
-   
-<loc>https://ded-sec.space/Pages/guide-for-installation.html</loc>
-        <lastmod>2025-10-29</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-     
+    
     <url>
         <loc>https://ded-sec.space/Pages/learn-about-the-tools.html</loc>
         <lastmod>2025-10-29</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
+    
     <url>
-        
+        <loc>https://ded-sec.space/Pages/guide-for-installation.html</loc>
+        <lastmod>2025-10-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://ded-sec.space/Pages/faq.html</loc>
+        <lastmod>2025-10-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
     <url>
         <loc>https://ded-sec.space/Pages/store.html</loc>
         <lastmod>2025-10-29</lastmod>
@@ -35,18 +42,21 @@
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
+    
     <url>
         <loc>https://ded-sec.space/Pages/portfolio-github-info.html</loc>
         <lastmod>2025-10-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
+    
     <url>
         <loc>https://ded-sec.space/Pages/contact-credits.html</loc>
         <lastmod>2025-10-29</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
+    
     <url>
         <loc>https://ded-sec.space/Pages/privacy-policy.html</loc>
         <lastmod>2025-10-29</lastmod>
