@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- GLOBAL STATE ---
-    // Persistent language state: checks storage first, then browser language, or defaults to English
-    let currentLanguage = localStorage.getItem('language') || 'en';
+    let currentLanguage = 'en';
 
     // --- NAVIGATION FUNCTIONALITY ---
     function initializeNavigation() {
@@ -64,17 +63,15 @@ document.addEventListener('DOMContentLoaded', () => {
         updateThemeButton(document.body.classList.contains('light-theme'));
     }
 
-    // --- GLOBAL LANGUAGE MANAGEMENT ---
+    // --- LANGUAGE MANAGEMENT ---
     window.changeLanguage = (lang) => {
         currentLanguage = lang;
         document.documentElement.lang = lang;
         localStorage.setItem('language', lang);
         
-        // Update all elements with language attributes
         document.querySelectorAll('[data-en]').forEach(el => {
             const text = el.getAttribute(`data-${lang}`) || el.getAttribute('data-en');
-            
-            // Preserve icons/spans if they exist inside the element
+            // Update text while preserving icons/children if they exist
             if (el.children.length === 0) {
                 el.textContent = text;
             } else {
@@ -86,23 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Toggle visibility of language sections (English vs Greek text bodies)
         document.querySelectorAll('[data-lang-section]').forEach(el => {
             const isMatch = el.dataset.langSection === lang;
             el.style.display = isMatch ? 'block' : 'none';
             el.classList.toggle('hidden-by-default', !isMatch);
         });
 
-        // Update Dynamic Links (like Stripe Payment URLs)
+        // Update Dynamic Links (like Stripe)
         document.querySelectorAll('.payment-btn').forEach(link => {
             const newLink = link.getAttribute(`data-${lang}-link`);
             if (newLink) link.href = newLink;
         });
     };
 
-    // --- UNIVERSAL DISCLAIMER LOGIC ---
+    // --- UNIVERSAL DISCLAIMER INJECTION ---
     function injectDisclaimerHTML() {
-        // Only inject if it doesn't already exist on the page
         if (document.getElementById('disclaimer-modal')) return;
 
         const modalHTML = `
@@ -122,8 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>This project, including all associated tools, scripts, and documentation ("the Software"), is provided strictly for educational, research, and ethical security testing purposes. It is intended for use exclusively in controlled, authorized environments by users who have obtained explicit, prior written permission from the owners of any systems they intend to test.</p>
                     <p><strong>1. Assumption of Risk and Responsibility:</strong> By accessing or using the Software, you acknowledge and agree that you are doing so at your own risk. You are solely and entirely responsible for your actions and for any consequences that may arise from the use or misuse of this Software. This includes, but is not limited to, compliance with all applicable local, state, national, and international laws and regulations related to cybersecurity, data privacy, and electronic communications.</p>
                     <p><strong>2. Prohibited Activities:</strong> Any use of the Software for unauthorized or malicious activities is strictly prohibited. This includes, without limitation: accessing systems, systems, or data without authorization; performing denial-of-service attacks; data theft; fraud; spreading malware; or any other activity that violates applicable laws. Engaging in such activities may result in severe civil and criminal penalties.</p>
-                    <p><strong>3. No Warranty:</strong> The Software is provided "AS IS," without any warranty of any kind, express or implied. This includes, but is not limited to, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement. The developers and contributors make no guarantee that the Software will be error-free, secure, or uninterrupted.</p>
-                    <p><strong>4. Limitation of Liability:</strong> In no event shall the developers, contributors, or distributors of the Software be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the Software or the use or other dealings in the Software. This includes any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption).</p>
+                    <p><strong>3. No Warranty:</strong> The Software is provided "AS IS," without any warranty of any kind, express or implied. This includes, but is not to, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement. The developers and contributors make no guarantee that the Software will be error-free, secure, or uninterrupted.</p>
+                    <p><strong>4. Limitation of Liability:</strong> In no event shall the developers, contributors, or distributors of the Software be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connectionwith the Software or the use or other dealings in the Software. This includes any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption).</p>
                     <p><strong>5. No Refund Policy:</strong> All sales are final. Due to the digital nature of our products, we do not offer refunds once a product has been delivered. Please make sure you understand what you're purchasing before completing your order.</p>
                     <p><strong>6. Receipt Delivery:</strong> Please note: Your official payment receipt will be delivered automatically to your email address by Stripe shortly after your purchase. You will need this receipt to contact us for product delivery.</p>
                     <p><strong>7. Payment & Delivery Process:</strong> After completing your payment, you must contact us through our contact page and provide your payment receipt (which you received via email from Stripe). We will then verify your payment and deliver your purchased product(s) as soon as possible. Without contacting us with your receipt, we cannot process your order.</p>
@@ -141,10 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>ΠΑΡΑΚΑΛΩ ΔΙΑΒΑΣΤΕ ΠΡΟΣΕΚΤΙΚΑ ΠΡΙΝ ΣΥΝΕΧΙΣΕΤΕ.</strong></p>
                     <p><strong>Αποποίηση Ευθύνης Εμπορικού Σήματος:</strong> Το όνομα και το λογότυπο "DedSec" που χρησιμοποιούνται σε αυτό το έργο είναι μόνο για θεματικούς και εμπνευστικούς σκοπούς. Πρόκειται για ένα ανεξάρτητο, fan-made έργο που δημιουργήθηκε για εκπαιδευτικούς σκοπούς και δεν έχει καμία επίσημη σύνδεση με το franchise "Watch Dogs". Δεν συνδέεται, δεν υποστηρίζεται από, ούτε σχετίζεται με την Ubisoft Entertainment S.A. Όλα τα εμπορικά σήματα και τα πνευματικά δικαιώματα για το "Watch Dogs" και το "DedSec" όπως απεικονίζονται στα παιχνίδια ανήκουν στους αντίστοιχους κατόχους τους, την Ubisoft Entertainment S.A.</p>
                     <p>Αυτό το έργο, συμπεριλαμβανομένων όλων των σχετικών εργαλείων, σεναρίων και τεκμηρίωσης («το Λογισμικό»), παρέχεται αυστηρά για εκπαιδευτικούς, ερευνητικούς και ηθικούς σκοπούς δοκιμών ασφαλείας. Προορίζεται για χρήση αποκλειστικά σε ελεγχόμενα, εξουσιοδοτημένα περιβάλλοντα από χρήστες που έχουν λάβει ρητή, προηγούμενη γραπτή άδεια από τους ιδιοκτήτες οποιωνδήποτε συστημάτων σκοπεύουν να δοκιμάσουν.</p>
-                    <p><strong>1. Ανάληψη Κινδύνου και Ευθύνης:</strong> Με την πρόσβαση ή τη χρήση του Λογισμικού, αναγνωρίζετε και συμφωνείτε ότι το κάνετε με δική σας ευθύνη. Είστε αποκλειστικά και εξ ολοκλήρου υπεύθυνοι για τις ενέργειές σας και για τυχόν συνέπειες που μπορεί να προκύψουν από τη χρήση ή κακή χρήση αυτού του Λογισμικού. Αυτό περιλαμβάνει, ενδεικτικά, τη συμμόρφωση με όλους τους ισχύοντες τοπικούς, πολιτειακούς, εθνικούς και διεθνείς νόμους και κανονισμούς που σχετίζονται με την κυβερνοασφάλεια, την προστασία δεδομένων και τις ηλεκτρονικές επικοινωνίες.</p>
+                    <p><strong>1. Ανάληψη Κινδύνου και Ευθύνης:</strong> Με την πρόσβαση ή τη χρήση του Λογισμικού, αναγνωρίζετε και συμφωνείτε ότι το κάνετε με δική σας ευθύνη. Είστε αποκλειστικά και εξ ολοκλήρου υπεύθυνοι για τις ενέργειές σας και για τυχόν συνέπειες που μπορεί να προκύψουν από τη χρήση ή κακή χρήση αυτού του Λογισμικού. Αυτό περιλαμβάνει, ενδεικτικά, τη συμμόcompliance με όλους τους ισχύοντες τοπικούς, πολιτειακούς, εθνικούς και διεθνείς νόμους και κανονισμούς που σχετίζονται με την κυβερνοασφάλεια, την προστασία δεδομένων και τις ηλεκτρονικές επικοινωνίες.</p>
                     <p><strong>2. Απαγορευμένες Δραστηριότητες:</strong> Απαγορεύεται αυστηρά οποιαδήποτε χρήση του Λογισμικού για μη εξουσιοδοτημένες ή κακόβουλες δραστηριότητες. Αυτό περιλαμβάνει, χωρίς περιορισμό: πρόσβαση σε συστήματα ή δεδομένα χωρίς εξουσιοδοτημένη πρόσβαση, εκτέλεση επιθέσεων άρνησης υπηρεσίας (denial-of-service), κλοπή δεδομένων, απάτη, διάδοση κακόβουλου λογισμικού ή οποιαδήποτε άλλη δραστηριότητα που παραβιάζει την ισχύουσα νομοθεσία. Η συμμετοχή σε τέτοιες δραστηριότητες μπορεί να οδηγήσει σε σοβαρές αστικές και ποινικές κυρώσεις.</p>
                     <p><strong>3. Καμία Εγγύηση:</strong> Το Λογισμικό παρέχεται "ΩΣ ΕΧΕΙ", χωρίς καμία εγγύηση οποιουδήποτε είδους, ρητή ή σιωπηρή. Αυτό περιλαμβάνει, ενδεικτικά, τις σιωπηρές εγγυήσεις εμπορευσιμότητας, καταλληλότητας για συγκεκριμένο σκοπό και μη παραβίασης. Οι προγραμματιστές και οι συντελεστές δεν παρέχουν καμία εγγύηση ότι το Λογισμικό θα είναι απαλλαγμένο από σφάλματα, ασφαλές ή αδιάλειπτο.</p>
-                    <p><strong>4. Περιορισμός Ευθύνης:</strong> Σε καμία περίπτωση οι προγραμματιστές, οι συντελεστές ή οι διανομείς του Λογισμικού δεν φέρουν ευθύνη για οποιαδήποτε αξίωση, ζημιές ή άλλη ευθύνη, είτε πρόκειται για αγωγή σύμβασης, αδικοπραξίας ή άλλως, που προκύπτει από, ή σε σχέση με το Λογισμικό ή τη χρήση ή άλλες συναλλαγές με το Λογισμικό. Αυτό περιλαμβάνει τυχόν άμεσες, έμμεσες, τυχαίες, ειδικές, παραδειγματικές ή επακόλουθες ζημιές (συμπεριλαμβανομένης, αλλά όχι μόνο, της προμήθειας υποκατάστατων αγαθών ή υπηρεσιών, απώλειας χρήσης, δεδομένων ή κερδών ή διακοπής εργασιών).</p>
+                    <p><strong>4. Περιορισμός Ευθύνης:</strong> Σε καμία περίπτωση οι προγραμματιστές, οι συντελεστές ή οι διανομείς του Λογισμικού δεν φέρουν ευθύνη για οποιαδήποτε αξίμη, ζημιές ή άλλη ευθύνη, είτε πρόκειται για αγωγή σύμβασης, αδικοπραξίας ή άλλως, που προκύπτει από, ή σε σχέση με το Λογισμικό ή τη χρήση ή άλλες συναλλαγές με το Λογισμικό. Αυτό περιλαμβάνει τυχόν άμεσες, έμμεσες, τυχαίες, ειδικές, παραδειγματικές ή επακόλουθες ζημιές (συμπεριλαμβανομένης, αλλά όχι μόνο, της προμήθειας υποκατάστατων αγαθών ή υπηρεσιών, απώλειας χρήσης, δεδομένων ή κερδών ή διακοπής εργασιών).</p>
                     <p><strong>5. Πολιτική Χωρίς Επιστροφή Χρημάτων:</strong> Όλες οι πωλήσεις είναι οριστικές. Λόγω της ψηφιακής φύσης των προϊόντων μας, δεν προσφέρουμε επιστροφή χρημάτων αφού παραδοθεί ένα προϊόν. Παρακαλούμε βεβαιωθείτε ότι καταλαβαίνετε τι αγοράζετε πριν ολοκληρώσετε την παραγγελία σας.</p>
                     <p><strong>6. Παράδοση Απόδειξης:</strong> Παρακαλούμε σημειώστε: Η επίσημη απόδειξη πληρωμής σας θα παραδοθεί αυτόματα στη διεύθυνση email σας από το Stripe λίγο μετά την αγορά σας. Θα χρειαστείτε αυτήν την απόδειξη για να επικοινωνήσετε μαζί μας για την παράδοση του προϊόντος.</p>
                     <p><strong>7. Διαδικασία Πληρωμής & Παράδοσης:</strong> Μετά την ολοκλήρωση της πληρωμής σας, πρέπει να επικοινωνήσετε μαζί μας μέσω της σελίδας επικοινωνίας και να μας δώσετε την απόδειξη πληρωμής σας (την οποία λάβατε μέσω email από το Stripe). Στη συνέχεια, θα επαληθεύσουμε την πληρωμή σας και θα σας παραδώσουμε το αγορασμένο προϊόν(τα) το συντομότερο δυνατό. Χωρίς να επικοινωνήσετε μαζί μας με την απόδειξή σας, δεν μπορούμε να επεξεργαστούμε την παραγγελία σας.</p>
@@ -169,28 +164,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeDisclaimer() {
         if (localStorage.getItem('disclaimerAccepted') === 'true') return;
 
-        // Force creation of the modal on the current page
         injectDisclaimerHTML();
         
         const modal = document.getElementById('disclaimer-modal');
-        const disclaimerLangBtn = document.getElementById('disclaimer-lang-btn');
-        const acceptBtn = document.getElementById('accept-disclaimer');
-        const declineBtn = document.getElementById('decline-disclaimer');
-
-        // Show the modal
+        const langBtn = document.getElementById('disclaimer-lang-btn');
+        
         setTimeout(() => {
             modal?.classList.add('visible', 'banner-style');
-            // Ensure newly injected modal matches site language
-            window.changeLanguage(currentLanguage);
+            window.changeLanguage(currentLanguage); // Sync language
         }, 100);
 
-        // Language toggle inside the disclaimer updates the entire site
-        disclaimerLangBtn?.addEventListener('click', () => {
-            const nextLang = currentLanguage === 'en' ? 'gr' : 'en';
-            window.changeLanguage(nextLang);
+        langBtn?.addEventListener('click', () => {
+            window.changeLanguage(currentLanguage === 'en' ? 'gr' : 'en');
         });
 
-        acceptBtn?.addEventListener('click', () => {
+        document.getElementById('accept-disclaimer')?.addEventListener('click', () => {
             modal.classList.add('closing');
             setTimeout(() => {
                 localStorage.setItem('disclaimerAccepted', 'true');
@@ -198,12 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 400);
         });
 
-        declineBtn?.addEventListener('click', () => {
+        document.getElementById('decline-disclaimer')?.addEventListener('click', () => {
             window.location.href = 'https://www.google.com';
         });
     }
 
-    // --- OTHER UI UTILITIES ---
+    // --- SHARED UTILITIES (COPY, CAROUSEL, ACCORDION) ---
     window.copyToClipboard = (button, targetId) => {
         const text = document.getElementById(targetId)?.innerText;
         if (!text) return;
@@ -237,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- MAIN INITIALIZATION ---
+    // --- MAIN INIT ---
     function init() {
         initializeNavigation();
         initializeThemeSwitcher();
@@ -245,38 +233,29 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeToolCategories('.categories-container');
         initializeToolCategories('#faq-container');
         
-        // Navbar language button
+        // Language Switcher (Navbar)
         document.getElementById('nav-lang-switcher')?.addEventListener('click', () => {
             window.changeLanguage(currentLanguage === 'en' ? 'gr' : 'en');
         });
 
-        // General Modals behavior
+        // Modals
         document.querySelectorAll('.modal-overlay').forEach(m => {
-            m.addEventListener('click', (e) => { 
-                if(e.target === m && m.id !== 'disclaimer-modal') m.classList.remove('visible'); 
-            });
+            m.addEventListener('click', (e) => { if(e.target === m && m.id !== 'disclaimer-modal') m.classList.remove('visible'); });
             m.querySelector('.close-modal')?.addEventListener('click', () => m.classList.remove('visible'));
         });
 
-        // Run final logic setup
-        window.changeLanguage(currentLanguage);
+        // Final Setup
+        window.changeLanguage(localStorage.getItem('language') || 'en');
         initializeDisclaimer();
 
-        // Highlighting active nav link based on URL
+        // Active Link
         const page = window.location.pathname.split('/').pop() || 'index.html';
-        document.querySelectorAll('.nav-link').forEach(l => {
-            l.classList.toggle('active', l.getAttribute('href').includes(page));
-        });
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.getAttribute('href').includes(page)));
 
-        // Reveal animations on scroll
+        // Reveal Animations
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => { 
-                if (e.isIntersecting) { 
-                    e.target.classList.add('animate-in'); 
-                    observer.unobserve(e.target); 
-                }
-            });
-        }, { threshold: 0.1 });
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('animate-in'); observer.unobserve(e.target); }});
+        });
         document.querySelectorAll('.feature-card, .tool-item, .category').forEach(el => observer.observe(el));
     }
 
