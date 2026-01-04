@@ -1,0 +1,62 @@
+# DedSec Project
+
+> The DedSec Project provides open-source tools and resources for cybersecurity education, ethical hacking, and penetration testing, including network analysis, OSINT, social engineering, and system utilities.
+
+The DedSec Project is a comprehensive toolkit aimed at security researchers and enthusiasts. It emphasizes legal, ethical use of hacking tools for educational and authorized security testing, offering a variety of utilities designed for cybersecurity learning and practice.
+
+## Core Content
+
+[Objects include actionable tools for cybersecurity tasks]
+
+### Tools & Utilities
+
+Access 50+ tools for network scanning, OSINT, social engineering, secure communications, and system utilities.
+
+[Explore Tools](Pages/learn-about-the-tools.html)
+
+### Installation Guides
+
+Step-by-step instructions for a quick, automated setup compatible with Android devices using Termux.
+
+[Install Now](Pages/guide-for-installation.html)
+
+### Source Code & Contributions
+
+Open-source project on GitHub allowing users to contribute, customize, and review the codebase.
+
+[View GitHub](Pages/portfolio-github-info.html)
+
+## Resources
+
+### Community & Support
+
+Connect with the DedSec community for help, knowledge sharing, and collaboration.
+
+[GitHub Repository](https://github.com/dedsec1121fk/DedSec)  
+[Get Support](Pages/contact-credits.html)
+
+### Sponsorship & Funding
+
+Support ongoing development by sponsoring the project on GitHub.
+
+[Sponsor Us on GitHub](https://github.com/sponsors/dedsec1121fk)
+
+### Legal & Disclaimer
+
+Important legal notices, terms of use, and ethical guidelines to ensure responsible use of the tools. Contains trademark disclaimers, risk warnings, and privacy policies.
+
+[Terms of Use & Disclaimer](Pages/terms.html)
+
+## Optional
+
+### Educational Content
+
+Additional tutorials, user guides, and legal considerations for cybersecurity education and ethical hacking.
+
+[Learning Resources](Pages/learning.html)
+
+### Miscellaneous Tools & Games
+
+Additional utilities, fun modules, or side projects that complement the main toolkit but are secondary in nature.
+
+[More Resources](Pages/more-resources.html)
