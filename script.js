@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         
-        const SEARCH_VERSION = '2026-01-06-v5';
+        const SEARCH_VERSION = '2026-01-05-v4';
         const SEARCH_STORAGE_KEY = `dedsec_search_index_${SEARCH_VERSION}`;
 
         const SEARCH_PAGES = [
@@ -522,21 +522,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const resolveUrl = (url) => {
             // Normalize relative paths so clicking works from /Pages/*
             const isPages = window.location.pathname.includes('/Pages/');
-
-            // Home routes: avoid explicit index.html to prevent duplicate URLs
-            if (!isPages) {
-                if (url === 'index.html') return './';
-                if (url.startsWith('index.html#')) return url.replace('index.html', '');
-                return url;
-            }
-
+            if (!isPages) return url;
             if (url.startsWith('../') || url.startsWith('http') || url.startsWith('#')) return url;
-
             // From Pages -> root
             if (url.startsWith('Pages/')) return `../${url}`;
-            if (url === 'index.html') return '../';
-            if (url.startsWith('index.html#')) return `../${url.replace('index.html', '')}`;
-
+            if (url === 'index.html') return '../index.html';
             return url; // already relative within Pages
         };
 

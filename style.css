@@ -285,7 +285,7 @@ p {
     order: 1;
 }
 
-.nav-title .brand-link {
+.nav-title h1 {
     margin: 0;
     font-size: clamp(0.86rem, 2.6vw, 1.12rem); 
     color: var(--nm-text-accent);
@@ -298,10 +298,9 @@ p {
     text-overflow: ellipsis;
     white-space: nowrap;
     min-width: 0;
-    text-decoration: none;
 }
 
-body.light-theme .nav-title .brand-link {
+body.light-theme .nav-title h1 {
     text-shadow: none;
 }
 
@@ -2097,7 +2096,7 @@ border: 1px solid var(--nm-border);
         grid-template-columns: 1fr;
     }
 
-    .nav-title .brand-link {
+    .nav-title h1 {
         font-size: 1.5rem;
         gap: 8px;
     }
@@ -2703,7 +2702,7 @@ body.light-theme .search-input {
 @media (max-width:420px){.nav-action-btn span{display:none;}}
 
 @media (max-width: 420px) {
-  .nav-title .brand-link { font-size: 1.15rem; }
+  .nav-title h1 { font-size: 1.15rem; }
 }
 
 .hero-section > * { position: relative; z-index: 1; }
@@ -2796,10 +2795,10 @@ body.light-theme .search-input {
   .nav-container { gap: 8px; }
   .nav-actions { gap: 6px; }
   .nav-action-btn { padding: 6px 8px; }
-  .nav-title .brand-link { font-size: 0.98rem; letter-spacing: 0.02em; }
+  .nav-title h1 { font-size: 0.98rem; letter-spacing: 0.02em; }
 }
 @media (max-width: 360px) {
-  .nav-title .brand-link { font-size: 0.92rem; }
+  .nav-title h1 { font-size: 0.92rem; }
   .nav-actions { gap: 5px; }
 }
 
