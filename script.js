@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- BRAND ASSETS (Theme-aware) ---
-    const LOGO_DARK = '/Assets/Images/Logos/Black%20Purple%20Butterfly%20Logo.jpeg';
-    const LOGO_LIGHT = '/Assets/Images/Logos/White%20Purple%20Butterfly%20Logo.jpeg';
+    const LOGO_DARK = 'Assets/Images/Logos/Black%20Purple%20Butterfly%20Logo.jpeg';
+    const LOGO_LIGHT = 'Assets/Images/Logos/White%20Purple%20Butterfly%20Logo.jpeg';
 
     const getThemeLogo = () => (document.body.classList.contains('light-theme') ? LOGO_LIGHT : LOGO_DARK);
 
