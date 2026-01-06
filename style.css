@@ -17,7 +17,7 @@
     --nm-container: rgba(18, 18, 30, 0.52);
 
     /* Solid surface for disclaimer banner/modal so it stays readable */
-    --nm-disclaimer-bg: rgba(10, 10, 18, 0.92);
+    --nm-disclaimer-bg: #0a0a12;
 
     /* Neutral button background for actions like "Decline" */
     --nm-neutral-btn-bg: rgba(255, 255, 255, 0.10);
@@ -86,7 +86,7 @@ body.light-theme {
     --nm-container: rgba(255, 255, 255, 0.62);
 
     /* Solid surface for disclaimer banner/modal so it stays readable */
-    --nm-disclaimer-bg: rgba(255, 255, 255, 0.94);
+    --nm-disclaimer-bg: #ffffff;
 
     /* Neutral button background for actions like "Decline" */
     --nm-neutral-btn-bg: rgba(0, 0, 0, 0.06);
@@ -1055,7 +1055,8 @@ border: 1px solid var(--nm-border);
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    /* Solid background (no transparency) for disclaimer/modal overlay */
+    background: #000000;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     display: flex;
@@ -1068,7 +1069,7 @@ border: 1px solid var(--nm-border);
 }
 
 body.light-theme .modal-overlay {
-    background: rgba(255, 255, 255, 0.9);
+    background: #ffffff;
 }
 
 .modal-overlay.visible {
@@ -1094,6 +1095,25 @@ body.light-theme .modal-overlay {
     transform: translateY(20px) scale(0.95);
     transition: transform 0.4s var(--ease-out-back), opacity 0.4s var(--ease-in-out-quad);
     will-change: transform, opacity;
+}
+
+/* Disclaimer modal: force solid surfaces (no transparency) */
+#disclaimer-modal .modal-content {
+    background: var(--nm-disclaimer-bg);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+#disclaimer-modal .note,
+#disclaimer-modal .privacy-policy-embed {
+    background: var(--nm-menu-solid);
+}
+
+#disclaimer-modal .privacy-policy-embed {
+    border: 1px solid var(--nm-border);
+    border-radius: var(--radius-lg);
+    padding: 0.8rem;
+    margin: 15px 0;
 }
 
 .modal-content-auto-height {
@@ -2640,7 +2660,7 @@ body.light-theme .search-input {
 .hero-title {
     margin: 0 0 10px 0;
     font-family: var(--font-secondary);
-    font-size: clamp(1.9rem, 4vw, 3.2rem);
+    font-size: clamp(2.1rem, 4.5vw, 3.4rem);
     letter-spacing: 0.5px;
 }
 
