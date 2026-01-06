@@ -4,8 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- BRAND ASSETS (Theme-aware) ---
-    const LOGO_DARK = 'https://github.com/dedsec1121fk/dedsec1121fk.github.io/blob/5fa0e957dad2567995a6524a0d932f53b5907ae6/Assets/Images/Logos/Black%20Purple%20Butterfly%20Logo.jpeg?raw=1';
-    const LOGO_LIGHT = 'https://github.com/dedsec1121fk/dedsec1121fk.github.io/blob/5fa0e957dad2567995a6524a0d932f53b5907ae6/Assets/Images/Logos/White%20Purple%20Butterfly%20Logo.jpeg?raw=1';
+    // IMPORTANT (GitHub Pages + subpages):
+    // Any relative URL like "Assets/..." breaks on pages like /Pages/faq.html
+    // because it resolves to /Pages/Assets/... (404). We resolve assets from the
+    // actual location of script.js so it works everywhere (root domain, /repo/, etc.).
+    const SITE_BASE = (() => {
+        const scriptEl = document.querySelector('script[src$="script.js"], script[src*="/script.js"], script[src*="script.js?"]');
+        try {
+            if (scriptEl?.src) return new URL('./', scriptEl.src).href;
+        } catch (_) {}
+        // Fallback: best-effort
+        return new URL('./', window.location.href).href;
+    })();
+
+    const assetUrl = (path) => {
+        const clean = (path || '').replace(/^\/+/, '');
+        return new URL(clean, SITE_BASE).href;
+    };
+
+    const LOGO_DARK = assetUrl('Assets/Images/Logos/Black%20Purple%20Butterfly%20Logo.jpeg');
+    const LOGO_LIGHT = assetUrl('Assets/Images/Logos/White%20Purple%20Butterfly%20Logo.jpeg');
 
     const getThemeLogo = () => (document.body.classList.contains('light-theme') ? LOGO_LIGHT : LOGO_DARK);
 
@@ -17,15 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (img.src !== url) img.src = url;
         });
 
-        // Favicon
-        let link = document.querySelector('link[rel="icon"]');
-        if (!link) {
-            link = document.createElement('link');
-            link.rel = 'icon';
-            link.type = 'image/jpeg';
-            document.head.appendChild(link);
-        }
-        if (link.href !== url) link.href = url;
+        // Favicon fallback (helps when some subpages have broken relative paths)
+        const icon = document.querySelector('link[rel="icon" i]') || document.querySelector('link[rel="shortcut icon" i]');
+        if (icon) icon.href = url;
     };
     // --- NAVIGATION FUNCTIONALITY ---
     function initializeNavigation() {
