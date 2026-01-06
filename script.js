@@ -72,11 +72,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- THEME SWITCHER ---
     function initializeThemeSwitcher() {
         const themeBtn = document.getElementById('nav-theme-switcher');
-        const themeIcon = themeBtn?.querySelector('i');
-        const themeSpan = themeBtn?.querySelector('span');
+
+        // NOTE:
+        // On some mobile browsers, simply changing an existing <i> element's class
+        // can fail to repaint the Font Awesome glyph immediately. To make it bulletproof
+        // we always (re)resolve the icon element and replace it after updating classes.
+        const ensureThemeIcon = () => {
+            if (!themeBtn) return null;
+            let icon = themeBtn.querySelector('i');
+            if (!icon) {
+                icon = document.createElement('i');
+                themeBtn.prepend(icon);
+            }
+            return icon;
+        };
+
+        const getThemeSpan = () => themeBtn?.querySelector('span') || null;
 
         const updateThemeButton = (isLightTheme) => {
-            if (!themeBtn || !themeIcon || !themeSpan) return;
+            if (!themeBtn) return;
+
+            const themeSpan = getThemeSpan();
+            const themeIcon = ensureThemeIcon();
+            if (!themeIcon || !themeSpan) return;
+
             if (isLightTheme) {
                 themeIcon.className = 'fas fa-sun';
                 themeSpan.setAttribute('data-en', 'Light Theme');
@@ -87,6 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 themeSpan.setAttribute('data-gr', 'Σκοτεινό Θέμα');
             }
             themeSpan.textContent = themeSpan.getAttribute(`data-${currentLanguage}`);
+
+            // Force repaint/re-evaluation of pseudo-elements by replacing the node.
+            // (Fixes the "sun icon only appears after refresh" issue.)
+            try {
+                const fresh = themeIcon.cloneNode(true);
+                themeIcon.replaceWith(fresh);
+            } catch (_) {}
         };
 
         themeBtn?.addEventListener('click', () => {
