@@ -1314,9 +1314,7 @@ body.light-theme .modal-overlay {
     margin: 0 0 10px 0;
 }
 
-.modal-overlay.banner-style .modal-divider {
-    margin: 1rem 0;
-}
+.modal-overlay.banner-style 
 
 .modal-overlay.banner-style .modal-footer {
     padding: 15px 20px;
@@ -1749,7 +1747,11 @@ body.light-theme .github-stat-dark { display: none; }
 /* --- Misc Components --- */
 .modal-divider {
     margin: 2rem 0;
-    border-color: var(--nm-border);
+    border: 0;
+    border-top: 1px solid var(--nm-border);
+    height: 0;
+    background: none;
+    opacity: 1;
 }
 
 .text-center {
