@@ -1748,12 +1748,8 @@ body.light-theme .github-stat-dark { display: none; }
 
 /* --- Misc Components --- */
 .modal-divider {
-    /* Single clean separator line (avoid the default double-line HR rendering) */
     margin: 2rem 0;
-    border: 0;
-    height: 1px;
-    background: var(--nm-border);
-    opacity: 0.65;
+    border-color: var(--nm-border);
 }
 
 .text-center {
