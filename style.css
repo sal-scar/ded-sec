@@ -1747,16 +1747,11 @@ body.light-theme .github-stat-dark { display: none; }
 .next-btn { inset-inline-end: 10px; }
 
 /* --- Misc Components --- */
-.modal-divider{
+.modal-divider {
     margin: 2rem 0;
+    border-color: var(--nm-border);
 }
 
-/* FIX: Force divider to render as ONE line (prevents “double line” HR on some mobile browsers) */
-hr.modal-divider{
-    border: 0;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--nm-border), transparent);
-}
 .text-center {
     text-align: center;
 }
