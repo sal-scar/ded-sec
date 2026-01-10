@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         
-        const SEARCH_VERSION = '2026-01-05-v4';
+        const SEARCH_VERSION = '2026-01-10-v5';
         const SEARCH_STORAGE_KEY = `dedsec_search_index_${SEARCH_VERSION}`;
 
         const SEARCH_PAGES = [
@@ -268,11 +268,25 @@ document.addEventListener('DOMContentLoaded', () => {
             "Pages/collaborations.html",
             "Pages/portfolio-github-info.html",
             "Pages/contact-credits.html",
-            "Pages/privacy-policy.html"
+            "Pages/privacy-policy.html",
+            "Pages/blog.html",
+            "Blog/termux-new-user-guide.html",
+            "Blog/termux-errors-fixes.html",
+            "Blog/termux-run-distros.html",
+            "Blog/learn-python-in-termux.html",
+            "Blog/mass-surveillance-digital-id.html",
+            "Blog/watch-dogs-vs-real-life-2026.html"
 ];
 
-        const isInPages = () => window.location.pathname.includes('/Pages/');
-        const toFetchPath = (path) => (isInPages() ? `../${path}` : path);
+        const getDepthPrefix = () => {
+            const parts = window.location.pathname.split('/').filter(Boolean);
+            const last = parts[parts.length - 1] || '';
+            const isFile = last.includes('.');
+            const depth = Math.max(0, (isFile ? parts.length - 1 : parts.length));
+            return '../'.repeat(depth);
+        };
+
+        const toFetchPath = (path) => `${getDepthPrefix()}${path}`;
 
         const ensureDeterministicIds = (doc) => {
             const scope = doc.querySelector('main') || doc.body;
