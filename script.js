@@ -262,7 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         
-        const SEARCH_VERSION = '2026-01-10-v5';
+        const SEARCH_VERSION = '2026-01-10-v6';
         const SEARCH_STORAGE_KEY = `dedsec_search_index_${SEARCH_VERSION}`;
 
         const SEARCH_PAGES = [
@@ -523,7 +523,7 @@ const ensureDeterministicIds = (doc) => {
                     const href = a.getAttribute('href');
                     if (!href) return;
                     setOverlayVisible(false);
-                    setTimeout(() => navigate(href.replace(window.location.origin, '')), 0);
+                    setTimeout(() => navigate(href), 0);
                 });
             });
         };
