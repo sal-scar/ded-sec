@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!--MAINTAIN_POST: SEO: Keep title + description accurate. Keep 6–12 sections per topic.-->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<title>DedSec Blog — Git in Termux: A Clean Workflow for Projects</title>
+<meta content="#07060d" name="theme-color"/>
+<meta content="dark light" name="color-scheme"/>
+<meta content="A practical Git workflow on Android: clone, branches, commits, SSH, and keeping your projects tidy in Termux." name="description"/>
+<link href="../favicon.ico" rel="icon" sizes="any"/>
+<link href="../favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="../favicon-48.png" rel="icon" sizes="48x48" type="image/png"/>
+<link href="../favicon-16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="../favicon-180.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="../site.webmanifest" rel="manifest"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&amp;family=Roboto+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="https://ded-sec.space/Blog/termux-git-workflow.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="https://ded-sec.space/Blog/termux-git-workflow.html" property="og:url"/>
+<meta content="DedSec Blog — Git in Termux: A Clean Workflow for Projects" property="og:title"/>
+<meta content="A practical Git workflow on Android: clone, branches, commits, SSH, and keeping your projects tidy in Termux." property="og:description"/>
+<meta content="https://ded-sec.space/Assets/Images/og/og-dark.jpg" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="DedSec Blog — Git in Termux: A Clean Workflow for Projects" name="twitter:title"/>
+<meta content="A practical Git workflow on Android: clone, branches, commits, SSH, and keeping your projects tidy in Termux." name="twitter:description"/>
+<meta content="https://ded-sec.space/Assets/Images/og/og-dark.jpg" name="twitter:image"/>
+<meta content="2026-01-11" property="article:published_time"/>
+<meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
+<meta content="DedSec Project" name="author"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="DedSec Project" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="el_GR" property="og:locale:alternate"/>
+<meta content="DedSec Project — cybersecurity and Termux learning resources" property="og:image:alt"/>
+<meta content="DedSec Project — cybersecurity and Termux learning resources" name="twitter:image:alt"/>
+<meta content="Git Termux, GitHub Android, git workflow, branches, commits, SSH keys, DedSec Project" name="keywords"/>
+<meta content="Version Control" property="article:section"/>
+<meta content="DedSec Project" property="article:author"/>
+<script id="ld-blogposting" type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "DedSec Blog — Git in Termux: A Clean Workflow for Projects",
+  "description": "A practical Git workflow on Android: clone, branches, commits, SSH, and keeping your projects tidy in Termux.",
+  "datePublished": "2026-01-11",
+  "dateModified": "2026-01-11",
+  "mainEntityOfPage": "https://ded-sec.space/Blog/termux-git-workflow.html",
+  "author": {
+    "@type": "Organization",
+    "name": "DedSec Project",
+    "url": "https://ded-sec.space/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "DedSec Project",
+    "url": "https://ded-sec.space/"
+  },
+  "image": [
+    "https://ded-sec.space/Assets/Images/og/og-dark.jpg"
+  ],
+  "inLanguage": [
+    "en",
+    "el"
+  ],
+  "keywords": "Git Termux, GitHub Android, git workflow, branches, commits, SSH keys, DedSec Project"
+}</script>
+</head>
+<body class="dark-theme"><!--MAINTAIN_SITE: Blog posts live in /Blog/*.html; global theme/language logic is in /script.js.-->
+<nav class="main-nav">
+<div class="nav-container">
+<div class="nav-title"><h1>DedSec Project</h1></div>
+<button aria-label="Toggle navigation" class="burger-menu" id="burger-menu"><span></span><span></span><span></span></button>
+<div class="nav-menu" id="nav-menu">
+<a class="nav-link" data-en="Home" data-gr="Αρχική" href="../index.html">Home</a>
+<a class="nav-link" data-en="Learn About The Tools" data-gr="Μάθε για τα Εργαλεία" href="../Pages/learn-about-the-tools.html">Learn About The Tools</a>
+<a class="nav-link" data-en="Guide For Installation" data-gr="Οδηγός Εγκατάστασης" href="../Pages/guide-for-installation.html">Guide For Installation</a>
+<a class="nav-link" data-en="Frequently Asked Questions" data-gr="Συχνές Ερωτήσεις" href="../Pages/faq.html">Frequently Asked Questions</a>
+<a class="nav-link" data-en="Store" data-gr="Κατάστημα" href="../Pages/store.html">Store</a><a class="nav-link active" data-en="Blog" data-gr="Ιστολόγιο" href="../Pages/blog.html">Blog</a>
+<a class="nav-link" data-en="Collaborations" data-gr="Συνεργασίες" href="../Pages/collaborations.html">Collaborations</a>
+<a class="nav-link" data-en="Portfolio &amp; GitHub" data-gr="Portfolio &amp; GitHub" href="../Pages/portfolio-github-info.html">Portfolio &amp; GitHub</a>
+<a class="nav-link" data-en="Contact &amp; Credits" data-gr="Επικοινωνία &amp; Συντελεστές" href="../Pages/contact-credits.html">Contact &amp; Credits</a>
+<a class="nav-link" data-en="Privacy Policy" data-gr="Πολιτική Απορρήτου" href="../Pages/privacy-policy.html">Privacy Policy</a>
+</div>
+<div class="nav-actions">
+<button class="nav-action-btn" id="nav-theme-switcher"><i class="fas fa-moon"></i><span data-en="Theme" data-gr="Θέμα">Theme</span></button>
+<button class="nav-action-btn" id="nav-lang-switcher"><i class="fas fa-globe"></i><span data-en="Language" data-gr="Γλώσσα">Language</span></button>
+</div>
+</div>
+</nav>
+<div class="page-content post-article">
+  <div class="page-header">
+    <h1 data-en="Git in Termux: A Clean Workflow for Projects" data-gr="Git στο Termux: Καθαρή Ροή για Projects">Git in Termux: A Clean Workflow for Projects</h1>
+    <p data-en="Use Git confidently from your phone: simple habits that prevent losing work and keep your repos professional." data-gr="Χρησιμοποίησε Git άνετα από το κινητό: απλές συνήθειες που αποτρέπουν απώλεια δουλειάς και κρατούν τα repos επαγγελματικά.">Use Git confidently from your phone: simple habits that prevent losing work and keep your repos professional.</p>
+    <div class="post-meta"><p data-en="Updated: 2026-01-11 • Hands-on Git guide" data-gr="Ενημέρωση: 2026-01-11 • Πρακτικός οδηγός Git">Updated: 2026-01-11 • Hands-on Git guide</p></div>
+    <div class="trust-box">
+      <strong data-en="Why you can trust this guide" data-gr="Γιατί να εμπιστευτείς αυτόν τον οδηγό">Why you can trust this guide</strong>
+      <p data-en="It uses standard Git conventions (small commits, branches, readable messages) and avoids risky shortcuts." data-gr="Βασίζεται σε κλασικές συμβάσεις Git (μικρά commits, branches, καθαρά μηνύματα) και αποφεύγει επικίνδυνα shortcuts.">It uses standard Git conventions (small commits, branches, readable messages) and avoids risky shortcuts.</p>
+    </div>
+    <div class="featured-store-cta" style="margin-top:14px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+      <a class="btn btn-ghost" data-en="← Back to Blog" data-gr="← Πίσω στο Blog" href="../Pages/blog.html">← Back to Blog</a>
+      <a class="btn btn-primary" data-en="Install DedSec Project" data-gr="Εγκατάσταση DedSec Project" href="../Pages/guide-for-installation.html">Install DedSec Project</a>
+    </div>
+    <div class="toc"><h3 data-en="On this page" data-gr="Σε αυτή τη σελίδα">On this page</h3><ul><li><a href="#setup">1) Install Git and set your identity</a></li>
+<li><a href="#clone">2) Clone + keep a clean Projects folder</a></li>
+<li><a href="#daily-loop">3) The daily loop: pull → change → commit</a></li>
+<li><a href="#branches">4) Use branches for experiments (so main stays stable)</a></li>
+<li><a href="#ssh-auth">5) GitHub auth: prefer SSH keys</a></li>
+<li><a href="#ignore">6) .gitignore: keep junk out of your repo</a></li></ul></div>
+  </div>
+  <div class="content-section">
+<h2 data-en="1) Install Git and set your identity" data-gr="1) Εγκατάσταση Git και ρύθμιση ταυτότητας" id="setup">1) Install Git and set your identity</h2>
+<p data-en="Set name/email once so your commits look professional." data-gr="Ρύθμισε όνομα/email μία φορά ώστε τα commits να φαίνονται επαγγελματικά.">Set name/email once so your commits look professional.</p>
+<pre><code>pkg install -y git
+
+git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;you@example.com&quot;</code></pre>
+</div>
+<div class="content-section">
+<h2 data-en="2) Clone + keep a clean Projects folder" data-gr="2) Clone + κράτα καθαρό φάκελο Projects" id="clone">2) Clone + keep a clean Projects folder</h2>
+<p data-en="Put all repos in ~/Projects so backups are easy and paths are predictable." data-gr="Βάλε όλα τα repos στο ~/Projects ώστε τα backups να είναι εύκολα και τα paths προβλέψιμα.">Put all repos in ~/Projects so backups are easy and paths are predictable.</p>
+<pre><code>mkdir -p ~/Projects &amp;&amp; cd ~/Projects
+git clone https://github.com/USER/REPO.git
+cd REPO</code></pre>
+</div>
+<div class="content-section">
+<h2 data-en="3) The daily loop: pull → change → commit" data-gr="3) Daily loop: pull → αλλαγές → commit" id="daily-loop">3) The daily loop: pull → change → commit</h2>
+<p data-en="Make small changes, commit often, and write messages that explain the why (not only the what)." data-gr="Κάνε μικρές αλλαγές, κάνε commit συχνά και γράφε μηνύματα που εξηγούν το γιατί (όχι μόνο το τι).">Make small changes, commit often, and write messages that explain the why (not only the what).</p>
+<pre><code>git pull
+# edit files
+
+git status
+git add .
+git commit -m &quot;Fix blog post structure and headings&quot;
+# then push when ready
+# git push</code></pre>
+</div>
+<div class="content-section">
+<h2 data-en="4) Use branches for experiments (so main stays stable)" data-gr="4) Χρησιμοποίησε branches για πειράματα (ώστε το main να μένει σταθερό)" id="branches">4) Use branches for experiments (so main stays stable)</h2>
+<p data-en="Branches let you try ideas safely. If it works, merge. If it fails, delete the branch." data-gr="Τα branches σου επιτρέπουν να δοκιμάζεις ιδέες με ασφάλεια. Αν δουλέψει, merge. Αν όχι, delete.">Branches let you try ideas safely. If it works, merge. If it fails, delete the branch.</p>
+<pre><code>git checkout -b feature/new-posts
+# work...
+
+git checkout main
+git merge feature/new-posts</code></pre>
+</div>
+<div class="content-section">
+<h2 data-en="5) GitHub auth: prefer SSH keys" data-gr="5) GitHub auth: προτίμησε SSH keys" id="ssh-auth">5) GitHub auth: prefer SSH keys</h2>
+<p data-en="HTTPS can work with tokens, but SSH keys are smoother once set up (especially on mobile)." data-gr="Το HTTPS δουλεύει με tokens, αλλά τα SSH keys είναι πιο άνετα όταν ρυθμιστούν (ειδικά στο κινητό).">HTTPS can work with tokens, but SSH keys are smoother once set up (especially on mobile).</p>
+<pre><code>ssh-keygen -t ed25519 -C &quot;github-termux&quot;
+cat ~/.ssh/id_ed25519.pub
+# Add the public key to GitHub, then:
+git remote set-url origin git@github.com:USER/REPO.git</code></pre>
+</div>
+<div class="content-section">
+<h2 data-en="6) .gitignore: keep junk out of your repo" data-gr="6) .gitignore: κράτα «σκουπίδια» έξω από το repo" id="ignore">6) .gitignore: keep junk out of your repo</h2>
+<p data-en="Never commit secrets, build outputs, caches, or large temporary files." data-gr="Ποτέ μην κάνεις commit μυστικά, build outputs, caches ή μεγάλα προσωρινά αρχεία.">Never commit secrets, build outputs, caches, or large temporary files.</p>
+<pre><code>nano .gitignore
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Termux / local
+.DS_Store
+*.log
+secrets.env</code></pre>
+</div>
+  <div class="sources"><h3 data-en="Sources &amp; further reading" data-gr="Πηγές &amp; επιπλέον ανάγνωση">Sources &amp; further reading</h3><ul><li><a data-en="Git documentation: Book (free)" data-gr="Git documentation: Book (δωρεάν)" href="https://git-scm.com/book/en/v2" rel="noopener" target="_blank">Git documentation: Book (free)</a></li><li><a data-en="GitHub Docs: SSH keys" data-gr="GitHub Docs: SSH keys" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh" rel="noopener" target="_blank">GitHub Docs: SSH keys</a></li></ul></div>
+</div>
+<script defer="" src="../script.js"></script>
+</body>
+</html>
