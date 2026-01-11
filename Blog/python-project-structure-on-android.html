@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head><!--MAINTAIN_POST: SEO: Keep title + description accurate. Keep 6–12 sections per topic.-->
 <meta charset="utf-8"/>
@@ -91,25 +92,25 @@
 </div>
 </nav>
 <div class="page-content post-article">
-  <div class="page-header">
-    <h1 data-en="Python Projects on Android: Clean Structure, venv, and Packaging" data-gr="Python Projects στο Android: Δομή, venv και Packaging">Python Projects on Android: Clean Structure, venv, and Packaging</h1>
-    <p data-en="Stop writing one-off scripts. Build repeatable projects you can maintain, share, and reinstall without pain." data-gr="Σταμάτα τα «one-off» scripts. Χτίσε projects που συντηρούνται, μοιράζονται και ξαναστήνονται χωρίς πόνο.">Stop writing one-off scripts. Build repeatable projects you can maintain, share, and reinstall without pain.</p>
-    <div class="post-meta"><p data-en="Updated: 2026-01-11 • From scripts to projects" data-gr="Ενημέρωση: 2026-01-11 • Από scripts σε projects">Updated: 2026-01-11 • From scripts to projects</p></div>
-    <div class="trust-box">
-      <strong data-en="Why you can trust this guide" data-gr="Γιατί να εμπιστευτείς αυτόν τον οδηγό">Why you can trust this guide</strong>
-      <p data-en="It uses standard Python tooling (venv + requirements) and keeps steps compatible with Termux and low-end devices." data-gr="Βασίζεται σε στάνταρ Python tooling (venv + requirements) και είναι συμβατό με Termux και low-end συσκευές.">It uses standard Python tooling (venv + requirements) and keeps steps compatible with Termux and low-end devices.</p>
-    </div>
-    <div class="featured-store-cta" style="margin-top:14px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-      <a class="btn btn-ghost" data-en="← Back to Blog" data-gr="← Πίσω στο Blog" href="../Pages/blog.html">← Back to Blog</a>
-      <a class="btn btn-primary" data-en="Install DedSec Project" data-gr="Εγκατάσταση DedSec Project" href="../Pages/guide-for-installation.html">Install DedSec Project</a>
-    </div>
-    <div class="toc"><h3 data-en="On this page" data-gr="Σε αυτή τη σελίδα">On this page</h3><ul><li><a href="#layout">1) A simple project layout that scales</a></li>
-<li><a href="#venv">2) Use a virtual environment (venv)</a></li>
-<li><a href="#requirements">3) Freeze dependencies to requirements.txt</a></li>
-<li><a href="#config">4) Config files (avoid hardcoding secrets)</a></li>
-<li><a href="#entrypoint">5) Make it runnable: a clear entry point</a></li></ul></div>
-  </div>
-  <div class="content-section">
+<div class="page-header">
+<h1 data-en="Python Projects on Android: Clean Structure, venv, and Packaging" data-gr="Python Projects στο Android: Δομή, venv και Packaging">Python Projects on Android: Clean Structure, venv, and Packaging</h1>
+<p data-en="Stop writing one-off scripts. Build repeatable projects you can maintain, share, and reinstall without pain." data-gr="Σταμάτα τα «one-off» scripts. Χτίσε projects που συντηρούνται, μοιράζονται και ξαναστήνονται χωρίς πόνο.">Stop writing one-off scripts. Build repeatable projects you can maintain, share, and reinstall without pain.</p>
+<div class="post-meta"><p data-en="Updated: 2026-01-11 • From scripts to projects" data-gr="Ενημέρωση: 2026-01-11 • Από scripts σε projects">Updated: 2026-01-11 • From scripts to projects</p></div>
+<div class="trust-box">
+<strong data-en="Why you can trust this guide" data-gr="Γιατί να εμπιστευτείς αυτόν τον οδηγό">Why you can trust this guide</strong>
+<p data-en="It uses standard Python tooling (venv + requirements) and keeps steps compatible with Termux and low-end devices." data-gr="Βασίζεται σε στάνταρ Python tooling (venv + requirements) και είναι συμβατό με Termux και low-end συσκευές.">It uses standard Python tooling (venv + requirements) and keeps steps compatible with Termux and low-end devices.</p>
+</div>
+<div class="featured-store-cta" style="margin-top:14px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+<a class="btn btn-ghost" data-en="← Back to Blog" data-gr="← Πίσω στο Blog" href="../Pages/blog.html">← Back to Blog</a>
+<a class="btn btn-primary" data-en="Install DedSec Project" data-gr="Εγκατάσταση DedSec Project" href="../Pages/guide-for-installation.html">Install DedSec Project</a>
+</div>
+<div class="toc"><h3 data-en="On this page" data-gr="Σε αυτή τη σελίδα">On this page</h3><ul><li><a data-en="1) A simple project layout that scales" data-gr="1) Μια απλή δομή project που «μεγαλώνει»" href="#layout">1) A simple project layout that scales</a></li>
+<li><a data-en="2) Use a virtual environment (venv)" data-gr="2) Χρησιμοποίησε virtual environment (venv)" href="#venv">2) Use a virtual environment (venv)</a></li>
+<li><a data-en="3) Freeze dependencies to requirements.txt" data-gr="3) Κλείδωσε dependencies σε requirements.txt" href="#requirements">3) Freeze dependencies to requirements.txt</a></li>
+<li><a data-en="4) Config files (avoid hardcoding secrets)" data-gr="4) Config files (όχι hardcode μυστικά)" href="#config">4) Config files (avoid hardcoding secrets)</a></li>
+<li><a data-en="5) Make it runnable: a clear entry point" data-gr="5) Κάν’ το runnable: καθαρό entry point" href="#entrypoint">5) Make it runnable: a clear entry point</a></li><li><a data-en="A solid folder layout (with an example)" data-gr="Ένα σωστό folder layout (με παράδειγμα)" href="#a-solid-folder-layout">A solid folder layout (with an example)</a></li><li><a data-en="Dependencies, reproducibility, and “it works on my phone”" data-gr="Dependencies, reproducibility και “δουλεύει στο δικό μου κινητό”" href="#dependencies-and-reproducibility">Dependencies, reproducibility, and “it works on my phone”</a></li><li><a data-en="Debugging on Termux: logging beats guessing" data-gr="Debugging στο Termux: το logging είναι καλύτερο από το “μαντεύω”" href="#debugging-and-logging">Debugging on Termux: logging beats guessing</a></li></ul></div>
+</div>
+<div class="content-section">
 <h2 data-en="1) A simple project layout that scales" data-gr="1) Μια απλή δομή project που «μεγαλώνει»" id="layout">1) A simple project layout that scales</h2>
 <p data-en="A good structure makes testing, backups, and refactoring easier. Start with one folder per project." data-gr="Η σωστή δομή κάνει testing, backup και refactor πιο εύκολα. Ξεκίνα με έναν φάκελο ανά project.">A good structure makes testing, backups, and refactoring easier. Start with one folder per project.</p>
 <pre><code>mkdir -p ~/Projects/mytool/{src,tests,docs}
@@ -145,11 +146,11 @@ pip freeze &gt; requirements.txt
 <pre><code># src/mytool/__main__.py
 # python -m mytool
 
-if __name__ == &quot;__main__&quot;:
-    print(&quot;Hello from mytool&quot;)</code></pre>
+if __name__ == "__main__":
+    print("Hello from mytool")</code></pre>
 </div>
-  <div class="sources"><h3 data-en="Sources &amp; further reading" data-gr="Πηγές &amp; επιπλέον ανάγνωση">Sources &amp; further reading</h3><ul><li><a data-en="Python docs: venv" data-gr="Python docs: venv" href="https://docs.python.org/3/library/venv.html" rel="noopener" target="_blank">Python docs: venv</a></li><li><a data-en="pip user guide" data-gr="pip user guide" href="https://pip.pypa.io/en/stable/user_guide/" rel="noopener" target="_blank">pip user guide</a></li></ul></div>
-</div>
+<div class="sources"><h3 data-en="Sources &amp; further reading" data-gr="Πηγές &amp; επιπλέον ανάγνωση">Sources &amp; further reading</h3><ul><li><a data-en="Python docs: venv" data-gr="Python docs: venv" href="https://docs.python.org/3/library/venv.html" rel="noopener" target="_blank">Python docs: venv</a></li><li><a data-en="pip user guide" data-gr="pip user guide" href="https://pip.pypa.io/en/stable/user_guide/" rel="noopener" target="_blank">pip user guide</a></li></ul></div>
+<div class="content-section"><h2 data-en="A solid folder layout (with an example)" data-gr="Ένα σωστό folder layout (με παράδειγμα)" id="a-solid-folder-layout">A solid folder layout (with an example)</h2><p data-en="A good structure makes your code easier to grow, debug, and share. On Android/Termux, it also reduces path confusion and permission problems." data-gr="Μια σωστή δομή κάνει τον κώδικα πιο εύκολο να επεκταθεί, να γίνει debug και να μοιραστεί. Στο Android/Termux βοηθάει επίσης να μην μπερδεύεσαι με paths και permissions.">A good structure makes your code easier to grow, debug, and share. On Android/Termux, it also reduces path confusion and permission problems.</p><p data-en="Example project tree (small but scalable):" data-gr="Παράδειγμα project tree (μικρό αλλά επεκτάσιμο):">Example project tree (small but scalable):</p><ul><li data-en="project-name/ — root folder" data-gr="project-name/ — βασικός φάκελος">project-name/ — root folder</li><li data-en="src/ — your Python code (modules)" data-gr="src/ — ο Python κώδικας σου (modules)">src/ — your Python code (modules)</li><li data-en="tests/ — quick tests you can run any time" data-gr="tests/ — μικρά tests που τρέχουν γρήγορα">tests/ — quick tests you can run any time</li><li data-en="data/ — sample data (never secrets)" data-gr="data/ — δείγματα δεδομένων (ποτέ μυστικά)">data/ — sample data (never secrets)</li><li data-en="scripts/ — one-off helpers (import-safe)" data-gr="scripts/ — βοηθητικά scripts (χωρίς να “σπάνε” imports)">scripts/ — one-off helpers (import-safe)</li><li data-en="README.md — what it does + how to run" data-gr="README.md — τι κάνει + πώς τρέχει">README.md — what it does + how to run</li><li data-en="requirements.txt — pinned dependencies" data-gr="requirements.txt — dependencies">requirements.txt — pinned dependencies</li></ul></div><div class="content-section"><h2 data-en="Dependencies, reproducibility, and “it works on my phone”" data-gr="Dependencies, reproducibility και “δουλεύει στο δικό μου κινητό”" id="dependencies-and-reproducibility">Dependencies, reproducibility, and “it works on my phone”</h2><p data-en="The fastest way to lose time is to install random packages until the app “sort of” runs. Instead, write down dependencies and keep them consistent." data-gr="Ο πιο γρήγορος τρόπος να χάσεις χρόνο είναι να εγκαθιστάς τυχαία πακέτα μέχρι να “κάπως” τρέχει. Αντί γι’ αυτό, γράψε dependencies και κράτα τα σταθερά.">The fastest way to lose time is to install random packages until the app “sort of” runs. Instead, write down dependencies and keep them consistent.</p><p data-en="Practical rules:" data-gr="Πρακτικοί κανόνες:">Practical rules:</p><ul><li data-en="Pin versions for important libs (e.g., requests==x.y.z) if you distribute the project." data-gr="Κλείδωσε versions σε βασικές βιβλιοθήκες (π.χ. requests==x.y.z) αν το μοιράζεις.">Pin versions for important libs (e.g., requests==x.y.z) if you distribute the project.</li><li data-en="Use a single entry point (python -m src.main) so imports stay clean." data-gr="Χρησιμοποίησε ένα entry point (python -m src.main) για καθαρά imports.">Use a single entry point (python -m src.main) so imports stay clean.</li><li data-en="Keep secrets out of the repo: use .env files locally and document required variables." data-gr="Μην βάζεις μυστικά στο repo: .env τοπικά και documentation για variables.">Keep secrets out of the repo: use .env files locally and document required variables.</li><li data-en="Test a clean install once: reinstall deps from requirements.txt and run again." data-gr="Κάνε test “καθαρή εγκατάσταση”: ξανά εγκατάσταση από requirements.txt και run.">Test a clean install once: reinstall deps from requirements.txt and run again.</li></ul></div><div class="content-section"><h2 data-en="Debugging on Termux: logging beats guessing" data-gr="Debugging στο Termux: το logging είναι καλύτερο από το “μαντεύω”" id="debugging-and-logging">Debugging on Termux: logging beats guessing</h2><p data-en="When something fails on mobile, the screen is small and errors scroll away. Add basic logging so you can see what happened after the fact." data-gr="Όταν κάτι χαλάει στο κινητό, η οθόνη είναι μικρή και τα errors “φεύγουν”. Βάλε βασικό logging για να βλέπεις τι έγινε.">When something fails on mobile, the screen is small and errors scroll away. Add basic logging so you can see what happened after the fact.</p><p data-en="A simple approach is: log inputs, log key steps, log failures with context, and keep logs in a predictable place (like project-name/logs/)." data-gr="Μια απλή προσέγγιση: log inputs, log βασικά βήματα, log αποτυχίες με context, και κράτα logs σε σταθερό σημείο (π.χ. project-name/logs/).">A simple approach is: log inputs, log key steps, log failures with context, and keep logs in a predictable place (like project-name/logs/).</p><ul><li data-en="If you support users: ask them for the log file, not screenshots." data-gr="Αν έχεις χρήστες: ζήτα το log file, όχι screenshots.">If you support users: ask them for the log file, not screenshots.</li><li data-en="Write a short “Troubleshooting” section in README with common fixes." data-gr="Βάλε ένα μικρό “Troubleshooting” στο README με συνηθισμένες λύσεις.">Write a short “Troubleshooting” section in README with common fixes.</li><li data-en="Prefer descriptive error messages over silent failures." data-gr="Καλύτερα περιγραφικά errors από “σιωπηλές” αποτυχίες.">Prefer descriptive error messages over silent failures.</li></ul></div></div>
 <script defer="" src="../script.js"></script>
 </body>
 </html>
