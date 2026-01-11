@@ -154,8 +154,9 @@ function detectGitHubRepoFromLocation() {
     let descEn = '';
     let descGr = '';
     let date = '';
-
-    try {
+    let section = '';
+    let tags = [];
+try {
       const html = await (await fetch(entry.download_url, { cache: 'no-store' })).text();
       const doc = new DOMParser().parseFromString(html, 'text/html');
 
@@ -164,8 +165,9 @@ function detectGitHubRepoFromLocation() {
 
       const metaDesc = doc.querySelector('meta[name="description"]');
       const published = doc.querySelector('meta[property="article:published_time"]');
-
-      if (h1) {
+      const sectionMeta = doc.querySelector('meta[property="article:section"]');
+      const tagMetas = Array.from(doc.querySelectorAll('meta[property="article:tag"]'));
+if (h1) {
         titleEn = (h1.getAttribute('data-en') || h1.textContent || titleEn).trim();
         titleGr = (h1.getAttribute('data-gr') || titleGr).trim();
       }
@@ -178,6 +180,13 @@ function detectGitHubRepoFromLocation() {
       }
 
       if (published) date = (published.getAttribute('content') || '').trim();
+
+      if (sectionMeta) {
+        section = String(sectionMeta.getAttribute('content') || '').trim();
+      }
+      if (tagMetas && tagMetas.length) {
+        tags = tagMetas.map(m => String(m.getAttribute('content') || '').trim()).filter(Boolean);
+      }
     } catch (_) {
       // keep fallbacks
     }
@@ -189,7 +198,9 @@ function detectGitHubRepoFromLocation() {
       titleGr,
       descEn,
       descGr,
-      date
+      date,
+      section,
+      tags
     };
   }
 
@@ -211,6 +222,17 @@ function detectGitHubRepoFromLocation() {
       const descEn = escapeHtml(p.descEn || '');
       const descGr = escapeHtml(p.descGr || p.descEn || '');
 
+      const taxonomy = (() => {
+        const out = [];
+        if (p.section) out.push(`<span class="badge">${escapeHtml(p.section)}</span>`);
+        if (Array.isArray(p.tags)) {
+          p.tags.slice(0, 3).forEach(t => out.push(`<span class="badge">#${escapeHtml(t)}</span>`));
+        }
+        return out.length
+          ? `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">${out.join('')}</div>`
+          : '';
+      })();
+
       const badge = p.date
         ? `<span class="badge" data-en="Updated ${escapeHtml(p.date)}" data-gr="Ενημέρωση ${escapeHtml(p.date)}">Updated ${escapeHtml(p.date)}</span>`
         : '';
@@ -220,12 +242,71 @@ function detectGitHubRepoFromLocation() {
           <div class="feature-icon"><i class="fas fa-book-open"></i></div>
           <h3 class="feature-title" data-en="${titleEn}" data-gr="${titleGr}">${titleEn}</h3>
           <p data-en="${descEn}" data-gr="${descGr}">${descEn}</p>
+          ${taxonomy}
           ${badge}
         </a>`;
     });
 
     grid.innerHTML = cards.join('');
+ 
+
+
+  function setupFilters(posts, grid) {
+    const catWrap = document.getElementById('category-chips');
+    const tagWrap = document.getElementById('tag-chips');
+    if (!catWrap || !tagWrap) return () => {};
+
+    const allCats = Array.from(new Set(posts.map(p => (p.section || '').trim()).filter(Boolean))).sort((a,b)=>a.localeCompare(b));
+    const allTags = Array.from(new Set(posts.flatMap(p => Array.isArray(p.tags) ? p.tags : []).map(t => String(t).trim()).filter(Boolean))).sort((a,b)=>a.localeCompare(b));
+
+    const params = new URLSearchParams(location.search || '');
+    let selectedCat = params.get('cat') || 'All';
+    let selectedTag = params.get('tag') || 'All';
+
+    function renderChips(wrap, items, selected, onPick) {
+      wrap.innerHTML = '';
+      const mk = (label, value) => {
+        const b = document.createElement('span');
+        b.className = 'chip' + (selected === value ? ' is-active' : '');
+        b.textContent = label;
+        b.addEventListener('click', () => onPick(value));
+        return b;
+      };
+      wrap.appendChild(mk('All', 'All'));
+      items.forEach(v => wrap.appendChild(mk(v, v)));
+    }
+
+    function apply() {
+      const filtered = posts.filter(p => {
+        const okCat = (selectedCat === 'All') || (String(p.section || '') === selectedCat);
+        const okTag = (selectedTag === 'All') || (Array.isArray(p.tags) && p.tags.includes(selectedTag));
+        return okCat && okTag;
+      });
+
+      // keep query params in sync (clean URLs)
+      const next = new URLSearchParams(location.search || '');
+      if (selectedCat === 'All') next.delete('cat'); else next.set('cat', selectedCat);
+      if (selectedTag === 'All') next.delete('tag'); else next.set('tag', selectedTag);
+      const nextStr = next.toString();
+      const nextUrl = nextStr ? `${location.pathname}?${nextStr}` : location.pathname;
+      history.replaceState(null, '', nextUrl);
+
+      renderChips(catWrap, allCats, selectedCat, (v) => { selectedCat = v; render(); apply(); });
+      renderChips(tagWrap, allTags, selectedTag, (v) => { selectedTag = v; render(); apply(); });
+
+      renderPosts(grid, filtered);
+      if (typeof window.applyLanguage === 'function') window.applyLanguage();
+      return filtered;
+    }
+
+    function render() {
+      // no-op placeholder (chips rerender in apply)
+    }
+
+    // initial apply
+    apply();
   }
+ }
 
   async function main() {
     const grid = document.getElementById(GRID_ID);
@@ -270,6 +351,7 @@ if (!posts.length) {
     </div>`;
 } else {
   renderPosts(grid, posts);
+  try { setupFilters(posts, grid); } catch (_) {}
 
   // Apply the saved language after rendering
   if (typeof window.changeLanguage === 'function') {
