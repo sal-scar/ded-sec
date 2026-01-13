@@ -325,6 +325,20 @@
     let selectedCat = params.get('cat') || 'All';
     let selectedTag = params.get('tag') || 'All';
 
+    const catValue = document.getElementById('category-current');
+    const tagValue = document.getElementById('tag-current');
+
+    function setSelectedLabel(el, value) {
+      if (!el) return;
+      const isAll = (value === 'All');
+      const en = isAll ? 'All' : String(value);
+      const gr = isAll ? 'Όλα' : String(value);
+      el.setAttribute('data-en', en);
+      el.setAttribute('data-gr', gr);
+      // Text gets replaced by changeLanguage(), but keep EN as a safe default.
+      el.textContent = en;
+    }
+
     function mkChip(labelEn, labelGr, value, selected, onPick) {
       const b = document.createElement('button');
       b.type = 'button';
@@ -332,7 +346,15 @@
       b.setAttribute('data-en', labelEn);
       b.setAttribute('data-gr', labelGr);
       b.textContent = labelEn;
-      b.addEventListener('click', () => onPick(value));
+
+      b.addEventListener('click', () => {
+        onPick(value);
+
+        // If the chips live inside a <details> dropdown, collapse it after selecting.
+        const drop = b.closest('details.filter-drop');
+        if (drop) drop.removeAttribute('open');
+      });
+
       return b;
     }
 
@@ -361,6 +383,9 @@
       const nextStr = next.toString();
       const nextUrl = nextStr ? `${location.pathname}?${nextStr}` : location.pathname;
       history.replaceState(null, '', nextUrl);
+
+      setSelectedLabel(catValue, selectedCat);
+      setSelectedLabel(tagValue, selectedTag);
 
       renderChips(catWrap, allCats, selectedCat, (v) => { selectedCat = v; apply(); });
       renderChips(tagWrap, allTags, selectedTag, (v) => { selectedTag = v; apply(); });
