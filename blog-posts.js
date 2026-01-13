@@ -390,26 +390,6 @@
     });
   }
 
-  async function filterToExisting(posts) {
-    // For offline/embedded mode, ensure we only show posts whose HTML files actually exist.
-    // Uses same-origin fetch; works on GitHub Pages and on local servers (not file://).
-    const out = [];
-    for (const p of (Array.isArray(posts) ? posts : [])) {
-      const url = String(p.href || '').trim();
-      if (!url) continue;
-      try {
-        // Try HEAD first (fast). Some local servers may not support it, so fall back to GET.
-        let res = await fetch(url, { method: 'HEAD', cache: 'no-store' });
-        if (!res.ok) res = await fetch(url, { method: 'GET', cache: 'no-store' });
-        if (res.ok) out.push(p);
-      } catch (_) {
-        // If fetch fails (offline), keep it only if we are in embedded mode (best-effort)
-        // but avoid showing totally broken links when we can detect failure.
-      }
-    }
-    return out;
-  }
-
   async function main() {
     const grid = document.getElementById(GRID_ID);
     if (!grid) return;
@@ -423,7 +403,6 @@
     }
 
     let posts = [];
-    let usedEmbedded = false;
     try {
       const entries = await fetchRepoDirectory(cfg.github);
       const metas = await Promise.all(entries.map(fetchPostMeta));
@@ -442,13 +421,9 @@
     // If GitHub API failed (offline / rate limit), use embedded posts from the ZIP build.
     if (!posts.length && Array.isArray(EMBEDDED_POSTS) && EMBEDDED_POSTS.length) {
       posts = EMBEDDED_POSTS.slice();
-      usedEmbedded = true;
     }
 
     posts = normalizePosts(posts);
-    if (usedEmbedded) {
-      posts = await filterToExisting(posts);
-    }
 
     if (!posts.length) {
       grid.innerHTML = `
