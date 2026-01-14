@@ -332,7 +332,10 @@ body.light-theme .nav-title h1 {
     order: 3;
     margin-inline-start: 6px;
     flex-shrink: 0;
+  position: relative;
+  z-index: 1002;
 }
+
 
 .burger-menu span {
     width: 25px;
@@ -359,9 +362,7 @@ body.light-theme .nav-title h1 {
     box-sizing: border-box;
     box-shadow: var(--shadow-elev-3) !important;
     transform: translateX(110%);
-    opacity: 1;
-    visibility: visible;
-    transition: transform 0.3s var(--ease-out-cubic);
+
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
@@ -370,12 +371,14 @@ body.light-theme .nav-title h1 {
     gap: 14px;
     /* Ensure it works on desktop */
     z-index: 1001;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: transform 0.3s var(--ease-out-cubic), opacity 0.2s ease, visibility 0.2s ease;
 }
 
-.nav-menu {
-    overflow: hidden;
-    isolation: isolate;
-}
+
+.nav-menu { overflow-y: auto; isolation: isolate; }
 
 .nav-menu::before {
     content: "";
@@ -394,9 +397,14 @@ body.light-theme .nav-title h1 {
     z-index: 1;
 }
 
-.nav-menu.active { 
-    transform: translateX(0); 
+.nav-menu.active {
+ 
+    transform: translateX(0);
+  pointer-events: auto;
+  visibility: visible;
+  opacity: 1;
 }
+
 
 .nav-link {
     color: var(--nm-text);
@@ -3465,72 +3473,6 @@ body.light-theme .chip{
 body.light-theme .chip.is-active{
   color: #000;
 }
-
-
-/* Blog filter dropdowns (collapsible Categories/Tags) */
-.filter-drop{
-  border: 1px solid var(--nm-border);
-  border-radius: var(--radius-md);
-  background: var(--nm-darkest);
-  overflow: hidden;
-}
-
-.filter-drop[open]{
-  background: var(--nm-container);
-}
-
-.filter-drop-summary{
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 12px;
-  user-select: none;
-}
-
-.filter-drop-summary::-webkit-details-marker{ display:none; }
-.filter-drop-summary::marker{ content:""; }
-
-.filter-drop-left{
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.filter-title{
-  font-size: 0.95rem;
-  color: var(--nm-text);
-  font-family: var(--font-mono);
-  letter-spacing: 0.02em;
-}
-
-.filter-value{
-  font-size: 0.8rem;
-  color: var(--nm-text-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-}
-
-.filter-drop-icon{
-  color: var(--nm-text);
-  transition: transform 0.25s var(--ease-out-cubic);
-}
-
-.filter-drop[open] .filter-drop-icon{
-  transform: rotate(180deg);
-}
-
-.filter-drop-body{
-  padding: 10px 12px 12px;
-  border-top: 1px solid var(--nm-border);
-}
-
-/* Tighten chips inside dropdown a bit */
-.filter-drop-body.chip-row{ gap: 8px; }
 
 .blog-taxonomy{
   display:flex;
