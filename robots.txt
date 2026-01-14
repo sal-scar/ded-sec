@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ded-sec.space/sitemap.xml
+Sitemap: https://www.ded-sec.space/sitemap.xml

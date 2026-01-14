@@ -40,10 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.nav-title h1 img[data-site-logo="1"]').forEach(img => {
             if (img.src !== url) img.src = url;
         });
-
-        // Favicon fallback (helps when some subpages have broken relative paths)
-        const icon = document.querySelector('link[rel="icon" i]') || document.querySelector('link[rel="shortcut icon" i]');
-        if (icon) icon.href = url;
     };
     // --- NAVIGATION FUNCTIONALITY ---
     function initializeNavigation() {
@@ -746,19 +742,6 @@ const ensureDeterministicIds = (doc) => {
             const rel = (a.getAttribute('rel') || '').toLowerCase();
             if (!rel.includes('noopener')) a.setAttribute('rel', (rel ? rel + ' ' : '') + 'noopener noreferrer');
         });
-
-        // Fix broken local favicon paths by forcing a working icon
-        const ensureIcon = () => {
-            let link = document.querySelector('link[rel="icon"]');
-            if (!link) {
-                link = document.createElement('link');
-                link.rel = 'icon';
-                link.type = 'image/jpeg';
-                document.head.appendChild(link);
-            }
-            link.href = getThemeLogo();
-        };
-        ensureIcon();
         applyThemeAssets();
     }
 
