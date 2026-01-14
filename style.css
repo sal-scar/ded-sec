@@ -332,10 +332,7 @@ body.light-theme .nav-title h1 {
     order: 3;
     margin-inline-start: 6px;
     flex-shrink: 0;
-  position: relative;
-  z-index: 1002;
 }
-
 
 .burger-menu span {
     width: 25px;
@@ -362,7 +359,9 @@ body.light-theme .nav-title h1 {
     box-sizing: border-box;
     box-shadow: var(--shadow-elev-3) !important;
     transform: translateX(110%);
-
+    opacity: 1;
+    visibility: visible;
+    transition: transform 0.3s var(--ease-out-cubic);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
@@ -371,14 +370,12 @@ body.light-theme .nav-title h1 {
     gap: 14px;
     /* Ensure it works on desktop */
     z-index: 1001;
-  pointer-events: none;
-  visibility: hidden;
-  opacity: 0;
-  transition: transform 0.3s var(--ease-out-cubic), opacity 0.2s ease, visibility 0.2s ease;
 }
 
-
-.nav-menu { overflow-y: auto; isolation: isolate; }
+.nav-menu {
+    overflow: hidden;
+    isolation: isolate;
+}
 
 .nav-menu::before {
     content: "";
@@ -397,14 +394,9 @@ body.light-theme .nav-title h1 {
     z-index: 1;
 }
 
-.nav-menu.active {
- 
-    transform: translateX(0);
-  pointer-events: auto;
-  visibility: visible;
-  opacity: 1;
+.nav-menu.active { 
+    transform: translateX(0); 
 }
-
 
 .nav-link {
     color: var(--nm-text);

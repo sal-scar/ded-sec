@@ -49,110 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeNavigation() {
         const burgerMenu = document.getElementById('burger-menu');
         const navMenu = document.getElementById('nav-menu');
-
-        if (!burgerMenu || !navMenu) return;
-
-        // iOS/Safari reliability:
-        // - Use touchstart + click (and pointerup if available)
-        // - Prevent the "ghost click" / delayed click from double-toggling
-        // - Use composedPath() for robust outside-click detection
-        let lastTouchTime = 0;
-
-        const setExpanded = (isOpen) => {
-            try {
-                burgerMenu.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-                burgerMenu.setAttribute('aria-controls', 'nav-menu');
-            } catch (_) {}
-        };
-
-        const toggleMenu = (force) => {
-            const willOpen = (typeof force === 'boolean') ? force : !navMenu.classList.contains('active');
-            burgerMenu.classList.toggle('active', willOpen);
-            navMenu.classList.toggle('active', willOpen);
-            setExpanded(willOpen);
-        };
-
-        const onTouchStart = (e) => {
-            lastTouchTime = Date.now();
-            // Stop iOS from also firing a follow-up click that re-toggles
-            try { e.preventDefault(); } catch (_) {}
-            e.stopPropagation();
-            toggleMenu();
-        };
-
-        const onClick = (e) => {
-            // Ignore synthetic click right after touch
-            if (Date.now() - lastTouchTime < 500) return;
-            e.stopPropagation();
-            toggleMenu();
-        };
-
-        // Attach handlers (touch first, then click)
-        burgerMenu.addEventListener('touchstart', onTouchStart, { passive: false });
-        burgerMenu.addEventListener('click', onClick);
-
-        // Pointer events (some iOS versions support them; harmless otherwise)
-        try {
-            burgerMenu.addEventListener('pointerup', (e) => {
-                // Avoid double toggle if touch already happened
-                if (Date.now() - lastTouchTime < 500) return;
-                e.stopPropagation();
-                toggleMenu();
+        
+        if (burgerMenu && navMenu) {
+            burgerMenu.addEventListener('click', () => {
+                burgerMenu.classList.toggle('active');
+                navMenu.classList.toggle('active');
             });
-        } catch (_) {}
-
-        // Keyboard accessibility (Enter / Space)
-        burgerMenu.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleMenu();
-            }
-        });
-
-        // Close menu when a nav link is clicked
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => toggleMenu(false));
-            link.addEventListener('touchstart', () => toggleMenu(false), { passive: true });
-        });
-
-        // Close menu when tapping/clicking outside
-        document.addEventListener('click', (e) => {
-            if (!navMenu.classList.contains('active')) return;
-
-            const path = (typeof e.composedPath === 'function') ? e.composedPath() : null;
-            const isInside = (el) => {
-                if (!el) return false;
-                if (path) return path.includes(el);
-                return el.contains(e.target);
-            };
-
-            const navActions = document.querySelector('.nav-actions');
-
-            if (!isInside(navMenu) && !isInside(burgerMenu) && !isInside(navActions)) {
-                toggleMenu(false);
-            }
-        }, true);
-
-        document.addEventListener('touchstart', (e) => {
-            if (!navMenu.classList.contains('active')) return;
-
-            const path = (typeof e.composedPath === 'function') ? e.composedPath() : null;
-            const isInside = (el) => {
-                if (!el) return false;
-                if (path) return path.includes(el);
-                return el.contains(e.target);
-            };
-
-            const navActions = document.querySelector('.nav-actions');
-
-            if (!isInside(navMenu) && !isInside(burgerMenu) && !isInside(navActions)) {
-                toggleMenu(false);
-            }
-        }, { passive: true, capture: true });
-
-        // Initial ARIA state
-        setExpanded(navMenu.classList.contains('active'));
-    }
+        }
 
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
