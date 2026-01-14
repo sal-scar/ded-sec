@@ -2,15 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>DedSec Blog</title>
-    <link>https://www.ded-sec.space/Pages/blog.html</link>
-    <atom:link href="https://www.ded-sec.space/feed.xml" rel="self" type="application/rss+xml"/>
+    <link>https://dedsec1121fk.github.io/Pages/blog.html</link>
+    <atom:link href="https://dedsec1121fk.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Practical guides on privacy, security, and real-world tech — by DedSec Project.</description>
     <language>en</language>
     <lastBuildDate>Sun, 11 Jan 2026 21:02:57 +0000</lastBuildDate>
     <item>
       <title>AI &amp; Cybersecurity 2026: Threats, Deepfakes, and Defenses | DedSec Blog</title>
-      <link>https://www.ded-sec.space/Blog/ai-and-cybersecurity-2026.html</link>
-      <guid isPermaLink="true">https://www.ded-sec.space/Blog/ai-and-cybersecurity-2026.html</guid>
+      <link>https://dedsec1121fk.github.io/Blog/ai-and-cybersecurity-2026.html</link>
+      <guid isPermaLink="true">https://dedsec1121fk.github.io/Blog/ai-and-cybersecurity-2026.html</guid>
       <description>How AI changes cyber offense and defense: faster phishing, smarter malware tooling, improved detection, and the new operational and governance risks for teams in 2026.</description>
       <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
       <category>AI &amp; Security</category>
@@ -22,8 +22,8 @@
     </item>
     <item>
       <title>Humanoid Robots &amp; Artificial Muscles: Terminator vs Reality | DedSec Blog</title>
-      <link>https://www.ded-sec.space/Blog/ai-terminator-myth-vs-reality.html</link>
-      <guid isPermaLink="true">https://www.ded-sec.space/Blog/ai-terminator-myth-vs-reality.html</guid>
+      <link>https://dedsec1121fk.github.io/Blog/ai-terminator-myth-vs-reality.html</link>
+      <guid isPermaLink="true">https://dedsec1121fk.github.io/Blog/ai-terminator-myth-vs-reality.html</guid>
       <description>A realistic look at “Terminator” fears: what autonomous systems can and can’t do today, how robot bodies are improving (actuators, muscles, hands), and where safety policy matters.</description>
       <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
       <category>AI &amp; Robotics</category>
@@ -35,8 +35,8 @@
     </item>
     <item>
       <title>Digital ID &amp; Social Credit (China + UK) | DedSec Blog</title>
-      <link>https://www.ded-sec.space/Blog/digital-identity-benefits-risks-safeguards.html</link>
-      <guid isPermaLink="true">https://www.ded-sec.space/Blog/digital-identity-benefits-risks-safeguards.html</guid>
+      <link>https://dedsec1121fk.github.io/Blog/digital-identity-benefits-risks-safeguards.html</link>
+      <guid isPermaLink="true">https://dedsec1121fk.github.io/Blog/digital-identity-benefits-risks-safeguards.html</guid>
       <description>Digital identity can reduce fraud and simplify services—but it can also enable tracking and exclusion. Here’s how benefits, risks, and practical safeguards fit together.</description>
       <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
       <category>Privacy &amp; Governance</category>
@@ -48,8 +48,8 @@
     </item>
     <item>
       <title>Migration, Crime, and Demographic Change | DedSec Blog</title>
-      <link>https://www.ded-sec.space/Blog/migration-geopolitics-weaponization-and-resilience.html</link>
-      <guid isPermaLink="true">https://www.ded-sec.space/Blog/migration-geopolitics-weaponization-and-resilience.html</guid>
+      <link>https://dedsec1121fk.github.io/Blog/migration-geopolitics-weaponization-and-resilience.html</link>
+      <guid isPermaLink="true">https://dedsec1121fk.github.io/Blog/migration-geopolitics-weaponization-and-resilience.html</guid>
       <description>How migration intersects with geopolitics: what “weaponization” narratives get right and wrong, and what resilient, rights-respecting policy looks like.</description>
       <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
       <category>Society &amp; Security</category>
@@ -61,8 +61,8 @@
     </item>
     <item>
       <title>Watch Dogs vs Reality (All Games) | DedSec Blog</title>
-      <link>https://www.ded-sec.space/Blog/watch-dogs-vs-real-life-2026.html</link>
-      <guid isPermaLink="true">https://www.ded-sec.space/Blog/watch-dogs-vs-real-life-2026.html</guid>
+      <link>https://dedsec1121fk.github.io/Blog/watch-dogs-vs-real-life-2026.html</link>
+      <guid isPermaLink="true">https://dedsec1121fk.github.io/Blog/watch-dogs-vs-real-life-2026.html</guid>
       <description>A grounded comparison between Watch Dogs’ fiction and today’s real surveillance, data brokers, smart-city systems, and cybercrime—what’s already here and what’s still sci‑fi.</description>
       <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
       <category>Tech &amp; Culture</category>
