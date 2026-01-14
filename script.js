@@ -51,38 +51,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const navMenu = document.getElementById('nav-menu');
         
         if (burgerMenu && navMenu) {
-            let ignoreClickUntil = 0;
-
-            const isTouchLike = (e) => {
-                return e?.type === 'touchend' || (e?.type === 'pointerup' && (e.pointerType === 'touch' || e.pointerType === 'pen'));
-            };
-
-            const toggle = (e) => {
-                // Avoid "ghost clicks" on iOS where a touch/pointer event is followed by a click
-                if (e?.type === 'click' && Date.now() < ignoreClickUntil) return;
-
-                e?.preventDefault?.();
-                e?.stopPropagation?.();
-
-                if (isTouchLike(e)) {
-                    ignoreClickUntil = Date.now() + 800;
-                }
-
+            burgerMenu.addEventListener('click', () => {
                 burgerMenu.classList.toggle('active');
                 navMenu.classList.toggle('active');
-            };
+            });
+        }
 
-            // Prefer pointer events when available; always keep click for desktop accessibility
-            if (window.PointerEvent) {
-                burgerMenu.addEventListener('pointerup', toggle, { passive: false });
-            } else {
-                burgerMenu.addEventListener('touchend', toggle, { passive: false });
-            }
-            burgerMenu.addEventListener('click', toggle, { passive: false });
-        });
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                burgerMenu?.classList.remove('active');
+                navMenu?.classList.remove('active');
+            });
         });
 
-        document.addEventListener('pointerdown', (e) => {
+        document.addEventListener('click', (e) => {
             if (navMenu?.classList.contains('active')) {
                 const navActions = document.querySelector('.nav-actions');
                 if (!navMenu.contains(e.target) && !burgerMenu?.contains(e.target) && !navActions?.contains(e.target)) {
