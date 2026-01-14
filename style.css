@@ -260,7 +260,7 @@ p {
 }
 
 .main-nav {
-    overflow: hidden;
+    overflow: visible;
     isolation: isolate;
 }
 
@@ -334,7 +334,10 @@ body.light-theme .nav-title h1 {
     flex-shrink: 0;
   position: relative;
   z-index: 1002;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
+
 
 
 .burger-menu span {
@@ -361,7 +364,7 @@ body.light-theme .nav-title h1 {
     padding: 18px calc(16px + env(safe-area-inset-right));
     box-sizing: border-box;
     box-shadow: var(--shadow-elev-3) !important;
-    transform: translateX(110%);
+    transform: translate3d(110%, 0, 0);
 
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -375,7 +378,12 @@ body.light-theme .nav-title h1 {
   visibility: hidden;
   opacity: 0;
   transition: transform 0.3s var(--ease-out-cubic), opacity 0.2s ease, visibility 0.2s ease;
+    right: 0; /* iOS fallback for inset-inline-end */
+    left: auto;
+    will-change: transform;
+    backface-visibility: hidden;
 }
+
 
 
 .nav-menu { overflow-y: auto; isolation: isolate; }
@@ -399,7 +407,7 @@ body.light-theme .nav-title h1 {
 
 .nav-menu.active {
  
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   pointer-events: auto;
   visibility: visible;
   opacity: 1;
