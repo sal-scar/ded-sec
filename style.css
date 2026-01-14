@@ -349,6 +349,8 @@ body.light-theme .nav-title h1 {
     position: fixed;
     top: 70px;
     inset-inline-end: 0;
+    right: 0;
+    left: auto;
     width: min(360px, 92vw);
     max-width: 360px;
     height: calc(100vh - 70px);
