@@ -51,10 +51,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const navMenu = document.getElementById('nav-menu');
         
         if (burgerMenu && navMenu) {
-            burgerMenu.addEventListener('click', () => {
+            const toggle = (e) => {
+                // Prevent iOS/Safari quirks where the tap can immediately trigger "outside click" logic
+                e?.preventDefault?.();
+                e?.stopPropagation?.();
+
                 burgerMenu.classList.toggle('active');
                 navMenu.classList.toggle('active');
-            });
+            };
+
+            burgerMenu.addEventListener('click', toggle, { passive: false });
+            burgerMenu.addEventListener('pointerup', toggle, { passive: false }); // helps iOS/Safari
         }
 
         document.querySelectorAll('.nav-link').forEach(link => {
@@ -64,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        document.addEventListener('click', (e) => {
+        document.addEventListener('pointerdown', (e) => {
             if (navMenu?.classList.contains('active')) {
                 const navActions = document.querySelector('.nav-actions');
                 if (!navMenu.contains(e.target) && !burgerMenu?.contains(e.target) && !navActions?.contains(e.target)) {
