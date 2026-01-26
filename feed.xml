@@ -1,76 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0">
   <channel>
     <title>DedSec Blog</title>
     <link>https://ded-sec.space/Pages/blog.html</link>
-    <atom:link href="https://ded-sec.space/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>Practical guides on privacy, security, and real-world tech — by DedSec Project.</description>
+    <description>DedSec Project — privacy, security, and practical tech guides.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 11 Jan 2026 21:02:57 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 27 Jan 2026 12:00:00 +0000</lastBuildDate>
     <item>
-      <title>AI &amp; Cybersecurity 2026: Threats, Deepfakes, and Defenses | DedSec Blog</title>
-      <link>https://ded-sec.space/Blog/ai-and-cybersecurity-2026.html</link>
-      <guid isPermaLink="true">https://ded-sec.space/Blog/ai-and-cybersecurity-2026.html</guid>
-      <description>How AI changes cyber offense and defense: faster phishing, smarter malware tooling, improved detection, and the new operational and governance risks for teams in 2026.</description>
-      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
-      <category>AI &amp; Security</category>
-      <category>AI</category>
-      <category>Cybersecurity</category>
-      <category>Threat modeling</category>
-      <category>Defense</category>
-      <category>Automation</category>
+      <title>Technology Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/technology-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/technology-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for Technology: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
     </item>
     <item>
-      <title>Humanoid Robots &amp; Artificial Muscles: Terminator vs Reality | DedSec Blog</title>
-      <link>https://ded-sec.space/Blog/ai-terminator-myth-vs-reality.html</link>
-      <guid isPermaLink="true">https://ded-sec.space/Blog/ai-terminator-myth-vs-reality.html</guid>
-      <description>A realistic look at “Terminator” fears: what autonomous systems can and can’t do today, how robot bodies are improving (actuators, muscles, hands), and where safety policy matters.</description>
-      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
-      <category>AI &amp; Robotics</category>
-      <category>Humanoid robots</category>
-      <category>Autonomy</category>
-      <category>Artificial muscles</category>
-      <category>Safety</category>
-      <category>Regulation</category>
+      <title>Technology Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/technology-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/technology-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for Technology: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
     </item>
     <item>
-      <title>Digital ID &amp; Social Credit (China + UK) | DedSec Blog</title>
-      <link>https://ded-sec.space/Blog/digital-identity-benefits-risks-safeguards.html</link>
-      <guid isPermaLink="true">https://ded-sec.space/Blog/digital-identity-benefits-risks-safeguards.html</guid>
-      <description>Digital identity can reduce fraud and simplify services—but it can also enable tracking and exclusion. Here’s how benefits, risks, and practical safeguards fit together.</description>
-      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
-      <category>Privacy &amp; Governance</category>
-      <category>Digital ID</category>
-      <category>Privacy</category>
-      <category>Authentication</category>
-      <category>Civil liberties</category>
-      <category>Safeguards</category>
+      <title>Cybersecurity Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/cybersecurity-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/cybersecurity-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for Cybersecurity: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
     </item>
     <item>
-      <title>Migration, Crime, and Demographic Change | DedSec Blog</title>
-      <link>https://ded-sec.space/Blog/migration-geopolitics-weaponization-and-resilience.html</link>
-      <guid isPermaLink="true">https://ded-sec.space/Blog/migration-geopolitics-weaponization-and-resilience.html</guid>
-      <description>How migration intersects with geopolitics: what “weaponization” narratives get right and wrong, and what resilient, rights-respecting policy looks like.</description>
-      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
-      <category>Society &amp; Security</category>
-      <category>Migration</category>
-      <category>Geopolitics</category>
-      <category>Border policy</category>
-      <category>Disinformation</category>
-      <category>Resilience</category>
+      <title>Cybersecurity Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/cybersecurity-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/cybersecurity-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for Cybersecurity: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
     </item>
     <item>
-      <title>Watch Dogs vs Reality (All Games) | DedSec Blog</title>
-      <link>https://ded-sec.space/Blog/watch-dogs-vs-real-life-2026.html</link>
-      <guid isPermaLink="true">https://ded-sec.space/Blog/watch-dogs-vs-real-life-2026.html</guid>
-      <description>A grounded comparison between Watch Dogs’ fiction and today’s real surveillance, data brokers, smart-city systems, and cybercrime—what’s already here and what’s still sci‑fi.</description>
-      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
-      <category>Tech &amp; Culture</category>
-      <category>Watch Dogs</category>
-      <category>Surveillance</category>
-      <category>Smart cities</category>
-      <category>Hacking culture</category>
-      <category>Privacy</category>
+      <title>Termux Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/termux-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/termux-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for Termux: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
+    </item>
+    <item>
+      <title>Termux Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/termux-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/termux-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for Termux: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
+    </item>
+    <item>
+      <title>Linux Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/linux-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/linux-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for Linux: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
+    </item>
+    <item>
+      <title>Linux Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/linux-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/linux-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for Linux: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
+    </item>
+    <item>
+      <title>Android Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/android-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/android-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for Android: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
+    </item>
+    <item>
+      <title>Android Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/android-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/android-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for Android: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
+    </item>
+    <item>
+      <title>iOS Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/ios-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/ios-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for iOS: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
+    </item>
+    <item>
+      <title>iOS Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/ios-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/ios-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for iOS: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
+    </item>
+    <item>
+      <title>Conspiracy Theories Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/conspiracy-theories-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/conspiracy-theories-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for Conspiracy Theories: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
+    </item>
+    <item>
+      <title>Conspiracy Theories Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/conspiracy-theories-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/conspiracy-theories-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for Conspiracy Theories: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
+    </item>
+    <item>
+      <title>Science Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/science-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/science-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for Science: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
+    </item>
+    <item>
+      <title>Science Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/science-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/science-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for Science: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
+    </item>
+    <item>
+      <title>Biology Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/biology-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/biology-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for Biology: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
+    </item>
+    <item>
+      <title>Biology Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/biology-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/biology-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for Biology: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
+    </item>
+    <item>
+      <title>Artificial Intelligence Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/artificial-intelligence-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/artificial-intelligence-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for Artificial Intelligence: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
+    </item>
+    <item>
+      <title>Artificial Intelligence Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/artificial-intelligence-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/artificial-intelligence-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for Artificial Intelligence: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
+    </item>
+    <item>
+      <title>Law Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/law-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/law-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for Law: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
+    </item>
+    <item>
+      <title>Law Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/law-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/law-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for Law: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
+    </item>
+    <item>
+      <title>Corruption Of Greece Essentials (2026): What It Is, Why It Matters, and How to Start</title>
+      <link>https://ded-sec.space/Blog/corruption-of-greece-essentials-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/corruption-of-greece-essentials-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A clear 2026 starter map for Corruption Of Greece: definitions, real-world examples, risks and a simple path to begin learning.]]></description>
+    </item>
+    <item>
+      <title>Corruption Of Greece Practical Guide (2026): Checklist, Tools, and Common Mistakes</title>
+      <link>https://ded-sec.space/Blog/corruption-of-greece-practical-guide-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/corruption-of-greece-practical-guide-2026.html</guid>
+      <pubDate>Tue, 27 Jan 2026 12:00:00 +0000</pubDate>
+      <description><![CDATA[A practical, step-by-step checklist for Corruption Of Greece: how to set goals, choose tools, practice safely and avoid common traps.]]></description>
     </item>
   </channel>
 </rss>

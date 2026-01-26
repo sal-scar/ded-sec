@@ -19,233 +19,404 @@
 
   // Offline fallback for ZIP builds / rate limits.
   // Keep this list aligned with the "final" (non-redirect) posts you want to show in the Blog listing.
-  // Rename the original fallback so it is no longer used. A new list is defined below.
-  const DEPRECATED_POSTS = [
+  const EMBEDDED_POSTS = [
   {
-    "file": "ai-and-cybersecurity-2026.html",
-    "href": "../Blog/ai-and-cybersecurity-2026.html",
-    "titleEn": "AI and Cybersecurity (2026): Deepfakes, Crime, and the Defensive Upside",
-    "titleGr": "AI και Κυβερνοασφάλεια (2026): Deepfakes, Έγκλημα και το Αμυντικό Όφελος",
-    "descEn": "Generative AI makes scams cheaper and more convincing—but it also helps defenders. Here’s the threat map and a practical defense playbook.",
-    "descGr": "Η γενετική AI κάνει τις απάτες φθηνότερες και πιο πειστικές—αλλά βοηθά και τους αμυνόμενους. Ιδού ο χάρτης απειλών και ένα πρακτικό playbook άμυνας.",
-    "date": "2026-01-11",
-    "section": "AI & Security",
+    "file": "technology-essentials-2026.html",
+    "href": "../Blog/technology-essentials-2026.html",
+    "titleEn": "Technology Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για Τεχνολογία (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for Technology: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για Τεχνολογία: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "Technology",
     "tags": [
-      "AI",
+      "Technology",
+      "Basics",
+      "Overview",
+      "2026"
+    ]
+  },
+  {
+    "file": "technology-practical-guide-2026.html",
+    "href": "../Blog/technology-practical-guide-2026.html",
+    "titleEn": "Technology Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός Τεχνολογία (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for Technology: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για Τεχνολογία: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "Technology",
+    "tags": [
+      "Technology",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
+    ]
+  },
+  {
+    "file": "cybersecurity-essentials-2026.html",
+    "href": "../Blog/cybersecurity-essentials-2026.html",
+    "titleEn": "Cybersecurity Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για Κυβερνοασφάλεια (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for Cybersecurity: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για Κυβερνοασφάλεια: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "Cybersecurity",
+    "tags": [
       "Cybersecurity",
-      "Threat modeling",
-      "Defense",
-      "Automation"
+      "Basics",
+      "Overview",
+      "2026"
     ]
   },
   {
-    "file": "ai-terminator-myth-vs-reality.html",
-    "href": "../Blog/ai-terminator-myth-vs-reality.html",
-    "titleEn": "Humanoid Robots & Artificial Muscles: The Real ‘Terminator’ Question",
-    "titleGr": "Ανθρωποειδή Ρομπότ & Τεχνητοί Μύες: Το πραγματικό ερώτημα «Terminator»",
-    "descEn": "Robots are getting better bodies and better AI—but the scary part is not sci‑fi killers; it’s autonomy, security, and governance.",
-    "descGr": "Τα ρομπότ αποκτούν καλύτερα σώματα και καλύτερη AI—αλλά το τρομακτικό δεν είναι sci‑fi δολοφόνοι· είναι η αυτονομία, η ασφάλεια και η διακυβέρνηση.",
-    "date": "2026-01-11",
-    "section": "AI & Robotics",
+    "file": "cybersecurity-practical-guide-2026.html",
+    "href": "../Blog/cybersecurity-practical-guide-2026.html",
+    "titleEn": "Cybersecurity Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός Κυβερνοασφάλεια (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for Cybersecurity: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για Κυβερνοασφάλεια: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "Cybersecurity",
     "tags": [
-      "Humanoid robots",
-      "Autonomy",
-      "Artificial muscles",
-      "Safety",
-      "Regulation"
+      "Cybersecurity",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
     ]
   },
   {
-    "file": "digital-identity-benefits-risks-safeguards.html",
-    "href": "../Blog/digital-identity-benefits-risks-safeguards.html",
-    "titleEn": "Digital ID, Surveillance, and Social Credit: Benefits, Control Risks, and Safeguards (China + UK)",
-    "titleGr": "Ψηφιακή Ταυτότητα, Επιτήρηση και Social Credit: Οφέλη, Κίνδυνοι Ελέγχου και Δικλείδες (Κίνα + ΗΒ)",
-    "descEn": "Digital identity can reduce fraud and friction—but if it becomes a mandatory gate, it can also enable mass surveillance and automated punishment.",
-    "descGr": "Η ψηφιακή ταυτότητα μπορεί να μειώσει απάτες και τριβές—αλλά αν γίνει υποχρεωτική πύλη, μπορεί να επιτρέψει μαζική επιτήρηση και αυτοματοποιημένη τιμωρία.",
-    "date": "2026-01-11",
-    "section": "Privacy & Governance",
+    "file": "termux-essentials-2026.html",
+    "href": "../Blog/termux-essentials-2026.html",
+    "titleEn": "Termux Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για Termux (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for Termux: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για Termux: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "Termux",
     "tags": [
-      "Digital ID",
-      "Privacy",
-      "Authentication",
-      "Civil liberties",
-      "Safeguards"
+      "Termux",
+      "Basics",
+      "Overview",
+      "2026"
     ]
   },
   {
-    "file": "migration-geopolitics-weaponization-and-resilience.html",
-    "href": "../Blog/migration-geopolitics-weaponization-and-resilience.html",
-    "titleEn": "Migration, Crime, and Demographic Change: Facts, Fear, and Geopolitical Manipulation",
-    "titleGr": "Μετανάστευση, Έγκλημα και Δημογραφία: Γεγονότα, Φόβος και Γεωπολιτική Εργαλειοποίηση",
-    "descEn": "How migration becomes a pressure tool, what crime evidence actually shows, and why “overtake” narratives are usually political weapons—not data.",
-    "descGr": "Πώς η μετανάστευση γίνεται εργαλείο πίεσης, τι δείχνουν πραγματικά τα δεδομένα για το έγκλημα και γιατί τα αφηγήματα «υπερίσχυσης» είναι συνήθως πολιτικά όπλα—not δεδομένα.",
-    "date": "2026-01-11",
-    "section": "Society & Security",
+    "file": "termux-practical-guide-2026.html",
+    "href": "../Blog/termux-practical-guide-2026.html",
+    "titleEn": "Termux Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός Termux (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for Termux: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για Termux: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "Termux",
     "tags": [
-      "Migration",
-      "Geopolitics",
-      "Border policy",
-      "Disinformation",
-      "Resilience"
+      "Termux",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
     ]
   },
   {
-    "file": "watch-dogs-vs-real-life-2026.html",
-    "href": "../Blog/watch-dogs-vs-real-life-2026.html",
-    "titleEn": "Watch Dogs vs Reality: How ctOS Became a Metaphor for 2026",
-    "titleGr": "Watch Dogs vs Πραγματικότητα: Πώς το ctOS έγινε μεταφορά για το 2026",
-    "descEn": "A game-by-game breakdown (WD1, WD2, Legion) and the real tech stack that makes Watch Dogs feel less fictional every year.",
-    "descGr": "Ανάλυση ανά παιχνίδι (WD1, WD2, Legion) και το πραγματικό tech stack που κάνει το Watch Dogs να μοιάζει όλο και λιγότερο φανταστικό.",
-    "date": "2026-01-11",
-    "section": "Tech & Culture",
+    "file": "linux-essentials-2026.html",
+    "href": "../Blog/linux-essentials-2026.html",
+    "titleEn": "Linux Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για Linux (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for Linux: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για Linux: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "Linux",
     "tags": [
-      "Watch Dogs",
-      "Surveillance",
-      "Smart cities",
-      "Hacking culture",
-      "Privacy"
+      "Linux",
+      "Basics",
+      "Overview",
+      "2026"
+    ]
+  },
+  {
+    "file": "linux-practical-guide-2026.html",
+    "href": "../Blog/linux-practical-guide-2026.html",
+    "titleEn": "Linux Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός Linux (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for Linux: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για Linux: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "Linux",
+    "tags": [
+      "Linux",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
+    ]
+  },
+  {
+    "file": "android-essentials-2026.html",
+    "href": "../Blog/android-essentials-2026.html",
+    "titleEn": "Android Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για Android (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for Android: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για Android: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "Android",
+    "tags": [
+      "Android",
+      "Basics",
+      "Overview",
+      "2026"
+    ]
+  },
+  {
+    "file": "android-practical-guide-2026.html",
+    "href": "../Blog/android-practical-guide-2026.html",
+    "titleEn": "Android Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός Android (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for Android: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για Android: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "Android",
+    "tags": [
+      "Android",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
+    ]
+  },
+  {
+    "file": "ios-essentials-2026.html",
+    "href": "../Blog/ios-essentials-2026.html",
+    "titleEn": "iOS Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για iOS (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for iOS: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για iOS: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "iOS",
+    "tags": [
+      "iOS",
+      "Basics",
+      "Overview",
+      "2026"
+    ]
+  },
+  {
+    "file": "ios-practical-guide-2026.html",
+    "href": "../Blog/ios-practical-guide-2026.html",
+    "titleEn": "iOS Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός iOS (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for iOS: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για iOS: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "iOS",
+    "tags": [
+      "iOS",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
+    ]
+  },
+  {
+    "file": "conspiracy-theories-essentials-2026.html",
+    "href": "../Blog/conspiracy-theories-essentials-2026.html",
+    "titleEn": "Conspiracy Theories Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για Θεωρίες Συνωμοσίας (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for Conspiracy Theories: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για Θεωρίες Συνωμοσίας: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "Conspiracy Theories",
+    "tags": [
+      "Conspiracy Theories",
+      "Basics",
+      "Overview",
+      "2026"
+    ]
+  },
+  {
+    "file": "conspiracy-theories-practical-guide-2026.html",
+    "href": "../Blog/conspiracy-theories-practical-guide-2026.html",
+    "titleEn": "Conspiracy Theories Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός Θεωρίες Συνωμοσίας (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for Conspiracy Theories: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για Θεωρίες Συνωμοσίας: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "Conspiracy Theories",
+    "tags": [
+      "Conspiracy Theories",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
+    ]
+  },
+  {
+    "file": "science-essentials-2026.html",
+    "href": "../Blog/science-essentials-2026.html",
+    "titleEn": "Science Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για Επιστήμη (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for Science: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για Επιστήμη: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "Science",
+    "tags": [
+      "Science",
+      "Basics",
+      "Overview",
+      "2026"
+    ]
+  },
+  {
+    "file": "science-practical-guide-2026.html",
+    "href": "../Blog/science-practical-guide-2026.html",
+    "titleEn": "Science Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός Επιστήμη (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for Science: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για Επιστήμη: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "Science",
+    "tags": [
+      "Science",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
+    ]
+  },
+  {
+    "file": "biology-essentials-2026.html",
+    "href": "../Blog/biology-essentials-2026.html",
+    "titleEn": "Biology Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για Βιολογία (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for Biology: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για Βιολογία: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "Biology",
+    "tags": [
+      "Biology",
+      "Basics",
+      "Overview",
+      "2026"
+    ]
+  },
+  {
+    "file": "biology-practical-guide-2026.html",
+    "href": "../Blog/biology-practical-guide-2026.html",
+    "titleEn": "Biology Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός Βιολογία (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for Biology: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για Βιολογία: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "Biology",
+    "tags": [
+      "Biology",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
+    ]
+  },
+  {
+    "file": "artificial-intelligence-essentials-2026.html",
+    "href": "../Blog/artificial-intelligence-essentials-2026.html",
+    "titleEn": "Artificial Intelligence Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για Τεχνητή Νοημοσύνη (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for Artificial Intelligence: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για Τεχνητή Νοημοσύνη: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "Artificial Intelligence",
+    "tags": [
+      "Artificial Intelligence",
+      "Basics",
+      "Overview",
+      "2026"
+    ]
+  },
+  {
+    "file": "artificial-intelligence-practical-guide-2026.html",
+    "href": "../Blog/artificial-intelligence-practical-guide-2026.html",
+    "titleEn": "Artificial Intelligence Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός Τεχνητή Νοημοσύνη (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for Artificial Intelligence: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για Τεχνητή Νοημοσύνη: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "Artificial Intelligence",
+    "tags": [
+      "Artificial Intelligence",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
+    ]
+  },
+  {
+    "file": "law-essentials-2026.html",
+    "href": "../Blog/law-essentials-2026.html",
+    "titleEn": "Law Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για Νόμος (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for Law: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για Νόμος: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "Law",
+    "tags": [
+      "Law",
+      "Basics",
+      "Overview",
+      "2026"
+    ]
+  },
+  {
+    "file": "law-practical-guide-2026.html",
+    "href": "../Blog/law-practical-guide-2026.html",
+    "titleEn": "Law Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός Νόμος (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for Law: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για Νόμος: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "Law",
+    "tags": [
+      "Law",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
+    ]
+  },
+  {
+    "file": "corruption-of-greece-essentials-2026.html",
+    "href": "../Blog/corruption-of-greece-essentials-2026.html",
+    "titleEn": "Corruption Of Greece Essentials (2026): What It Is, Why It Matters, and How to Start",
+    "titleGr": "Βασικά για Διαφθορά στην Ελλάδα (2026): Τι είναι, γιατί έχει σημασία και πώς ξεκινάς",
+    "descEn": "A clear 2026 starter map for Corruption Of Greece: definitions, real-world examples, risks and a simple path to begin learning.",
+    "descGr": "Ένας καθαρός οδηγός εκκίνησης (2026) για Διαφθορά στην Ελλάδα: ορισμοί, παραδείγματα, κίνδυνοι και απλά βήματα για να ξεκινήσεις.",
+    "date": "2026-01-27",
+    "section": "Corruption Of Greece",
+    "tags": [
+      "Corruption Of Greece",
+      "Basics",
+      "Overview",
+      "2026"
+    ]
+  },
+  {
+    "file": "corruption-of-greece-practical-guide-2026.html",
+    "href": "../Blog/corruption-of-greece-practical-guide-2026.html",
+    "titleEn": "Corruption Of Greece Practical Guide (2026): Checklist, Tools, and Common Mistakes",
+    "titleGr": "Πρακτικός Οδηγός Διαφθορά στην Ελλάδα (2026): Checklist, εργαλεία και συχνά λάθη",
+    "descEn": "A practical, step-by-step checklist for Corruption Of Greece: how to set goals, choose tools, practice safely and avoid common traps.",
+    "descGr": "Ένα πρακτικό checklist βήμα-βήμα για Διαφθορά στην Ελλάδα: στόχοι, εργαλεία, ασφαλής εξάσκηση και αποφυγή συχνών παγίδων.",
+    "date": "2026-01-27",
+    "section": "Corruption Of Greece",
+    "tags": [
+      "Corruption Of Greece",
+      "Checklist",
+      "Tools",
+      "How-to",
+      "2026"
     ]
   }
 ];
-
-  // New offline fallback list for the reduced DedSec blog.
-  // These entries correspond to the twelve evergreen posts that ship with this
-  // repository. Feel free to adjust titles, descriptions and tags if you
-  // update the posts. Dates follow the ISO‑8601 format (YYYY-MM-DD).
-  const EMBEDDED_POSTS = [
-    {
-      "file": "technology-overview-2026.html",
-      "href": "../Blog/technology-overview-2026.html",
-      "titleEn": "Technology: Definition, History and Future",
-      "titleGr": "Technology: Definition, History and Future",
-      "descEn": "Understand how technology evolved from stone tools to modern digital systems, why it matters to society and the challenges and opportunities ahead.",
-      "descGr": "Understand how technology evolved from stone tools to modern digital systems, why it matters to society and the challenges and opportunities ahead.",
-      "date": "2026-01-26",
-      "section": "Technology",
-      "tags": ["Technology", "History", "Innovation", "Future"]
-    },
-    {
-      "file": "cybersecurity-overview-2026.html",
-      "href": "../Blog/cybersecurity-overview-2026.html",
-      "titleEn": "Cybersecurity: Foundations, Threats and Defense",
-      "titleGr": "Cybersecurity: Foundations, Threats and Defense",
-      "descEn": "Learn what cybersecurity means, how threats evolved, why protecting data and systems matters and what best practices can keep you safe.",
-      "descGr": "Learn what cybersecurity means, how threats evolved, why protecting data and systems matters and what best practices can keep you safe.",
-      "date": "2026-01-26",
-      "section": "Cybersecurity",
-      "tags": ["Cybersecurity", "CIA triad", "Threats", "Defense", "Best practices"]
-    },
-    {
-      "file": "termux-android-linux-environment.html",
-      "href": "../Blog/termux-android-linux-environment.html",
-      "titleEn": "Termux: Bringing Linux to Your Android Phone",
-      "titleGr": "Termux: Bringing Linux to Your Android Phone",
-      "descEn": "Discover Termux, the Android terminal and Linux environment that turns your smartphone into a powerful development and learning platform.",
-      "descGr": "Discover Termux, the Android terminal and Linux environment that turns your smartphone into a powerful development and learning platform.",
-      "date": "2026-01-26",
-      "section": "Termux",
-      "tags": ["Termux", "Android", "Linux", "Terminal", "Mobile"]
-    },
-    {
-      "file": "linux-overview-2026.html",
-      "href": "../Blog/linux-overview-2026.html",
-      "titleEn": "Linux: Origins, Structure and Community",
-      "titleGr": "Linux: Origins, Structure and Community",
-      "descEn": "A beginner-friendly overview of Linux—what it is, how it works, its rich history and why millions choose open-source computing.",
-      "descGr": "A beginner-friendly overview of Linux—what it is, how it works, its rich history and why millions choose open-source computing.",
-      "date": "2026-01-26",
-      "section": "Linux",
-      "tags": ["Linux", "Operating system", "Kernel", "Open source"]
-    },
-    {
-      "file": "android-os-overview-2026.html",
-      "href": "../Blog/android-os-overview-2026.html",
-      "titleEn": "Android OS: A Mobile Powerhouse",
-      "titleGr": "Android OS: A Mobile Powerhouse",
-      "descEn": "Get to know Android, the Linux-based mobile operating system that powers billions of devices and fosters a global ecosystem of apps and developers.",
-      "descGr": "Get to know Android, the Linux-based mobile operating system that powers billions of devices and fosters a global ecosystem of apps and developers.",
-      "date": "2026-01-26",
-      "section": "Android",
-      "tags": ["Android", "Mobile OS", "Linux", "Smartphones", "Open source"]
-    },
-    {
-      "file": "ios-overview-2026.html",
-      "href": "../Blog/ios-overview-2026.html",
-      "titleEn": "iOS: Design, Features and Ecosystem",
-      "titleGr": "iOS: Design, Features and Ecosystem",
-      "descEn": "Explore Apple’s proprietary mobile operating system, its multi‑touch interface, design philosophy and how it shapes the smartphone experience.",
-      "descGr": "Explore Apple’s proprietary mobile operating system, its multi‑touch interface, design philosophy and how it shapes the smartphone experience.",
-      "date": "2026-01-26",
-      "section": "iOS",
-      "tags": ["iOS", "Apple", "Mobile OS", "Multi-touch", "Proprietary"]
-    },
-    {
-      "file": "conspiracy-theories-overview-2026.html",
-      "href": "../Blog/conspiracy-theories-overview-2026.html",
-      "titleEn": "Conspiracy Theories: Why They Persist",
-      "titleGr": "Conspiracy Theories: Why They Persist",
-      "descEn": "What makes conspiracy theories so appealing? This article traces their history, psychology and impact on society—and how to inoculate yourself against them.",
-      "descGr": "What makes conspiracy theories so appealing? This article traces their history, psychology and impact on society—and how to inoculate yourself against them.",
-      "date": "2026-01-26",
-      "section": "Conspiracy Theories",
-      "tags": ["Conspiracy theories", "Psychology", "Misinformation", "History", "Media literacy"]
-    },
-    {
-      "file": "science-overview-2026.html",
-      "href": "../Blog/science-overview-2026.html",
-      "titleEn": "Science: Methods, Evolution and Role in Society",
-      "titleGr": "Science: Methods, Evolution and Role in Society",
-      "descEn": "A clear definition of science, its methodological foundations, historical evolution and its central role in modern life.",
-      "descGr": "A clear definition of science, its methodological foundations, historical evolution and its central role in modern life.",
-      "date": "2026-01-26",
-      "section": "Science",
-      "tags": ["Science", "Scientific method", "Evidence", "History", "Research"]
-    },
-    {
-      "file": "biology-overview-2026.html",
-      "href": "../Blog/biology-overview-2026.html",
-      "titleEn": "Biology: Living Systems and Vital Processes",
-      "titleGr": "Biology: Living Systems and Vital Processes",
-      "descEn": "An introduction to biology—the study of living organisms—their history, subfields, importance and future directions.",
-      "descGr": "An introduction to biology—the study of living organisms—their history, subfields, importance and future directions.",
-      "date": "2026-01-26",
-      "section": "Biology",
-      "tags": ["Biology", "Life sciences", "Organisms", "Evolution", "Ecology"]
-    },
-    {
-      "file": "artificial-intelligence-overview-2026.html",
-      "href": "../Blog/artificial-intelligence-overview-2026.html",
-      "titleEn": "Artificial Intelligence: Definition, History and Future",
-      "titleGr": "Artificial Intelligence: Definition, History and Future",
-      "descEn": "Unpack what artificial intelligence is, where it came from, why it's transforming industries, the ethical challenges it raises and where it may go next.",
-      "descGr": "Unpack what artificial intelligence is, where it came from, why it's transforming industries, the ethical challenges it raises and where it may go next.",
-      "date": "2026-01-26",
-      "section": "Artificial Intelligence",
-      "tags": ["Artificial Intelligence", "Machine Learning", "Deep Learning", "Ethics", "Future"]
-    },
-    {
-      "file": "law-overview-2026.html",
-      "href": "../Blog/law-overview-2026.html",
-      "titleEn": "Law: Definition, History and Significance",
-      "titleGr": "Law: Definition, History and Significance",
-      "descEn": "Understand what law is, how legal systems evolved, why laws underpin society, current challenges and possible future directions.",
-      "descGr": "Understand what law is, how legal systems evolved, why laws underpin society, current challenges and possible future directions.",
-      "date": "2026-01-26",
-      "section": "Law",
-      "tags": ["Law", "Rule of law", "Legal system", "Justice", "Rights"]
-    },
-    {
-      "file": "corruption-of-greece-2026.html",
-      "href": "../Blog/corruption-of-greece-2026.html",
-      "titleEn": "Corruption in Greece: Causes, Consequences and Reforms",
-      "titleGr": "Corruption in Greece: Causes, Consequences and Reforms",
-      "descEn": "An examination of Greece’s corruption landscape—its drivers, impacts, reform efforts and what remains to be done.",
-      "descGr": "An examination of Greece’s corruption landscape—its drivers, impacts, reform efforts and what remains to be done.",
-      "date": "2026-01-26",
-      "section": "Corruption Of Greece",
-      "tags": ["Corruption", "Greece", "Governance", "Transparency", "Anti-corruption"]
-    }
-  ];
 
   function escapeHtml(str) {
     return String(str || '')
