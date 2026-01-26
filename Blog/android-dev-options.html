@@ -9,17 +9,41 @@
 <meta content="Developer Options Explained: Useful Tweaks vs Dangerous Switches" property="og:title"/>
 <meta content="An educational, practical guide about android: Developer Options Explained: Useful Tweaks vs Dangerous Switches." property="og:description"/>
 <meta content="https://ded-sec.space/Blog/android-dev-options.html" property="og:url"/>
-<meta content="summary" property="twitter:card"/>
-<meta content="Developer Options Explained: Useful Tweaks vs Dangerous Switches" property="twitter:title"/>
-<meta content="An educational, practical guide about android: Developer Options Explained: Useful Tweaks vs Dangerous Switches." property="twitter:description"/>
+
+
+
 <meta content="2026-01-26T09:00:00+02:00" property="article:published_time"/>
 <meta content="Android" property="article:section"/>
-<meta content="Android" property="article:tag"/><meta content="Developer" property="article:tag"/><meta content="Options" property="article:tag"/><meta content="Explained" property="article:tag"/><meta content="Useful" property="article:tag"/>
+
 <meta content="#07060d" name="theme-color"/>
 <meta content="dark light" name="color-scheme"/>
 <link href="/favicon.ico" rel="icon" sizes="any"/>
 <link href="../style.css" rel="stylesheet"/>
-<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/><link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/><link href="/favicon-16.png" rel="icon" sizes="16x16" type="image/png"/><link href="/favicon-180.png" rel="apple-touch-icon" sizes="180x180"/><link href="/site.webmanifest" rel="manifest"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&amp;family=Roboto+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/></head><body class="dark-theme"><nav class="main-nav">
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/><link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/><link href="/favicon-16.png" rel="icon" sizes="16x16" type="image/png"/><link href="/favicon-180.png" rel="apple-touch-icon" sizes="180x180"/><link href="/site.webmanifest" rel="manifest"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&amp;family=Roboto+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/><meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/><meta content="DedSec Project" name="author"/><meta content="strict-origin-when-cross-origin" name="referrer"/><meta content="DedSec Project" property="og:site_name"/><meta content="en_US" property="og:locale"/><meta content="el_GR" property="og:locale:alternate"/><meta content="https://ded-sec.space/Assets/Images/og/og-dark.jpg" property="og:image"/><meta content="DedSec Project — cybersecurity and Termux learning resources" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Developer Options Explained: Useful Tweaks vs Dangerous Switches" name="twitter:title"/><meta content="An educational, practical guide about android: Developer Options Explained: Useful Tweaks vs Dangerous Switches." name="twitter:description"/><meta content="https://ded-sec.space/Assets/Images/og/og-dark.jpg" name="twitter:image"/><meta content="DedSec Project — cybersecurity and Termux learning resources" name="twitter:image:alt"/><meta content="https://ded-sec.space/Blog/android-dev-options.html" name="twitter:url"/><link href="/feed.xml" rel="alternate" title="DedSec Blog RSS" type="application/rss+xml"/><meta content="2026-01-26T09:00:00+02:00" property="article:modified_time"/><meta content="Android" property="article:tag"/><meta content="Developer" property="article:tag"/><meta content="Options" property="article:tag"/><meta content="Explained" property="article:tag"/><meta content="Useful" property="article:tag"/><meta content="Tweaks" property="article:tag"/><meta content="Dangerous" property="article:tag"/><meta content="Switches" property="article:tag"/><script id="ld-article" type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Developer Options Explained: Useful Tweaks vs Dangerous Switches",
+  "description": "An educational, practical guide about android: Developer Options Explained: Useful Tweaks vs Dangerous Switches.",
+  "url": "https://ded-sec.space/Blog/android-dev-options.html",
+  "datePublished": "2026-01-26T09:00:00+02:00",
+  "dateModified": "2026-01-26T09:00:00+02:00",
+  "inLanguage": [
+    "en",
+    "el"
+  ],
+  "author": {
+    "@type": "Organization",
+    "name": "DedSec Project"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "DedSec Project"
+  },
+  "image": [
+    "https://ded-sec.space/Assets/Images/og/og-dark.jpg"
+  ],
+  "articleSection": "Android"
+}</script></head><body class="dark-theme"><nav class="main-nav">
 <div class="nav-container">
 <div class="nav-title"><h1>DedSec Project</h1></div>
 <button aria-label="Toggle navigation" class="burger-menu" id="burger-menu"><span class="burger-line"></span><span class="burger-line"></span><span class="burger-line"></span><span class="burger-label" data-en="Menu" data-gr="Μενού">Menu</span></button>
@@ -52,12 +76,12 @@
 <a class="nav-link" data-en="← Back to Blog" data-gr="← Πίσω στο Ιστολόγιο" href="../Pages/blog.html">← Back to Blog</a>
 </div>
 <article class="post-body">
-<section aria-label="English">
+<section aria-label="English" lang="en">
 <h2>English</h2>
 <p>Developer Options Explained: Useful Tweaks vs Dangerous Switches sits at the intersection of everyday convenience and long‑term responsibility. In android, small decisions (settings, updates, permissions, habits) add up to big outcomes over months.</p>
 <p>This article is written as a practical, educational guide. It avoids hype and focuses on what you can do today, what to watch for next, and how to explain the topic to a friend without sounding like a brochure.</p>
 <p>In practice, reliability comes from rehearsals: small tests you run before the big day arrives.</p>
-<p>Key terms you’ll see again and again: Android, Android, Developer, Options, Explained. You don’t need to memorize definitions; you need to recognize where each one shows up in real workflows.</p>
+<p>Key terms you’ll see again and again: Android, Developer, Options, Explained. You don’t need to memorize definitions; you need to recognize where each one shows up in real workflows.</p>
 <h3>What you’ll learn</h3>
 <ul>
 <li>What it is (in plain language) and what it is *not*</li>
@@ -69,7 +93,7 @@
 <h3>Concepts that actually matter</h3>
 <p>Start with incentives. People adopt a tool because it reduces friction: fewer clicks, fewer passwords, fewer delays. Attackers (or bad outcomes) often use the same incentives against us by pushing us toward the easiest option.</p>
 <p>Next, separate data from access. Data is what you store; access is how it’s used. Many incidents happen not because data exists, but because access wasn’t limited to the minimum necessary.</p>
-<p>In practice, reliability comes from rehearsals: small tests you run before the big day arrives.</p>
+
 <h3>Practical steps</h3>
 <ul>
 <li>Identify the assets: accounts, devices, files, backups, identity proofs.</li>
@@ -98,20 +122,20 @@
 <p>Security and privacy are not “on/off”; they are trade-offs you can tune to your real risk. One useful exercise is to write a one-page “policy” for yourself: what you allow, what you never allow, and what you review monthly. This turns scattered advice into a repeatable habit.</p>
 <p>Treat defaults as suggestions, not as destiny: the safest setup is the one you actively choose. One useful exercise is to write a one-page “policy” for yourself: what you allow, what you never allow, and what you review monthly. This turns scattered advice into a repeatable habit.</p>
 <p>Treat defaults as suggestions, not as destiny: the safest setup is the one you actively choose. Another angle is usability. If your setup is too strict, you will eventually bypass it. Aim for defenses you can keep on your worst day, not only on your best day.</p>
-<p>Security and privacy are not “on/off”; they are trade-offs you can tune to your real risk. One useful exercise is to write a one-page “policy” for yourself: what you allow, what you never allow, and what you review monthly. This turns scattered advice into a repeatable habit.</p>
+
 <p>Most problems look complex until you separate *what you control* from *what you can only influence*. One useful exercise is to write a one-page “policy” for yourself: what you allow, what you never allow, and what you review monthly. This turns scattered advice into a repeatable habit.</p>
 <p>Treat defaults as suggestions, not as destiny: the safest setup is the one you actively choose. Keep notes. A short changelog (what you changed and why) helps you debug issues later and helps you spot drift over time.</p>
-<p>Security and privacy are not “on/off”; they are trade-offs you can tune to your real risk. One useful exercise is to write a one-page “policy” for yourself: what you allow, what you never allow, and what you review monthly. This turns scattered advice into a repeatable habit.</p>
+
 <p>Finally, remember that progress beats perfection. If you improve one habit per week, your setup will look completely different in three months—and it will stay maintainable.</p>
 <p>Documentation is boring until you need it at 2 a.m.—then it becomes a superpower.</p><h3>Sources</h3><ul><li><a href="https://developer.android.com/topic/security">Android Developers — Security</a></li><li><a href="https://developer.android.com/guide/topics/permissions/overview">Android Developers — Permissions</a></li><li><a href="https://safety.google/">Google Safety Center</a></li><li><a href="https://owasp.org/www-project-mobile-top-10/">OWASP Mobile Application Security</a></li><li><a href="https://ssd.eff.org/">EFF — Security Education</a></li></ul>
 </section>
 <hr/>
-<section aria-label="Ελληνικά">
+<section aria-label="Ελληνικά" lang="el">
 <h2>Ελληνικά</h2>
 <p>Το θέμα «Developer Options: Χρήσιμες ρυθμίσεις vs επικίνδυνοι διακόπτες» ακουμπά ταυτόχρονα την καθημερινή ευκολία και τη μακροχρόνια ευθύνη. Στον χώρο της android, μικρές επιλογές (ρυθμίσεις, ενημερώσεις, άδειες, συνήθειες) χτίζουν μεγάλα αποτελέσματα με τον χρόνο.</p>
 <p>Το άρθρο είναι πρακτικός, εκπαιδευτικός οδηγός. Αποφεύγει το hype και εστιάζει σε όσα μπορείς να κάνεις σήμερα, τι να παρακολουθείς στη συνέχεια και πώς να το εξηγήσεις σε έναν φίλο χωρίς «διαφημιστικό» ύφος.</p>
 <p>Ένα καλό νοητικό μοντέλο αξίζει περισσότερο από μια τεράστια λίστα, γιατί σε βοηθά να προσαρμόζεσαι όταν αλλάζουν οι λεπτομέρειες.</p>
-<p>Λέξεις-κλειδιά που θα δεις ξανά και ξανά: Android, Android, Developer, Options, Explained. Δεν χρειάζεται αποστήθιση· χρειάζεται να αναγνωρίζεις πού εμφανίζονται στην πράξη.</p>
+<p>Λέξεις-κλειδιά που θα δεις ξανά και ξανά: Android, Developer, Options, Explained. Δεν χρειάζεται αποστήθιση· χρειάζεται να αναγνωρίζεις πού εμφανίζονται στην πράξη.</p>
 <h3>Τι θα μάθεις</h3>
 <ul>
 <li>Τι είναι (με απλά λόγια) και τι *δεν* είναι</li>

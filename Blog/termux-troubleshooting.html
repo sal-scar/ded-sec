@@ -9,17 +9,41 @@
 <meta content="Termux Troubleshooting: Battery, Permissions, and Weird Errors" property="og:title"/>
 <meta content="An educational, practical guide about termux: Termux Troubleshooting: Battery, Permissions, and Weird Errors." property="og:description"/>
 <meta content="https://ded-sec.space/Blog/termux-troubleshooting.html" property="og:url"/>
-<meta content="summary" property="twitter:card"/>
-<meta content="Termux Troubleshooting: Battery, Permissions, and Weird Errors" property="twitter:title"/>
-<meta content="An educational, practical guide about termux: Termux Troubleshooting: Battery, Permissions, and Weird Errors." property="twitter:description"/>
+
+
+
 <meta content="2026-01-26T09:00:00+02:00" property="article:published_time"/>
 <meta content="Termux" property="article:section"/>
-<meta content="Termux" property="article:tag"/><meta content="Troubleshooting" property="article:tag"/><meta content="Battery" property="article:tag"/><meta content="Permissions" property="article:tag"/>
+
 <meta content="#07060d" name="theme-color"/>
 <meta content="dark light" name="color-scheme"/>
 <link href="/favicon.ico" rel="icon" sizes="any"/>
 <link href="../style.css" rel="stylesheet"/>
-<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/><link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/><link href="/favicon-16.png" rel="icon" sizes="16x16" type="image/png"/><link href="/favicon-180.png" rel="apple-touch-icon" sizes="180x180"/><link href="/site.webmanifest" rel="manifest"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&amp;family=Roboto+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/></head><body class="dark-theme"><nav class="main-nav">
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/><link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/><link href="/favicon-16.png" rel="icon" sizes="16x16" type="image/png"/><link href="/favicon-180.png" rel="apple-touch-icon" sizes="180x180"/><link href="/site.webmanifest" rel="manifest"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&amp;family=Roboto+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/><meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/><meta content="DedSec Project" name="author"/><meta content="strict-origin-when-cross-origin" name="referrer"/><meta content="DedSec Project" property="og:site_name"/><meta content="en_US" property="og:locale"/><meta content="el_GR" property="og:locale:alternate"/><meta content="https://ded-sec.space/Assets/Images/og/og-dark.jpg" property="og:image"/><meta content="DedSec Project — cybersecurity and Termux learning resources" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Termux Troubleshooting: Battery, Permissions, and Weird Errors" name="twitter:title"/><meta content="An educational, practical guide about termux: Termux Troubleshooting: Battery, Permissions, and Weird Errors." name="twitter:description"/><meta content="https://ded-sec.space/Assets/Images/og/og-dark.jpg" name="twitter:image"/><meta content="DedSec Project — cybersecurity and Termux learning resources" name="twitter:image:alt"/><meta content="https://ded-sec.space/Blog/termux-troubleshooting.html" name="twitter:url"/><link href="/feed.xml" rel="alternate" title="DedSec Blog RSS" type="application/rss+xml"/><meta content="2026-01-26T09:00:00+02:00" property="article:modified_time"/><meta content="Termux" property="article:tag"/><meta content="Troubleshooting" property="article:tag"/><meta content="Battery" property="article:tag"/><meta content="Permissions" property="article:tag"/><meta content="Weird" property="article:tag"/><meta content="Errors" property="article:tag"/><script id="ld-article" type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Termux Troubleshooting: Battery, Permissions, and Weird Errors",
+  "description": "An educational, practical guide about termux: Termux Troubleshooting: Battery, Permissions, and Weird Errors.",
+  "url": "https://ded-sec.space/Blog/termux-troubleshooting.html",
+  "datePublished": "2026-01-26T09:00:00+02:00",
+  "dateModified": "2026-01-26T09:00:00+02:00",
+  "inLanguage": [
+    "en",
+    "el"
+  ],
+  "author": {
+    "@type": "Organization",
+    "name": "DedSec Project"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "DedSec Project"
+  },
+  "image": [
+    "https://ded-sec.space/Assets/Images/og/og-dark.jpg"
+  ],
+  "articleSection": "Termux"
+}</script></head><body class="dark-theme"><nav class="main-nav">
 <div class="nav-container">
 <div class="nav-title"><h1>DedSec Project</h1></div>
 <button aria-label="Toggle navigation" class="burger-menu" id="burger-menu"><span class="burger-line"></span><span class="burger-line"></span><span class="burger-line"></span><span class="burger-label" data-en="Menu" data-gr="Μενού">Menu</span></button>
@@ -52,12 +76,12 @@
 <a class="nav-link" data-en="← Back to Blog" data-gr="← Πίσω στο Ιστολόγιο" href="../Pages/blog.html">← Back to Blog</a>
 </div>
 <article class="post-body">
-<section aria-label="English">
+<section aria-label="English" lang="en">
 <h2>English</h2>
 <p>Termux Troubleshooting: Battery, Permissions, and Weird Errors sits at the intersection of everyday convenience and long‑term responsibility. In termux, small decisions (settings, updates, permissions, habits) add up to big outcomes over months.</p>
 <p>This article is written as a practical, educational guide. It avoids hype and focuses on what you can do today, what to watch for next, and how to explain the topic to a friend without sounding like a brochure.</p>
 <p>Security and privacy are not “on/off”; they are trade-offs you can tune to your real risk.</p>
-<p>Key terms you’ll see again and again: Termux, Termux, Troubleshooting, Battery, Permissions. You don’t need to memorize definitions; you need to recognize where each one shows up in real workflows.</p>
+<p>Key terms you’ll see again and again: Termux, Troubleshooting, Battery, Permissions. You don’t need to memorize definitions; you need to recognize where each one shows up in real workflows.</p>
 <h3>What you’ll learn</h3>
 <ul>
 <li>What it is (in plain language) and what it is *not*</li>
@@ -104,15 +128,15 @@
 <p>Security and privacy are not “on/off”; they are trade-offs you can tune to your real risk. Another angle is usability. If your setup is too strict, you will eventually bypass it. Aim for defenses you can keep on your worst day, not only on your best day.</p>
 <p>Documentation is boring until you need it at 2 a.m.—then it becomes a superpower. One useful exercise is to write a one-page “policy” for yourself: what you allow, what you never allow, and what you review monthly. This turns scattered advice into a repeatable habit.</p>
 <p>Finally, remember that progress beats perfection. If you improve one habit per week, your setup will look completely different in three months—and it will stay maintainable.</p>
-<p>Most problems look complex until you separate *what you control* from *what you can only influence*.</p><h3>Sources</h3><ul><li><a href="https://wiki.termux.com/wiki/Main_Page">Termux Wiki</a></li><li><a href="https://github.com/termux/termux-app">Termux GitHub</a></li><li><a href="https://docs.python.org/3/">Python Docs</a></li><li><a href="https://www.openssh.com/manual.html">OpenSSH Manual</a></li><li><a href="https://developer.android.com/">Android Developers — Storage</a></li></ul>
+<h3>Sources</h3><ul><li><a href="https://wiki.termux.com/wiki/Main_Page">Termux Wiki</a></li><li><a href="https://github.com/termux/termux-app">Termux GitHub</a></li><li><a href="https://docs.python.org/3/">Python Docs</a></li><li><a href="https://www.openssh.com/manual.html">OpenSSH Manual</a></li><li><a href="https://developer.android.com/">Android Developers — Storage</a></li></ul>
 </section>
 <hr/>
-<section aria-label="Ελληνικά">
+<section aria-label="Ελληνικά" lang="el">
 <h2>Ελληνικά</h2>
 <p>Το θέμα «Termux Troubleshooting: Μπαταρία, άδειες και περίεργα σφάλματα» ακουμπά ταυτόχρονα την καθημερινή ευκολία και τη μακροχρόνια ευθύνη. Στον χώρο της termux, μικρές επιλογές (ρυθμίσεις, ενημερώσεις, άδειες, συνήθειες) χτίζουν μεγάλα αποτελέσματα με τον χρόνο.</p>
 <p>Το άρθρο είναι πρακτικός, εκπαιδευτικός οδηγός. Αποφεύγει το hype και εστιάζει σε όσα μπορείς να κάνεις σήμερα, τι να παρακολουθείς στη συνέχεια και πώς να το εξηγήσεις σε έναν φίλο χωρίς «διαφημιστικό» ύφος.</p>
 <p>Ένα καλό νοητικό μοντέλο αξίζει περισσότερο από μια τεράστια λίστα, γιατί σε βοηθά να προσαρμόζεσαι όταν αλλάζουν οι λεπτομέρειες.</p>
-<p>Λέξεις-κλειδιά που θα δεις ξανά και ξανά: Termux, Termux, Troubleshooting, Battery, Permissions. Δεν χρειάζεται αποστήθιση· χρειάζεται να αναγνωρίζεις πού εμφανίζονται στην πράξη.</p>
+<p>Λέξεις-κλειδιά που θα δεις ξανά και ξανά: Termux, Troubleshooting, Battery, Permissions. Δεν χρειάζεται αποστήθιση· χρειάζεται να αναγνωρίζεις πού εμφανίζονται στην πράξη.</p>
 <h3>Τι θα μάθεις</h3>
 <ul>
 <li>Τι είναι (με απλά λόγια) και τι *δεν* είναι</li>
@@ -152,7 +176,7 @@
 <p>Αν κρατήσεις μόνο ένα πράγμα, κράτα αυτό: μείωσε την περιττή έκθεση και μετά βάλε άμυνες σε στρώματα. Δες και τη χρηστικότητα. Αν το setup είναι υπερβολικά αυστηρό, κάποια στιγμή θα το παρακάμψεις. Στόχευσε σε άμυνες που αντέχουν και στην «κακή μέρα».</p>
 <p>Ένα καλό νοητικό μοντέλο αξίζει περισσότερο από μια τεράστια λίστα, γιατί σε βοηθά να προσαρμόζεσαι όταν αλλάζουν οι λεπτομέρειες. Κράτα σημειώσεις. Ένα μικρό changelog (τι άλλαξες και γιατί) βοηθά στο debugging και στο να εντοπίζεις αλλαγές με τον χρόνο.</p>
 <p>Στην πράξη, η αξιοπιστία έρχεται από πρόβες: μικρές δοκιμές πριν φτάσει η «μεγάλη μέρα». Δες και τη χρηστικότητα. Αν το setup είναι υπερβολικά αυστηρό, κάποια στιγμή θα το παρακάμψεις. Στόχευσε σε άμυνες που αντέχουν και στην «κακή μέρα».</p>
-<p>Αν κρατήσεις μόνο ένα πράγμα, κράτα αυτό: μείωσε την περιττή έκθεση και μετά βάλε άμυνες σε στρώματα. Δες και τη χρηστικότητα. Αν το setup είναι υπερβολικά αυστηρό, κάποια στιγμή θα το παρακάμψεις. Στόχευσε σε άμυνες που αντέχουν και στην «κακή μέρα».</p>
+
 <p>Τα περισσότερα προβλήματα φαίνονται δύσκολα μέχρι να χωρίσεις το *τι ελέγχεις* από το *τι απλώς επηρεάζεις*. Δες και τη χρηστικότητα. Αν το setup είναι υπερβολικά αυστηρό, κάποια στιγμή θα το παρακάμψεις. Στόχευσε σε άμυνες που αντέχουν και στην «κακή μέρα».</p>
 <p>Η τεκμηρίωση είναι βαρετή μέχρι να τη χρειαστείς στις 2 το πρωί—τότε γίνεται υπερδύναμη. Μια χρήσιμη άσκηση είναι να γράψεις μια σελίδα «πολιτική» για τον εαυτό σου: τι επιτρέπεις, τι δεν επιτρέπεις ποτέ και τι ελέγχεις κάθε μήνα. Έτσι η συμβουλή γίνεται επαναλήψιμη συνήθεια.</p>
 <p>Σκέψου το σαν αλυσίδα: ο πιο αδύναμος κρίκος σπάνια είναι η «φαντερή» τεχνολογία—είναι η συνήθεια που επαναλαμβάνουμε κάθε μέρα. Δες και τη χρηστικότητα. Αν το setup είναι υπερβολικά αυστηρό, κάποια στιγμή θα το παρακάμψεις. Στόχευσε σε άμυνες που αντέχουν και στην «κακή μέρα».</p>
