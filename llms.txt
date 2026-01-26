@@ -1,26 +1,79 @@
-# DedSec Blog (Bilingual: English + Greek)
+# DedSec Project — Full Index (ded-sec.space)
 
-This repository contains educational blog posts written in English and Greek.
+> Auto-generated list of public pages and blog posts. Generated on 2026-01-26.
 
-Topics include:
-- Technology
-- Cybersecurity
-- Termux
-- Linux
-- Android
-- iOS
-- Conspiracy Theories (media literacy & critical thinking)
-- Science
-- Biology
-- Artificial Intelligence
-- Law (EU/Greece-focused basics)
-- Corruption of Greece (integrity, transparency, institutions)
+Use this when you need an exhaustive list. For search-engine crawling, prefer the XML sitemap at /sitemap.xml.
 
-For each post:
-- Full English section + full Greek section
-- Date created
-- Sources listed at the bottom
+## Pages
+- [DedSec Project — Free Termux Cybersecurity Toolkit](https://ded-sec.space/) — last modified 2026-01-26
+- [DedSec Project — Blog](https://ded-sec.space/Pages/blog.html) — last modified 2026-01-26
+- [Collaborations - DedSec Project](https://ded-sec.space/Pages/collaborations.html) — last modified 2026-01-26
+- [Contact & Credits - DedSec Project](https://ded-sec.space/Pages/contact-credits.html) — last modified 2026-01-26
+- [DedSec Project - Frequently Asked Questions](https://ded-sec.space/Pages/faq.html) — last modified 2026-01-26
+- [Guide For Installation - DedSec Project](https://ded-sec.space/Pages/guide-for-installation.html) — last modified 2026-01-26
+- [Learn About The Tools - DedSec Project](https://ded-sec.space/Pages/learn-about-the-tools.html) — last modified 2026-01-26
+- [Portfolio & GitHub - DedSec Project](https://ded-sec.space/Pages/portfolio-github-info.html) — last modified 2026-01-26
+- [Privacy Policy - DedSec Project](https://ded-sec.space/Pages/privacy-policy.html) — last modified 2026-01-26
+- [Store](https://ded-sec.space/Pages/store.html) — last modified 2026-01-26
 
-Index:
-- /Pages/blog.html (listing)
-- /Blog/*.html (posts)
+## Blog posts
+- [AI Ethics in Practice: Bias, Consent, and Accountability | DedSec Blog](https://ded-sec.space/Pages/blog.html#ai-ethics-risk) — last modified 2026-01-26
+- [AI for Productivity: Workflows that Respect Privacy and Quality | DedSec Blog](https://ded-sec.space/Blog/ai-productivity-workflows.html) — last modified 2026-01-26
+- [AI Security & Privacy: Data Leakage, Model Attacks, and Safe Use | DedSec Blog](https://ded-sec.space/Blog/ai-security-privacy.html) — last modified 2026-01-26
+- [Algorithms & Misinformation: Why the Feed Feels Like Reality | DedSec Blog](https://ded-sec.space/Pages/blog.html#algorithms-misinformation) — last modified 2026-01-26
+- [Android Backups: How to Avoid Losing Data Without Losing Privacy | DedSec Blog](https://ded-sec.space/Pages/blog.html#android-backups-security) — last modified 2026-01-26
+- [Developer Options Explained: Useful Tweaks vs Dangerous Switches | DedSec Blog](https://ded-sec.space/Blog/android-dev-options.html) — last modified 2026-01-26
+- [Private DNS & Tracking Protection on Android: Simple, Reversible Steps | DedSec Blog](https://ded-sec.space/Blog/android-dns-private-relays.html) — last modified 2026-01-26
+- [Android Permissions & Privacy: What ‘Allow’ Really Means | DedSec Blog](https://ded-sec.space/Blog/android-permissions-privacy.html) — last modified 2026-01-26
+- [Sideloading APKs Safely: The Risks, the Checks, and the Best Habits | DedSec Blog](https://ded-sec.space/Blog/android-sideloading-risks.html) — last modified 2026-01-26
+- [Antibiotic Resistance: How It Happens and How to Slow It Down | DedSec Blog](https://ded-sec.space/Pages/blog.html#antibiotic-resistance) — last modified 2026-01-26
+- [Climate vs Weather: The Difference That Changes Conversations | DedSec Blog](https://ded-sec.space/Pages/blog.html#climate-vs-weather) — last modified 2026-01-26
+- [Cognitive Biases 101: Why Smart People Believe Weird Things | DedSec Blog](https://ded-sec.space/Blog/cognitive-biases.html) — last modified 2026-01-26
+- [Containers for Beginners: Docker/Podman Concepts Without the Hype | DedSec Blog](https://ded-sec.space/Pages/blog.html#containers-for-beginners) — last modified 2026-01-26
+- [Copyright Online: Fair Use, Quotes, and Creator Respect | DedSec Blog](https://ded-sec.space/Pages/blog.html#copyright-online) — last modified 2026-01-26
+- [CRISPR Explained: Editing Genes, Limits, and Real-World Uses | DedSec Blog](https://ded-sec.space/Blog/crispr-gene-editing.html) — last modified 2026-01-26
+- [Cybercrime Law Basics: What Counts as Illegal (and What Doesn’t) | DedSec Blog](https://ded-sec.space/Blog/cybercrime-basics.html) — last modified 2026-01-26
+- [Digital Identity Wallets: Convenience, Risk, and How to Use Them Wisely | DedSec Blog](https://ded-sec.space/Pages/blog.html#digital-identity-wallets) — last modified 2026-01-26
+- [Edge Computing & On‑Device AI: Why 2026 Feels Faster (and Safer) | DedSec Blog](https://ded-sec.space/Blog/edge-computing-local-ai-2026.html) — last modified 2026-01-26
+- [Energy Storage Basics: Batteries, Grids, and the Real Constraints | DedSec Blog](https://ded-sec.space/Blog/energy-storage-basics.html) — last modified 2026-01-26
+- [Everyday Integrity: Small Habits That Reduce Corruption’s Oxygen | DedSec Blog](https://ded-sec.space/Pages/blog.html#everyday-integrity) — last modified 2026-01-26
+- [A Fact‑Checking Toolkit: Fast Checks, Deep Checks, and Red Flags | DedSec Blog](https://ded-sec.space/Blog/fact-checking-toolkit.html) — last modified 2026-01-26
+- [Digital Privacy Basics (EU): GDPR Concepts You Can Use Daily | DedSec Blog](https://ded-sec.space/Blog/gdpr-privacy-basics.html) — last modified 2026-01-26
+- [Healthy Skepticism vs Cynicism: How to Stay Sharp Without Going Dark | DedSec Blog](https://ded-sec.space/Blog/healthy-skepticism.html) — last modified 2026-01-26
+- [How Conspiracy Theories Spread Online: A Map of the Pipeline | DedSec Blog](https://ded-sec.space/Blog/how-conspiracies-spread.html) — last modified 2026-01-26
+- [How Large Language Models Work: Tokens, Training, and Hallucinations | DedSec Blog](https://ded-sec.space/Blog/how-llms-work.html) — last modified 2026-01-26
+- [iCloud Security Basics: Backups, Keys, and Account Recovery | DedSec Blog](https://ded-sec.space/Pages/blog.html#icloud-security-basics) — last modified 2026-01-26
+- [Reporting Incidents: Evidence, Timelines, and Where to Ask for Help | DedSec Blog](https://ded-sec.space/Blog/incident-reporting.html) — last modified 2026-01-26
+- [iOS Privacy Controls: The Settings that Matter Most | DedSec Blog](https://ded-sec.space/Blog/ios-privacy-controls.html) — last modified 2026-01-26
+- [Profiles & MDM on iOS: What They Are and When to Worry | DedSec Blog](https://ded-sec.space/Blog/ios-profiles-mdm.html) — last modified 2026-01-26
+- [Stalkerware & Account Takeovers: iOS Warning Signs and Fixes | DedSec Blog](https://ded-sec.space/Blog/ios-stalkerware-defense.html) — last modified 2026-01-26
+- [Hardening a Linux Laptop: Updates, Firewall, Disk Encryption | DedSec Blog](https://ded-sec.space/Blog/linux-laptop-hardening.html) — last modified 2026-01-26
+- [Linux Networking Toolbox: ip, ss, dig, tcpdump (Without Panic) | DedSec Blog](https://ded-sec.space/Blog/linux-networking-toolbox.html) — last modified 2026-01-26
+- [Linux Permissions & Ownership: The Mental Model that Stops Mistakes | DedSec Blog](https://ded-sec.space/Blog/linux-permissions-ownership.html) — last modified 2026-01-26
+- [The Microbiome: What We Know, What We Guess, and What’s Hype | DedSec Blog](https://ded-sec.space/Blog/microbiome.html) — last modified 2026-01-26
+- [Nutrition Myths: Labels, Studies, and Building Sanity Around Food | DedSec Blog](https://ded-sec.space/Blog/nutrition-myths.html) — last modified 2026-01-26
+- [Online Speech & Defamation: How to Disagree Without Legal Trouble | DedSec Blog](https://ded-sec.space/Blog/online-defamation.html) — last modified 2026-01-26
+- [Open Data & Transparency Tools: Turning Documents Into Accountability | DedSec Blog](https://ded-sec.space/Blog/open-data-tools.html) — last modified 2026-01-26
+- [Passkeys on iPhone: A Practical Migration Guide (No Drama) | DedSec Blog](https://ded-sec.space/Blog/passkeys-on-ios.html) — last modified 2026-01-26
+- [Passkeys Explained: Passwordless Login That Actually Works | DedSec Blog](https://ded-sec.space/Blog/passkeys-passwordless-auth.html) — last modified 2026-01-26
+- [Peer Review Explained: What It Can and Cannot Guarantee | DedSec Blog](https://ded-sec.space/Blog/peer-review-explained.html) — last modified 2026-01-26
+- [Phishing in 2026: The New Tricks and the Defenses That Still Work | DedSec Blog](https://ded-sec.space/Pages/blog.html#phishing-2026-defenses) — last modified 2026-01-26
+- [Privacy Threat Modeling: Pick the Right Defenses for Your Life | DedSec Blog](https://ded-sec.space/Blog/privacy-threat-model.html) — last modified 2026-01-26
+- [Public Procurement Transparency: Why It Matters and How to Track It | DedSec Blog](https://ded-sec.space/Blog/procurement-transparency.html) — last modified 2026-01-26
+- [Prompting & Evaluation: Getting Reliable Outputs Without Magic | DedSec Blog](https://ded-sec.space/Blog/prompting-evaluation.html) — last modified 2026-01-26
+- [Ransomware 101: Backups, Recovery Drills, and What to Do First | DedSec Blog](https://ded-sec.space/Blog/ransomware-backups-restore.html) — last modified 2026-01-26
+- [Right‑to‑Repair & Open Hardware: A Practical Guide for Buyers | DedSec Blog](https://ded-sec.space/Blog/right-to-repair-open-hardware.html) — last modified 2026-01-26
+- [Secure Home Network: Router Hygiene, DNS, and Safer Wi‑Fi | DedSec Blog](https://ded-sec.space/Blog/secure-home-network.html) — last modified 2026-01-26
+- [Secure Messaging Isn’t Just Encryption: Metadata, Backups, and Real Privacy | DedSec Blog](https://ded-sec.space/Blog/secure-messaging-metadata.html) — last modified 2026-01-26
+- [Sleep Biology: Why You Can’t ‘Hack’ What You Don’t Respect | DedSec Blog](https://ded-sec.space/Blog/sleep-biology.html) — last modified 2026-01-26
+- [Space Telescopes: How We Turn Photons Into Knowledge | DedSec Blog](https://ded-sec.space/Blog/space-telescopes.html) — last modified 2026-01-26
+- [systemd Explained: Services, Logs, Timers, and the Practical Bits | DedSec Blog](https://ded-sec.space/Blog/systemd-explained.html) — last modified 2026-01-26
+- [Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline | DedSec Blog](https://ded-sec.space/Pages/blog.html#termux-local-webapps) — last modified 2026-01-26
+- [Python Automation in Termux: Small Scripts that Save Real Time | DedSec Blog](https://ded-sec.space/Blog/termux-python-automation.html) — last modified 2026-01-26
+- [Termux Setup Done Right: Packages, Storage, and a Clean Workflow | DedSec Blog](https://ded-sec.space/Blog/termux-setup-hygiene.html) — last modified 2026-01-26
+- [SSH on Android with Termux: Keys, Agents, and Safer Remote Access | DedSec Blog](https://ded-sec.space/Blog/termux-ssh-keys.html) — last modified 2026-01-26
+- [Termux Troubleshooting: Battery, Permissions, and Weird Errors | DedSec Blog](https://ded-sec.space/Blog/termux-troubleshooting.html) — last modified 2026-01-26
+- [Vaccines & the Immune System: Clear Explanations Without Jargon | DedSec Blog](https://ded-sec.space/Blog/vaccines-immune-basics.html) — last modified 2026-01-26
+- [What Corruption Is (and Isn’t): Definitions, Incentives, Indicators | DedSec Blog](https://ded-sec.space/Blog/what-is-corruption.html) — last modified 2026-01-26
+- [Whistleblowing Safely: Rights, Protections, and Practical Precautions | DedSec Blog](https://ded-sec.space/Blog/whistleblower-protection.html) — last modified 2026-01-26
+- [Zero Trust for Humans: A Simple Model for Real Life (Home + Small Business) | DedSec Blog](https://ded-sec.space/Blog/zero-trust-for-humans.html) — last modified 2026-01-26
