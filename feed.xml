@@ -4,73 +4,428 @@
     <title>DedSec Blog</title>
     <link>https://ded-sec.space/Pages/blog.html</link>
     <atom:link href="https://ded-sec.space/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>Practical guides on privacy, security, and real-world tech — by DedSec Project.</description>
+    <description>Educational, bilingual articles across tech, security, science, and society — by DedSec Project.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 11 Jan 2026 21:02:57 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 26 Jan 2026 09:00:00 +0000</lastBuildDate>
     <item>
-      <title>AI &amp; Cybersecurity 2026: Threats, Deepfakes, and Defenses | DedSec Blog</title>
-      <link>https://ded-sec.space/Blog/ai-and-cybersecurity-2026.html</link>
-      <guid isPermaLink="true">https://ded-sec.space/Blog/ai-and-cybersecurity-2026.html</guid>
-      <description>How AI changes cyber offense and defense: faster phishing, smarter malware tooling, improved detection, and the new operational and governance risks for teams in 2026.</description>
-      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
-      <category>AI &amp; Security</category>
-      <category>AI</category>
-      <category>Cybersecurity</category>
-      <category>Threat modeling</category>
-      <category>Defense</category>
-      <category>Automation</category>
+      <title>Edge Computing &amp; On‑Device AI: Why 2026 Feels Faster (and Safer) | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/edge-computing-local-ai-2026.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/edge-computing-local-ai-2026.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about technology: Edge Computing &amp; On‑Device AI: Why 2026 Feels Faster (and Safer).</description>
     </item>
     <item>
-      <title>Humanoid Robots &amp; Artificial Muscles: Terminator vs Reality | DedSec Blog</title>
-      <link>https://ded-sec.space/Blog/ai-terminator-myth-vs-reality.html</link>
-      <guid isPermaLink="true">https://ded-sec.space/Blog/ai-terminator-myth-vs-reality.html</guid>
-      <description>A realistic look at “Terminator” fears: what autonomous systems can and can’t do today, how robot bodies are improving (actuators, muscles, hands), and where safety policy matters.</description>
-      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
-      <category>AI &amp; Robotics</category>
-      <category>Humanoid robots</category>
-      <category>Autonomy</category>
-      <category>Artificial muscles</category>
-      <category>Safety</category>
-      <category>Regulation</category>
+      <title>Passkeys Explained: Passwordless Login That Actually Works | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/passkeys-passwordless-auth.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/passkeys-passwordless-auth.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about technology: Passkeys Explained: Passwordless Login That Actually Works.</description>
     </item>
     <item>
-      <title>Digital ID &amp; Social Credit (China + UK) | DedSec Blog</title>
-      <link>https://ded-sec.space/Blog/digital-identity-benefits-risks-safeguards.html</link>
-      <guid isPermaLink="true">https://ded-sec.space/Blog/digital-identity-benefits-risks-safeguards.html</guid>
-      <description>Digital identity can reduce fraud and simplify services—but it can also enable tracking and exclusion. Here’s how benefits, risks, and practical safeguards fit together.</description>
-      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
-      <category>Privacy &amp; Governance</category>
-      <category>Digital ID</category>
-      <category>Privacy</category>
-      <category>Authentication</category>
-      <category>Civil liberties</category>
-      <category>Safeguards</category>
+      <title>Right‑to‑Repair &amp; Open Hardware: A Practical Guide for Buyers | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/right-to-repair-open-hardware.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/right-to-repair-open-hardware.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about technology: Right‑to‑Repair &amp; Open Hardware: A Practical Guide for Buyers.</description>
     </item>
     <item>
-      <title>Migration, Crime, and Demographic Change | DedSec Blog</title>
-      <link>https://ded-sec.space/Blog/migration-geopolitics-weaponization-and-resilience.html</link>
-      <guid isPermaLink="true">https://ded-sec.space/Blog/migration-geopolitics-weaponization-and-resilience.html</guid>
-      <description>How migration intersects with geopolitics: what “weaponization” narratives get right and wrong, and what resilient, rights-respecting policy looks like.</description>
-      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
-      <category>Society &amp; Security</category>
-      <category>Migration</category>
-      <category>Geopolitics</category>
-      <category>Border policy</category>
-      <category>Disinformation</category>
-      <category>Resilience</category>
+      <title>Digital Identity Wallets: Convenience, Risk, and How to Use Them Wisely | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/digital-identity-wallets.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/digital-identity-wallets.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about technology: Digital Identity Wallets: Convenience, Risk, and How to Use Them Wisely.</description>
     </item>
     <item>
-      <title>Watch Dogs vs Reality (All Games) | DedSec Blog</title>
-      <link>https://ded-sec.space/Blog/watch-dogs-vs-real-life-2026.html</link>
-      <guid isPermaLink="true">https://ded-sec.space/Blog/watch-dogs-vs-real-life-2026.html</guid>
-      <description>A grounded comparison between Watch Dogs’ fiction and today’s real surveillance, data brokers, smart-city systems, and cybercrime—what’s already here and what’s still sci‑fi.</description>
-      <pubDate>Sun, 11 Jan 2026 00:00:00 +0000</pubDate>
-      <category>Tech &amp; Culture</category>
-      <category>Watch Dogs</category>
-      <category>Surveillance</category>
-      <category>Smart cities</category>
-      <category>Hacking culture</category>
-      <category>Privacy</category>
+      <title>Secure Messaging Isn’t Just Encryption: Metadata, Backups, and Real Privacy | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/secure-messaging-metadata.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/secure-messaging-metadata.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about technology: Secure Messaging Isn’t Just Encryption: Metadata, Backups, and Real Privacy.</description>
+    </item>
+    <item>
+      <title>Phishing in 2026: The New Tricks and the Defenses That Still Work | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/phishing-2026-defenses.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/phishing-2026-defenses.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about cybersecurity: Phishing in 2026: The New Tricks and the Defenses That Still Work.</description>
+    </item>
+    <item>
+      <title>Ransomware 101: Backups, Recovery Drills, and What to Do First | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/ransomware-backups-restore.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/ransomware-backups-restore.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about cybersecurity: Ransomware 101: Backups, Recovery Drills, and What to Do First.</description>
+    </item>
+    <item>
+      <title>Zero Trust for Humans: A Simple Model for Real Life (Home + Small Business) | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/zero-trust-for-humans.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/zero-trust-for-humans.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about cybersecurity: Zero Trust for Humans: A Simple Model for Real Life (Home + Small Business).</description>
+    </item>
+    <item>
+      <title>Secure Home Network: Router Hygiene, DNS, and Safer Wi‑Fi | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/secure-home-network.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/secure-home-network.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about cybersecurity: Secure Home Network: Router Hygiene, DNS, and Safer Wi‑Fi.</description>
+    </item>
+    <item>
+      <title>Privacy Threat Modeling: Pick the Right Defenses for Your Life | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/privacy-threat-model.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/privacy-threat-model.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about cybersecurity: Privacy Threat Modeling: Pick the Right Defenses for Your Life.</description>
+    </item>
+    <item>
+      <title>Termux Setup Done Right: Packages, Storage, and a Clean Workflow | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/termux-setup-hygiene.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/termux-setup-hygiene.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about termux: Termux Setup Done Right: Packages, Storage, and a Clean Workflow.</description>
+    </item>
+    <item>
+      <title>Python Automation in Termux: Small Scripts that Save Real Time | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/termux-python-automation.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/termux-python-automation.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about termux: Python Automation in Termux: Small Scripts that Save Real Time.</description>
+    </item>
+    <item>
+      <title>SSH on Android with Termux: Keys, Agents, and Safer Remote Access | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/termux-ssh-keys.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/termux-ssh-keys.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about termux: SSH on Android with Termux: Keys, Agents, and Safer Remote Access.</description>
+    </item>
+    <item>
+      <title>Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/termux-local-webapps.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/termux-local-webapps.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about termux: Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline.</description>
+    </item>
+    <item>
+      <title>Termux Troubleshooting: Battery, Permissions, and Weird Errors | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/termux-troubleshooting.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/termux-troubleshooting.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about termux: Termux Troubleshooting: Battery, Permissions, and Weird Errors.</description>
+    </item>
+    <item>
+      <title>Linux Permissions &amp; Ownership: The Mental Model that Stops Mistakes | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/linux-permissions-ownership.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/linux-permissions-ownership.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about linux: Linux Permissions &amp; Ownership: The Mental Model that Stops Mistakes.</description>
+    </item>
+    <item>
+      <title>systemd Explained: Services, Logs, Timers, and the Practical Bits | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/systemd-explained.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/systemd-explained.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about linux: systemd Explained: Services, Logs, Timers, and the Practical Bits.</description>
+    </item>
+    <item>
+      <title>Hardening a Linux Laptop: Updates, Firewall, Disk Encryption | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/linux-laptop-hardening.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/linux-laptop-hardening.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about linux: Hardening a Linux Laptop: Updates, Firewall, Disk Encryption.</description>
+    </item>
+    <item>
+      <title>Linux Networking Toolbox: ip, ss, dig, tcpdump (Without Panic) | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/linux-networking-toolbox.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/linux-networking-toolbox.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about linux: Linux Networking Toolbox: ip, ss, dig, tcpdump (Without Panic).</description>
+    </item>
+    <item>
+      <title>Containers for Beginners: Docker/Podman Concepts Without the Hype | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/containers-for-beginners.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/containers-for-beginners.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about linux: Containers for Beginners: Docker/Podman Concepts Without the Hype.</description>
+    </item>
+    <item>
+      <title>Android Permissions &amp; Privacy: What ‘Allow’ Really Means | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/android-permissions-privacy.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/android-permissions-privacy.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about android: Android Permissions &amp; Privacy: What ‘Allow’ Really Means.</description>
+    </item>
+    <item>
+      <title>Private DNS &amp; Tracking Protection on Android: Simple, Reversible Steps | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/android-dns-private-relays.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/android-dns-private-relays.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about android: Private DNS &amp; Tracking Protection on Android: Simple, Reversible Steps.</description>
+    </item>
+    <item>
+      <title>Android Backups: How to Avoid Losing Data Without Losing Privacy | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/android-backups-security.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/android-backups-security.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about android: Android Backups: How to Avoid Losing Data Without Losing Privacy.</description>
+    </item>
+    <item>
+      <title>Sideloading APKs Safely: The Risks, the Checks, and the Best Habits | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/android-sideloading-risks.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/android-sideloading-risks.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about android: Sideloading APKs Safely: The Risks, the Checks, and the Best Habits.</description>
+    </item>
+    <item>
+      <title>Developer Options Explained: Useful Tweaks vs Dangerous Switches | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/android-dev-options.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/android-dev-options.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about android: Developer Options Explained: Useful Tweaks vs Dangerous Switches.</description>
+    </item>
+    <item>
+      <title>iOS Privacy Controls: The Settings that Matter Most | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/ios-privacy-controls.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/ios-privacy-controls.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about ios: iOS Privacy Controls: The Settings that Matter Most.</description>
+    </item>
+    <item>
+      <title>iCloud Security Basics: Backups, Keys, and Account Recovery | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/icloud-security-basics.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/icloud-security-basics.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about ios: iCloud Security Basics: Backups, Keys, and Account Recovery.</description>
+    </item>
+    <item>
+      <title>Passkeys on iPhone: A Practical Migration Guide (No Drama) | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/passkeys-on-ios.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/passkeys-on-ios.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about ios: Passkeys on iPhone: A Practical Migration Guide (No Drama).</description>
+    </item>
+    <item>
+      <title>Profiles &amp; MDM on iOS: What They Are and When to Worry | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/ios-profiles-mdm.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/ios-profiles-mdm.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about ios: Profiles &amp; MDM on iOS: What They Are and When to Worry.</description>
+    </item>
+    <item>
+      <title>Stalkerware &amp; Account Takeovers: iOS Warning Signs and Fixes | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/ios-stalkerware-defense.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/ios-stalkerware-defense.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about ios: Stalkerware &amp; Account Takeovers: iOS Warning Signs and Fixes.</description>
+    </item>
+    <item>
+      <title>How Conspiracy Theories Spread Online: A Map of the Pipeline | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/how-conspiracies-spread.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/how-conspiracies-spread.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about conspiracy theories: How Conspiracy Theories Spread Online: A Map of the Pipeline.</description>
+    </item>
+    <item>
+      <title>Cognitive Biases 101: Why Smart People Believe Weird Things | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/cognitive-biases.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/cognitive-biases.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about conspiracy theories: Cognitive Biases 101: Why Smart People Believe Weird Things.</description>
+    </item>
+    <item>
+      <title>A Fact‑Checking Toolkit: Fast Checks, Deep Checks, and Red Flags | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/fact-checking-toolkit.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/fact-checking-toolkit.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about conspiracy theories: A Fact‑Checking Toolkit: Fast Checks, Deep Checks, and Red Flags.</description>
+    </item>
+    <item>
+      <title>Healthy Skepticism vs Cynicism: How to Stay Sharp Without Going Dark | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/healthy-skepticism.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/healthy-skepticism.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about conspiracy theories: Healthy Skepticism vs Cynicism: How to Stay Sharp Without Going Dark.</description>
+    </item>
+    <item>
+      <title>Algorithms &amp; Misinformation: Why the Feed Feels Like Reality | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/algorithms-misinformation.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/algorithms-misinformation.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about conspiracy theories: Algorithms &amp; Misinformation: Why the Feed Feels Like Reality.</description>
+    </item>
+    <item>
+      <title>Peer Review Explained: What It Can and Cannot Guarantee | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/peer-review-explained.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/peer-review-explained.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about science: Peer Review Explained: What It Can and Cannot Guarantee.</description>
+    </item>
+    <item>
+      <title>Climate vs Weather: The Difference That Changes Conversations | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/climate-vs-weather.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/climate-vs-weather.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about science: Climate vs Weather: The Difference That Changes Conversations.</description>
+    </item>
+    <item>
+      <title>Vaccines &amp; the Immune System: Clear Explanations Without Jargon | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/vaccines-immune-basics.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/vaccines-immune-basics.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about science: Vaccines &amp; the Immune System: Clear Explanations Without Jargon.</description>
+    </item>
+    <item>
+      <title>Space Telescopes: How We Turn Photons Into Knowledge | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/space-telescopes.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/space-telescopes.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about science: Space Telescopes: How We Turn Photons Into Knowledge.</description>
+    </item>
+    <item>
+      <title>Energy Storage Basics: Batteries, Grids, and the Real Constraints | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/energy-storage-basics.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/energy-storage-basics.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about science: Energy Storage Basics: Batteries, Grids, and the Real Constraints.</description>
+    </item>
+    <item>
+      <title>CRISPR Explained: Editing Genes, Limits, and Real-World Uses | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/crispr-gene-editing.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/crispr-gene-editing.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about biology: CRISPR Explained: Editing Genes, Limits, and Real-World Uses.</description>
+    </item>
+    <item>
+      <title>The Microbiome: What We Know, What We Guess, and What’s Hype | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/microbiome.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/microbiome.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about biology: The Microbiome: What We Know, What We Guess, and What’s Hype.</description>
+    </item>
+    <item>
+      <title>Antibiotic Resistance: How It Happens and How to Slow It Down | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/antibiotic-resistance.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/antibiotic-resistance.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about biology: Antibiotic Resistance: How It Happens and How to Slow It Down.</description>
+    </item>
+    <item>
+      <title>Sleep Biology: Why You Can’t ‘Hack’ What You Don’t Respect | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/sleep-biology.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/sleep-biology.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about biology: Sleep Biology: Why You Can’t ‘Hack’ What You Don’t Respect.</description>
+    </item>
+    <item>
+      <title>Nutrition Myths: Labels, Studies, and Building Sanity Around Food | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/nutrition-myths.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/nutrition-myths.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about biology: Nutrition Myths: Labels, Studies, and Building Sanity Around Food.</description>
+    </item>
+    <item>
+      <title>How Large Language Models Work: Tokens, Training, and Hallucinations | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/how-llms-work.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/how-llms-work.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about artificial intelligence: How Large Language Models Work: Tokens, Training, and Hallucinations.</description>
+    </item>
+    <item>
+      <title>AI Ethics in Practice: Bias, Consent, and Accountability | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/ai-ethics-risk.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/ai-ethics-risk.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about artificial intelligence: AI Ethics in Practice: Bias, Consent, and Accountability.</description>
+    </item>
+    <item>
+      <title>Prompting &amp; Evaluation: Getting Reliable Outputs Without Magic | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/prompting-evaluation.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/prompting-evaluation.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about artificial intelligence: Prompting &amp; Evaluation: Getting Reliable Outputs Without Magic.</description>
+    </item>
+    <item>
+      <title>AI for Productivity: Workflows that Respect Privacy and Quality | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/ai-productivity-workflows.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/ai-productivity-workflows.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about artificial intelligence: AI for Productivity: Workflows that Respect Privacy and Quality.</description>
+    </item>
+    <item>
+      <title>AI Security &amp; Privacy: Data Leakage, Model Attacks, and Safe Use | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/ai-security-privacy.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/ai-security-privacy.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about artificial intelligence: AI Security &amp; Privacy: Data Leakage, Model Attacks, and Safe Use.</description>
+    </item>
+    <item>
+      <title>Digital Privacy Basics (EU): GDPR Concepts You Can Use Daily | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/gdpr-privacy-basics.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/gdpr-privacy-basics.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about law: Digital Privacy Basics (EU): GDPR Concepts You Can Use Daily.</description>
+    </item>
+    <item>
+      <title>Cybercrime Law Basics: What Counts as Illegal (and What Doesn’t) | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/cybercrime-basics.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/cybercrime-basics.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about law: Cybercrime Law Basics: What Counts as Illegal (and What Doesn’t).</description>
+    </item>
+    <item>
+      <title>Copyright Online: Fair Use, Quotes, and Creator Respect | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/copyright-online.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/copyright-online.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about law: Copyright Online: Fair Use, Quotes, and Creator Respect.</description>
+    </item>
+    <item>
+      <title>Online Speech &amp; Defamation: How to Disagree Without Legal Trouble | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/online-defamation.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/online-defamation.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about law: Online Speech &amp; Defamation: How to Disagree Without Legal Trouble.</description>
+    </item>
+    <item>
+      <title>Reporting Incidents: Evidence, Timelines, and Where to Ask for Help | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/incident-reporting.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/incident-reporting.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about law: Reporting Incidents: Evidence, Timelines, and Where to Ask for Help.</description>
+    </item>
+    <item>
+      <title>What Corruption Is (and Isn’t): Definitions, Incentives, Indicators | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/what-is-corruption.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/what-is-corruption.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about corruption of greece: What Corruption Is (and Isn’t): Definitions, Incentives, Indicators.</description>
+    </item>
+    <item>
+      <title>Public Procurement Transparency: Why It Matters and How to Track It | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/procurement-transparency.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/procurement-transparency.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about corruption of greece: Public Procurement Transparency: Why It Matters and How to Track It.</description>
+    </item>
+    <item>
+      <title>Whistleblowing Safely: Rights, Protections, and Practical Precautions | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/whistleblower-protection.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/whistleblower-protection.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about corruption of greece: Whistleblowing Safely: Rights, Protections, and Practical Precautions.</description>
+    </item>
+    <item>
+      <title>Open Data &amp; Transparency Tools: Turning Documents Into Accountability | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/open-data-tools.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/open-data-tools.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about corruption of greece: Open Data &amp; Transparency Tools: Turning Documents Into Accountability.</description>
+    </item>
+    <item>
+      <title>Everyday Integrity: Small Habits That Reduce Corruption’s Oxygen | DedSec Blog</title>
+      <link>https://ded-sec.space/Blog/everyday-integrity.html</link>
+      <guid isPermaLink="true">https://ded-sec.space/Blog/everyday-integrity.html</guid>
+      <pubDate>Mon, 26 Jan 2026 09:00:00 +0000</pubDate>
+      <description>An educational, practical guide about corruption of greece: Everyday Integrity: Small Habits That Reduce Corruption’s Oxygen.</description>
     </item>
   </channel>
 </rss>
