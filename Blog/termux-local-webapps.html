@@ -1,38 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline | DedSec Blog</title>
-  <meta name="description" content="An educational, practical guide about termux: Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline."/>
-  <link rel="canonical" href="https://ded-sec.space/Blog/termux-local-webapps.html"/>
-  <meta property="og:type" content="article"/>
-  <meta property="og:title" content="Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline"/>
-  <meta property="og:description" content="An educational, practical guide about termux: Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline."/>
-  <meta property="og:url" content="https://ded-sec.space/Blog/termux-local-webapps.html"/>
-  <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline"/>
-  <meta property="twitter:description" content="An educational, practical guide about termux: Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline."/>
-  <meta property="article:published_time" content="2026-01-26T09:00:00+02:00"/>
-  <meta property="article:section" content="Termux"/>
-  <meta property="article:tag" content="Termux"/><meta property="article:tag" content="Local"/><meta property="article:tag" content="Apps"/><meta property="article:tag" content="Flask"/>
-  <meta name="theme-color" content="#07060d"/>
-  <meta name="color-scheme" content="dark light"/>
-  <link rel="icon" href="/favicon.ico" sizes="any"/>
-  <link rel="stylesheet" href="../style.css"/>
-</head>
-<body class="dark-theme">
-  <div class="page">
-    <header class="page-header">
-      <h1 data-en="Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline" data-gr="Τοπικές Web εφαρμογές στο Termux: Flask, δοκιμές API, offline">Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline</h1>
-      <p data-en="An educational, practical guide about termux: Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline." data-gr="Εκπαιδευτικός, πρακτικός οδηγός για termux: Τοπικές Web εφαρμογές στο Termux: Flask, δοκιμές API, offline.">An educational, practical guide about termux: Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline.</p>
-      <p><span class="badge">Created 2026-01-26</span> <span class="badge">Termux</span></p>
-    </header>
-
-    <article class="post-body">
-      <section aria-label="English">
-        <h2>English</h2>
-        <p>Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline sits at the intersection of everyday convenience and long‑term responsibility. In termux, small decisions (settings, updates, permissions, habits) add up to big outcomes over months.</p>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<title>Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline | DedSec Blog</title>
+<meta content="An educational, practical guide about termux: Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline." name="description"/>
+<link href="https://ded-sec.space/Blog/termux-local-webapps.html" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline" property="og:title"/>
+<meta content="An educational, practical guide about termux: Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline." property="og:description"/>
+<meta content="https://ded-sec.space/Blog/termux-local-webapps.html" property="og:url"/>
+<meta content="summary" property="twitter:card"/>
+<meta content="Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline" property="twitter:title"/>
+<meta content="An educational, practical guide about termux: Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline." property="twitter:description"/>
+<meta content="2026-01-26T09:00:00+02:00" property="article:published_time"/>
+<meta content="Termux" property="article:section"/>
+<meta content="Termux" property="article:tag"/><meta content="Local" property="article:tag"/><meta content="Apps" property="article:tag"/><meta content="Flask" property="article:tag"/>
+<meta content="#07060d" name="theme-color"/>
+<meta content="dark light" name="color-scheme"/>
+<link href="/favicon.ico" rel="icon" sizes="any"/>
+<link href="../style.css" rel="stylesheet"/>
+<link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/><link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/><link href="/favicon-16.png" rel="icon" sizes="16x16" type="image/png"/><link href="/favicon-180.png" rel="apple-touch-icon" sizes="180x180"/><link href="/site.webmanifest" rel="manifest"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&amp;family=Roboto+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/></head><body class="dark-theme"><nav class="main-nav">
+<div class="nav-container">
+<div class="nav-title"><h1>DedSec Project</h1></div>
+<button aria-label="Toggle navigation" class="burger-menu" id="burger-menu"><span class="burger-line"></span><span class="burger-line"></span><span class="burger-line"></span><span class="burger-label" data-en="Menu" data-gr="Μενού">Menu</span></button>
+<div class="nav-menu" id="nav-menu"><a class="nav-link" data-en="Home" data-gr="Αρχική" href="/">Home</a>
+<a class="nav-link" data-en="Learn About The Tools" data-gr="Μάθε για τα Εργαλεία" href="../Pages/learn-about-the-tools.html">Learn About The Tools</a>
+<a class="nav-link" data-en="Guide For Installation" data-gr="Οδηγός Εγκατάστασης" href="../Pages/guide-for-installation.html">Guide For Installation</a>
+<a class="nav-link" data-en="Frequently Asked Questions" data-gr="Συχνές Ερωτήσεις" href="../Pages/faq.html">Frequently Asked Questions</a>
+<a class="nav-link" data-en="Store" data-gr="Κατάστημα" href="../Pages/store.html">Store</a>
+<a class="nav-link active" data-en="Blog" data-gr="Ιστολόγιο" href="../Pages/blog.html">Blog</a>
+<a class="nav-link" data-en="Collaborations" data-gr="Συνεργασίες" href="../Pages/collaborations.html">Collaborations</a>
+<a class="nav-link" data-en="Portfolio &amp; GitHub" data-gr="Portfolio &amp; GitHub" href="../Pages/portfolio-github-info.html">Portfolio &amp; GitHub</a>
+<a class="nav-link" data-en="Contact &amp; Credits" data-gr="Επικοινωνία &amp; Συντελεστές" href="../Pages/contact-credits.html">Contact &amp; Credits</a>
+<a class="nav-link" data-en="Privacy Policy" data-gr="Πολιτική Απορρήτου" href="../Pages/privacy-policy.html">Privacy Policy</a>
+</div>
+<div class="nav-actions">
+<button class="nav-action-btn" id="nav-theme-switcher">
+<span class="nav-action-label" data-en="Change Theme" data-gr="Αλλαγή Θέματος">Change Theme</span>
+</button>
+<button class="nav-action-btn" id="nav-lang-switcher">
+<span class="nav-action-label" data-en="Αλλαγή Γλώσσας" data-gr="Change Language">Αλλαγή Γλώσσας</span>
+</button>
+</div>
+</div>
+</nav><div class="page-content"><div class="page-header">
+<h1 data-en="Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline" data-gr="Τοπικές Web εφαρμογές στο Termux: Flask, δοκιμές API, offline">Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline</h1>
+<p data-en="An educational, practical guide about termux: Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline." data-gr="Εκπαιδευτικός, πρακτικός οδηγός για termux: Τοπικές Web εφαρμογές στο Termux: Flask, δοκιμές API, offline.">An educational, practical guide about termux: Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline.</p>
+<p><span class="badge">Created 2026-01-26</span> <span class="badge">Termux</span></p>
+</div><div class="features-grid"><div class="feature-card" style="grid-column: 1 / -1;">
+<div class="blog-taxonomy" style="margin-bottom: 12px;">
+<a class="nav-link" data-en="← Back to Blog" data-gr="← Πίσω στο Ιστολόγιο" href="../Pages/blog.html">← Back to Blog</a>
+</div>
+<article class="post-body">
+<section aria-label="English">
+<h2>English</h2>
+<p>Local Web Apps in Termux: Run Flask, Test APIs, Stay Offline sits at the intersection of everyday convenience and long‑term responsibility. In termux, small decisions (settings, updates, permissions, habits) add up to big outcomes over months.</p>
 <p>This article is written as a practical, educational guide. It avoids hype and focuses on what you can do today, what to watch for next, and how to explain the topic to a friend without sounding like a brochure.</p>
 <p>Documentation is boring until you need it at 2 a.m.—then it becomes a superpower.</p>
 <p>Key terms you’ll see again and again: Termux, Termux, Local, Apps, Flask. You don’t need to memorize definitions; you need to recognize where each one shows up in real workflows.</p>
@@ -82,13 +104,11 @@
 <p>Think of it as a chain: the weakest link is rarely the fancy technology—it’s the habit we repeat every day. Another angle is usability. If your setup is too strict, you will eventually bypass it. Aim for defenses you can keep on your worst day, not only on your best day.</p>
 <p>Finally, remember that progress beats perfection. If you improve one habit per week, your setup will look completely different in three months—and it will stay maintainable.</p>
 <p>Security and privacy are not “on/off”; they are trade-offs you can tune to your real risk.</p><h3>Sources</h3><ul><li><a href="https://wiki.termux.com/wiki/Main_Page">Termux Wiki</a></li><li><a href="https://github.com/termux/termux-app">Termux GitHub</a></li><li><a href="https://docs.python.org/3/">Python Docs</a></li><li><a href="https://www.openssh.com/manual.html">OpenSSH Manual</a></li><li><a href="https://developer.android.com/">Android Developers — Storage</a></li></ul>
-      </section>
-
-      <hr/>
-
-      <section aria-label="Ελληνικά">
-        <h2>Ελληνικά</h2>
-        <p>Το θέμα «Τοπικές Web εφαρμογές στο Termux: Flask, δοκιμές API, offline» ακουμπά ταυτόχρονα την καθημερινή ευκολία και τη μακροχρόνια ευθύνη. Στον χώρο της termux, μικρές επιλογές (ρυθμίσεις, ενημερώσεις, άδειες, συνήθειες) χτίζουν μεγάλα αποτελέσματα με τον χρόνο.</p>
+</section>
+<hr/>
+<section aria-label="Ελληνικά">
+<h2>Ελληνικά</h2>
+<p>Το θέμα «Τοπικές Web εφαρμογές στο Termux: Flask, δοκιμές API, offline» ακουμπά ταυτόχρονα την καθημερινή ευκολία και τη μακροχρόνια ευθύνη. Στον χώρο της termux, μικρές επιλογές (ρυθμίσεις, ενημερώσεις, άδειες, συνήθειες) χτίζουν μεγάλα αποτελέσματα με τον χρόνο.</p>
 <p>Το άρθρο είναι πρακτικός, εκπαιδευτικός οδηγός. Αποφεύγει το hype και εστιάζει σε όσα μπορείς να κάνεις σήμερα, τι να παρακολουθείς στη συνέχεια και πώς να το εξηγήσεις σε έναν φίλο χωρίς «διαφημιστικό» ύφος.</p>
 <p>Θεώρησε τις προεπιλογές ως προτάσεις, όχι ως μοίρα: το πιο ασφαλές setup είναι αυτό που διαλέγεις συνειδητά.</p>
 <p>Λέξεις-κλειδιά που θα δεις ξανά και ξανά: Termux, Termux, Local, Apps, Flask. Δεν χρειάζεται αποστήθιση· χρειάζεται να αναγνωρίζεις πού εμφανίζονται στην πράξη.</p>
@@ -138,12 +158,7 @@
 <p>Η τεκμηρίωση είναι βαρετή μέχρι να τη χρειαστείς στις 2 το πρωί—τότε γίνεται υπερδύναμη. Κράτα σημειώσεις. Ένα μικρό changelog (τι άλλαξες και γιατί) βοηθά στο debugging και στο να εντοπίζεις αλλαγές με τον χρόνο.</p>
 <p>Η τεκμηρίωση είναι βαρετή μέχρι να τη χρειαστείς στις 2 το πρωί—τότε γίνεται υπερδύναμη. Μια χρήσιμη άσκηση είναι να γράψεις μια σελίδα «πολιτική» για τον εαυτό σου: τι επιτρέπεις, τι δεν επιτρέπεις ποτέ και τι ελέγχεις κάθε μήνα. Έτσι η συμβουλή γίνεται επαναλήψιμη συνήθεια.</p>
 <p>Η ασφάλεια και η ιδιωτικότητα δεν είναι «on/off»· είναι συμβιβασμοί που τους ρυθμίζεις ανάλογα με το ρίσκο σου. Δες και τη χρηστικότητα. Αν το setup είναι υπερβολικά αυστηρό, κάποια στιγμή θα το παρακάμψεις. Στόχευσε σε άμυνες που αντέχουν και στην «κακή μέρα».</p>
-<p>Τέλος, να θυμάσαι: πρόοδος > τελειότητα. Αν βελτιώνεις μία συνήθεια την εβδομάδα, σε τρεις μήνες το setup σου θα είναι αγνώριστο—και θα παραμένει διαχειρίσιμο.</p>
+<p>Τέλος, να θυμάσαι: πρόοδος &gt; τελειότητα. Αν βελτιώνεις μία συνήθεια την εβδομάδα, σε τρεις μήνες το setup σου θα είναι αγνώριστο—και θα παραμένει διαχειρίσιμο.</p>
 <p>Στην πράξη, η αξιοπιστία έρχεται από πρόβες: μικρές δοκιμές πριν φτάσει η «μεγάλη μέρα».</p><h3>Πηγές</h3><ul><li><a href="https://wiki.termux.com/wiki/Main_Page">Termux Wiki</a></li><li><a href="https://github.com/termux/termux-app">Termux GitHub</a></li><li><a href="https://docs.python.org/3/">Python Docs</a></li><li><a href="https://www.openssh.com/manual.html">OpenSSH Manual</a></li><li><a href="https://developer.android.com/">Android Developers — Storage</a></li></ul>
-      </section>
-    </article>
-  </div>
-
-  <script defer src="../script.js"></script>
-</body>
-</html>
+</section>
+</article></div></div></div><script defer="" src="../script.js"></script></body></html>
