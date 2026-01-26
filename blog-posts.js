@@ -19,7 +19,8 @@
 
   // Offline fallback for ZIP builds / rate limits.
   // Keep this list aligned with the "final" (non-redirect) posts you want to show in the Blog listing.
-  const EMBEDDED_POSTS = [
+  // Rename the original fallback so it is no longer used. A new list is defined below.
+  const DEPRECATED_POSTS = [
   {
     "file": "ai-and-cybersecurity-2026.html",
     "href": "../Blog/ai-and-cybersecurity-2026.html",
@@ -106,6 +107,145 @@
     ]
   }
 ];
+
+  // New offline fallback list for the reduced DedSec blog.
+  // These entries correspond to the twelve evergreen posts that ship with this
+  // repository. Feel free to adjust titles, descriptions and tags if you
+  // update the posts. Dates follow the ISO‑8601 format (YYYY-MM-DD).
+  const EMBEDDED_POSTS = [
+    {
+      "file": "technology-overview-2026.html",
+      "href": "../Blog/technology-overview-2026.html",
+      "titleEn": "Technology: Definition, History and Future",
+      "titleGr": "Technology: Definition, History and Future",
+      "descEn": "Understand how technology evolved from stone tools to modern digital systems, why it matters to society and the challenges and opportunities ahead.",
+      "descGr": "Understand how technology evolved from stone tools to modern digital systems, why it matters to society and the challenges and opportunities ahead.",
+      "date": "2026-01-26",
+      "section": "Technology",
+      "tags": ["Technology", "History", "Innovation", "Future"]
+    },
+    {
+      "file": "cybersecurity-overview-2026.html",
+      "href": "../Blog/cybersecurity-overview-2026.html",
+      "titleEn": "Cybersecurity: Foundations, Threats and Defense",
+      "titleGr": "Cybersecurity: Foundations, Threats and Defense",
+      "descEn": "Learn what cybersecurity means, how threats evolved, why protecting data and systems matters and what best practices can keep you safe.",
+      "descGr": "Learn what cybersecurity means, how threats evolved, why protecting data and systems matters and what best practices can keep you safe.",
+      "date": "2026-01-26",
+      "section": "Cybersecurity",
+      "tags": ["Cybersecurity", "CIA triad", "Threats", "Defense", "Best practices"]
+    },
+    {
+      "file": "termux-android-linux-environment.html",
+      "href": "../Blog/termux-android-linux-environment.html",
+      "titleEn": "Termux: Bringing Linux to Your Android Phone",
+      "titleGr": "Termux: Bringing Linux to Your Android Phone",
+      "descEn": "Discover Termux, the Android terminal and Linux environment that turns your smartphone into a powerful development and learning platform.",
+      "descGr": "Discover Termux, the Android terminal and Linux environment that turns your smartphone into a powerful development and learning platform.",
+      "date": "2026-01-26",
+      "section": "Termux",
+      "tags": ["Termux", "Android", "Linux", "Terminal", "Mobile"]
+    },
+    {
+      "file": "linux-overview-2026.html",
+      "href": "../Blog/linux-overview-2026.html",
+      "titleEn": "Linux: Origins, Structure and Community",
+      "titleGr": "Linux: Origins, Structure and Community",
+      "descEn": "A beginner-friendly overview of Linux—what it is, how it works, its rich history and why millions choose open-source computing.",
+      "descGr": "A beginner-friendly overview of Linux—what it is, how it works, its rich history and why millions choose open-source computing.",
+      "date": "2026-01-26",
+      "section": "Linux",
+      "tags": ["Linux", "Operating system", "Kernel", "Open source"]
+    },
+    {
+      "file": "android-os-overview-2026.html",
+      "href": "../Blog/android-os-overview-2026.html",
+      "titleEn": "Android OS: A Mobile Powerhouse",
+      "titleGr": "Android OS: A Mobile Powerhouse",
+      "descEn": "Get to know Android, the Linux-based mobile operating system that powers billions of devices and fosters a global ecosystem of apps and developers.",
+      "descGr": "Get to know Android, the Linux-based mobile operating system that powers billions of devices and fosters a global ecosystem of apps and developers.",
+      "date": "2026-01-26",
+      "section": "Android",
+      "tags": ["Android", "Mobile OS", "Linux", "Smartphones", "Open source"]
+    },
+    {
+      "file": "ios-overview-2026.html",
+      "href": "../Blog/ios-overview-2026.html",
+      "titleEn": "iOS: Design, Features and Ecosystem",
+      "titleGr": "iOS: Design, Features and Ecosystem",
+      "descEn": "Explore Apple’s proprietary mobile operating system, its multi‑touch interface, design philosophy and how it shapes the smartphone experience.",
+      "descGr": "Explore Apple’s proprietary mobile operating system, its multi‑touch interface, design philosophy and how it shapes the smartphone experience.",
+      "date": "2026-01-26",
+      "section": "iOS",
+      "tags": ["iOS", "Apple", "Mobile OS", "Multi-touch", "Proprietary"]
+    },
+    {
+      "file": "conspiracy-theories-overview-2026.html",
+      "href": "../Blog/conspiracy-theories-overview-2026.html",
+      "titleEn": "Conspiracy Theories: Why They Persist",
+      "titleGr": "Conspiracy Theories: Why They Persist",
+      "descEn": "What makes conspiracy theories so appealing? This article traces their history, psychology and impact on society—and how to inoculate yourself against them.",
+      "descGr": "What makes conspiracy theories so appealing? This article traces their history, psychology and impact on society—and how to inoculate yourself against them.",
+      "date": "2026-01-26",
+      "section": "Conspiracy Theories",
+      "tags": ["Conspiracy theories", "Psychology", "Misinformation", "History", "Media literacy"]
+    },
+    {
+      "file": "science-overview-2026.html",
+      "href": "../Blog/science-overview-2026.html",
+      "titleEn": "Science: Methods, Evolution and Role in Society",
+      "titleGr": "Science: Methods, Evolution and Role in Society",
+      "descEn": "A clear definition of science, its methodological foundations, historical evolution and its central role in modern life.",
+      "descGr": "A clear definition of science, its methodological foundations, historical evolution and its central role in modern life.",
+      "date": "2026-01-26",
+      "section": "Science",
+      "tags": ["Science", "Scientific method", "Evidence", "History", "Research"]
+    },
+    {
+      "file": "biology-overview-2026.html",
+      "href": "../Blog/biology-overview-2026.html",
+      "titleEn": "Biology: Living Systems and Vital Processes",
+      "titleGr": "Biology: Living Systems and Vital Processes",
+      "descEn": "An introduction to biology—the study of living organisms—their history, subfields, importance and future directions.",
+      "descGr": "An introduction to biology—the study of living organisms—their history, subfields, importance and future directions.",
+      "date": "2026-01-26",
+      "section": "Biology",
+      "tags": ["Biology", "Life sciences", "Organisms", "Evolution", "Ecology"]
+    },
+    {
+      "file": "artificial-intelligence-overview-2026.html",
+      "href": "../Blog/artificial-intelligence-overview-2026.html",
+      "titleEn": "Artificial Intelligence: Definition, History and Future",
+      "titleGr": "Artificial Intelligence: Definition, History and Future",
+      "descEn": "Unpack what artificial intelligence is, where it came from, why it's transforming industries, the ethical challenges it raises and where it may go next.",
+      "descGr": "Unpack what artificial intelligence is, where it came from, why it's transforming industries, the ethical challenges it raises and where it may go next.",
+      "date": "2026-01-26",
+      "section": "Artificial Intelligence",
+      "tags": ["Artificial Intelligence", "Machine Learning", "Deep Learning", "Ethics", "Future"]
+    },
+    {
+      "file": "law-overview-2026.html",
+      "href": "../Blog/law-overview-2026.html",
+      "titleEn": "Law: Definition, History and Significance",
+      "titleGr": "Law: Definition, History and Significance",
+      "descEn": "Understand what law is, how legal systems evolved, why laws underpin society, current challenges and possible future directions.",
+      "descGr": "Understand what law is, how legal systems evolved, why laws underpin society, current challenges and possible future directions.",
+      "date": "2026-01-26",
+      "section": "Law",
+      "tags": ["Law", "Rule of law", "Legal system", "Justice", "Rights"]
+    },
+    {
+      "file": "corruption-of-greece-2026.html",
+      "href": "../Blog/corruption-of-greece-2026.html",
+      "titleEn": "Corruption in Greece: Causes, Consequences and Reforms",
+      "titleGr": "Corruption in Greece: Causes, Consequences and Reforms",
+      "descEn": "An examination of Greece’s corruption landscape—its drivers, impacts, reform efforts and what remains to be done.",
+      "descGr": "An examination of Greece’s corruption landscape—its drivers, impacts, reform efforts and what remains to be done.",
+      "date": "2026-01-26",
+      "section": "Corruption Of Greece",
+      "tags": ["Corruption", "Greece", "Governance", "Transparency", "Anti-corruption"]
+    }
+  ];
 
   function escapeHtml(str) {
     return String(str || '')
