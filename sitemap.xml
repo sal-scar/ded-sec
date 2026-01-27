@@ -1,155 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
+<url>
     <loc>https://ded-sec.space/</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
-  <url>
-    <loc>https://ded-sec.space/Pages/blog.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
+<url>
     <loc>https://ded-sec.space/Pages/collaborations.html</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
-  <url>
+<url>
     <loc>https://ded-sec.space/Pages/contact-credits.html</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
-  <url>
+<url>
     <loc>https://ded-sec.space/Pages/faq.html</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
-  <url>
+<url>
     <loc>https://ded-sec.space/Pages/guide-for-installation.html</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
-  <url>
+<url>
     <loc>https://ded-sec.space/Pages/learn-about-the-tools.html</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
-  <url>
+<url>
     <loc>https://ded-sec.space/Pages/portfolio-github-info.html</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
-  <url>
+<url>
     <loc>https://ded-sec.space/Pages/privacy-policy.html</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
-  <url>
+<url>
     <loc>https://ded-sec.space/Pages/store.html</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
-  <url>
-    <loc>https://ded-sec.space/feed.xml</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
+<url>
     <loc>https://ded-sec.space/llms.txt</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
-  <url>
+<url>
     <loc>https://ded-sec.space/robots.txt</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
-  <url>
+<url>
     <loc>https://ded-sec.space/site.webmanifest</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/technology-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/technology-practical-guide-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/cybersecurity-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/cybersecurity-practical-guide-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/termux-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/termux-practical-guide-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/linux-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/linux-practical-guide-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/android-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/android-practical-guide-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/ios-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/ios-practical-guide-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/conspiracy-theories-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/conspiracy-theories-practical-guide-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/science-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/science-practical-guide-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/biology-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/biology-practical-guide-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/artificial-intelligence-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/artificial-intelligence-practical-guide-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/law-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/law-practical-guide-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/corruption-of-greece-essentials-2026.html</loc>
-    <lastmod>2026-01-27</lastmod>
-  </url>
-  <url>
-    <loc>https://ded-sec.space/Blog/corruption-of-greece-practical-guide-2026.html</loc>
     <lastmod>2026-01-27</lastmod>
   </url>
 </urlset>
