@@ -3239,6 +3239,7 @@ body.light-theme .step-card{ background: rgba(255,255,255,0.86); }
 
 
 /* ============================================================================
+   BLOG / ARTICLE READING IMPROVEMENTS (2026-01-10)
    - Makes posts feel more "guide-like": bigger text, wider measure, nicer code blocks.
    - Applies ONLY to pages that add class="post-article" on .page-content.
    ============================================================================ */
@@ -3307,6 +3308,7 @@ body.light-theme .page-content.post-article .trust-box{
 
 /* === Article Components (TOC, callouts, sources) ===
    Adds richer styling so long posts don’t turn into “plain text walls”.
+   Works across Blog/* posts (they already use .page-content.post-article).
 ====================================================== */
 .page-content.post-article .page-header{
     position: relative;
@@ -3417,6 +3419,8 @@ body.light-theme .page-content.post-article .trust-box{
 }
 
 
+/* Blog filters (Categories + Tags) */
+.blog-filters{
   width: 100%;
   max-width: 1200px;
   margin: 10px 0 0;
@@ -3427,6 +3431,7 @@ body.light-theme .page-content.post-article .trust-box{
   position: relative;
   overflow: hidden;
 }
+.blog-filters::before{
   content:"";
   position:absolute;
   inset:0;
@@ -3435,22 +3440,27 @@ body.light-theme .page-content.post-article .trust-box{
     radial-gradient(700px 260px at 110% 10%, rgba(255,198,122,0.08), transparent 55%);
   pointer-events:none;
 }
+.blog-filters > *{ position: relative; z-index: 1; }
 
+.blog-filters-head h2{
   margin: 0 0 6px 0;
   font-family: var(--font-secondary);
   font-size: 1.1rem;
 }
+.blog-filters-head p{
   margin: 0 0 12px 0;
   color: var(--nm-text-muted);
   font-size: 0.95rem;
   line-height: 1.25;
 }
 
+.blog-filters-grid{
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
 }
 @media (max-width: 720px){
+  .blog-filters-grid{ grid-template-columns: 1fr; }
 }
 
 .filter-group h3{
@@ -3498,6 +3508,7 @@ body.light-theme .chip.is-active{
   color: #000;
 }
 
+.blog-taxonomy{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
