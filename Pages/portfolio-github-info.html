@@ -50,7 +50,14 @@
     "name": "DedSec Project",
     "url": "https://ded-sec.space/"
   }
-}</script></head>
+}</script>
+<style>
+  /* Fix: some global CSS may add separators after <strong>; remove them here */
+  .content-section strong::after,
+  .content-section strong::before { content: none !important; }
+</style>
+
+</head>
 <body class="dark-theme"><!--MAINTAIN_SITE: Key maintenance: NAV links must match real files; global theme/language logic is in /script.js.-->
 <nav class="main-nav">
 <div class="nav-container">
@@ -117,10 +124,13 @@
   <hr class="modal-divider"/>
 
   <h2 data-en="About me" data-gr="Σχετικά με εμένα">About me</h2>
-  <p data-en="I build Termux-first tools and automation-focused CLI projects — from productivity utilities and mini-games to educational cybersecurity tooling. Everything is designed to be fast, practical, and beginner-friendly, with a strong focus on ethical & educational use."
-     data-gr="Φτιάχνω εργαλεία με βάση το Termux και CLI projects με έμφαση στην αυτοματοποίηση — από εργαλεία παραγωγικότητας και mini-games μέχρι εκπαιδευτικά εργαλεία κυβερνοασφάλειας. Όλα είναι σχεδιασμένα να είναι γρήγορα, πρακτικά και φιλικά για αρχάριους, με ξεκάθαρη έμφαση στη νόμιμη, ηθική και εκπαιδευτική χρήση.">
+  <p data-lang-section="en">
     I build <strong>Termux-first tools</strong> and automation-focused CLI projects — from productivity utilities and mini-games to educational cybersecurity tooling.
     Everything is designed to be <strong>fast, practical, and beginner-friendly</strong>, with a strong focus on <strong>ethical &amp; educational use</strong>.
+  </p>
+  <p class="hidden-by-default" data-lang-section="gr">
+    Φτιάχνω <strong>εργαλεία με βάση το Termux</strong> και CLI projects με έμφαση στην αυτοματοποίηση — από εργαλεία παραγωγικότητας και mini-games μέχρι εκπαιδευτικά εργαλεία κυβερνοασφάλειας.
+    Όλα είναι σχεδιασμένα να είναι <strong>γρήγορα, πρακτικά και φιλικά για αρχάριους</strong>, με ξεκάθαρη έμφαση στη <strong>νόμιμη, ηθική και εκπαιδευτική χρήση</strong>.
   </p>
   <hr class="modal-divider"/>
 <h2 data-en="Toolbox (what I use)" data-gr="Εργαλεία (τι χρησιμοποιώ)">Toolbox (what I use)</h2>
