@@ -11,6 +11,6 @@ Use this when you need an exhaustive list. For search-engine crawling, prefer th
 - [DedSec Project - Frequently Asked Questions](https://ded-sec.space/Pages/faq.html) — last modified 2026-01-13
 - [Guide For Installation - DedSec Project](https://ded-sec.space/Pages/guide-for-installation.html) — last modified 2026-01-13
 - [Learn About The Tools - DedSec Project](https://ded-sec.space/Pages/learn-about-the-tools.html) — last modified 2026-01-13
-- [Portfolio & GitHub - DedSec Project](https://ded-sec.space/Pages/portfolio-github-info.html) — last modified 2026-01-13
+- [Portofolio & GitHub Info - DedSec Project](https://ded-sec.space/Pages/portfolio-github-info.html) — last modified 2026-01-13
 - [Privacy Policy - DedSec Project](https://ded-sec.space/Pages/privacy-policy.html) — last modified 2026-01-13
 - [Store](https://ded-sec.space/Pages/store.html) — last modified 2026-01-13
