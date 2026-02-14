@@ -35,13 +35,23 @@ document.addEventListener('DOMContentLoaded', () => {
         targets.forEach(stackTextNodes);
     };
 
+    const setViewportUnits = () => {
+        // iOS Safari (and many in-app browsers) report unstable 100vh.
+        // We use a JS-driven CSS var for reliable full-height layouts.
+        const h = (window.visualViewport?.height || window.innerHeight || 0);
+        if (h) document.documentElement.style.setProperty('--vh', `${h * 0.01}px`);
+    };
+
     const syncNavMenuOffset = () => {
         const nav = document.querySelector('.main-nav');
-        const menu = document.getElementById('nav-menu');
-        if (!nav || !menu) return;
+        if (!nav) return;
         const h = Math.ceil(nav.getBoundingClientRect().height || 70);
-        menu.style.top = `${h}px`;
-        menu.style.height = `calc(100vh - ${h}px)`;
+        document.documentElement.style.setProperty('--nav-h', `${h}px`);
+    };
+
+    const syncLayoutVars = () => {
+        setViewportUnits();
+        syncLayoutVars();
     };
 
 
@@ -166,23 +176,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Keep the navbar compact (so the injected logo doesn't get clipped)
         applyNavbarWordStack();
-        syncNavMenuOffset();
+        syncLayoutVars();
     };
 
     // --- SHARED UTILITIES (COPY, CAROUSEL, ACCORDION) ---
-    window.copyToClipboard = (button, targetId) => {
-        const text = document.getElementById(targetId)?.innerText;
-        if (!text) return;
-        
-        navigator.clipboard.writeText(text).then(() => {
+    window.copyToClipboard = async (button, targetId) => {
+        const el = document.getElementById(targetId);
+        const text = (el?.innerText || el?.textContent || '').trim();
+        if (!text || !button) return;
+
+        const showFeedback = (ok) => {
             const original = button.textContent;
-            button.textContent = currentLanguage === 'gr' ? 'Αντιγράφηκε!' : 'Copied!';
-            button.classList.add('copy-success');
-            setTimeout(() => { 
+            button.textContent = ok
+                ? (currentLanguage === 'gr' ? 'Αντιγράφηκε!' : 'Copied!')
+                : (currentLanguage === 'gr' ? 'Απέτυχε' : 'Failed');
+            button.classList.toggle('copy-success', ok);
+            button.classList.toggle('copy-fail', !ok);
+            setTimeout(() => {
                 button.textContent = original;
-                button.classList.remove('copy-success');
+                button.classList.remove('copy-success', 'copy-fail');
             }, 1500);
-        });
+        };
+
+        // Preferred: modern async clipboard (requires HTTPS + user gesture)
+        try {
+            if (navigator.clipboard?.writeText && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+                showFeedback(true);
+                return;
+            }
+            throw new Error('Clipboard API unavailable');
+        } catch (_) {
+            // Fallback for iOS / in-app browsers: execCommand copy
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'fixed';
+                ta.style.top = '-1000px';
+                ta.style.left = '-1000px';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.focus({ preventScroll: true });
+                ta.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(ta);
+                showFeedback(!!ok);
+                return;
+            } catch {
+                showFeedback(false);
+            }
+        }
     };
 
     function initializeToolCategories(selector) {
@@ -817,9 +861,15 @@ return file;
         // Final Setup
         window.changeLanguage(localStorage.getItem('language') || 'en');
 
-        // Ensure the slide-out menu always sits under the real navbar height
-        syncNavMenuOffset();
-        window.addEventListener('resize', syncNavMenuOffset);
+        // Keep viewport + navbar size variables synced (mobile Safari + dynamic nav height)
+        const layoutHandler = () => syncLayoutVars();
+        layoutHandler();
+        window.addEventListener('resize', layoutHandler, { passive: true });
+        window.addEventListener('orientationchange', layoutHandler, { passive: true });
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', layoutHandler);
+            window.visualViewport.addEventListener('scroll', layoutHandler);
+        }
 
         // Defer large disclaimer DOM injection so first paint on mobile is faster
         const defer = (fn) => {
