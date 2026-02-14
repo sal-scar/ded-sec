@@ -1642,13 +1642,33 @@ border: 1px solid var(--nm-border);
 
 @media (max-width: 980px) {
     .job-experience-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        /* Keep 3-per-row on smaller screens too (to match the GitHub README layout). */
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .job-experience-card {
+        padding: 10px !important;
+    }
+
+    .job-experience-title {
+        font-size: 0.82rem !important;
     }
 }
 
 @media (max-width: 640px) {
     .job-experience-grid {
-        grid-template-columns: 1fr;
+        /* 3 columns even on mobile */
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .job-experience-card {
+        padding: 8px !important;
+    }
+
+    .job-experience-title {
+        font-size: 0.75rem !important;
     }
 }
 
