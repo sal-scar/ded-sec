@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = getThemeLogo();
 
         // Navbar logo (injected into title)
-        document.querySelectorAll('.nav-title h1 img[data-site-logo="1"]').forEach(img => {
+        document.querySelectorAll('img[data-site-logo="1"]').forEach(img => {
             if (img.src !== url) img.src = url;
         });
 

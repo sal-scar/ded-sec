@@ -8,7 +8,7 @@
 <meta content="#07060d" name="theme-color"/>
 <meta content="dark light" name="color-scheme"/>
 <meta content="DedSec Project — Free Termux Cybersecurity Toolkit" name="title"/>
-<meta content="DedSec Project is a free, open-source Termux toolkit for Android: OSINT, link/file checks, network testing, automations, and awareness training — authorized use only." name="description"/>
+<meta content="Free Termux toolkit for Android: OSINT footprint checks, URL/file vetting, network &amp; device diagnostics, plus automations and awareness tools. Easy menus, guided workflows, saved results. Authorized use only." name="description"/>
 <link href="/favicon.ico" rel="icon" sizes="any"/>
 <link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/>
@@ -28,7 +28,7 @@
 <meta content="website" property="og:type"/>
 <meta content="https://ded-sec.space/" property="og:url"/>
 <meta content="DedSec Project — Free Termux Cybersecurity Toolkit" property="og:title"/>
-<meta content="DedSec Project is a free, open-source Termux toolkit for Android: OSINT, link/file checks, network testing, automations, and awareness training — authorized use only." property="og:description"/>
+<meta content="Free Termux toolkit for Android: OSINT footprint checks, URL/file vetting, network &amp; device diagnostics, plus automations and awareness tools. Easy menus, guided workflows, saved results. Authorized use only." property="og:description"/>
 <meta content="https://ded-sec.space/Assets/Images/og/og-dark.jpg" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
@@ -42,90 +42,91 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="style.css" rel="stylesheet"/>
 <script type="application/ld+json">
-    [
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "DedSec Project",
+    "url": "https://ded-sec.space/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://ded-sec.space/#search={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "DedSec Project Toolkit",
+    "operatingSystem": "Android, Termux",
+    "applicationCategory": "SecurityApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "The DedSec Project is a free Termux toolkit for Android that bundles OSINT footprint checks, URL/file vetting, authorized network & device diagnostics, and productivity automations into one easy menu. Each tool includes clear prompts, saved output paths, and guided workflows for privacy awareness and authorized testing.",
+    "author": {
+      "@type": "Person",
+      "name": "dedsec1121fk",
+      "url": "https://github.com/dedsec1121fk"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "DedSec Project",
+    "url": "https://ded-sec.space/",
+    "logo": "https://ded-sec.space/Assets/Images/Logos/Black%20Purple%20Butterfly%20Logo.jpeg",
+    "sameAs": [
+      "https://github.com/dedsec1121fk",
+      "https://t.me/dedsecproject",
+      "https://www.instagram.com/dedsec_project_official"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
       {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "DedSec Project",
-        "url": "https://ded-sec.space/",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://ded-sec.space/#search={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
+        "@type": "Question",
+        "name": "Do I need a Rooted device to use DedSec Project?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. 95% of the tools in DedSec Project are designed to work without Root access on Android devices via Termux."
         }
       },
       {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "DedSec Project Toolkit",
-        "operatingSystem": "Android, Termux",
-        "applicationCategory": "SecurityApplication",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "description": "The DedSec Project is a free, all-in-one Termux toolkit for cybersecurity learning and authorized testing. It includes network scanners, OSINT tools, link/file inspection, automation utilities, and optional phishing/social-engineering simulation modules for awareness training in controlled, consent-based environments only.",
-        "author": {
-            "@type": "Person",
-            "name": "dedsec1121fk",
-            "url": "https://github.com/dedsec1121fk"
+        "@type": "Question",
+        "name": "Is DedSec Project free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, the core DedSec Project toolkit is 100% free and open source. We also offer premium development services and specialized scripts in our store."
         }
       },
       {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "DedSec Project",
-        "url": "https://ded-sec.space/",
-        "logo": "https://ded-sec.space/Assets/Images/Logos/Black%20Purple%20Butterfly%20Logo.jpeg",
-        "sameAs": [
-          "https://github.com/dedsec1121fk",
-          "https://t.me/dedsecproject",
-          "https://www.instagram.com/dedsec_project_official"
-        ]
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Do I need a Rooted device to use DedSec Project?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. 95% of the tools in DedSec Project are designed to work without Root access on Android devices via Termux."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is DedSec Project free?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes, the core DedSec Project toolkit is 100% free and open source. We also offer premium development services and specialized scripts in our store."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How do I install DedSec Project?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "You can install it easily using Termux. Run 'pkg update', install git, clone our repository from GitHub, and run the setup script. Detailed instructions are available on our Installation Guide page."
-            }
-          }
-        ]
+        "@type": "Question",
+        "name": "How do I install DedSec Project?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can install it easily using Termux. Run 'pkg update', install git, clone our repository from GitHub, and run the setup script. Detailed instructions are available on our Installation Guide page."
+        }
       }
     ]
-    </script>
+  }
+]
+</script>
 <link href="https://ded-sec.space/" rel="canonical"/>
-<meta content="summary_large_image" name="twitter:card"/><meta content="DedSec Project — Free Termux Cybersecurity Toolkit" name="twitter:title"/><meta content="DedSec Project is a free, open-source Termux toolkit for Android: OSINT, link/file checks, network testing, automations, and awareness training — authorized use only." name="twitter:description"/><meta content="strict-origin-when-cross-origin" name="referrer"/><meta content="en_US" property="og:locale"/><meta content="el_GR" property="og:locale:alternate"/><meta content="DedSec Project — cybersecurity and Termux learning resources" name="twitter:image:alt"/><script id="ld-website" type="application/ld+json">{
+<meta content="summary_large_image" name="twitter:card"/><meta content="DedSec Project — Free Termux Cybersecurity Toolkit" name="twitter:title"/><meta content="Free Termux toolkit for Android: OSINT footprint checks, URL/file vetting, network &amp; device diagnostics, plus automations and awareness tools. Easy menus, guided workflows, saved results. Authorized use only." name="twitter:description"/><meta content="strict-origin-when-cross-origin" name="referrer"/><meta content="en_US" property="og:locale"/><meta content="el_GR" property="og:locale:alternate"/><meta content="DedSec Project — cybersecurity and Termux learning resources" name="twitter:image:alt"/><script id="ld-website" type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "DedSec Project",
   "url": "https://ded-sec.space/",
-  "description": "DedSec Project is a free, open-source Termux toolkit for Android: OSINT, link/file checks, network testing, automations, and awareness training - authorized use only.",
+  "description": "DedSec Project: a free Termux toolkit for Android with OSINT, URL/file verification, network/device diagnostics, and automation utilities — built for privacy awareness and authorized use.",
   "inLanguage": [
     "en",
     "el"
@@ -139,7 +140,8 @@
       "url": "https://ded-sec.space/Assets/Images/og/og-dark.jpg"
     }
   }
-}</script></head>
+}
+</script></head>
 <body class="dark-theme"><!--MAINTAIN_SITE: Key maintenance: NAV links must match real files; global theme/language logic is in /script.js.-->
 <nav class="main-nav">
 <div class="nav-container">
@@ -176,14 +178,9 @@
 <div class="screen">
 <main class="home-screen">
 <div class="hero-section" id="top">
-<h1 class="hero-title" data-en="DedSec&nbsp;Project" data-gr="DedSec&nbsp;Project">DedSec&nbsp;Project</h1>
-<div class="hero-logo-wrap" aria-label="DedSec Project logo">
-<img class="hero-logo hero-logo-dark" src="Assets/Images/Logos/Black%20Purple%20Butterfly%20Logo.jpeg" alt="DedSec Project logo" width="92" height="92" loading="eager" decoding="async"/>
-<img class="hero-logo hero-logo-light" src="Assets/Images/Logos/White%20Purple%20Butterfly%20Logo.jpeg" alt="DedSec Project logo" width="92" height="92" loading="eager" decoding="async"/>
-</div>
-
+<h1 class="hero-title" data-en="DedSec Project" data-gr="DedSec Project">DedSec Project</h1>
+<div class="hero-logo"><img alt="DedSec Project logo" class="hero-logo-img" data-site-logo="1" decoding="async" height="96" loading="eager" src="Assets/Images/Logos/Black%20Purple%20Butterfly%20Logo.jpeg" width="96"/></div>
 <h2 class="hero-subtitle" data-en="Start in minutes — even if you’re not a programmer." data-gr="Ξεκινήστε σε λίγα λεπτά — ακόμη κι αν δεν είστε προγραμματιστής.">Start in minutes — even if you’re not a programmer.</h2>
-
 <div aria-label="Project proof" class="trust-indicators">
 <div class="trust-item">
 <img alt="GitHub Stars" decoding="async" loading="lazy" src="https://img.shields.io/github/stars/dedsec1121fk/DedSec?style=social&amp;label=Stars" style="height: 20px;"/>
@@ -195,8 +192,6 @@
 </div>
 </div>
 <p class="hero-kicker" data-en="DedSec Project is a free Termux toolkit that bundles OSINT, link/file inspection, device &amp; network diagnostics, and handy automations in one easy menu. Explore what information about you is public, verify URLs/files before opening them, and run permission‑based checks on devices and networks you own. Optional phishing/social‑engineering simulation modules are included for awareness training in controlled, consent‑based environments only. Every tool explains what it does, where it saves results, and how to use it step‑by‑step." data-gr="Το DedSec Project είναι μια δωρεάν εργαλειοθήκη για Termux που συνδυάζει OSINT, έλεγχο συνδέσμων/αρχείων, διαγνωστικά συσκευής &amp; δικτύου και χρήσιμους αυτοματισμούς σε ένα εύχρηστο μενού. Δείτε ποιες πληροφορίες για εσάς είναι δημόσιες, επαληθεύστε URL/αρχεία πριν τα ανοίξετε και κάντε ελέγχους με άδεια σε συσκευές και δίκτυα που σας ανήκουν. Περιλαμβάνονται προαιρετικές ενότητες προσομοίωσης phishing/social‑engineering για εκπαίδευση ευαισθητοποίησης μόνο, σε ελεγχόμενο περιβάλλον με ρητή συναίνεση. Κάθε εργαλείο εξηγεί τι κάνει, πού αποθηκεύει αποτελέσματα και πώς να το χρησιμοποιήσετε βήμα‑βήμα.">DedSec Project is a free Termux toolkit that bundles OSINT, link/file inspection, device &amp; network diagnostics, and handy automations in one easy menu. Explore what information about you is public, verify URLs/files before opening them, and run permission‑based checks on devices and networks you own. Optional phishing/social‑engineering simulation modules are included for awareness training in controlled, consent‑based environments only. Every tool explains what it does, where it saves results, and how to use it step‑by‑step.</p>
-
-
 <div aria-label="Quick highlights" class="hero-glance">
 <div class="glance-card">
 <i class="fas fa-lock"></i>
@@ -214,7 +209,6 @@
 <div class="glance-text" data-en="Focus on responsible use" data-gr="Έμφαση στη σωστή χρήση">Focus on responsible use</div>
 </div>
 </div>
-
 </div>
 <div class="features-grid" id="highlights">
 <a class="feature-card" href="Pages/learn-about-the-tools.html">
