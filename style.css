@@ -2976,7 +2976,10 @@ body.light-theme .search-input {
 
 .hero-logo {
     display: flex;
+    width: 100%;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     margin: 14px 0 10px 0;
 }
 
@@ -2984,6 +2987,7 @@ body.light-theme .search-input {
     width: clamp(56px, 16vw, 92px);
     height: auto;
     display: block;
+    margin: 0 auto;
     border-radius: 18px;
     box-shadow: 0 14px 30px rgba(0,0,0,0.22);
 }
