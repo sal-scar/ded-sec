@@ -2974,25 +2974,6 @@ body.light-theme .search-input {
 
 .hero-section > * { position: relative; z-index: 1; }
 
-.hero-logo {
-    display: flex;
-    justify-content: center;
-    margin: 14px 0 10px 0;
-}
-
-.hero-logo-img {
-    width: clamp(56px, 16vw, 92px);
-    height: auto;
-    display: block;
-    border-radius: 18px;
-    box-shadow: 0 14px 30px rgba(0,0,0,0.22);
-}
-
-body.light-theme .hero-logo-img {
-    box-shadow: 0 12px 24px rgba(0,0,0,0.14);
-}
-
-
 .hero-badges {
     display: flex;
     flex-wrap: wrap;
@@ -3364,4 +3345,28 @@ body.light-theme .step-card{ background: rgba(255,255,255,0.86); }
   font-weight: 900;
   font-size: 0.85rem;
   letter-spacing: 0.2px;
+}
+
+
+/* --- Hero logo (theme-aware) --- */
+.hero-logo-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin: 6px auto 10px;
+}
+.hero-logo{
+  width: 92px;
+  height: 92px;
+  border-radius: 18px;
+  border: 1px solid var(--nm-border);
+  background: rgba(255,255,255,0.04);
+  box-shadow: var(--shadow-elev-1);
+}
+.hero-logo-light{ display:none; }
+body.light-theme .hero-logo-dark{ display:none; }
+body.light-theme .hero-logo-light{ display:block; }
+
+@media (max-width: 420px){
+  .hero-logo{ width: 78px; height: 78px; border-radius: 16px; }
 }
