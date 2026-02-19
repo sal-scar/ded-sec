@@ -1,16 +1,17 @@
 # DedSec Project — Full Index (ded-sec.space)
 
-> > Auto-generated list of public pages. Generated on 2026-01-13.
+> > Auto-generated list of public pages. Generated on 2026-02-19.
 
 Use this when you need an exhaustive list. For search-engine crawling, prefer the XML sitemap at /sitemap.xml.
 
 ## Pages
-- [DedSec Project — Free Termux Cybersecurity Toolkit](https://ded-sec.space/) — last modified 2026-01-13
-- [Collaborations - DedSec Project](https://ded-sec.space/Pages/collaborations.html) — last modified 2026-01-13
-- [Contact & Credits - DedSec Project](https://ded-sec.space/Pages/contact-credits.html) — last modified 2026-01-13
-- [DedSec Project - Frequently Asked Questions](https://ded-sec.space/Pages/faq.html) — last modified 2026-01-13
-- [Guide For Installation - DedSec Project](https://ded-sec.space/Pages/guide-for-installation.html) — last modified 2026-01-13
-- [Learn About The Tools - DedSec Project](https://ded-sec.space/Pages/learn-about-the-tools.html) — last modified 2026-01-13
-- [Portofolio & GitHub Info - DedSec Project](https://ded-sec.space/Pages/portfolio-github-info.html) — last modified 2026-01-13
-- [Privacy Policy - DedSec Project](https://ded-sec.space/Pages/privacy-policy.html) — last modified 2026-01-13
-- [Store](https://ded-sec.space/Pages/store.html) — last modified 2026-01-13
+- [DedSec Project — Free Termux Cybersecurity Toolkit](https://ded-sec.space/) — last modified 2026-02-19
+- [Our Vision - DedSec Project](https://ded-sec.space/Pages/our-vision.html) — last modified 2026-02-19
+- [Collaborations - DedSec Project](https://ded-sec.space/Pages/collaborations.html) — last modified 2026-02-19
+- [Contact & Credits - DedSec Project](https://ded-sec.space/Pages/contact-credits.html) — last modified 2026-02-19
+- [DedSec Project - Frequently Asked Questions](https://ded-sec.space/Pages/faq.html) — last modified 2026-02-19
+- [Guide For Installation - DedSec Project](https://ded-sec.space/Pages/guide-for-installation.html) — last modified 2026-02-19
+- [Learn About The Tools - DedSec Project](https://ded-sec.space/Pages/learn-about-the-tools.html) — last modified 2026-02-19
+- [Founder's Portofolio - DedSec Project](https://ded-sec.space/Pages/founders-portofolio.html) — last modified 2026-02-19
+- [Privacy Policy - DedSec Project](https://ded-sec.space/Pages/privacy-policy.html) — last modified 2026-02-19
+- [Store](https://ded-sec.space/Pages/store.html) — last modified 2026-02-19

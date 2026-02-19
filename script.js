@@ -304,19 +304,20 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         
-        const SEARCH_VERSION = '2026-01-27-v8';
+        const SEARCH_VERSION = '2026-02-19-v9';
         const SEARCH_STORAGE_KEY = `dedsec_search_index_${SEARCH_VERSION}`;
         const SEARCH_PAGES_STORAGE_KEY = `dedsec_search_pages_${SEARCH_VERSION}`;
 
         // Pages we always want searchable (static, always exist).
         const BASE_PAGES = [
             "index.html",
+            "Pages/our-vision.html",
             "Pages/learn-about-the-tools.html",
             "Pages/guide-for-installation.html",
             "Pages/faq.html",
             "Pages/store.html",
             "Pages/collaborations.html",
-            "Pages/portfolio-github-info.html",
+            "Pages/founders-portofolio.html",
             "Pages/contact-credits.html",
             "Pages/privacy-policy.html",        ];
         const loadStoredPagesList = () => {
