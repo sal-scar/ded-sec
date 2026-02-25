@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
+  <url>
     <loc>https://ded-sec.space/</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-02-24</lastmod>
   </url>
-<url>
-    <loc>https://ded-sec.space/Pages/our-vision.html</loc>
-    <lastmod>2026-02-19</lastmod>
-  </url>
-<url>
+  <url>
     <loc>https://ded-sec.space/Pages/collaborations.html</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-02-24</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://ded-sec.space/Pages/contact-credits.html</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-02-24</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://ded-sec.space/Pages/faq.html</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-02-24</lastmod>
   </url>
-<url>
-    <loc>https://ded-sec.space/Pages/guide-for-installation.html</loc>
-    <lastmod>2026-02-19</lastmod>
-  </url>
-<url>
-    <loc>https://ded-sec.space/Pages/learn-about-the-tools.html</loc>
-    <lastmod>2026-02-19</lastmod>
-  </url>
-<url>
+  <url>
     <loc>https://ded-sec.space/Pages/founders-portofolio.html</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-02-24</lastmod>
   </url>
-<url>
+  <url>
+    <loc>https://ded-sec.space/Pages/guide-for-installation.html</loc>
+    <lastmod>2026-02-24</lastmod>
+  </url>
+  <url>
+    <loc>https://ded-sec.space/Pages/learn-about-the-tools.html</loc>
+    <lastmod>2026-02-24</lastmod>
+  </url>
+  <url>
+    <loc>https://ded-sec.space/Pages/our-vision.html</loc>
+    <lastmod>2026-02-24</lastmod>
+  </url>
+  <url>
     <loc>https://ded-sec.space/Pages/privacy-policy.html</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-02-24</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://ded-sec.space/Pages/store.html</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-02-24</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://ded-sec.space/llms.txt</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-02-24</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://ded-sec.space/robots.txt</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-02-24</lastmod>
   </url>
-<url>
+  <url>
     <loc>https://ded-sec.space/site.webmanifest</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-02-24</lastmod>
   </url>
 </urlset>
