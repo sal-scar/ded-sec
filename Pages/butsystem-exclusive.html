@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><!--MAINTAIN_PAGE: MAINTENANCE: Update title/description/canonical if you rename this page URL.-->
+  <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+
+  <title>ButSystem.py (Exclusive) - DedSec Project</title>
+  <meta content="#07060d" name="theme-color"/>
+  <meta content="dark light" name="color-scheme"/>
+  <meta content="ButSystem.py (Exclusive): a local-first, privacy‑focused helper web app for chats, groups, file vault, and opt‑in live location sharing — built for responsible use." name="description"/>
+
+  <link href="/favicon.ico" rel="icon" sizes="any"/>
+  <link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+  <link href="/favicon-48.png" rel="icon" sizes="48x48" type="image/png"/>
+  <link href="/favicon-16.png" rel="icon" sizes="16x16" type="image/png"/>
+  <link href="/favicon-180.png" rel="apple-touch-icon" sizes="180x180"/>
+  <link href="/site.webmanifest" rel="manifest"/>
+
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&amp;family=Inter:wght@400;600;700&amp;family=Roboto+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="../style.css" rel="stylesheet"/>
+
+  <meta content="ButSystem.py (Exclusive) - DedSec Project" property="og:title"/>
+  <meta content="A local-first, privacy‑focused helper web app for chats, groups, file vault, and opt‑in live location sharing — built for responsible use." property="og:description"/>
+  <meta content="https://ded-sec.space/Assets/Images/og/og-dark.jpg" property="og:image"/>
+  <meta content="1200" property="og:image:width"/>
+  <meta content="630" property="og:image:height"/>
+  <meta content="DedSec Project — cybersecurity and Termux learning resources" property="og:image:alt"/>
+  <meta content="https://ded-sec.space/Assets/Images/og/og-dark.jpg" name="twitter:image"/>
+  <meta content="website" property="og:type"/>
+  <meta content="https://ded-sec.space/Pages/butsystem-exclusive.html" property="og:url"/>
+  <meta content="DedSec Project" property="og:site_name"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta content="ButSystem.py (Exclusive) - DedSec Project" name="twitter:title"/>
+  <meta content="A local-first, privacy‑focused helper web app for chats, groups, file vault, and opt‑in live location sharing — built for responsible use." name="twitter:description"/>
+  <meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
+  <meta content="DedSec Project" name="author"/>
+  <meta content="strict-origin-when-cross-origin" name="referrer"/>
+  <meta content="en_US" property="og:locale"/>
+  <meta content="el_GR" property="og:locale:alternate"/>
+  <meta content="https://ded-sec.space/Pages/butsystem-exclusive.html" name="twitter:url"/>
+  <link href="https://ded-sec.space/Pages/butsystem-exclusive.html" rel="canonical"/>
+
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://ded-sec.space/#organization",
+        "name": "DedSec Project",
+        "url": "https://ded-sec.space/",
+        "logo": "https://ded-sec.space/Assets/Images/Logos/Black%20Purple%20Butterfly%20Logo.jpeg",
+        "sameAs": ["https://github.com/dedsec1121fk/DedSec"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://ded-sec.space/#website",
+        "url": "https://ded-sec.space/",
+        "name": "DedSec Project",
+        "publisher": {"@id": "https://ded-sec.space/#organization"}
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://ded-sec.space/Pages/butsystem-exclusive.html#webpage",
+        "url": "https://ded-sec.space/Pages/butsystem-exclusive.html",
+        "name": "ButSystem.py (Exclusive) - DedSec Project",
+        "isPartOf": {"@id": "https://ded-sec.space/#website"},
+        "about": {"@id": "https://ded-sec.space/#organization"},
+        "inLanguage": ["en", "el"]
+      }
+    ]
+  }</script>
+</head>
+
+<body class="dark-theme"><!--MAINTAIN_SITE: Key maintenance: NAV links must match real files; global theme/language logic is in /script.js.-->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <div class="nav-title"><h1>DedSec Project</h1></div>
+
+      <button aria-label="Toggle navigation" class="burger-menu" id="burger-menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-label" data-en="Menu" data-gr="Μενού">Menu</span>
+      </button>
+
+      <div class="nav-menu" id="nav-menu">
+        <a class="nav-link" data-en="Home" data-gr="Αρχική" href="/">Home</a>
+        <a class="nav-link" data-en="Our Vision" data-gr="Το Όραμά μας" href="our-vision.html">Our Vision</a>
+        <a class="nav-link" data-en="Learn About The Tools" data-gr="Μάθετε για τα Εργαλεία" href="learn-about-the-tools.html">Learn About The Tools</a>
+        <a class="nav-link active" data-en="ButSystem.py (Exclusive)" data-gr="ButSystem.py (Αποκλειστικό)" href="butsystem-exclusive.html">ButSystem.py (Exclusive)</a>
+        <a class="nav-link" data-en="Guide For Installation" data-gr="Οδηγός Εγκατάστασης" href="guide-for-installation.html">Guide For Installation</a>
+        <a class="nav-link" data-en="Frequently Asked Questions" data-gr="Συχνές Ερωτήσεις" href="faq.html">Frequently Asked Questions</a>
+        <a class="nav-link" data-en="Store" data-gr="Κατάστημα" href="store.html">Store</a>
+        <a class="nav-link" data-en="Collaborations" data-gr="Συνεργασίες" href="collaborations.html">Collaborations</a>
+        <a class="nav-link" data-en="Founder's Portofolio" data-gr="Πορτφόλιο Ιδρυτή" href="founders-portofolio.html">Founder's Portofolio</a>
+        <a class="nav-link" data-en="Contact &amp; Credits" data-gr="Επικοινωνία &amp; Συντελεστές" href="contact-credits.html">Contact &amp; Credits</a>
+        <a class="nav-link" data-en="Privacy Policy" data-gr="Πολιτική Απορρήτου" href="privacy-policy.html">Privacy Policy</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="nav-action-btn" id="nav-theme-switcher">
+          <span class="nav-action-label" data-en="Change Theme" data-gr="Αλλαγή Θέματος">Change Theme</span>
+        </button>
+        <button class="nav-action-btn" id="nav-lang-switcher">
+          <span class="nav-action-label" data-en="Αλλαγή Γλώσσας" data-gr="Change Language">Αλλαγή Γλώσσας</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-content">
+    <div class="page-header">
+      <h1 data-en="ButSystem.py (Exclusive)" data-gr="ButSystem.py (Αποκλειστικό)">ButSystem.py (Exclusive)</h1>
+      <p
+        data-en="A local-first helper web app you run from your own device — built for private collaboration, awareness, and responsible use."
+        data-gr="Μια local-first βοηθητική web εφαρμογή που τρέχει από τη δική σου συσκευή — για ιδιωτική συνεργασία, επίγνωση και υπεύθυνη χρήση."
+      >
+        A local-first helper web app you run from your own device — built for private collaboration, awareness, and responsible use.
+      </p>
+    </div>
+
+    <div class="content-section">
+      <h2 data-en="What it is" data-gr="Τι είναι">What it is</h2>
+      <p
+        data-en="ButSystem.py is a self-hosted (you host it) web interface that runs on Termux. It gives you a private dashboard for DMs, group chats, a file vault, profile tools, and optional live location sharing — without relying on a third‑party service by default."
+        data-gr="Το ButSystem.py είναι ένα self-hosted (το «φιλοξενείς» εσύ) web interface που τρέχει στο Termux. Σου δίνει έναν ιδιωτικό πίνακα για DM, ομαδικές συνομιλίες, θησαυροφυλάκιο αρχείων, εργαλεία προφίλ και προαιρετική ζωντανή τοποθεσία — χωρίς να βασίζεται εξ ορισμού σε τρίτες υπηρεσίες."
+      >
+        ButSystem.py is a self-hosted (you host it) web interface that runs on Termux. It gives you a private dashboard for DMs, group chats, a file vault, profile tools, and optional live location sharing — without relying on a third‑party service by default.
+      </p>
+      <p
+        data-en="The goal is simple: keep your workflows on your phone, keep your data under your control, and use the tool to organize people and information safely."
+        data-gr="Ο στόχος είναι απλός: να κρατάς τις λειτουργίες στο κινητό σου, τα δεδομένα υπό τον έλεγχό σου και να οργανώνεις ανθρώπους/πληροφορίες με ασφάλεια."
+      >
+        The goal is simple: keep your workflows on your phone, keep your data under your control, and use the tool to organize people and information safely.
+      </p>
+    </div>
+
+    <div class="content-section">
+      <h2 data-en="Core features" data-gr="Βασικές δυνατότητες">Core features</h2>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-comments"></i>
+          <h3 data-en="DMs + Groups" data-gr="DM + Ομάδες">DMs + Groups</h3>
+          <p
+            data-en="Send text, voice, GIFs, and files. Group chats help you coordinate with multiple people in one place."
+            data-gr="Στείλε κείμενο, φωνή, GIF και αρχεία. Οι ομάδες σε βοηθούν να συντονίζεσαι με πολλούς ανθρώπους σε ένα μέρος."
+          >
+            Send text, voice, GIFs, and files. Group chats help you coordinate with multiple people in one place.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-folder-closed"></i>
+          <h3 data-en="File Vault" data-gr="Θησαυροφυλάκιο αρχείων">File Vault</h3>
+          <p
+            data-en="Upload and organize folders/files inside your own ButSystem storage."
+            data-gr="Ανέβασε και οργάνωσε φακέλους/αρχεία μέσα στο δικό σου ButSystem storage."
+          >
+            Upload and organize folders/files inside your own ButSystem storage.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-user-shield"></i>
+          <h3 data-en="Account security" data-gr="Ασφάλεια λογαριασμού">Account security</h3>
+          <p
+            data-en="Optional security questions (2FA), trusted-device auto-login, and an admin approval workflow for new accounts."
+            data-gr="Προαιρετικές ερωτήσεις ασφαλείας (2FA), trusted-device auto-login και έγκριση από admin για νέους λογαριασμούς."
+          >
+            Optional security questions (2FA), trusted-device auto-login, and an admin approval workflow for new accounts.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-location-dot"></i>
+          <h3 data-en="Live location (opt‑in)" data-gr="Ζωντανή τοποθεσία (προαιρετικό)">Live location (opt‑in)</h3>
+          <p
+            data-en="Share your location only when you choose. Stop sharing at any time."
+            data-gr="Μοιράσου τη θέση σου μόνο όταν το θέλεις. Σταμάτα οποιαδήποτε στιγμή."
+          >
+            Share your location only when you choose. Stop sharing at any time.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2 data-en="How to run it" data-gr="Πώς να το τρέξεις">How to run it</h2>
+      <p
+        data-en="ButSystem.py is designed to run on Android through Termux. The exact commands may vary depending on your project folder, but the flow is always: open Termux → go to the script folder → run it → open the local link in your browser."
+        data-gr="Το ButSystem.py είναι σχεδιασμένο να τρέχει σε Android μέσω Termux. Οι ακριβείς εντολές μπορεί να διαφέρουν ανάλογα με τον φάκελο του project, αλλά η ροή είναι πάντα: άνοιξε Termux → πήγαινε στον φάκελο → τρέξ’ το → άνοιξε τον local σύνδεσμο στο browser."
+      >
+        ButSystem.py is designed to run on Android through Termux. The exact commands may vary depending on your project folder, but the flow is always: open Termux → go to the script folder → run it → open the local link in your browser.
+      </p>
+
+      <div class="code-container">
+        <button class="copy-btn" onclick="copyToClipboard(this, 'bs-run')" data-en="Copy" data-gr="Αντιγραφή">Copy</button>
+        <code id="bs-run">cd DedSec &amp;&amp; python ButSystem.py</code>
+      </div>
+
+      <p
+        data-en="If Termux asks for permissions (storage, microphone, etc.), grant only what you actually plan to use."
+        data-gr="Αν το Termux ζητήσει άδειες (storage, μικρόφωνο κ.λπ.), δώσε μόνο αυτές που πραγματικά χρειάζεσαι."
+      >
+        If Termux asks for permissions (storage, microphone, etc.), grant only what you actually plan to use.
+      </p>
+    </div>
+
+    <div class="content-section">
+      <h2 data-en="How to use it" data-gr="Πώς να το χρησιμοποιήσεις">How to use it</h2>
+      <div class="hero-steps">
+        <div class="step-card">
+          <i class="fas fa-link"></i>
+          <div class="step-title" data-en="1) Open the link" data-gr="1) Άνοιξε το link">1) Open the link</div>
+          <div class="step-text" data-en="After you run the script, it prints a local URL. Open it in your phone browser (Chrome / Firefox)." data-gr="Αφού τρέξεις το script, θα εμφανίσει ένα local URL. Άνοιξέ το στον browser του κινητού σου (Chrome / Firefox).">After you run the script, it prints a local URL. Open it in your phone browser (Chrome / Firefox).</div>
+        </div>
+
+        <div class="step-card">
+          <i class="fas fa-user-check"></i>
+          <div class="step-title" data-en="2) Create an account" data-gr="2) Φτιάξε λογαριασμό">2) Create an account</div>
+          <div class="step-text" data-en="New accounts can be placed in an approval flow so a trusted admin controls who joins." data-gr="Οι νέοι λογαριασμοί μπορούν να μπαίνουν σε διαδικασία έγκρισης ώστε ένας έμπιστος admin να ελέγχει ποιος συμμετέχει.">New accounts can be placed in an approval flow so a trusted admin controls who joins.</div>
+        </div>
+
+        <div class="step-card">
+          <i class="fas fa-comments"></i>
+          <div class="step-title" data-en="3) Use DMs / Groups" data-gr="3) DM / Ομάδες">3) Use DMs / Groups</div>
+          <div class="step-text" data-en="Tap a user to open a DM. Create a group to coordinate with multiple people." data-gr="Πάτα σε έναν χρήστη για DM. Φτιάξε ομάδα για συντονισμό με πολλούς ανθρώπους.">Tap a user to open a DM. Create a group to coordinate with multiple people.</div>
+        </div>
+
+        <div class="step-card">
+          <i class="fas fa-folder-open"></i>
+          <div class="step-title" data-en="4) Use the File Vault" data-gr="4) File Vault">4) Use the File Vault</div>
+          <div class="step-text" data-en="Store private notes, documents, and files inside your own device storage." data-gr="Αποθήκευσε ιδιωτικές σημειώσεις, έγγραφα και αρχεία μέσα στο storage της συσκευής σου.">Store private notes, documents, and files inside your own device storage.</div>
+        </div>
+
+        <div class="step-card">
+          <i class="fas fa-location-dot"></i>
+          <div class="step-title" data-en="5) (Optional) Live location" data-gr="5) (Προαιρετικό) Τοποθεσία">5) (Optional) Live location</div>
+          <div class="step-text" data-en="Use it for safety check-ins and coordination. Always make sure everyone involved consents." data-gr="Χρησιμοποίησέ το για check-ins ασφάλειας και συντονισμό. Πάντα με συναίνεση όλων.">Use it for safety check-ins and coordination. Always make sure everyone involved consents.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2 data-en="Privacy & safety notes" data-gr="Σημειώσεις ιδιωτικότητας & ασφάλειας">Privacy & safety notes</h2>
+      <div class="note">
+        <p
+          data-en="ButSystem is built for responsible use. Use it only for your own data, your own networks, and people who explicitly agree to participate."
+          data-gr="Το ButSystem είναι φτιαγμένο για υπεύθυνη χρήση. Χρησιμοποίησέ το μόνο για δικά σου δεδομένα/δικά σου δίκτυα και με ρητή συναίνεση όσων συμμετέχουν."
+        >
+          ButSystem is built for responsible use. Use it only for your own data, your own networks, and people who explicitly agree to participate.
+        </p>
+        <ul>
+          <li data-en="Text content can be stored encrypted at rest." data-gr="Το κείμενο μπορεί να αποθηκεύεται κρυπτογραφημένο (at rest).">Text content can be stored encrypted at rest.</li>
+          <li data-en="Some binary uploads (like files) may be stored unencrypted on-device for speed/compatibility — treat your phone storage as sensitive." data-gr="Κάποιες μεταφορτώσεις (όπως αρχεία) μπορεί να αποθηκεύονται χωρίς κρυπτογράφηση στη συσκευή για ταχύτητα/συμβατότητα — θεώρησε το storage του κινητού ως ευαίσθητο.">Some binary uploads (like files) may be stored unencrypted on-device for speed/compatibility — treat your phone storage as sensitive.</li>
+          <li data-en="If you share a public link (tunnel), you’re exposing the app to the internet. Use strong passwords + 2FA, and share links only with trusted people." data-gr="Αν μοιραστείς public link (tunnel), εκθέτεις την εφαρμογή στο internet. Χρησιμοποίησε δυνατούς κωδικούς + 2FA και μοιράσου links μόνο με έμπιστους.">If you share a public link (tunnel), you’re exposing the app to the internet. Use strong passwords + 2FA, and share links only with trusted people.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2 data-en="Hypothetical “push‑back” scenarios (legal &amp; ethical)" data-gr="Υποθετικά σενάρια «αντίδρασης» (νόμιμα &amp; ηθικά)">Hypothetical “push‑back” scenarios (legal &amp; ethical)</h2>
+      <p
+        data-en="Our vision is about restoring freedom and protecting people — not harming them. Here are examples of how ButSystem can be used in a defensive, consent‑based way:"
+        data-gr="Το όραμά μας είναι η ελευθερία και η προστασία των ανθρώπων — όχι η βλάβη. Παρακάτω είναι παραδείγματα χρήσης του ButSystem με αμυντικό τρόπο και με συναίνεση:"
+      >
+        Our vision is about restoring freedom and protecting people — not harming them. Here are examples of how ButSystem can be used in a defensive, consent‑based way:
+      </p>
+
+      <div class="faq-container" id="butsystem-scenarios">
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span data-en="A friend is being harassed online" data-gr="Ένας φίλος δέχεται παρενόχληση online">A friend is being harassed online</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p
+              data-en="Create a private group to collect screenshots, timestamps, and links. Organize evidence and agree on a calm response (reporting, blocking, contacting platform support, or legal advice)."
+              data-gr="Φτιάξτε μια ιδιωτική ομάδα για screenshots, timestamps και links. Οργανώστε αποδείξεις και συμφωνήστε σε ψύχραιμη αντίδραση (αναφορά, block, υποστήριξη πλατφόρμας ή νομική συμβουλή)."
+            >
+              Create a private group to collect screenshots, timestamps, and links. Organize evidence and agree on a calm response (reporting, blocking, contacting platform support, or legal advice).
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span data-en="You suspect a phishing/scam attempt" data-gr="Υποψία για phishing/απάτη">You suspect a phishing/scam attempt</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p
+              data-en="Use a group or DM to share the suspicious URL/message and run safe verification steps from the DedSec tools page (without opening unknown files)."
+              data-gr="Χρησιμοποίησε ομάδα ή DM για να μοιραστείς το ύποπτο URL/μήνυμα και κάνε ασφαλείς ελέγχους από τη σελίδα εργαλείων του DedSec (χωρίς άνοιγμα άγνωστων αρχείων)."
+            >
+              Use a group or DM to share the suspicious URL/message and run safe verification steps from the DedSec tools page (without opening unknown files).
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span data-en="Mutual-aid coordination" data-gr="Συντονισμός αλληλοβοήθειας">Mutual-aid coordination</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p
+              data-en="Organize who brings what (food, clothes, supplies), share pickup locations, and keep communication in one place."
+              data-gr="Οργανώστε ποιος φέρνει τι (φαγητό, ρούχα, προμήθειες), μοιραστείτε σημεία παραλαβής και κρατήστε την επικοινωνία σε ένα μέρος."
+            >
+              Organize who brings what (food, clothes, supplies), share pickup locations, and keep communication in one place.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span data-en="Safety check-ins while traveling" data-gr="Check-ins ασφάλειας στο ταξίδι">Safety check-ins while traveling</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p
+              data-en="Opt-in live location sharing can help trusted friends/family confirm you arrived safely. Stop sharing when you’re done."
+              data-gr="Η προαιρετική ζωντανή τοποθεσία βοηθά έμπιστους φίλους/οικογένεια να επιβεβαιώσουν ότι έφτασες ασφαλής. Σταμάτα την κοινή χρήση όταν τελειώσεις."
+            >
+              Opt-in live location sharing can help trusted friends/family confirm you arrived safely. Stop sharing when you’re done.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p
+        data-en="If you’re angry, pause. Don’t turn tools into revenge. Focus on safety, evidence, and lawful steps."
+        data-gr="Αν είσαι θυμωμένος/η, κάνε παύση. Μην κάνεις τα εργαλεία «εκδίκηση». Εστίασε σε ασφάλεια, αποδείξεις και νόμιμα βήματα."
+      >
+        If you’re angry, pause. Don’t turn tools into revenge. Focus on safety, evidence, and lawful steps.
+      </p>
+    </div>
+
+    <div class="content-section">
+      <div class="text-center">
+        <a class="btn btn-primary" href="learn-about-the-tools.html">
+          <i class="fas fa-screwdriver-wrench"></i>
+          <span data-en="Back to tools" data-gr="Πίσω στα εργαλεία">Back to tools</span>
+        </a>
+        <a class="btn btn-ghost" href="our-vision.html" style="margin-left: 10px;">
+          <i class="fas fa-eye"></i>
+          <span data-en="Read our vision" data-gr="Διάβασε το όραμά μας">Read our vision</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="main-footer">
+    <p data-lang-section="en">© 2024-2026 DedSec Project. All Rights Reserved.</p>
+    <p class="hidden-by-default" data-lang-section="gr">© 2024-2026 DedSec Project. Με επιφύλαξη παντός δικαιώματος.</p>
+    <p>Made by dedsec1121fk.</p>
+  </footer>
+
+  <script defer="" src="../script.js"></script>
+</body>
+</html>
