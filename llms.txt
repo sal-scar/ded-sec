@@ -1,6 +1,6 @@
 # DedSec Project — Full Index (ded-sec.space)
 
-> Auto-generated list of public pages. Generated on 2026-02-25.
+> Auto-generated list of public pages. Generated on 2026-03-01.
 
 Use this when you need an exhaustive list. For search-engine crawling, prefer the XML sitemap at /sitemap.xml.
 
@@ -11,7 +11,8 @@ Use this when you need an exhaustive list. For search-engine crawling, prefer th
 - [DedSec Project - Frequently Asked Questions](https://ded-sec.space/Pages/faq.html) — last modified 2026-02-24
 - [Founder's Portofolio - DedSec Project](https://ded-sec.space/Pages/founders-portofolio.html) — last modified 2026-02-24
 - [Guide For Installation - DedSec Project](https://ded-sec.space/Pages/guide-for-installation.html) — last modified 2026-02-24
-- [Learn About The Tools - DedSec Project](https://ded-sec.space/Pages/learn-about-the-tools.html) — last modified 2026-02-24
+- [Learn About The Tools - DedSec Project](https://ded-sec.space/Pages/learn-about-the-tools.html) — last modified 2026-03-01
+- [ButSystem.py (Exclusive) - DedSec Project](https://ded-sec.space/Pages/butsystem-exclusive.html) — last modified 2026-03-01
 - [Our Vision - DedSec Project](https://ded-sec.space/Pages/our-vision.html) — last modified 2026-02-24
 - [Privacy Policy - DedSec Project](https://ded-sec.space/Pages/privacy-policy.html) — last modified 2026-02-24
 - [Store](https://ded-sec.space/Pages/store.html) — last modified 2026-02-24

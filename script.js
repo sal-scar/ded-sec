@@ -51,7 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const syncLayoutVars = () => {
         setViewportUnits();
-        syncLayoutVars();
+        // IMPORTANT: do NOT call syncLayoutVars() inside itself (infinite recursion).
+        // We only need to recompute CSS vars that depend on viewport + navbar height.
+        syncNavMenuOffset();
     };
 
 
