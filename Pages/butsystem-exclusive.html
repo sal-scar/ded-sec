@@ -101,6 +101,30 @@
     .acc-item summary{cursor:pointer; list-style:none; font-weight:800; display:flex; align-items:center;}
     .acc-item summary::-webkit-details-marker{display:none;}
     .acc-body{margin-top:10px;}
+
+/* Make the two action buttons follow theme rules (as requested) */
+.butsys-actions{display:flex; justify-content:center; gap:12px; flex-wrap:wrap;}
+.butsys-actions .btn{min-width:240px;}
+body.dark-theme .butsys-actions .btn-primary{
+  background: var(--accent, var(--primary, #b96dff)) !important;
+  color:#000 !important;
+  border-color: transparent !important;
+}
+body.dark-theme .butsys-actions .btn-ghost{
+  background: rgba(185,109,255,.18) !important;
+  color:#fff !important;
+  border-color: var(--accent, var(--primary, #b96dff)) !important;
+}
+body.light-theme .butsys-actions .btn-primary{
+  background:#fff !important;
+  color: var(--accent, var(--primary, #7a2cff)) !important;
+  border-color: var(--accent, var(--primary, #7a2cff)) !important;
+}
+body.light-theme .butsys-actions .btn-ghost{
+  background: var(--accent, var(--primary, #7a2cff)) !important;
+  color:#000 !important;
+  border-color: transparent !important;
+}
   </style>
 en="Our Vision" data-gr="Το Όραμά μας" href="our-vision.html">Our Vision</a>
         <a class="nav-link" data-en="Learn About The Tools" data-gr="Μάθετε για τα Εργαλεία" href="learn-about-the-tools.html">Learn About The Tools</a>
@@ -167,6 +191,7 @@ en="Our Vision" data-gr="Το Όραμά μας" href="our-vision.html">Our Visi
 <li><span data-en="Chats" data-gr="Συνομιλίες">Chats</span></li>
 <li><span data-en="Discussion" data-gr="Συζήτηση">Discussion</span></li>
 <li><span data-en="Groups" data-gr="Groups">Groups</span></li>
+          <li><span data-en="Calls" data-gr="Κλήσεις">Calls</span></li>
 <li><span data-en="Stories" data-gr="Ιστορίες">Stories</span></li>
 <li><span data-en="Live Locations" data-gr="Ζωντανές Τοποθεσίες">Live Locations</span></li>
 <li><span data-en="Files" data-gr="Αρχεία">Files</span></li>
@@ -250,6 +275,9 @@ en="Our Vision" data-gr="Το Όραμά μας" href="our-vision.html">Our Visi
           <li><span data-en="Start call" data-gr="Έναρξη κλήσης">Start call</span></li>
 <li><span data-en="End call" data-gr="Τερματισμός">End call</span></li>
 <li><span data-en="Mute / unmute (if available)" data-gr="Σίγαση / άρση (αν υπάρχει)">Mute / unmute (if available)</span></li>
+          <li><span data-en="Join call (if invited)" data-gr="Συμμετοχή σε κλήση (αν προσκληθείς)">Join call (if invited)</span></li>
+          <li><span data-en="Incoming call prompt (accept/deny)" data-gr="Ειδοποίηση εισερχόμενης (αποδοχή/απόρριψη)">Incoming call prompt (accept/deny)</span></li>
+          <li><span data-en="Permission prompt (microphone)" data-gr="Αίτημα άδειας (μικρόφωνο)">Permission prompt (microphone)</span></li>
         </ul>
       </div>
     </details>
@@ -483,7 +511,7 @@ en="Our Vision" data-gr="Το Όραμά μας" href="our-vision.html">Our Visi
   </div>
 
   <div class="content-section">
-    <div class="text-center">
+    <div class="text-center butsys-actions">
       <a class="btn btn-primary" href="learn-about-the-tools.html">
         <i class="fas fa-screwdriver-wrench"></i>
         <span data-en="Back to tools" data-gr="Πίσω στα εργαλεία">Back to tools</span>
