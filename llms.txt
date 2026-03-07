@@ -9,7 +9,6 @@ Use this when you need an exhaustive list. For search-engine crawling, prefer th
 - [Collaborations - DedSec Project](https://ded-sec.space/Pages/collaborations.html) — last modified 2026-02-24
 - [Contact & Credits - DedSec Project](https://ded-sec.space/Pages/contact-credits.html) — last modified 2026-02-24
 - [DedSec Project - Frequently Asked Questions](https://ded-sec.space/Pages/faq.html) — last modified 2026-02-24
-- [Founder's Portofolio - DedSec Project](https://ded-sec.space/Pages/founders-portofolio.html) — last modified 2026-02-24
 - [Guide For Installation - DedSec Project](https://ded-sec.space/Pages/guide-for-installation.html) — last modified 2026-02-24
 - [Learn About The Tools - DedSec Project](https://ded-sec.space/Pages/learn-about-the-tools.html) — last modified 2026-03-01
 - [ButSystem.py (Exclusive) - DedSec Project](https://ded-sec.space/Pages/butsystem-exclusive.html) — last modified 2026-03-01

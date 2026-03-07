@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- GLOBAL STATE ---
     let currentLanguage = 'en';
 
-
     // --- NAV WORD STACK + MENU OFFSET (keeps navbar compact so logo stays visible) ---
     const applyNavbarWordStack = () => {
         // Only for the navbar labels (and title). We don't want to affect normal body text.
@@ -55,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // We only need to recompute CSS vars that depend on viewport + navbar height.
         syncNavMenuOffset();
     };
-
 
     // --- BRAND ASSETS (Theme-aware) ---
     // IMPORTANT (GitHub Pages + subpages):
@@ -319,7 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "Pages/faq.html",
             "Pages/store.html",
             "Pages/collaborations.html",
-            "Pages/founders-portofolio.html",
             "Pages/contact-credits.html",
             "Pages/privacy-policy.html",        ];
         const loadStoredPagesList = () => {
@@ -766,8 +763,6 @@ return file;
         ensureIcon();
         applyThemeAssets();
     }
-
-
 
     // --- DEEP-LINK ANCHORS (Deterministic IDs) ---
     function initializeDeepLinks() {
