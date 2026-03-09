@@ -420,10 +420,10 @@
 <i class="fas fa-chevron-down tool-expand-icon"></i>
 </div>
 <div class="tool-description">
-<p data-en="Advanced multi-strategy e‑commerce / store listing scraper optimized for Termux. Supports sitemap + API discovery (Shopify/WooCommerce detection), inline catalog extraction, optional per‑product DEEP scraping (with headless fallback), review extraction, image downloading, resume mode, proxy support, and exports to SQLite + CSV/XLSX. Use only on systems you own or have explicit permission to test." data-gr="Προηγμένος scrapper για e‑shop / σελίδες καταλόγου, βελτιστοποιημένος για Termux. Υποστηρίζει συλλογή μέσω sitemap + API (ανίχνευση Shopify/WooCommerce), εξαγωγή inline καταλόγου, προαιρετικό DEEP scrape ανά προϊόν (με headless fallback), εξαγωγή reviews, λήψη εικόνων, λειτουργία συνέχισης (resume), υποστήριξη proxy και εξαγωγή σε SQLite + CSV/XLSX. Χρησιμοποίησέ το μόνο σε συστήματα που σου ανήκουν ή έχεις ρητή άδεια να ελέγξεις.">Advanced multi-strategy e‑commerce / store listing scraper optimized for Termux. Supports sitemap + API discovery (Shopify/WooCommerce detection), inline catalog extraction, optional per‑product DEEP scraping (with headless fallback), review extraction, image downloading, resume mode, proxy support, and exports to SQLite + CSV/XLSX. Use only on systems you own or have explicit permission to test.</p>
+<p data-en="Single-file Python store scraper for Termux that works without root. Tries multiple ways to discover categories and products across regular HTML pages and many JS-style stores by reading HTML, JSON-LD, embedded JSON, sitemaps, Shopify endpoints, WooCommerce APIs, product cards, breadcrumbs, OpenGraph/meta tags, and internal links. Saves while running, starts full product scraping as soon as each product is found, downloads product images, shows live terminal status, and organizes results into store/category/product folders. Use only on systems you own or have explicit permission to test." data-gr="Μονοαρχείο Python store scrapper για Termux που λειτουργεί χωρίς root. Δοκιμάζει πολλούς τρόπους για να βρίσκει κατηγορίες και προϊόντα σε απλές HTML σελίδες αλλά και σε πολλά JS-style stores, διαβάζοντας HTML, JSON-LD, embedded JSON, sitemaps, Shopify endpoints, WooCommerce APIs, product cards, breadcrumbs, OpenGraph/meta tags και εσωτερικούς συνδέσμους. Αποθηκεύει όσο τρέχει, ξεκινά πλήρες scraping προϊόντος μόλις βρεθεί κάθε προϊόν, κατεβάζει εικόνες προϊόντων, δείχνει live κατάσταση στο terminal και οργανώνει τα αποτελέσματα σε φακέλους store/category/product. Χρησιμοποίησέ το μόνο σε συστήματα που σου ανήκουν ή έχεις ρητή άδεια να ελέγξεις.">Single-file Python store scraper for Termux that works without root. Tries multiple ways to discover categories and products across regular HTML pages and many JS-style stores by reading HTML, JSON-LD, embedded JSON, sitemaps, Shopify endpoints, WooCommerce APIs, product cards, breadcrumbs, OpenGraph/meta tags, and internal links. Saves while running, starts full product scraping as soon as each product is found, downloads product images, shows live terminal status, and organizes results into store/category/product folders. Use only on systems you own or have explicit permission to test.</p>
 <div class="tool-save-location">
 <h5 data-en="Save Location" data-gr="Τοποθεσία Αποθήκευσης">Save Location</h5>
-<p data-en="Creates a run folder in: ~/storage/downloads/Store Scrapper/&lt;site&gt;_&lt;hash&gt; (includes store.db, products.csv, products.xlsx, resume_state.json, products/, images_cache/)." data-gr="Δημιουργεί φάκελο εκτέλεσης στο: ~/storage/downloads/Store Scrapper/&lt;site&gt;_&lt;hash&gt; (περιλαμβάνει store.db, products.csv, products.xlsx, resume_state.json, products/, images_cache/).">Creates a run folder in: ~/storage/downloads/Store Scrapper/<site>_<hash> (includes store.db, products.csv, products.xlsx, resume_state.json, products/, images_cache/).</hash></site></p>
+<p data-en="Creates folders in: ~/storage/downloads/Store Scrapper/&lt;Store&gt;/&lt;Category&gt;/&lt;Product&gt;/ (product folders can include FOUND.txt, metadata.json, summary.txt, description.txt, images/, images.json, plus discovery/state files)." data-gr="Δημιουργεί φακέλους στο: ~/storage/downloads/Store Scrapper/&lt;Store&gt;/&lt;Category&gt;/&lt;Product&gt;/ (οι φάκελοι προϊόντων μπορούν να περιλαμβάνουν FOUND.txt, metadata.json, summary.txt, description.txt, images/, images.json, καθώς και αρχεία discovery/state).">Creates folders in: ~/storage/downloads/Store Scrapper/<Store>/<Category>/<Product>/ (product folders can include FOUND.txt, metadata.json, summary.txt, description.txt, images/, images.json, plus discovery/state files).</p>
 </div>
 </div>
 </div></div>
@@ -1320,6 +1320,28 @@
 </p>
 </div>
 <footer class="main-footer">
+<div data-lang-section="en">
+<div class="footer-link-buttons">
+<a class="footer-mini-btn" href="https://ded-sec.space" rel="noopener noreferrer" target="_blank">Main Website</a>
+<a class="footer-mini-btn" href="https://github.com/dedsec1121fk/DedSec" rel="noopener noreferrer" target="_blank">Main DedSec Project Repository</a>
+</div>
+<p class="footer-links-note">In Case Something Happens To Our Main Links Visit The Backup's</p>
+<div class="footer-link-buttons">
+<a class="footer-mini-btn" href="https://ded-sec.online" rel="noopener noreferrer" target="_blank">Backup Website</a>
+<a class="footer-mini-btn" href="https://github.com/sal-scar/DedSec" rel="noopener noreferrer" target="_blank">Backup DedSec Project Repository</a>
+</div>
+</div>
+<div class="hidden-by-default" data-lang-section="gr">
+<div class="footer-link-buttons">
+<a class="footer-mini-btn" href="https://ded-sec.space" rel="noopener noreferrer" target="_blank">Κύριο Website</a>
+<a class="footer-mini-btn" href="https://github.com/dedsec1121fk/DedSec" rel="noopener noreferrer" target="_blank">Κύριο Repository του DedSec Project</a>
+</div>
+<p class="footer-links-note">Αν συμβεί κάτι στους κύριους συνδέσμους μας, επισκεφθείτε τα backup</p>
+<div class="footer-link-buttons">
+<a class="footer-mini-btn" href="https://ded-sec.online" rel="noopener noreferrer" target="_blank">Backup Website</a>
+<a class="footer-mini-btn" href="https://github.com/sal-scar/DedSec" rel="noopener noreferrer" target="_blank">Backup Repository του DedSec Project</a>
+</div>
+</div>
 <p data-lang-section="en">© 2024-2026 DedSec Project. All Rights Reserved.</p>
 <p class="hidden-by-default" data-lang-section="gr">© 2024-2026 DedSec Project. Με επιφύλαξη παντός δικαιώματος.</p>
 <p>Made by dedsec1121fk.</p>
