@@ -174,6 +174,11 @@ document.addEventListener('DOMContentLoaded', () => {
             window.__updateSearchLanguage();
         }
 
+        // Sync assistant UI language
+        if (typeof window.__updateAssistantLanguage === 'function') {
+            window.__updateAssistantLanguage();
+        }
+
         // Keep the navbar compact (so the injected logo doesn't get clipped)
         applyNavbarWordStack();
         syncLayoutVars();
@@ -724,6 +729,757 @@ return file;
         } catch (_) {}
     }
 
+    // --- STATIC JSON ASSISTANT (GitHub Pages safe, no backend) ---
+
+
+    function initializeAssistant() {
+        if (document.querySelector('.assistant-shell')) return;
+
+        const assistantPath = assetUrl('Assets/assistant.json');
+        const recentTopicsKey = 'dedsec_assistant_recent_topics_v2';
+        const shell = document.createElement('section');
+        shell.className = 'assistant-shell';
+        shell.setAttribute('aria-label', 'Assistant');
+        shell.innerHTML = `
+            <div class="assistant-panel" aria-hidden="true" id="dedsec-assistant-panel">
+                <div class="assistant-header">
+                    <div class="assistant-header-top">
+                        <div class="assistant-title-wrap">
+                            <h2 class="assistant-title"></h2>
+                            <p class="assistant-subtitle"></p>
+                        </div>
+                        <div class="assistant-header-actions">
+                            <button type="button" class="assistant-home" aria-label="Home">⌂</button>
+                            <button type="button" class="assistant-refresh" aria-label="Refresh">↻</button>
+                            <button type="button" class="assistant-close" aria-label="Close">✕</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="assistant-body">
+                    <div class="assistant-chat" role="log" aria-live="polite" aria-relevant="additions text">
+                        <div class="assistant-messages"></div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="assistant-trigger" aria-expanded="false" aria-controls="dedsec-assistant-panel">
+                <span class="assistant-trigger-icon">✦</span>
+                <span class="assistant-trigger-text"></span>
+            </button>
+        `;
+        document.body.appendChild(shell);
+
+        const panel = shell.querySelector('.assistant-panel');
+        const trigger = shell.querySelector('.assistant-trigger');
+        const homeBtn = shell.querySelector('.assistant-home');
+        const refreshBtn = shell.querySelector('.assistant-refresh');
+        const closeBtn = shell.querySelector('.assistant-close');
+        const messagesWrap = shell.querySelector('.assistant-messages');
+        const titleEl = shell.querySelector('.assistant-title');
+        const subtitleEl = shell.querySelector('.assistant-subtitle');
+        const triggerTextEl = shell.querySelector('.assistant-trigger-text');
+
+        let assistantData = null;
+        let assistantIndex = [];
+        let typingTimer = null;
+        let hasLoadedAssistant = false;
+        let isFetchingAssistant = false;
+
+        const getLang = () => (currentLanguage === 'gr' ? 'gr' : 'en');
+        const t = (value, fallback = '') => {
+            if (value && typeof value === 'object') return value[getLang()] || value.en || value.gr || fallback;
+            return value || fallback;
+        };
+        const normalizeText = (value) => (value || '')
+            .toString()
+            .toLowerCase()
+            .normalize('NFKD')
+            .replace(/[̀-ͯ]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+        const tokenize = (value) => normalizeText(value)
+            .replace(/[^\p{L}\p{N}.+-]+/gu, ' ')
+            .split(' ')
+            .map((token) => token.trim())
+            .filter(Boolean);
+        const escapeHtml = (value) => (value || '')
+            .toString()
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+        const ui = () => assistantData?.ui || {};
+        const chatLabel = (role) => role === 'user' ? (currentLanguage === 'gr' ? 'Εσύ' : 'You') : 'Assistant';
+        const typingLabel = () => (currentLanguage === 'gr' ? 'Ο Assistant γράφει…' : 'Assistant is typing…');
+        const chatWrap = () => shell.querySelector('.assistant-chat');
+        const scrollChatToBottom = () => {
+            requestAnimationFrame(() => {
+                const chat = chatWrap();
+                if (chat) chat.scrollTop = chat.scrollHeight;
+            });
+        };
+        const scrollMessageIntoView = (message, offset = 8) => {
+            requestAnimationFrame(() => {
+                const chat = chatWrap();
+                if (!chat || !message) return;
+                const targetTop = Math.max(0, (message.offsetTop || 0) - offset);
+                chat.scrollTop = targetTop;
+            });
+        };
+        const clearTyping = () => {
+            if (typingTimer) {
+                clearTimeout(typingTimer);
+                typingTimer = null;
+            }
+            messagesWrap.querySelectorAll('.assistant-message.is-typing').forEach((node) => node.remove());
+        };
+        const itemKey = (item) => normalizeText(t(item?.q, ''));
+        const fileNameFromLink = (linkValue) => {
+            const raw = (linkValue || '').toString().split('/').pop() || '';
+            return raw.replace(/\.html?$/i, '').trim();
+        };
+        const safeLocalStorageGet = (key, fallback) => {
+            try {
+                const raw = localStorage.getItem(key);
+                return raw ? JSON.parse(raw) : fallback;
+            } catch (_) {
+                return fallback;
+            }
+        };
+        const safeLocalStorageSet = (key, value) => {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+            } catch (_) {}
+        };
+        const getRecentTopics = () => {
+            const items = safeLocalStorageGet(recentTopicsKey, []);
+            return Array.isArray(items) ? items : [];
+        };
+        const saveRecentTopic = (entry) => {
+            if (!entry || !entry.label || !entry.query) return;
+            const current = getRecentTopics();
+            const key = normalizeText(`${entry.label} ${entry.query} ${entry.itemKey || ''}`);
+            const next = [entry, ...current.filter((item) => normalizeText(`${item.label} ${item.query} ${item.itemKey || ''}`) !== key)].slice(0, 8);
+            safeLocalStorageSet(recentTopicsKey, next);
+        };
+        const removeSuggestionMessages = () => {
+            messagesWrap.querySelectorAll('.assistant-message--suggestions').forEach((node) => node.remove());
+        };
+        const prettyItemLabel = (item) => {
+            const fileTag = (item?.tags || []).find((tag) => /\.py$/i.test((tag || '').trim()));
+            if (fileTag) return (fileTag || '').trim();
+            const question = t(item?.q, '').trim();
+            const patterns = [
+                /^How do I install and use (.+?) in Termux\?$/i,
+                /^What is (.+?)\?$/i,
+                /^How do I (.+?)\?$/i,
+                /^What are (.+?)\?$/i,
+                /^Πώς να εγκαταστήσω και να χρησιμοποιήσω το (.+?) στο Termux;?$/i,
+                /^Τι είναι το (.+?)\?$/i,
+                /^Πώς (.+?)\?$/i,
+                /^Ποιες είναι (.+?)\?$/i
+            ];
+            for (const pattern of patterns) {
+                const match = question.match(pattern);
+                if (match && match[1]) return match[1].trim();
+            }
+            return question;
+        };
+        const computeBigrams = (value) => {
+            const normalized = ` ${normalizeText(value)} `;
+            const grams = [];
+            for (let i = 0; i < normalized.length - 1; i += 1) grams.push(normalized.slice(i, i + 2));
+            return grams;
+        };
+        const diceCoefficient = (a, b) => {
+            const aGrams = computeBigrams(a);
+            const bGrams = computeBigrams(b);
+            if (!aGrams.length || !bGrams.length) return 0;
+            const counts = new Map();
+            aGrams.forEach((gram) => counts.set(gram, (counts.get(gram) || 0) + 1));
+            let matches = 0;
+            bGrams.forEach((gram) => {
+                const count = counts.get(gram) || 0;
+                if (count > 0) {
+                    counts.set(gram, count - 1);
+                    matches += 1;
+                }
+            });
+            return (2 * matches) / (aGrams.length + bGrams.length);
+        };
+        const expandQueryAliases = (query) => {
+            const norm = normalizeText(query);
+            const variants = new Set([norm]);
+            const replacements = [
+                [/\bsetup\b/g, 'install'],
+                [/\binstallation\b/g, 'install'],
+                [/\bguide\b/g, 'help'],
+                [/\bcommands\b/g, 'command'],
+                [/\btools\b/g, 'tool'],
+                [/\bpages\b/g, 'page'],
+                [/\bdownloads\b/g, 'download'],
+                [/\bfiles\b/g, 'file'],
+                [/\bστοιχεια\b/g, 'στοιχεία'],
+                [/\bεντολες\b/g, 'εντολές'],
+                [/\bεγκατασταση\b/g, 'εγκατάσταση'],
+                [/\bβοηθεια\b/g, 'βοήθεια'],
+                [/\bαρχεια\b/g, 'αρχεία']
+            ];
+            replacements.forEach(([pattern, replacement]) => {
+                variants.add(norm.replace(pattern, replacement));
+            });
+            tokenize(norm).forEach((token) => variants.add(token));
+            return Array.from(variants).filter(Boolean);
+        };
+        const commandRegex = /(?:\b(?:pkg|apt|python|python3|pip|pip3|git|cd|ls|pwd|mkdir|rm|cp|mv|cat|nano|unzip|zip|chmod|termux-setup-storage|curl|wget|find|clear)\b[^\n<]*)/gi;
+        const highlightCommands = (text) => {
+            const raw = (text || '').toString();
+            let html = '';
+            let lastIndex = 0;
+            raw.replace(commandRegex, (match, offset) => {
+                html += escapeHtml(raw.slice(lastIndex, offset));
+                html += `<code class="assistant-inline-code">${escapeHtml(match.trim())}</code>`;
+                lastIndex = offset + match.length;
+                return match;
+            });
+            html += escapeHtml(raw.slice(lastIndex));
+            return html;
+        };
+        const splitAnswerIntoSections = (text) => {
+            const raw = (text || '').toString().trim();
+            if (!raw) return [];
+            const labels = [
+                'What it does:', 'Install/run in Termux:', 'Output or save location:', 'Warning:', 'Note:', 'Quick fix:', 'Main idea:',
+                'Τι κάνει:', 'Εγκατάσταση/εκτέλεση στο Termux:', 'Τοποθεσία εξόδου ή αποθήκευσης:', 'Προειδοποίηση:', 'Σημείωση:', 'Γρήγορη λύση:', 'Κύρια ιδέα:'
+            ];
+            let marked = raw;
+            labels.forEach((label) => {
+                const escaped = label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                marked = marked.replace(new RegExp(escaped, 'g'), `\n@@SECTION@@${label}`);
+            });
+            const parts = marked.split('@@SECTION@@').map((part) => part.trim()).filter(Boolean);
+            return parts.map((part, index) => {
+                const label = labels.find((candidate) => part.startsWith(candidate));
+                if (!label) {
+                    return {
+                        title: index === 0 ? (currentLanguage === 'gr' ? 'Απάντηση' : 'Answer') : '',
+                        body: part
+                    };
+                }
+                return {
+                    title: label.replace(/:$/, ''),
+                    body: part.slice(label.length).trim()
+                };
+            });
+        };
+        const formatAnswerHtml = (text) => {
+            const sections = splitAnswerIntoSections(text);
+            if (!sections.length) return `<p class="assistant-bubble-text">${highlightCommands(text || '')}</p>`;
+            return sections.map((section) => {
+                const bodyHtml = (section.body || '')
+                    .split(/\n{2,}/)
+                    .map((paragraph) => `<p class="assistant-bubble-text">${highlightCommands(paragraph)}</p>`)
+                    .join('');
+                return `
+                    <section class="assistant-rich-section">
+                        ${section.title ? `<h4 class="assistant-rich-section-title">${escapeHtml(section.title)}</h4>` : ''}
+                        <div class="assistant-rich-section-body">${bodyHtml}</div>
+                    </section>
+                `;
+            }).join('');
+        };
+        const categoryBadge = (item) => item?._categoryLabel ? (currentLanguage === 'gr' ? `Κατηγορία: ${item._categoryLabel}` : `Category: ${item._categoryLabel}`) : '';
+        const createMessage = (role, text, options = {}) => {
+            const message = document.createElement('article');
+            message.className = `assistant-message assistant-message--${role}`;
+            if (options.extraClass) message.classList.add(options.extraClass);
+            if (options.typing) message.classList.add('is-typing');
+
+            const label = document.createElement('div');
+            label.className = 'assistant-message-label';
+            label.textContent = options.label || chatLabel(role);
+            message.appendChild(label);
+
+            const bubble = document.createElement('div');
+            bubble.className = 'assistant-bubble';
+
+            if (options.heading) {
+                const heading = document.createElement('h3');
+                heading.className = 'assistant-bubble-heading';
+                heading.textContent = options.heading;
+                bubble.appendChild(heading);
+            }
+
+            if (options.typing) {
+                const typing = document.createElement('div');
+                typing.className = 'assistant-typing';
+                typing.setAttribute('aria-label', typingLabel());
+                typing.innerHTML = '<span></span><span></span><span></span>';
+                bubble.appendChild(typing);
+            } else if (options.html) {
+                const rich = document.createElement('div');
+                rich.className = 'assistant-bubble-rich';
+                rich.innerHTML = options.html;
+                bubble.appendChild(rich);
+            } else {
+                const body = document.createElement('p');
+                body.className = 'assistant-bubble-text';
+                body.textContent = text || '';
+                bubble.appendChild(body);
+            }
+
+            if (options.meta) {
+                const meta = document.createElement('div');
+                meta.className = 'assistant-bubble-meta';
+                meta.textContent = options.meta;
+                bubble.appendChild(meta);
+            }
+
+            if (options.linkHref) {
+                const href = (options.linkHref || '').trim();
+                if (href) {
+                    const link = document.createElement('a');
+                    link.className = 'assistant-open-link';
+                    link.href = href;
+                    link.textContent = options.linkText || t(ui().openPage, 'Open page');
+                    bubble.appendChild(link);
+                }
+            }
+
+            message.appendChild(bubble);
+            messagesWrap.appendChild(message);
+            if (!options.noAutoScroll) scrollChatToBottom();
+            return message;
+        };
+        const renderPromptSections = (sections = []) => {
+            const validSections = sections.filter((section) => Array.isArray(section.prompts) && section.prompts.length);
+            if (!validSections.length) {
+                return `<div class="assistant-empty">${escapeHtml(t(ui().empty, 'No quick prompts are available right now.'))}</div>`;
+            }
+            return validSections.map((section) => `
+                <section class="assistant-suggestion-section">
+                    ${section.title ? `<h4 class="assistant-suggestion-title">${escapeHtml(section.title)}</h4>` : ''}
+                    <div class="assistant-chip-grid">
+                        ${section.prompts.map((prompt) => `
+                            <button
+                                type="button"
+                                class="assistant-chip"
+                                data-query="${escapeHtml(prompt.query || '')}"
+                                data-label="${escapeHtml(prompt.label || prompt.query || '')}"
+                                data-item-key="${escapeHtml(prompt.itemKey || '')}"
+                            >${escapeHtml(prompt.label || prompt.query || '')}</button>
+                        `).join('')}
+                    </div>
+                </section>
+            `).join('');
+        };
+        const bindPromptClicks = () => {
+            shell.querySelectorAll('.assistant-chip').forEach((btn) => {
+                btn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const itemKeyValue = btn.dataset.itemKey || '';
+                    const promptLabel = btn.dataset.label || btn.textContent || '';
+                    const promptQuery = btn.dataset.query || promptLabel;
+                    if (itemKeyValue) {
+                        const item = assistantIndex.find((entry) => entry._key === itemKeyValue);
+                        if (item) {
+                            respondWithAnswer(item, promptLabel);
+                            return;
+                        }
+                    }
+                    handleUserQuery(promptQuery, promptLabel);
+                });
+            });
+        };
+        const pushSuggestions = (heading, sections, bodyText = '', options = {}) => {
+            removeSuggestionMessages();
+            createMessage('assistant', '', {
+                heading,
+                html: `${bodyText ? `<p class="assistant-bubble-text">${escapeHtml(bodyText)}</p>` : ''}${renderPromptSections(sections)}`,
+                extraClass: 'assistant-message--suggestions',
+                noAutoScroll: !!options.noAutoScroll
+            });
+            bindPromptClicks();
+        };
+        const dedupePrompts = (prompts) => {
+            const seen = new Set();
+            return prompts.filter((entry) => {
+                const key = normalizeText(`${entry.label} ${entry.query} ${entry.itemKey || ''}`);
+                if (!key || seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
+        };
+        const starterPrompts = () => {
+            const configured = Array.isArray(assistantData?.starterPrompts) ? assistantData.starterPrompts : [];
+            if (configured.length) {
+                return dedupePrompts(configured.map((entry) => ({
+                    label: t(entry.label, entry.query || ''),
+                    query: entry.query || t(entry.label, '')
+                }))).slice(0, 8);
+            }
+            return dedupePrompts(assistantIndex.slice(0, 8).map((item) => ({
+                label: prettyItemLabel(item),
+                query: item._question,
+                itemKey: item._key
+            })));
+        };
+        const categoryPrompts = () => dedupePrompts((assistantData?.categories || []).map((category) => ({
+            label: t(category.label, ''),
+            query: t(category.label, '')
+        }))).slice(0, 10);
+        const recentPrompts = () => dedupePrompts(getRecentTopics()).slice(0, 5);
+        const buildIndex = () => {
+            assistantIndex = [];
+            for (const category of assistantData?.categories || []) {
+                const categoryLabel = t(category.label, '');
+                const categoryNorm = normalizeText(categoryLabel);
+                for (const item of category.items || []) {
+                    const question = t(item.q, '');
+                    const answer = t(item.a, '');
+                    const pretty = prettyItemLabel(item);
+                    const link = t(item.link, '');
+                    const fileName = fileNameFromLink(link);
+                    const tags = (item.tags || []).map((tag) => normalizeText(tag));
+                    const aliasNorms = dedupePrompts([
+                        { label: pretty, query: pretty },
+                        { label: fileName, query: fileName },
+                        { label: fileName.replace(/\.py$/i, ''), query: fileName.replace(/\.py$/i, '') },
+                        ...(item.tags || []).map((tag) => ({ label: tag, query: tag }))
+                    ]).map((entry) => normalizeText(entry.query || entry.label));
+                    assistantIndex.push({
+                        ...item,
+                        _categoryLabel: categoryLabel,
+                        _categoryNorm: categoryNorm,
+                        _question: question,
+                        _questionNorm: normalizeText(question),
+                        _answerNorm: normalizeText(answer),
+                        _prettyNorm: normalizeText(pretty),
+                        _tagsNorm: tags,
+                        _aliasesNorm: aliasNorms,
+                        _linkNorm: normalizeText(link),
+                        _fileNameNorm: normalizeText(fileName),
+                        _tokens: new Set(tokenize([question, answer, pretty, categoryLabel, link, fileName, ...(item.tags || [])].join(' '))),
+                        _key: itemKey(item)
+                    });
+                }
+            }
+        };
+        const scoreItemForQuery = (query, item) => {
+            const queryNorm = normalizeText(query);
+            const queryTokens = tokenize(queryNorm);
+            const queryVariants = expandQueryAliases(queryNorm);
+            if (!queryNorm) return 0;
+
+            let score = 0;
+            const genericSingles = new Set(['termux', 'install', 'python', 'script', 'commands', 'tools', 'pages', 'project', 'guide', 'help']);
+            const hasGenericSingleToken = queryTokens.length === 1 && genericSingles.has(queryTokens[0]);
+
+            queryVariants.forEach((variant) => {
+                if (item._questionNorm === variant) score += 180;
+                if (item._key === variant) score += 185;
+                if (item._prettyNorm === variant) score += 178;
+                if (item._fileNameNorm === variant) score += 176;
+                if (item._aliasesNorm.includes(variant)) score += 132;
+                if (item._tagsNorm.includes(variant)) score += 126;
+                if (item._categoryNorm === variant) score += 98;
+
+                if (item._questionNorm.includes(variant) && item._questionNorm !== variant) score += 58;
+                if (item._prettyNorm.includes(variant) && item._prettyNorm !== variant) score += 74;
+                if (item._fileNameNorm.includes(variant) && item._fileNameNorm !== variant) score += 68;
+                if (item._categoryNorm.includes(variant) && item._categoryNorm !== variant) score += 28;
+                if (item._answerNorm.includes(variant)) score += 16;
+                item._aliasesNorm.forEach((alias) => {
+                    if (alias && (alias.includes(variant) || variant.includes(alias))) score += 30;
+                });
+                item._tagsNorm.forEach((tag) => {
+                    if (tag && (tag.includes(variant) || variant.includes(tag))) score += 24;
+                });
+            });
+
+            queryTokens.forEach((token) => {
+                if (item._tokens.has(token)) score += 12;
+                if (item._questionNorm.includes(token)) score += 8;
+                if (item._prettyNorm.includes(token)) score += 14;
+                if (item._fileNameNorm.includes(token)) score += 16;
+                if (item._tagsNorm.some((tag) => tag.includes(token))) score += 10;
+            });
+
+            const similarity = Math.max(
+                diceCoefficient(queryNorm, item._questionNorm),
+                diceCoefficient(queryNorm, item._prettyNorm),
+                diceCoefficient(queryNorm, item._fileNameNorm)
+            );
+            score += Math.round(similarity * 80);
+
+            if (queryTokens.length > 1 && queryTokens.every((token) => item._tokens.has(token) || item._questionNorm.includes(token) || item._prettyNorm.includes(token) || item._tagsNorm.some((tag) => tag.includes(token)))) {
+                score += 34;
+            }
+            if (hasGenericSingleToken) score -= 16;
+            return score;
+        };
+        const searchMatches = (query, limit = 8) => {
+            const scored = assistantIndex
+                .map((item) => ({ item, score: scoreItemForQuery(query, item) }))
+                .filter((entry) => entry.score > 0)
+                .sort((a, b) => b.score - a.score || a.item._question.localeCompare(b.item._question));
+            return scored.slice(0, limit);
+        };
+        const categoryMatchesForQuery = (query) => {
+            const queryNorm = normalizeText(query);
+            if (!queryNorm) return [];
+            const exact = (assistantData?.categories || []).find((category) => normalizeText(t(category.label, '')) === queryNorm);
+            if (exact) return exact.items || [];
+            const loose = (assistantData?.categories || []).find((category) => {
+                const categoryNorm = normalizeText(t(category.label, ''));
+                return categoryNorm && (categoryNorm.includes(queryNorm) || queryNorm.includes(categoryNorm) || diceCoefficient(queryNorm, categoryNorm) >= 0.72);
+            });
+            return loose ? (loose.items || []) : [];
+        };
+        const relatedPromptsForItem = (item) => {
+            const siblings = assistantIndex
+                .filter((entry) => entry._categoryNorm === item._categoryNorm && entry._key !== item._key)
+                .slice(0, 4)
+                .map((entry) => ({
+                    label: prettyItemLabel(entry),
+                    query: entry._question,
+                    itemKey: entry._key
+                }));
+            return dedupePrompts([...siblings, ...starterPrompts(), ...recentPrompts()]).slice(0, 8);
+        };
+        const startSections = () => {
+            const sections = [];
+            const recent = recentPrompts();
+            if (recent.length) {
+                sections.push({
+                    title: currentLanguage === 'gr' ? 'Πρόσφατα θέματα' : 'Recent topics',
+                    prompts: recent
+                });
+            }
+            sections.push({
+                title: currentLanguage === 'gr' ? 'Δημοφιλείς βοήθειες' : 'Popular help',
+                prompts: starterPrompts()
+            });
+            sections.push({
+                title: currentLanguage === 'gr' ? 'Κατηγορίες' : 'Categories',
+                prompts: categoryPrompts()
+            });
+            return sections;
+        };
+        const renderStartState = () => {
+            clearTyping();
+            messagesWrap.innerHTML = '';
+            createMessage('assistant', t(ui().welcomeBody, currentLanguage === 'gr' ? 'Πάτησε μία λέξη, ένα όνομα script ή μία κατηγορία και θα βρω την πιο σχετική απάντηση από τα δεδομένα του site.' : 'Tap a word, a script name, or a category and I will match it to the closest answer from the site data.'), {
+                heading: t(ui().welcomeTitle, currentLanguage === 'gr' ? 'Πώς μπορώ να βοηθήσω σήμερα;' : 'How can I help today?'),
+                meta: assistantData?.updated ? `${t(ui().updatedPrefix, 'Updated')}: ${assistantData.updated}` : ''
+            });
+            pushSuggestions(
+                t(ui().promptHeading, currentLanguage === 'gr' ? 'Διάλεξε θέμα' : 'Choose a topic'),
+                startSections(),
+                t(ui().promptBody, currentLanguage === 'gr' ? 'Μπορείς να πατήσεις ένα όνομα script, μία λέξη ή μία κατηγορία. Θα απαντήσω ή θα σου δείξω τα πιο σχετικά αποτελέσματα.' : 'You can tap a script name, a keyword, or a category. I will answer directly or show the closest results.')
+            );
+        };
+        const renderNoMatch = (promptLabel) => {
+            createMessage('assistant', t(ui().noMatchBody, currentLanguage === 'gr' ? 'Δεν βρήκα ακόμη καθαρό ταίριασμα γι’ αυτό το prompt.' : 'I could not find a clean match for that prompt yet.'), {
+                heading: t(ui().noMatchTitle, currentLanguage === 'gr' ? 'Δεν βρήκα ακριβή απάντηση' : 'I could not find an exact answer')
+            });
+            pushSuggestions(
+                t(ui().promptHeading, currentLanguage === 'gr' ? 'Δοκίμασε κάτι σχετικό' : 'Try something related'),
+                startSections(),
+                promptLabel ? (currentLanguage === 'gr' ? `Το "${promptLabel}" δεν έδωσε σαφές αποτέλεσμα.` : `“${promptLabel}” did not give a clear result.`) : ''
+            );
+        };
+        const showMatchChoices = (queryLabel, matches) => {
+            const prompts = matches.map(({ item }) => ({
+                label: prettyItemLabel(item),
+                query: item._question,
+                itemKey: item._key
+            }));
+            createMessage('assistant', t(ui().disambiguationBody, currentLanguage === 'gr' ? 'Βρήκα αρκετά σχετικά αποτελέσματα. Διάλεξε αυτό που ταιριάζει καλύτερα.' : 'I found several related results. Pick the one that fits best.'), {
+                heading: t(ui().disambiguationTitle, currentLanguage === 'gr' ? 'Βρήκα σχετικά θέματα' : 'I found related topics')
+            });
+            pushSuggestions(
+                currentLanguage === 'gr' ? 'Διάλεξε αποτέλεσμα' : 'Choose a result',
+                [{
+                    title: queryLabel ? (currentLanguage === 'gr' ? `Αποτελέσματα για: ${queryLabel}` : `Results for: ${queryLabel}`) : '',
+                    prompts
+                }],
+                currentLanguage === 'gr' ? 'Πάτησε το πιο σωστό αποτέλεσμα.' : 'Tap the best matching result.'
+            );
+        };
+        const respondWithAnswer = (item, promptLabel = '') => {
+            if (!item) return;
+            removeSuggestionMessages();
+            const userLabel = promptLabel || prettyItemLabel(item);
+            createMessage('user', userLabel);
+            saveRecentTopic({ label: userLabel, query: item._question, itemKey: item._key });
+            clearTyping();
+            const typingMessage = createMessage('assistant', '', { typing: true });
+            const delay = Math.min(1400, Math.max(420, t(item.a, '').length * 5));
+            typingTimer = window.setTimeout(() => {
+                typingMessage.remove();
+                typingTimer = null;
+                const answerMessage = createMessage('assistant', '', {
+                    heading: t(item.q, ''),
+                    html: formatAnswerHtml(t(item.a, '')),
+                    meta: [assistantData?.updated ? `${t(ui().updatedPrefix, 'Updated')}: ${assistantData.updated}` : '', categoryBadge(item)].filter(Boolean).join(' • '),
+                    linkHref: t(item.link, ''),
+                    linkText: t(ui().openPage, 'Open page'),
+                    noAutoScroll: true
+                });
+                pushSuggestions(
+                    currentLanguage === 'gr' ? 'Χρειάζεσαι βοήθεια με κάτι άλλο;' : 'Do you need help with anything else?',
+                    [{
+                        title: currentLanguage === 'gr' ? 'Σχετικά θέματα' : 'Related topics',
+                        prompts: relatedPromptsForItem(item)
+                    }],
+                    currentLanguage === 'gr' ? 'Πάτησε κάτι σχετικό ή γύρνα στην αρχή με το κουμπί ⌂.' : 'Tap something related or go back to start with the ⌂ button.',
+                    { noAutoScroll: true }
+                );
+                scrollMessageIntoView(answerMessage, 6);
+            }, delay);
+        };
+        const handleUserQuery = (query, promptLabel = '') => {
+            if (!assistantData) return;
+            const cleanQuery = (query || '').trim();
+            if (!cleanQuery) return;
+            removeSuggestionMessages();
+            createMessage('user', promptLabel || cleanQuery);
+            saveRecentTopic({ label: promptLabel || cleanQuery, query: cleanQuery });
+            clearTyping();
+            const typingMessage = createMessage('assistant', '', { typing: true });
+            const delay = Math.min(1100, Math.max(380, cleanQuery.length * 20));
+            typingTimer = window.setTimeout(() => {
+                typingMessage.remove();
+                typingTimer = null;
+
+                const categoryItems = categoryMatchesForQuery(cleanQuery);
+                if (categoryItems.length >= 2) {
+                    const scoredCategoryItems = categoryItems
+                        .map((item) => assistantIndex.find((entry) => entry._key === itemKey(item)))
+                        .filter(Boolean)
+                        .map((item) => ({ item, score: 100 }));
+                    showMatchChoices(promptLabel || cleanQuery, scoredCategoryItems.slice(0, 8));
+                    return;
+                }
+
+                const matches = searchMatches(cleanQuery, 8);
+                if (!matches.length || matches[0].score < 26) {
+                    renderNoMatch(promptLabel || cleanQuery);
+                    return;
+                }
+
+                const top = matches[0];
+                const second = matches[1];
+                const directAnswer = top.score >= 122 || (top.score >= 88 && (!second || (top.score - second.score) >= 20));
+                if (directAnswer) {
+                    respondWithAnswer(top.item, promptLabel || cleanQuery);
+                    return;
+                }
+
+                showMatchChoices(promptLabel || cleanQuery, matches.slice(0, 6));
+            }, delay);
+        };
+        const applyUiStrings = () => {
+            titleEl.textContent = t(ui().title, 'DedSec Assistant');
+            subtitleEl.textContent = t(ui().subtitle, currentLanguage === 'gr' ? 'Chat style · έξυπνα matches · καλύτερες απαντήσεις' : 'Chat style · smarter matches · better answers');
+            triggerTextEl.textContent = t(ui().buttonLabel, 'Assistant');
+            trigger.setAttribute('aria-label', t(ui().buttonLabel, 'Assistant'));
+            homeBtn.setAttribute('aria-label', currentLanguage === 'gr' ? 'Αρχή' : 'Home');
+            refreshBtn.setAttribute('aria-label', t(ui().refresh, 'Refresh'));
+            closeBtn.setAttribute('aria-label', t(ui().close, 'Close'));
+        };
+        const refreshAssistantData = async (force = false) => {
+            if (isFetchingAssistant) return;
+            if (hasLoadedAssistant && !force && assistantData) {
+                applyUiStrings();
+                if (!messagesWrap.children.length) renderStartState();
+                return;
+            }
+            isFetchingAssistant = true;
+            const loadingText = t(ui().loading, currentLanguage === 'gr' ? 'Φόρτωση δεδομένων βοηθού...' : 'Loading assistant data...');
+            messagesWrap.innerHTML = '';
+            createMessage('assistant', loadingText, {
+                heading: t(ui().title, 'DedSec Assistant')
+            });
+            try {
+                const response = await fetch(assistantPath, { cache: force ? 'no-store' : 'default' });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                assistantData = await response.json();
+                buildIndex();
+                applyUiStrings();
+                hasLoadedAssistant = true;
+                renderStartState();
+            } catch (error) {
+                assistantData = null;
+                assistantIndex = [];
+                hasLoadedAssistant = false;
+                applyUiStrings();
+                clearTyping();
+                messagesWrap.innerHTML = '';
+                createMessage('assistant', t(ui().loadError, 'Assistant data could not be loaded right now.'), {
+                    heading: t(ui().title, 'DedSec Assistant')
+                });
+            } finally {
+                isFetchingAssistant = false;
+            }
+        };
+        const resetAssistant = () => {
+            if (!assistantData) {
+                refreshAssistantData(true);
+                return;
+            }
+            buildIndex();
+            renderStartState();
+        };
+        const setOpen = (open) => {
+            shell.classList.toggle('open', open);
+            panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+            trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+            if (open) {
+                refreshAssistantData(false).finally(() => {
+                    setTimeout(() => closeBtn.focus({ preventScroll: true }), 40);
+                });
+            } else {
+                clearTyping();
+            }
+        };
+
+        trigger.addEventListener('click', () => setOpen(!shell.classList.contains('open')));
+        closeBtn.addEventListener('click', () => setOpen(false));
+        homeBtn.addEventListener('click', () => resetAssistant());
+        refreshBtn.addEventListener('click', () => refreshAssistantData(true));
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && shell.classList.contains('open')) setOpen(false);
+        });
+        document.addEventListener('click', (e) => {
+            if (!shell.classList.contains('open')) return;
+            const path = typeof e.composedPath === 'function' ? e.composedPath() : [];
+            if (path.includes(shell) || shell.contains(e.target)) return;
+            setOpen(false);
+        });
+
+        window.__updateAssistantLanguage = () => {
+            applyUiStrings();
+            if (!assistantData) {
+                messagesWrap.innerHTML = '';
+                createMessage('assistant', currentLanguage === 'gr' ? 'Άνοιξε το παράθυρο για να φορτώσει ο βοηθός.' : 'Open the panel to load the assistant.', {
+                    heading: 'Assistant'
+                });
+                return;
+            }
+            buildIndex();
+            renderStartState();
+        };
+
+        applyUiStrings();
+        messagesWrap.innerHTML = '';
+        createMessage('assistant', currentLanguage === 'gr' ? 'Άνοιξε το παράθυρο για να φορτώσει ο βοηθός.' : 'Open the panel to load the assistant.', {
+            heading: 'Assistant'
+        });
+    }
+
+
     // Small UX + SEO fixes
     function initializeBrandingAndLinks() {
         // Add logo in navbar title (without changing HTML files)
@@ -844,6 +1600,7 @@ return file;
         initializeCarousels();
         initializeToolCategories('.categories-container');
         initializeToolCategories('#faq-container');
+        initializeAssistant();
         
         // Language Switcher (Navbar)
         document.getElementById('nav-lang-switcher')?.addEventListener('click', () => {
