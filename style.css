@@ -3417,12 +3417,14 @@ body.light-theme .step-card{ background: rgba(255,255,255,0.86); }
     bottom: max(14px, calc(var(--safe-area-inset-bottom, 10px) + 10px));
     z-index: 1200;
     display: flex;
-    flex-direction: column;
     align-items: flex-end;
-    gap: 12px;
+    pointer-events: none;
 }
 
 .assistant-panel {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 12px);
     width: min(94vw, 450px);
     max-height: min(82vh, 820px);
     display: flex;
@@ -3435,10 +3437,11 @@ body.light-theme .step-card{ background: rgba(255,255,255,0.86); }
     backdrop-filter: blur(20px) saturate(150%);
     -webkit-backdrop-filter: blur(20px) saturate(150%);
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
     transform: translateY(18px) scale(0.98);
     transform-origin: bottom right;
-    transition: opacity 0.22s var(--ease-out-cubic), transform 0.22s var(--ease-out-cubic);
+    transition: opacity 0.22s var(--ease-out-cubic), transform 0.22s var(--ease-out-cubic), visibility 0s linear 0.22s;
 }
 
 body.light-theme .assistant-panel {
@@ -3447,11 +3450,14 @@ body.light-theme .assistant-panel {
 
 .assistant-shell.open .assistant-panel {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
     transform: translateY(0) scale(1);
+    transition: opacity 0.22s var(--ease-out-cubic), transform 0.22s var(--ease-out-cubic), visibility 0s linear 0s;
 }
 
 .assistant-trigger {
+    pointer-events: auto;
     width: 68px;
     height: 68px;
     border: 1px solid rgba(var(--glow-rgb), 0.58);
