@@ -3,8 +3,8 @@
   "updated": "2026-03-16",
   "ui": {
     "buttonLabel": {
-      "en": "Assistant",
-      "gr": "Βοηθός"
+      "en": "Help",
+      "gr": "Βοήθεια"
     },
     "title": {
       "en": "DedSec Assistant",
