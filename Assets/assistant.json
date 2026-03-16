@@ -203,15 +203,18 @@
             "gr": "Πώς εγκαθιστώ σωστά το Termux;"
           },
           "a": {
-            "en": "Main idea: Install a current, supported Termux build first, then set up packages and storage before running projects.\n\nInstall/run in Termux: Install the official Termux app from a supported source, open it once, run `pkg update && pkg upgrade -y`, install the tools you need such as `pkg install python git unzip -y`, and then run `termux-setup-storage` so Termux can reach shared storage like Downloads when needed.\n\nNote: Keep all Termux apps from the same source family and avoid mixing old and new installs. If you switch sources, back up your files first.",
-            "gr": "Κύρια ιδέα: Εγκατάστησε πρώτα ένα τρέχον και υποστηριζόμενο build του Termux και μετά ετοίμασε πακέτα και αποθήκευση πριν τρέξεις projects.\n\nΕγκατάσταση/εκτέλεση στο Termux: Εγκατέστησε το επίσημο app του Termux από υποστηριζόμενη πηγή, άνοιξέ το μία φορά, τρέξε `pkg update && pkg upgrade -y`, βάλε τα εργαλεία που χρειάζεσαι όπως `pkg install python git unzip -y` και μετά τρέξε `termux-setup-storage` ώστε το Termux να βλέπει κοινόχρηστη αποθήκευση όπως τα Downloads όταν χρειάζεται.\n\nΣημείωση: Κράτα όλα τα Termux apps από την ίδια οικογένεια πηγών και απόφυγε να ανακατεύεις παλιές και νέες εγκαταστάσεις. Αν αλλάξεις πηγή, κράτα πρώτα backup των αρχείων σου."
+            "en": "Main idea: Install a current, supported Termux build first, then set up packages and storage before running projects.\n\nInstall/run in Termux: Install the official Termux app from a supported source, open it once, run `pkg update && pkg upgrade -y`, install the tools you need such as `pkg install python git unzip -y`, and then run `termux-setup-storage` so Termux can reach shared storage like Downloads when needed.\n\nOfficial links: Main installation guide: https://github.com/termux/termux-app#installation  Official F-Droid package page: https://f-droid.org/packages/com.termux/  Official GitHub releases: https://github.com/termux/termux-app/releases\n\nNote: Keep all Termux apps from the same source family and avoid mixing old and new installs. The unsupported Google Play build should not be your main install source anymore.",
+            "gr": "Κύρια ιδέα: Εγκατέστησε πρώτα ένα σύγχρονο, υποστηριζόμενο build του Termux και μετά ρύθμισε πακέτα και αποθηκευτικό χώρο πριν τρέξεις τα projects.\n\nΕγκατάσταση/εκτέλεση στο Termux: Εγκατέστησε την επίσημη εφαρμογή Termux από υποστηριζόμενη πηγή, άνοιξέ την μία φορά, τρέξε `pkg update && pkg upgrade -y`, εγκατέστησε τα εργαλεία που χρειάζεσαι όπως `pkg install python git unzip -y` και μετά τρέξε `termux-setup-storage` ώστε το Termux να έχει πρόσβαση σε shared storage όπως το Downloads όταν χρειάζεται.\n\nΕπίσημοι σύνδεσμοι: Κύριος οδηγός εγκατάστασης: https://github.com/termux/termux-app#installation  Επίσημη σελίδα πακέτου στο F-Droid: https://f-droid.org/packages/com.termux/  Επίσημα GitHub releases: https://github.com/termux/termux-app/releases\n\nΣημείωση: Κράτα όλες τις εφαρμογές Termux από την ίδια οικογένεια πηγής και απόφυγε να ανακατεύεις παλιές και νέες εγκαταστάσεις. Το μη υποστηριζόμενο Google Play build δεν πρέπει πια να είναι η κύρια πηγή εγκατάστασής σου."
           },
           "link": {
             "en": "Pages/guide-for-installation.html",
             "gr": "Pages/guide-for-installation.html"
           },
           "tags": [
+            "download",
+            "download links",
             "f-droid",
+            "f-droid package",
             "fdroid",
             "github",
             "github release",
@@ -219,11 +222,39 @@
             "install",
             "install source",
             "official",
+            "official links",
             "play store",
             "python",
             "setup",
             "supported source",
             "termux"
+          ]
+        },
+        {
+          "q": {
+            "en": "Where can I download official Termux apps?",
+            "gr": "Από πού μπορώ να κατεβάσω τις επίσημες εφαρμογές Termux;"
+          },
+          "a": {
+            "en": "Main idea: Use official sources so updates, signatures, and compatibility stay predictable.\n\nOfficial links: Termux installation guide: https://github.com/termux/termux-app#installation  Termux on F-Droid: https://f-droid.org/packages/com.termux/  Termux GitHub releases: https://github.com/termux/termux-app/releases  F-Droid app download: https://f-droid.org/F-Droid.apk  Termux:API on F-Droid: https://f-droid.org/packages/com.termux.api/\n\nNote: If you switch source family later, uninstall old Termux/plugin apps first and then reinstall everything from the same source family.",
+            "gr": "Κύρια ιδέα: Χρησιμοποίησε επίσημες πηγές ώστε updates, υπογραφές και συμβατότητα να μένουν προβλέψιμα.\n\nΕπίσημοι σύνδεσμοι: Οδηγός εγκατάστασης Termux: https://github.com/termux/termux-app#installation  Termux στο F-Droid: https://f-droid.org/packages/com.termux/  GitHub releases του Termux: https://github.com/termux/termux-app/releases  Λήψη της εφαρμογής F-Droid: https://f-droid.org/F-Droid.apk  Termux:API στο F-Droid: https://f-droid.org/packages/com.termux.api/\n\nΣημείωση: Αν αλλάξεις οικογένεια πηγής αργότερα, κάνε πρώτα απεγκατάσταση των παλιών εφαρμογών/plugins του Termux και μετά ξαναπέρασέ τα όλα από την ίδια οικογένεια πηγής."
+          },
+          "link": {
+            "en": "Pages/guide-for-installation.html",
+            "gr": "Pages/guide-for-installation.html"
+          },
+          "tags": [
+            "termux",
+            "download",
+            "official links",
+            "install links",
+            "f-droid",
+            "f-droid apk",
+            "github releases",
+            "termux api",
+            "official source",
+            "app install",
+            "download termux"
           ]
         },
         {
