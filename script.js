@@ -818,12 +818,19 @@ return file;
             });
         };
         const scrollMessageIntoView = (message, offset = 8) => {
-            requestAnimationFrame(() => {
+            const apply = () => {
                 const chat = chatWrap();
                 if (!chat || !message) return;
                 const targetTop = Math.max(0, (message.offsetTop || 0) - offset);
                 chat.scrollTop = targetTop;
+            };
+            apply();
+            requestAnimationFrame(() => {
+                apply();
+                requestAnimationFrame(apply);
             });
+            window.setTimeout(apply, 60);
+            window.setTimeout(apply, 180);
         };
         const clearTyping = () => {
             if (typingTimer) {
@@ -944,6 +951,13 @@ return file;
             html += escapeHtml(raw.slice(lastIndex));
             return html;
         };
+        const linkifyUrls = (html) => (html || '').replace(/(^|[\s>(])((https?:\/\/|www\.)[^\s<]+)/gi, (full, prefix, rawUrl) => {
+            const cleanUrl = (rawUrl || '').replace(/[),.;!?]+$/g, '');
+            const trailing = (rawUrl || '').slice(cleanUrl.length);
+            const href = cleanUrl.startsWith('www.') ? `https://${cleanUrl}` : cleanUrl;
+            return `${prefix}<a class="assistant-inline-link" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(cleanUrl)}</a>${escapeHtml(trailing)}`;
+        });
+        const formatRichText = (text) => linkifyUrls(highlightCommands(text || ''));
         const splitAnswerIntoSections = (text) => {
             const raw = (text || '').toString().trim();
             if (!raw) return [];
@@ -973,11 +987,11 @@ return file;
         };
         const formatAnswerHtml = (text) => {
             const sections = splitAnswerIntoSections(text);
-            if (!sections.length) return `<p class="assistant-bubble-text">${highlightCommands(text || '')}</p>`;
+            if (!sections.length) return `<p class="assistant-bubble-text">${formatRichText(text || '')}</p>`;
             return sections.map((section) => {
                 const bodyHtml = (section.body || '')
                     .split(/\n{2,}/)
-                    .map((paragraph) => `<p class="assistant-bubble-text">${highlightCommands(paragraph)}</p>`)
+                    .map((paragraph) => `<p class="assistant-bubble-text">${formatRichText(paragraph)}</p>`)
                     .join('');
                 return `
                     <section class="assistant-rich-section">
@@ -1040,6 +1054,10 @@ return file;
                     const link = document.createElement('a');
                     link.className = 'assistant-open-link';
                     link.href = href;
+                    if (/^https?:\/\//i.test(href)) {
+                        link.target = '_blank';
+                        link.rel = 'noopener noreferrer';
+                    }
                     link.textContent = options.linkText || t(ui().openPage, 'Open page');
                     bubble.appendChild(link);
                 }
@@ -1327,15 +1345,23 @@ return file;
                     linkText: t(ui().openPage, 'Open page'),
                     noAutoScroll: true
                 });
-                pushSuggestions(
-                    currentLanguage === 'gr' ? 'Χρειάζεσαι βοήθεια με κάτι άλλο;' : 'Do you need help with anything else?',
-                    [{
-                        title: currentLanguage === 'gr' ? 'Σχετικά θέματα' : 'Related topics',
-                        prompts: relatedPromptsForItem(item)
-                    }],
-                    currentLanguage === 'gr' ? 'Πάτησε κάτι σχετικό ή γύρνα στην αρχή με το κουμπί ⌂.' : 'Tap something related or go back to start with the ⌂ button.',
-                    { noAutoScroll: true }
-                );
+                const related = relatedPromptsForItem(item);
+                if (related.length) {
+                    pushSuggestions(
+                        currentLanguage === 'gr' ? 'Χρειάζεσαι βοήθεια με κάτι άλλο;' : 'Do you need help with anything else?',
+                        [{
+                            title: currentLanguage === 'gr' ? 'Σχετικά θέματα' : 'Related topics',
+                            prompts: related
+                        }],
+                        currentLanguage === 'gr' ? 'Πάτησε κάτι σχετικό ή γύρνα στην αρχή με το κουμπί ⌂.' : 'Tap something related or go back to start with the ⌂ button.',
+                        { noAutoScroll: true }
+                    );
+                } else {
+                    createMessage('assistant', currentLanguage === 'gr' ? 'Χρειάζεσαι βοήθεια με κάτι άλλο; Πάτησε το ⌂ για νέα αρχή.' : 'Do you need help with anything else? Tap ⌂ to start a new topic.', {
+                        heading: currentLanguage === 'gr' ? 'Χρειάζεσαι βοήθεια με κάτι άλλο;' : 'Do you need help with anything else?',
+                        noAutoScroll: true
+                    });
+                }
                 scrollMessageIntoView(answerMessage, 6);
             }, delay);
         };

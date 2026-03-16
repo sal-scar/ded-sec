@@ -3845,3 +3845,17 @@ body.light-theme .assistant-chip {
     }
 }
 
+
+
+.assistant-inline-link {
+    color: var(--nm-text-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    word-break: break-word;
+}
+
+.assistant-inline-link:hover,
+.assistant-inline-link:focus-visible {
+    color: var(--nm-text-accent);
+    opacity: 0.92;
+}
