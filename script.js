@@ -783,6 +783,8 @@ return file;
         let typingTimer = null;
         let hasLoadedAssistant = false;
         let isFetchingAssistant = false;
+        let lastPromptTapSignature = '';
+        let lastPromptTapAt = 0;
 
         const getLang = () => (currentLanguage === 'gr' ? 'gr' : 'en');
         const t = (value, fallback = '') => {
@@ -1092,12 +1094,21 @@ return file;
         };
         const bindPromptClicks = () => {
             shell.querySelectorAll('.assistant-chip').forEach((btn) => {
+                if (btn.dataset.assistantBound === '1') return;
+                btn.dataset.assistantBound = '1';
                 btn.addEventListener('click', (event) => {
                     event.preventDefault();
                     event.stopPropagation();
                     const itemKeyValue = btn.dataset.itemKey || '';
                     const promptLabel = btn.dataset.label || btn.textContent || '';
                     const promptQuery = btn.dataset.query || promptLabel;
+                    const tapSignature = normalizeText(`${promptLabel} ${promptQuery} ${itemKeyValue}`);
+                    const now = Date.now();
+                    if (tapSignature && tapSignature === lastPromptTapSignature && (now - lastPromptTapAt) < 650) {
+                        return;
+                    }
+                    lastPromptTapSignature = tapSignature;
+                    lastPromptTapAt = now;
                     if (itemKeyValue) {
                         const item = assistantIndex.find((entry) => entry._key === itemKeyValue);
                         if (item) {
