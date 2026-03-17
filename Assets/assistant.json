@@ -109,7 +109,7 @@
             "gr": "Τι είναι το DedSec Project;"
           },
           "a": {
-            "en": "DedSec Project is a Termux-focused toolkit and website that brings together utilities, learning material, store pages, collaborations, FAQs, and project information in one place.",
+            "en": "DedSec Project is a Termux-focused toolkit and website that brings together utilities, learning material, collaborations, FAQs, and project information in one place.",
             "gr": "Το DedSec Project είναι ένα toolkit και website με επίκεντρο το Termux που συγκεντρώνει εργαλεία, εκπαιδευτικό υλικό, σελίδες καταστήματος, συνεργασίες, FAQ και πληροφορίες του project σε ένα μέρος."
           },
           "link": {
@@ -327,7 +327,7 @@
             "gr": "Είναι το DedSec Project ανοιχτού κώδικα;"
           },
           "a": {
-            "en": "The core project is presented as free and open source, with the main repository linked from the site. The site also mentions premium services and store content, but the public project itself is built around an open repository and community access.",
+            "en": "The core project is presented as free and open source, with the main repository linked from the site and public access centered around the open repository and community learning.",
             "gr": "Το βασικό project παρουσιάζεται ως δωρεάν και ανοιχτού κώδικα, με το κύριο repository συνδεδεμένο από το site. Το site αναφέρει επίσης premium υπηρεσίες και περιεχόμενο καταστήματος, αλλά το δημόσιο project βασίζεται σε ανοιχτό repository και πρόσβαση από την κοινότητα."
           },
           "link": {
@@ -4076,72 +4076,6 @@
       ]
     },
     {
-      "id": "store",
-      "label": {
-        "en": "Store",
-        "gr": "Κατάστημα"
-      },
-      "items": [
-        {
-          "q": {
-            "en": "What can I buy from the store?",
-            "gr": "Τι μπορώ να αγοράσω από το κατάστημα;"
-          },
-          "a": {
-            "en": "The store page advertises services like multi-page websites, advanced HTML and JavaScript sites, and custom Termux or Python script work.",
-            "gr": "Η σελίδα του καταστήματος προβάλλει υπηρεσίες όπως πολυσέλιδα websites, προηγμένα HTML και JavaScript sites και custom δουλειά σε Termux ή Python scripts."
-          },
-          "link": {
-            "en": "Pages/store.html",
-            "gr": "Pages/store.html"
-          },
-          "tags": [
-            "store",
-            "services",
-            "buy"
-          ]
-        },
-        {
-          "q": {
-            "en": "How does payment and delivery work?",
-            "gr": "Πώς λειτουργεί η πληρωμή και η παράδοση;"
-          },
-          "a": {
-            "en": "The site says checkout is handled by Stripe. After payment, the buyer should send the receipt through the contact page so the order can be verified and delivered.",
-            "gr": "Το site λέει ότι το checkout γίνεται μέσω Stripe. Μετά την πληρωμή, ο αγοραστής πρέπει να στείλει την απόδειξη μέσω της σελίδας επικοινωνίας ώστε να επιβεβαιωθεί και να παραδοθεί η παραγγελία."
-          },
-          "link": {
-            "en": "Pages/store.html",
-            "gr": "Pages/store.html"
-          },
-          "tags": [
-            "payment",
-            "delivery",
-            "receipt"
-          ]
-        },
-        {
-          "q": {
-            "en": "Is there a refund policy?",
-            "gr": "Υπάρχει πολιτική επιστροφής χρημάτων;"
-          },
-          "a": {
-            "en": "The store page says all sales are final because the products are digital, so buyers should understand the purchase before completing payment.",
-            "gr": "Η σελίδα του καταστήματος λέει ότι όλες οι πωλήσεις είναι οριστικές επειδή τα προϊόντα είναι ψηφιακά, οπότε οι αγοραστές πρέπει να καταλαβαίνουν την αγορά πριν ολοκληρώσουν την πληρωμή."
-          },
-          "link": {
-            "en": "Pages/store.html",
-            "gr": "Pages/store.html"
-          },
-          "tags": [
-            "refund",
-            "policy",
-            "store"
-          ]
-        }
-      ]
-    },
-    {
       "id": "faq",
       "label": {
         "en": "FAQ",
@@ -4770,13 +4704,6 @@
         "gr": "Devices Finder.py"
       },
       "query": "Devices Finder.py"
-    },
-    {
-      "label": {
-        "en": "Store Scrapper.py",
-        "gr": "Store Scrapper.py"
-      },
-      "query": "Store Scrapper.py"
     },
     {
       "label": {
