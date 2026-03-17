@@ -320,7 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "Pages/learn-about-the-tools.html",
             "Pages/guide-for-installation.html",
             "Pages/faq.html",
-            "Pages/store.html",
             "Pages/collaborations.html",
             "Pages/contact-credits.html",
             "Pages/privacy-policy.html",        ];

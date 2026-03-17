@@ -14,4 +14,3 @@ Use this when you need an exhaustive list. For search-engine crawling, prefer th
 - [ButSystem.py (Exclusive) - DedSec Project](https://ded-sec.space/Pages/butsystem-exclusive.html) — last modified 2026-03-01
 - [Our Vision - DedSec Project](https://ded-sec.space/Pages/our-vision.html) — last modified 2026-02-24
 - [Privacy Policy - DedSec Project](https://ded-sec.space/Pages/privacy-policy.html) — last modified 2026-02-24
-- [Store](https://ded-sec.space/Pages/store.html) — last modified 2026-02-24
