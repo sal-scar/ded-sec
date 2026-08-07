@@ -12031,3 +12031,49 @@ html body :is(.main-nav, .nav-menu, .nav-action-btn, .burger-menu, .nav-menu .na
   background-image:none !important;
   box-shadow:none !important;
 }
+
+
+/* === SALES CONTEXT BRIDGES 20260807j ===
+   Value-led CTAs. Surfaces deliberately obey the site's border-only rule. */
+.tool-use-case,
+.store-product-solve,
+.product-solve-summary,
+.installation-next-card,
+.academy-ebook-bridge {
+  border: 1px solid var(--ded-accent-lavender, #c084fc);
+  border-left: 4px solid var(--ded-accent-purple, #a855f7);
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+body.dark-theme :is(.tool-use-case,.store-product-solve,.product-solve-summary,.installation-next-card,.academy-ebook-bridge) {
+  background:#000 !important; color:#fff !important;
+}
+body.light-theme :is(.tool-use-case,.store-product-solve,.product-solve-summary,.installation-next-card,.academy-ebook-bridge) {
+  background:#fff !important; color:#000 !important;
+}
+.tool-use-case { margin: 0 0 14px; padding: 12px 14px; }
+.tool-use-case h5,
+.store-product-solve strong,
+.product-solve-summary strong { display:block; margin:0 0 6px; font-weight:900; letter-spacing:.02em; }
+.tool-use-case p,.store-product-solve p,.product-solve-summary p { margin:0; line-height:1.55; }
+.store-product-solve { margin: 12px 0 14px; padding: 12px 14px; }
+.product-solve-summary { width:min(820px,100%); margin:18px auto 0; padding:14px 16px; text-align:left; }
+.home-buy-nudge { max-width:900px; margin:18px auto 14px; text-align:center; line-height:1.65; }
+.installation-next-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:18px; }
+.installation-next-card { padding:18px; }
+.installation-next-card h3 { margin-top:0; }
+.installation-next-card .starter-path-btn { width:100%; min-height:50px; margin-top:10px; }
+.sponsor-conversion-note { padding:16px 18px 18px; border-top:1px solid var(--ded-accent-lavender,#c084fc); }
+.sponsor-conversion-note .starter-path-btn { margin-top:10px; min-height:50px; }
+.academy-ebook-bridge { margin-top:26px; padding:clamp(18px,4vw,30px) !important; }
+.academy-ebook-bridge h2 { margin-bottom:12px; }
+.academy-ebook-bridge h3 { margin:0 0 10px; }
+.academy-ebook-bridge p { max-width:900px; line-height:1.65; }
+.academy-ebook-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+.academy-ebook-actions .starter-path-btn { flex:1 1 260px; min-height:50px; }
+@media (max-width:700px) {
+  .installation-next-grid { grid-template-columns:1fr; }
+  .academy-ebook-actions { display:grid; grid-template-columns:1fr; }
+  .academy-ebook-actions .starter-path-btn { width:100%; }
+}

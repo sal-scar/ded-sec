@@ -68,3 +68,19 @@ if 'not-found-page' not in (not_found.body.get('class',[]) if not_found.body els
 if issues:
  print('\n'.join('ERROR: '+x for x in issues));sys.exit(1)
 print('Source audit passed.')
+
+
+# Sales/store consistency invariant added 2026-08-07j.
+STALE_STORE_SUPPORT_PHRASES = (
+    "Open Store / Get Direct Help",
+    "Store / Direct Help",
+    "Direct Help Through The Store",
+    "Άνοιξε το Κατάστημα / Ζήτησε άμεση βοήθεια",
+    "Store / Άμεση Βοήθεια",
+    "Άμεση βοήθεια μέσω του Καταστήματος",
+)
+for _html in ROOT.rglob("*.html"):
+    _text = _html.read_text(encoding="utf-8", errors="ignore")
+    for _phrase in STALE_STORE_SUPPORT_PHRASES:
+        if _phrase in _text:
+            raise SystemExit(f"Stale Store/support wording remains in {_html.relative_to(ROOT)}: {_phrase}")
