@@ -2581,3 +2581,42 @@ html body.light-theme :is(
  .store-custom-section,.store-butsystem-free,.store-sales-faq,
  .product-solve-summary,.store-product-solve,.custom-scope-note
 ) {background:#fff!important;background-color:#fff!important;background-image:none!important;box-shadow:none!important}
+
+/* === FINAL CTA CENTERING LOCK 20260807m ===
+   This stylesheet loads after style.css on sales pages. */
+html body main :is(a.sales-btn, a.starter-path-btn, a.payment-btn, a.btn, button.btn) {
+  margin-left:auto !important;
+  margin-right:auto !important;
+  align-self:center !important;
+  justify-self:center !important;
+  justify-content:center !important;
+  text-align:center !important;
+}
+html body main .store-product-actions {
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) !important;
+  justify-items:center !important;
+  align-items:center !important;
+  text-align:center !important;
+  gap:10px !important;
+}
+html body main .store-product-actions > strong,
+html body main .store-product-actions .sales-btn,
+html body main .store-product-actions .store-preview-link,
+html body main .store-product-actions .store-details-link {
+  grid-column:1 !important;
+  justify-self:center !important;
+  text-align:center !important;
+}
+html body main .store-product-actions .sales-btn,
+html body main .store-product-actions .store-preview-link {width:min(100%,430px) !important}
+html body main .store-butsystem-free > .sales-btn,
+html body main .store-custom-offer > .sales-btn,
+html body main .store-sales-faq .sales-btn {
+  display:flex !important;
+  width:min(100%,520px) !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+.home-decision-academy{display:flex!important;justify-content:center!important;width:100%!important;margin:14px auto 0!important}
+.home-decision-academy .sales-btn{width:min(100%,430px)!important;min-height:52px!important}

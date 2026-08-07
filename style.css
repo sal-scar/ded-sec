@@ -12162,3 +12162,55 @@ html body.light-theme :is(button,a[class*="btn"],a[class*="button"],a[role="butt
   color:#000000 !important;
   -webkit-text-fill-color:#000000 !important;
 }
+
+/* === CTA ALIGNMENT + HOME ACADEMY BRIDGE 20260807m === */
+/* Main-content CTAs are visually centered. Header/nav controls are intentionally excluded. */
+html body main :is(a.sales-btn, a.starter-path-btn, a.payment-btn, a.btn, button.btn) {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  align-self: center !important;
+  justify-self: center !important;
+  text-align: center !important;
+  justify-content: center !important;
+}
+
+/* Store purchase actions use one centered vertical decision stack on all widths. */
+html body main .store-product-actions {
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) !important;
+  justify-items: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 10px !important;
+}
+html body main .store-product-actions > strong,
+html body main .store-product-actions .sales-btn,
+html body main .store-product-actions .store-preview-link,
+html body main .store-product-actions .store-details-link {
+  grid-column: 1 !important;
+  justify-self: center !important;
+  text-align: center !important;
+}
+html body main .store-product-actions .sales-btn,
+html body main .store-product-actions .store-preview-link {
+  width: min(100%, 430px) !important;
+}
+html body main .store-butsystem-free > .sales-btn,
+html body main .store-custom-offer > .sales-btn,
+html body main .store-sales-faq .sales-btn {
+  display: flex !important;
+  width: min(100%, 520px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.home-decision-academy {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin: 14px auto 0 !important;
+}
+.home-decision-academy .sales-btn {
+  width: min(100%, 430px) !important;
+  min-height: 52px !important;
+}
