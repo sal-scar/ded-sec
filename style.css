@@ -12279,3 +12279,156 @@ html body :is(
   margin-left:auto !important;
   margin-right:auto !important;
 }
+
+
+/* === ABSOLUTE CONTENT CTA PHYSICAL CENTERING 20260807o ===
+   A CTA must be centered as an element, not merely have centered text.
+   This intentionally excludes header/navigation/filter/copy controls. */
+html body :is(
+  a.sales-btn,
+  a.btn,
+  a.payment-btn,
+  a.sponsor-btn,
+  a.store-preview-link,
+  a.store-details-link,
+  a.product-details-btn,
+  a.product-primary-cta,
+  a.product-back-btn,
+  a.ebook-preview-link,
+  a.contact-page-btn,
+  a.contact-cta,
+  a.faq-link-btn,
+  a.hero-cta,
+  a.feature-cta
+) {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  align-self: center !important;
+  justify-self: center !important;
+  text-align: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+/* Inline-level buttons ignore auto margins in normal flow. Make the main CTA
+   families real flex boxes so their horizontal auto margins actually work. */
+html body a.sales-btn {
+  display: flex !important;
+  width: min(100%, 520px) !important;
+}
+html body :is(a.btn, a.store-preview-link, a.store-details-link, a.product-details-btn,
+  a.product-back-btn, a.ebook-preview-link, a.contact-page-btn, a.contact-cta,
+  a.faq-link-btn, a.hero-cta, a.feature-cta) {
+  display: flex !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+}
+html body a.payment-btn,
+html body a.product-primary-cta {
+  display: flex !important;
+}
+html body a.sponsor-btn {
+  display: flex !important;
+  width: min(100%, 430px) !important;
+}
+html body a.starter-path-btn {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  align-self: center !important;
+  justify-self: center !important;
+  text-align: center !important;
+  justify-content: center !important;
+}
+
+/* Explicit fix for Store sections that live outside <main>. */
+html body .store-butsystem-free > a.sales-btn,
+html body .store-custom-offer > a.sales-btn,
+html body .store-sales-faq a.sales-btn {
+  display: flex !important;
+  width: min(100%, 520px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Labels that are actual short sentences use sentence case and punctuation.
+   Heading/category labels remain uppercase and do not use a trailing period. */
+html body .sales-section-label.sales-sentence-label {
+  text-transform: none !important;
+  letter-spacing: .035em !important;
+}
+
+
+/* Native-button CTA parity for Assistance and legacy content controls. */
+html body :is(button.starter-path-btn, button.assistance-report-btn, button.assistance-expand-btn) {
+  display: flex !important;
+  width: min(100%, 520px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+}
+
+/* === SMARTPHONE ACADEMY MOBILE CTA ALIGNMENT 20260807o ===
+   Keep each primary Academy action on its own centered row on phones. */
+@media (max-width: 700px) {
+  html body .academy-hero-actions {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  html body .academy-hero-actions > a.btn {
+    width: min(100%, 520px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  html body .academy-entry-next .academy-entry-actions {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  html body .academy-entry-next .academy-entry-actions > .starter-path-btn {
+    flex: 0 0 auto !important;
+    width: min(100%, 520px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* === ACADEMY SECTION ACTION CENTERING 20260807o ===
+   Section-level Academy actions (Back to Academy, safety rules, etc.) are
+   content buttons, so keep them centered at every viewport width. */
+html body :is(.academy-section-heading, .academy-section-heading--actions) {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+html body :is(.academy-section-heading, .academy-section-heading--actions) > :is(a.btn, a.starter-path-btn) {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  align-self: center !important;
+  justify-self: center !important;
+}
+
+/* === PRODUCT PURCHASE CTA CENTERING 20260807o ===
+   Price, checkout CTA and note form one centered decision stack. */
+html body .product-purchase-box {
+  grid-template-columns: 1fr !important;
+  justify-items: center !important;
+  text-align: center !important;
+}
+html body .product-purchase-box .product-primary-cta {
+  width: min(100%, 520px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+html body .product-purchase-box .product-checkout-note {
+  grid-column: 1 !important;
+}

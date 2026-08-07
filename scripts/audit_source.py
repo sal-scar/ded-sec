@@ -91,3 +91,29 @@ for _rel in ('style.css','Assets/sales-optimization.css','Assets/assistance.css'
     _css=(ROOT/_rel).read_text(encoding='utf-8',errors='ignore')
     if CENTERING_MARKER not in _css:
         raise SystemExit(f'{_rel} missing global content CTA centering lock')
+
+
+# CTA physical-centering + punctuation invariants added 2026-08-07o.
+PHYSICAL_CENTER_MARKER = 'ABSOLUTE CONTENT CTA PHYSICAL CENTERING 20260807o'
+for _rel in ('style.css','Assets/sales-optimization.css','Assets/assistance.css'):
+    _css=(ROOT/_rel).read_text(encoding='utf-8',errors='ignore')
+    if PHYSICAL_CENTER_MARKER not in _css:
+        raise SystemExit(f'{_rel} missing physical CTA centering lock')
+
+for _rel in ('Pages/store.html','el/Pages/store.html'):
+    _s=BeautifulSoup((ROOT/_rel).read_text(encoding='utf-8',errors='replace'),'html.parser')
+    _lab=_s.select_one('.store-butsystem-free .sales-section-label.sales-sentence-label')
+    if not _lab:
+        raise SystemExit(f'{_rel} missing sentence-style ButSystem label')
+    _en=_lab.get('data-en','').strip(); _gr=_lab.get('data-gr','').strip()
+    if _en != 'Not a paid product.' or _gr != 'Δεν είναι πληρωμένο προϊόν.':
+        raise SystemExit(f'{_rel} has incorrect ButSystem sentence-label punctuation/casing')
+
+# Uppercase heading/category labels must not end in a period.
+for _html in ROOT.rglob('*.html'):
+    _s=BeautifulSoup(_html.read_text(encoding='utf-8',errors='replace'),'html.parser')
+    for _lab in _s.select('.sales-section-label:not(.sales-sentence-label), .home-product-tag'):
+        _t=' '.join(_lab.get_text(' ',strip=True).split())
+        _letters=''.join(ch for ch in _t if ch.isalpha())
+        if _letters and _letters.upper()==_letters and _t.endswith('.'):
+            raise SystemExit(f'{_html.relative_to(ROOT)} uppercase heading label ends with a period: {_t}')
