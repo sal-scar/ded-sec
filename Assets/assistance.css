@@ -772,3 +772,68 @@ body.founder-page .founder-page-header h1 { font-size: clamp(2rem, 7vw, 4.4rem) 
   .founder-vision-lead-card { grid-column: auto; }
 }
 
+
+
+/* === GLOBAL CONTENT CTA CENTERING LOCK 20260807n ===
+   Center every user-facing content CTA regardless of legacy page wrapper.
+   Navigation, filters, modal controls and code-copy controls are intentionally excluded. */
+html body :is(
+  a.btn,
+  a.sales-btn,
+  a.starter-path-btn,
+  a.payment-btn,
+  a.sponsor-btn,
+  a.store-preview-link,
+  a.store-details-link,
+  a.product-details-btn,
+  a.product-primary-cta,
+  a.product-back-btn,
+  a.ebook-preview-link,
+  a.contact-page-btn,
+  a.contact-cta,
+  a.faq-link-btn,
+  a.hero-cta,
+  a.feature-cta,
+  button.assistance-report-btn,
+  button.assistance-expand-btn
+) {
+  margin-left:auto !important;
+  margin-right:auto !important;
+  align-self:center !important;
+  justify-self:center !important;
+  text-align:center !important;
+  justify-content:center !important;
+}
+
+/* Center the common action wrappers too, so legacy flex/grid rules cannot pin CTAs to an edge. */
+html body :is(
+  .hero-actions,
+  .sales-hero-actions,
+  .store-action-row,
+  .store-product-actions,
+  .product-secondary-actions,
+  .academy-entry-actions,
+  .academy-ebook-actions,
+  .inline-action-buttons,
+  .assistance-support-actions,
+  .assistance-quick-actions,
+  .home-decision-academy
+) {
+  justify-content:center !important;
+  justify-items:center !important;
+  text-align:center !important;
+}
+
+/* Single prominent CTAs should stay visibly centered instead of inheriting a start alignment. */
+html body :is(
+  .store-butsystem-free,
+  .store-custom-offer,
+  .store-sales-faq,
+  .installation-primary-next,
+  .installation-store-nudge,
+  .sponsor-conversion-note,
+  .product-final-cta
+) > :is(a.btn,a.sales-btn,a.starter-path-btn,a.payment-btn,a.sponsor-btn) {
+  margin-left:auto !important;
+  margin-right:auto !important;
+}

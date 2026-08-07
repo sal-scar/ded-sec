@@ -84,3 +84,10 @@ for _html in ROOT.rglob("*.html"):
     for _phrase in STALE_STORE_SUPPORT_PHRASES:
         if _phrase in _text:
             raise SystemExit(f"Stale Store/support wording remains in {_html.relative_to(ROOT)}: {_phrase}")
+
+# Content CTA centering invariant added 2026-08-07n.
+CENTERING_MARKER = 'GLOBAL CONTENT CTA CENTERING LOCK 20260807n'
+for _rel in ('style.css','Assets/sales-optimization.css','Assets/assistance.css'):
+    _css=(ROOT/_rel).read_text(encoding='utf-8',errors='ignore')
+    if CENTERING_MARKER not in _css:
+        raise SystemExit(f'{_rel} missing global content CTA centering lock')
