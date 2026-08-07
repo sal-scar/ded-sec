@@ -46,6 +46,25 @@ for page in ROOT.rglob('*.html'):
   if not any('assistance.js' in x.get('src','') for x in s.find_all('script',src=True)):
    issues.append(rel+' missing Assistance script')
 
+
+# Permanent navigation/design invariants.
+vision_files=[x for x in ROOT.rglob('*.html') if x.name.lower()=='our-vision.html']
+for x in vision_files:
+ issues.append(str(x.relative_to(ROOT))+' standalone Our Vision page must not exist')
+for x in list(ROOT.rglob('*.html'))+list(ROOT.glob('*.xml'))+list(ROOT.glob('*.txt')):
+ raw=x.read_text(encoding='utf-8',errors='replace')
+ if 'our-vision.html' in raw.lower():
+  issues.append(str(x.relative_to(ROOT))+' references removed Our Vision route')
+style=(ROOT/'style.css').read_text(encoding='utf-8',errors='replace')
+if 'ABSOLUTE BORDER-ONLY LOCK (2026-08-07i.1)' not in style:
+ issues.append('style.css missing global border-only surface lock')
+not_found=BeautifulSoup((ROOT/'404.html').read_text(encoding='utf-8',errors='replace'),'html.parser')
+robots=not_found.find('meta',attrs={'name':'robots'})
+if not robots or 'noindex' not in robots.get('content','').lower():
+ issues.append('404.html must be noindex')
+if 'not-found-page' not in (not_found.body.get('class',[]) if not_found.body else []):
+ issues.append('404.html missing responsive not-found-page design class')
+
 if issues:
  print('\n'.join('ERROR: '+x for x in issues));sys.exit(1)
 print('Source audit passed.')
