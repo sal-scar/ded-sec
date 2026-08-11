@@ -12604,3 +12604,44 @@ body.founder-page .founder-github-single-card-grid > .founder-github-stat-card {
   width: 100%;
   justify-self: stretch;
 }
+
+/* === FOUNDER VISUAL FIX (2026-08-11) === */
+body.founder-page .founder-skill-list {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center;
+  column-gap: .55rem !important;
+  row-gap: .55rem !important;
+}
+
+body.founder-page .founder-skill-chip {
+  display: inline-flex !important;
+  flex: 0 0 auto;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+body.founder-page .founder-github-stat-card {
+  padding: .5rem;
+}
+
+body.founder-page .founder-github-stat-card img {
+  width: 100%;
+  max-width: 520px;
+  min-height: 0;
+  object-fit: contain;
+}
+
+@media (max-width: 560px) {
+  body.founder-page .founder-skill-group {
+    padding: 1rem .8rem;
+  }
+  body.founder-page .founder-skill-chip {
+    font-size: .86rem;
+    padding: .38rem .62rem;
+  }
+  body.founder-page .founder-github-stat-card {
+    padding: .35rem;
+  }
+}
