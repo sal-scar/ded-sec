@@ -36,7 +36,7 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": "OnlineStore",
       "@id": "https://ded-sec.space/#organization",
       "name": "DedSec Project",
       "url": "https://ded-sec.space/",
@@ -44,7 +44,22 @@
       "sameAs": [
         "https://github.com/dedsec1121fk",
         "https://t.me/dedsecproject"
-      ]
+      ],
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "@id": "https://ded-sec.space/Pages/store.html#merchant-return-policy",
+        "merchantReturnLink": "https://ded-sec.space/Pages/store.html#purchase-refund-policy"
+      },
+      "hasShippingService": {
+        "@type": "ShippingService",
+        "@id": "https://ded-sec.space/Pages/store.html#digital-delivery-policy",
+        "name": "Digital delivery — no physical shipping",
+        "description": "All DedSec Project store items are digital downloads or digital services. No physical goods are shipped.",
+        "shippingConditions": {
+          "@type": "ShippingConditions",
+          "doesNotShip": true
+        }
+      }
     },
     {
       "@type": "WebSite",
@@ -86,7 +101,7 @@
   "@context": "https://schema.org",
   "@type": "ItemList",
   "@id": "https://ded-sec.space/Pages/store.html#offers",
-  "name": "DedSec Project Store Offers",
+  "name": "DedSec Project Store Pages",
   "url": "https://ded-sec.space/Pages/store.html",
   "inLanguage": "en",
   "numberOfItems": 4,
@@ -95,106 +110,36 @@
       "@type": "ListItem",
       "position": 1,
       "item": {
-        "@type": "Service",
+        "@type": "WebPage",
         "name": "Custom Script",
-        "description": "A lawful adaptation, extension, or transformation of an idea or tool that already exists inside DedSec Project; unrelated from-scratch applications are outside scope.",
-        "provider": {
-          "@id": "https://ded-sec.space/#organization"
-        },
-        "areaServed": "Worldwide",
-        "availableLanguage": [
-          "English",
-          "Greek"
-        ],
-        "offers": {
-          "@type": "Offer",
-          "price": "99.99",
-          "priceCurrency": "EUR",
-          "url": "https://buy.stripe.com/28EcN6dbS9mk8185Fc8Zq0x",
-          "availability": "https://schema.org/InStock",
-          "category": "Digital service"
-        }
+        "url": "https://ded-sec.space/Pages/product-custom-script.html"
       }
     },
     {
       "@type": "ListItem",
       "position": 2,
       "item": {
-        "@type": "Product",
+        "@type": "WebPage",
         "name": "The Complete Termux Troubleshooting Handbook",
-        "url": "https://ded-sec.space/Pages/product-termux-troubleshooting-handbook.html",
-        "image": "https://ded-sec.space/Assets/Images/products/termux-troubleshooting-handbook-en.webp",
-        "brand": {
-          "@type": "Brand",
-          "name": "DedSec Project"
-        },
-        "inLanguage": [
-          "en",
-          "el"
-        ],
-        "offers": {
-          "@type": "Offer",
-          "price": "14.99",
-          "priceCurrency": "EUR",
-          "url": "https://buy.stripe.com/aFadRa1tagOM3KS0kS8Zq0y",
-          "availability": "https://schema.org/InStock",
-          "category": "Digital book"
-        },
-        "description": "Choose the DedSec guide for Termux recovery, phone-first website building, AI release workflows, or request a focused adaptation of an existing DedSec Project tool."
+        "url": "https://ded-sec.space/Pages/product-termux-troubleshooting-handbook.html"
       }
     },
     {
       "@type": "ListItem",
       "position": 3,
       "item": {
-        "@type": "Product",
+        "@type": "WebPage",
         "name": "Build and Publish a Website with AI from Your Phone",
-        "url": "https://ded-sec.space/Pages/product-build-website-ai-phone.html",
-        "image": "https://ded-sec.space/Assets/Images/products/build-website-ai-phone-en.webp",
-        "brand": {
-          "@type": "Brand",
-          "name": "DedSec Project"
-        },
-        "inLanguage": [
-          "en",
-          "el"
-        ],
-        "offers": {
-          "@type": "Offer",
-          "price": "19.99",
-          "priceCurrency": "EUR",
-          "url": "https://buy.stripe.com/fZufZi3Bi7ec4OWaZw8Zq0w",
-          "availability": "https://schema.org/InStock",
-          "category": "Digital book"
-        },
-        "description": "Choose the DedSec guide for Termux recovery, phone-first website building, AI release workflows, or request a focused adaptation of an existing DedSec Project tool."
+        "url": "https://ded-sec.space/Pages/product-build-website-ai-phone.html"
       }
     },
     {
       "@type": "ListItem",
       "position": 4,
       "item": {
-        "@type": "Product",
+        "@type": "WebPage",
         "name": "AI Website Prompt Library and Release Workbook",
-        "url": "https://ded-sec.space/Pages/product-ai-website-prompt-workbook.html",
-        "image": "https://ded-sec.space/Assets/Images/products/ai-website-prompt-workbook-en.webp",
-        "brand": {
-          "@type": "Brand",
-          "name": "DedSec Project"
-        },
-        "inLanguage": [
-          "en",
-          "el"
-        ],
-        "offers": {
-          "@type": "Offer",
-          "price": "9.99",
-          "priceCurrency": "EUR",
-          "url": "https://buy.stripe.com/14AdRa3Bi420a9g5Fc8Zq0v",
-          "availability": "https://schema.org/InStock",
-          "category": "Digital book"
-        },
-        "description": "Choose the DedSec guide for Termux recovery, phone-first website building, AI release workflows, or request a focused adaptation of an existing DedSec Project tool."
+        "url": "https://ded-sec.space/Pages/product-ai-website-prompt-workbook.html"
       }
     }
   ]
@@ -275,7 +220,7 @@
 <details><summary data-en="How is payment handled?" data-gr="Πώς γίνεται η πληρωμή;">How is payment handled?</summary><p data-en="The product buttons open a secure Stripe checkout page. GitHub sponsorships are billed separately by GitHub." data-gr="Τα κουμπιά προϊόντων ανοίγουν ασφαλή σελίδα πληρωμής Stripe. Οι χορηγίες GitHub χρεώνονται ξεχωριστά από το GitHub.">The product buttons open a secure Stripe checkout page. GitHub sponsorships are billed separately by GitHub.</p></details>
 <details><summary data-en="How do I know which product fits me?" data-gr="Πώς ξέρω ποιο προϊόν μου ταιριάζει;">How do I know which product fits me?</summary><p data-en="Compare the outcomes shown on each guide, then open the full product page. It lists the included topics, audience, requirements, and scope before checkout." data-gr="Σύγκρινε τα αποτελέσματα που αναφέρει κάθε οδηγός και μετά άνοιξε την πλήρη σελίδα προϊόντος. Εκεί θα βρεις τα θέματα, το κοινό, τις απαιτήσεις και το εύρος πριν από την πληρωμή.">Compare the outcomes shown on each guide, then open the full product page. It lists the included topics, audience, requirements, and scope before checkout.</p></details>
 <details class="product-faq-item"><summary data-en="Can I see an ebook before buying?" data-gr="Μπορώ να δω ένα ebook πριν την αγορά;">Can I see an ebook before buying?</summary><p data-en="Yes. Every ebook card includes a downloadable five-page PDF preview, and each full product page provides both the English and Greek previews." data-gr="Ναι. Κάθε ebook card περιλαμβάνει downloadable PDF preview πέντε σελίδων και κάθε πλήρης σελίδα προϊόντος παρέχει preview στα Αγγλικά και στα Ελληνικά.">Yes. Every ebook card includes a downloadable five-page PDF preview, and each full product page provides both the English and Greek previews.</p></details><details class="product-faq-item"><summary data-en="What does the Custom Script product cover?" data-gr="Τι καλύπτει το προϊόν Custom Script;">What does the Custom Script product cover?</summary><p data-en="It covers a defined adaptation of an existing DedSec Project idea or tool. It does not cover an unrelated application invented from scratch." data-gr="Καλύπτει καθορισμένη προσαρμογή μιας υπάρχουσας ιδέας ή ενός εργαλείου του DedSec Project. Δεν καλύπτει άσχετη εφαρμογή που δημιουργείται από το μηδέν.">It covers a defined adaptation of an existing DedSec Project idea or tool. It does not cover an unrelated application invented from scratch.</p></details></section><div class="content-section store-note-section store-note-section-moved"><div class="creator-note"><strong data-en="Developer's note" data-gr="Σημείωση δημιουργού">Developer's note</strong><p data-en="DedSec Project stays public because useful tools, guides, and fixes should remain accessible. The work still requires time for real-device testing, research, writing, translations, digital books, custom development, and maintenance. Sponsors, ebook customers, and custom-script customers keep that work possible while receiving clear value in return." data-gr="Το DedSec Project παραμένει δημόσιο επειδή τα χρήσιμα εργαλεία, οι οδηγοί και οι διορθώσεις πρέπει να παραμένουν προσβάσιμα. Η εργασία εξακολουθεί να απαιτεί χρόνο για δοκιμές σε πραγματικές συσκευές, έρευνα, συγγραφή, μεταφράσεις, ψηφιακά βιβλία, προσαρμοσμένη ανάπτυξη και συντήρηση. Οι χορηγοί, οι αγοραστές βιβλίων και οι πελάτες προσαρμοσμένων scripts κρατούν αυτή την προσπάθεια ενεργή και λαμβάνουν ξεκάθαρη αξία σε αντάλλαγμα.">DedSec Project stays public because useful tools, guides, and fixes should remain accessible. The work still requires time for real-device testing, research, writing, translations, digital books, custom development, and maintenance. Sponsors, ebook customers, and custom-script customers keep that work possible while receiving clear value in return.</p></div></div>
-<section class="content-section refund-policy-section store-policy-section"><details><summary data-en="Purchase and refund policy" data-gr="Πολιτική αγορών και επιστροφών">Purchase and refund policy</summary><div class="store-note-card"><h3 data-en="All Sales Are Final" data-gr="Όλες Οι Πωλήσεις Είναι Οριστικές">All Sales Are Final</h3><p data-en="Digital books and Custom Script adaptations are non-refundable after payment is completed, after the files are delivered, or after agreed custom work has begun. Review the product description, requirements, scope, and compatibility before purchasing." data-gr="Τα ψηφιακά βιβλία και οι προσαρμογές Custom Script δεν επιστρέφονται μετά την ολοκλήρωση της πληρωμής, μετά την παράδοση των αρχείων ή αφού ξεκινήσει η συμφωνημένη custom εργασία. Έλεγξε την περιγραφή, τις απαιτήσεις, το scope και τη συμβατότητα πριν από την αγορά.">Digital books and Custom Script adaptations are non-refundable after payment is completed, after the files are delivered, or after agreed custom work has begun. Review the product description, requirements, scope, and compatibility before purchasing.</p><p data-en="No refund, return, exchange, or cancellation is offered except where required by applicable law, or for a confirmed duplicate charge or confirmed failure by DedSec Project to deliver the purchased item or agreed service. GitHub sponsorship subscriptions and related billing are handled separately by GitHub under GitHub’s own procedures." data-gr="Δεν προσφέρεται επιστροφή χρημάτων, επιστροφή προϊόντος, ανταλλαγή ή ακύρωση, εκτός αν απαιτείται από την εφαρμοστέα νομοθεσία ή σε επιβεβαιωμένη διπλή χρέωση ή επιβεβαιωμένη αποτυχία του DedSec Project να παραδώσει το αγορασμένο προϊόν ή τη συμφωνημένη υπηρεσία. Οι συνδρομές χορηγίας και οι σχετικές χρεώσεις μέσω GitHub διαχειρίζονται ξεχωριστά από το GitHub σύμφωνα με τις δικές του διαδικασίες.">No refund, return, exchange, or cancellation is offered except where required by applicable law, or for a confirmed duplicate charge or confirmed failure by DedSec Project to deliver the purchased item or agreed service. GitHub sponsorship subscriptions and related billing are handled separately by GitHub under GitHub’s own procedures.</p></div></details></section>
+<section class="content-section refund-policy-section store-policy-section" id="purchase-refund-policy"><details><summary data-en="Purchase and refund policy" data-gr="Πολιτική αγορών και επιστροφών">Purchase and refund policy</summary><div class="store-note-card"><h3 data-en="All Sales Are Final" data-gr="Όλες Οι Πωλήσεις Είναι Οριστικές">All Sales Are Final</h3><p data-en="Digital books and Custom Script adaptations are non-refundable after payment is completed, after the files are delivered, or after agreed custom work has begun. Review the product description, requirements, scope, and compatibility before purchasing." data-gr="Τα ψηφιακά βιβλία και οι προσαρμογές Custom Script δεν επιστρέφονται μετά την ολοκλήρωση της πληρωμής, μετά την παράδοση των αρχείων ή αφού ξεκινήσει η συμφωνημένη custom εργασία. Έλεγξε την περιγραφή, τις απαιτήσεις, το scope και τη συμβατότητα πριν από την αγορά.">Digital books and Custom Script adaptations are non-refundable after payment is completed, after the files are delivered, or after agreed custom work has begun. Review the product description, requirements, scope, and compatibility before purchasing.</p><p data-en="All store items are delivered digitally or provided as a digital service. No physical goods are shipped." data-gr="Όλα τα προϊόντα του καταστήματος παραδίδονται ψηφιακά ή παρέχονται ως ψηφιακή υπηρεσία. Δεν αποστέλλονται φυσικά προϊόντα.">All store items are delivered digitally or provided as a digital service. No physical goods are shipped.</p><p data-en="No refund, return, exchange, or cancellation is offered except where required by applicable law, or for a confirmed duplicate charge or confirmed failure by DedSec Project to deliver the purchased item or agreed service. GitHub sponsorship subscriptions and related billing are handled separately by GitHub under GitHub’s own procedures." data-gr="Δεν προσφέρεται επιστροφή χρημάτων, επιστροφή προϊόντος, ανταλλαγή ή ακύρωση, εκτός αν απαιτείται από την εφαρμοστέα νομοθεσία ή σε επιβεβαιωμένη διπλή χρέωση ή επιβεβαιωμένη αποτυχία του DedSec Project να παραδώσει το αγορασμένο προϊόν ή τη συμφωνημένη υπηρεσία. Οι συνδρομές χορηγίας και οι σχετικές χρεώσεις μέσω GitHub διαχειρίζονται ξεχωριστά από το GitHub σύμφωνα με τις δικές του διαδικασίες.">No refund, return, exchange, or cancellation is offered except where required by applicable law, or for a confirmed duplicate charge or confirmed failure by DedSec Project to deliver the purchased item or agreed service. GitHub sponsorship subscriptions and related billing are handled separately by GitHub under GitHub’s own procedures.</p></div></details></section>
 <section class="content-section store-path-next">
 <h2>Whatever You Choose, Keep It Connected To Practice</h2>
 <p>Use an ebook beside the Academy lessons, use a Custom Script only for a clearly defined adaptation, and use Sponsor tools as extras rather than a replacement for the free learning path.</p>
