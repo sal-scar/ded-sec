@@ -6971,6 +6971,7 @@ body.light-theme .ebook-badge{
 .guide-pdf-grid .ebook-download-card .feature-icon-wrapper {
     border-color: rgba(255,255,255,0.52) !important;
     background: rgba(255,255,255,0.10) !important;
+    margin: 0 auto 15px;
 }
 
 .guide-pdf-grid .ebook-download-card .feature-icon,
@@ -8498,7 +8499,7 @@ html body :is(
 }
 
 /* ========================================================================== 
-   DedSec Smartphone Academy — native DedSec Project presentation
+   Legacy learning styles — native DedSec Project presentation
    Uses the same variables, typography, cards, navigation and themes as the site.
    ========================================================================== */
 .academy-page{width:min(1320px,100%);margin-inline:auto}
@@ -8542,7 +8543,7 @@ html body :is(
 @media(max-width:1000px){.academy-module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.academy-lesson-layout{grid-template-columns:1fr}.academy-lesson-aside{position:static;grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.academy-main-header,.academy-lesson-header{padding-inline:16px}.academy-hero-actions .btn{width:100%}.academy-module-grid,.academy-command-list,.academy-lab-brief,.academy-quality-grid,.academy-navigation-grid,.academy-lesson-aside{grid-template-columns:1fr}.academy-section-heading{align-items:stretch}.academy-filter{width:100%}.academy-safety-banner{align-items:stretch}.academy-safety-banner .academy-hero-actions{width:100%}.academy-breadcrumbs{font-size:.68rem}.academy-meta-row{align-items:stretch}.academy-meta-row span{flex:1 1 100%;justify-content:center}}
 
-/* === Smartphone Academy v67: sharp DedSec geometry ===
+/* === Legacy learning styles v67: sharp DedSec geometry ===
    Every Academy surface uses true square corners. This intentionally overrides
    inherited card, pill, button, input, code-block and icon rounding. */
 html body.academy-dedsec-page,
@@ -8621,7 +8622,7 @@ html body.academy-dedsec-page .academy-module-grid {
   }
 }
 
-/* === Smartphone Academy v68: compact three-card overview grid ===
+/* === Legacy learning styles v68: compact three-card overview grid ===
    The public Academy overview keeps three equally sized cards on every row,
    including narrow phone layouts, without changing the larger curriculum grid. */
 html body.academy-dedsec-page .academy-three-card-grid {
@@ -8700,7 +8701,7 @@ html body .main-footer {
     margin-right: auto !important;
 }
 
-/* === Smartphone Academy practical curriculum buttons — repaired v70 === */
+/* === Legacy practical curriculum buttons — repaired v70 === */
 .curriculum-list {
   display: grid;
   gap: 22px;
@@ -9599,7 +9600,7 @@ html body.academy-dedsec-page pre {
 }
 
 
-/* === Smartphone Academy width reflow v85 === */
+/* === Legacy learning width reflow v85 === */
 html body.academy-dedsec-page .academy-three-card-grid {
   width: 100% !important;
   max-width: none !important;
@@ -11003,3 +11004,20 @@ body.light-theme .sponsor-tier-summary-group .sponsor-tier-benefits li{
   color:var(--nm-text-muted);
 }
 
+
+
+/* DedSec platform installation selector */
+.platform-selector-intro{max-width:760px;margin:0 auto 18px;text-align:center;}
+.platform-install-selector{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:20px 0 28px;align-items:start;}
+.platform-install-card{margin:0!important;padding:0!important;border:1px solid var(--nm-border)!important;background:var(--nm-container)!important;overflow:hidden;}
+.platform-install-card>summary{display:flex!important;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:16px 18px!important;cursor:pointer;font-weight:800;text-align:center;color:var(--nm-text-accent)!important;list-style:none;background:var(--nm-container)!important;border:0!important;}
+.platform-install-card>summary::-webkit-details-marker{display:none;}
+.platform-install-card>summary::after{content:"+";margin-left:auto;font-size:1.35rem;line-height:1;}
+.platform-install-card[open]>summary::after{content:"−";}
+.platform-install-card>summary i{font-size:1.25rem;min-width:24px;}
+.platform-install-card[open]{grid-column:1/-1;}
+.platform-install-body{padding:20px clamp(14px,3vw,26px) 24px;border-top:1px solid var(--nm-border);}
+.platform-install-body>h3:first-child{margin-top:0;}
+.platform-install-body .code-container{margin:10px 0 18px;}
+.platform-install-body .contact-grid{max-width:780px;margin-left:auto!important;margin-right:auto!important;}
+@media(max-width:720px){.platform-install-selector{grid-template-columns:1fr}.platform-install-card[open]{grid-column:auto}.platform-install-card>summary{min-height:54px;}}
